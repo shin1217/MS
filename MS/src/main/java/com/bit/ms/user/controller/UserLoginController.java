@@ -1,4 +1,4 @@
-package com.bit.ms.user;
+package com.bit.ms.user.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
