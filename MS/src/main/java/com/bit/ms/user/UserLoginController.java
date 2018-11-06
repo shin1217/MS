@@ -1,4 +1,4 @@
-package com.bit.ms;
+package com.bit.ms.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-public class HomeController {
+public class UserLoginController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
+	public String userLogin() {
 		
-		return "home";
+		return "user/userLogin";
 	}
 	
 }
