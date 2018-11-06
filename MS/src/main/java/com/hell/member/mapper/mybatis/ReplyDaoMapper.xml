@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hell.member.dao.ReplyDaoInterface">
+
+	<select id="replyList" resultType="replyVO">
+
+		select *
+		from reply
+		where noid = #{noId}
+		order by replyid
+
+	</select>
+
+	<insert id="insertReply" parameterType="replyVO">
+
+		insert into reply(noid, nickname, replycon)
+		values (#{noId}, #{nickName}, #{replyCon})
+
+	</insert>
+
+
+	<update id="updateReply" parameterType="replyVO">
+
+		update reply set replycon =#{replyCon}
+		where replyid = #{replyId};
+
+	</update>
+
+	<delete id="deleteReply" parameterType="int">
+
+		delete from reply
+		where replyid = #{replyId}
+
+	</delete>
+</mapper>
