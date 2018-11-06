@@ -15,12 +15,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 </head>
 <body>
-	첫 메인페이지(유저로그인)
-	<div>
-		<a href="admin"> 
-		<img src="${pageContext.request.contextPath}/images/admin_setting.png" alt="관리자페이지" height="50px"/>
-		</a>
-	</div>
+	관리자 첫페이지(관리자로그인)
 	<form>
 		<div class="form-group row">
 			<label for="inputEmail3" class="col-sm-2 col-form-label">아이디</label>
