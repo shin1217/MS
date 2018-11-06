@@ -35,41 +35,62 @@ body {
 	min-height: 100%;
 	width: 30%;
 }
+
+.full {
+	background-image:
+		url("<%=request.getContextPath()%>/images/main_back.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+}
+
+.area_inputs {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 </style>
 </head>
 <body>
-	첫 메인페이지(유저로그인)
-	<div class="container">
-		<div style="text-align: right;">
-			<a href="admin"> <img
-				src="${pageContext.request.contextPath}/images/admin_setting.png"
-				alt="관리자페이지" height="50px" />
-			</a>
-		</div>
-		<form action="${pageContext.request.contextPath}/user/main"
-			method="get">
-			<div class="form-group">
-				<label for="inputId">아이디</label>
-				<div>
-					<input type="text" class="form-control" id="inputId" placeholder="아이디">
+	<div class="full">
+		<div class="container">
+			<div style="text-align: right;">
+				<a href="admin"> <img
+					src="${pageContext.request.contextPath}/images/admin_setting.png"
+					alt="관리자페이지" style="height: 50px; margin-top: 30px;" />
+				</a>
+			</div>
+			<div class="area_inputs">
+				<form action="${pageContext.request.contextPath}/user/main"
+					method="get">
+					<div class="form-group">
+						<label for="inputId">아이디</label>
+						<div>
+							<input type="text" class="form-control" id="inputId"
+								placeholder="아이디">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputPassword">비밀번호</label>
+						<div>
+							<input type="password" class="form-control" id="inputPassword"
+								placeholder="비밀번호">
+						</div>
+					</div>
+					<div class="form-group">
+						<div>
+							<button type="submit" class="btn btn-primary btn-block">로그인</button>
+						</div>
+					</div>
+				</form>
+				<div class="col-sm-10">
+					<a class="btn btn-primary"
+						href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
 			</div>
-			
-			<div class="form-group">
-				<label for="inputPassword">비밀번호</label>
-				<div>
-					<input type="password" class="form-control" id="inputPassword" placeholder="비밀번호">
-				</div>
-			</div>
-			<div class="form-group">
-				<div>
-					<button type="submit" class="btn btn-primary btn-block">로그인</button>
-				</div>
-			</div>
-		</form>
-		<div class="col-sm-10">
-			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 		</div>
 	</div>
 </body>
