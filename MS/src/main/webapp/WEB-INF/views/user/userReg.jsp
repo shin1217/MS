@@ -25,5 +25,44 @@
 </head>
 <body>
 	<h1>유저 회원가입 페이지</h1>
+	
+	<form action="">
+
+		<!-- 아이디 -->
+		<div class="form-group">
+			<label for="reg_id">아이디</label> <input type="text"
+				class="form-control" id="reg_id" placeholder="아이디를 입력해주세요">
+		</div>
+		<!-- 비밀번호 -->
+		<div class="form-group">
+			<label for="reg_pw">비밀번호</label> <input type="text"
+				class="form-control" id="reg_pw" placeholder="비밀번호를 입력해주세요">
+		</div>
+		<!-- 비밀번호 재확인 -->
+		<div class="form-group">
+			<label for="reg_pw2">비밀번호 재확인</label> <input type="text"
+				class="form-control" id="reg_pw2" placeholder="비밀번호를 확인해주세요">
+		</div>
+		<!-- 이름 -->
+		<div class="form-group">
+			<label for="reg_name">이름</label> <input type="text"
+				class="form-control" id="reg_name" placeholder="이름을 입력해주세요">
+		</div>
+		<!-- 생년월일 -->
+		<div class="form-group">
+			<label for="reg_birth">생년월일</label> <input type="text"
+				class="form-control" id="reg_birth" placeholder="이름을 입력해주세요">
+		</div>
+		<!-- 본인확인 이메일 -->
+		<div class="form-group">
+			<label for="reg_birth">생년월일</label> <input type="text"
+				class="form-control" id="reg_birth" placeholder="이름을 입력해주세요">
+		</div>
+		<!-- 휴대전화 -->
+		<div class="form-group">
+			<label for="reg_birth">생년월일</label> <input type="text"
+				class="form-control" id="reg_birth" placeholder="이름을 입력해주세요">
+		</div>
+	</form>
 </body>
 </html>
