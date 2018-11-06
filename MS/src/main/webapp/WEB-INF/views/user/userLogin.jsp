@@ -22,37 +22,55 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
+<style>
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+}
+
+.container {
+	min-height: 100%;
+	width: 30%;
+}
+</style>
 </head>
 <body>
 	첫 메인페이지(유저로그인)
-	<div>
-		<a href="admin"> <img src="${pageContext.request.contextPath}/images/admin_setting.png"
-			alt="관리자페이지" height="50px" />
-		</a>
-	</div>
-	<form action="${pageContext.request.contextPath}/user/main" method="get">
-		<div class="form-group row">
-			<label for="inputEmail3" class="col-sm-2 col-form-label">아이디</label>
-			<div class="col-sm-10">
-				<input type="email" class="form-control" id="inputEmail3"
-					placeholder="아이디">
-			</div>
+	<div class="container">
+		<div style="text-align: right;">
+			<a href="admin"> <img
+				src="${pageContext.request.contextPath}/images/admin_setting.png"
+				alt="관리자페이지" height="50px" />
+			</a>
 		</div>
-		<div class="form-group row">
-			<label for="inputPassword3" class="col-sm-2 col-form-label">비밀번호</label>
-			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword3"
-					placeholder="비밀번호">
+		<form action="${pageContext.request.contextPath}/user/main"
+			method="get">
+			<div class="form-group">
+				<label for="inputId">아이디</label>
+				<div>
+					<input type="text" class="form-control" id="inputId" placeholder="아이디">
+				</div>
 			</div>
-		</div>
-		<div class="form-group row">
-			<div class="col-sm-10">
-				<button type="submit" class="btn btn-primary">로그인</button>
+			
+			<div class="form-group">
+				<label for="inputPassword">비밀번호</label>
+				<div>
+					<input type="password" class="form-control" id="inputPassword" placeholder="비밀번호">
+				</div>
 			</div>
+			<div class="form-group">
+				<div>
+					<button type="submit" class="btn btn-primary btn-block">로그인</button>
+				</div>
+			</div>
+		</form>
+		<div class="col-sm-10">
+			<a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 		</div>
-	</form>
-	<div class="col-sm-10">
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 	</div>
 </body>
 </html>
