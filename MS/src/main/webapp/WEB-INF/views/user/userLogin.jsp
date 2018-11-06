@@ -52,7 +52,7 @@
 		</div>
 	</form>
 	<div class="col-sm-10">
-		<button type="submit" class="btn btn-primary">회원가입</button>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 	</div>
 </body>
 </html>

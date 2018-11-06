@@ -24,30 +24,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 </head>
 <body>
-	관리자 첫페이지(관리자로그인)
-	<form action="${pageContext.request.contextPath}/admin/main" method="get">
-		<div class="form-group row">
-			<label for="inputEmail3" class="col-sm-2 col-form-label">아이디</label>
-			<div class="col-sm-10">
-				<input type="email" class="form-control" id="inputEmail3"
-					placeholder="아이디">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="inputPassword3" class="col-sm-2 col-form-label">비밀번호</label>
-			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword3"
-					placeholder="비밀번호">
-			</div>
-		</div>
-		<div class="form-group row">
-			<div class="col-sm-10">
-				<button type="submit" class="btn btn-primary">로그인</button>
-			</div>
-		</div>
-	</form>
-	<div class="col-sm-10">
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/reg">회원가입</a>
-	</div>
+	<h1>유저 회원가입 페이지</h1>
 </body>
 </html>
