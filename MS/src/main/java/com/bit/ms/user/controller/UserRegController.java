@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.ms.member.model.UserVO;
 import com.bit.ms.user.service.UserIdCheckService;
 
 @Controller
@@ -19,6 +20,16 @@ public class UserRegController {
 	public String userReg() {
 
 		return "user/userReg";
+	}
+	
+	@RequestMapping(value = "/user/reg", method=RequestMethod.POST)
+	public String userRegOk(UserVO userVO) {
+		
+		System.out.println(userVO);
+		
+		
+		
+		return "/";
 	}
 	
 	// id 중복 체크 컨트롤러

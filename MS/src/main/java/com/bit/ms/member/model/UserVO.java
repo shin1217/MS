@@ -11,86 +11,66 @@ public class UserVO {
 	private String user_name; // 회원이름
 	private String user_pw; // 비밀번호
 	private String user_phone; // 폰번호
-	private String user_lbirth; // 생년월일
-	private String user_email; // 이메일
+	private String user_birth; // 생년월일
+	private String user_email1; // 이메일1(front)
+	private String user_email2; // 이메일2(back)
 	private int store_id; //매장번호
 	
-	public UserVO() {
-
-	}
-
-	public UserVO(String user_id, String user_name, String user_pw, String user_phone, String user_lbirth,
-			String user_email, int store_id) {
-		this.user_id = user_id;
-		this.user_name = user_name;
-		this.user_pw = user_pw;
-		this.user_phone = user_phone;
-		this.user_lbirth = user_lbirth;
-		this.user_email = user_email;
-		this.store_id = store_id;
-	}
-
 	public String getUser_id() {
 		return user_id;
 	}
-
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-
 	public String getUser_name() {
 		return user_name;
 	}
-
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
-
 	public String getUser_pw() {
 		return user_pw;
 	}
-
 	public void setUser_pw(String user_pw) {
 		this.user_pw = user_pw;
 	}
-
 	public String getUser_phone() {
 		return user_phone;
 	}
-
 	public void setUser_phone(String user_phone) {
 		this.user_phone = user_phone;
 	}
-
-	public String getUser_lbirth() {
-		return user_lbirth;
+	public String getUser_birth() {
+		return user_birth;
 	}
-
-	public void setUser_lbirth(String user_lbirth) {
-		this.user_lbirth = user_lbirth;
+	public void setUser_birth(String user_birth) {
+		this.user_birth = user_birth;
 	}
-
-	public String getUser_email() {
-		return user_email;
+	public String getUser_email1() {
+		return user_email1;
 	}
-
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
+	public void setUser_email1(String user_email1) {
+		this.user_email1 = user_email1;
 	}
-
+	public String getUser_email2() {
+		return user_email2;
+	}
+	public void setUser_email2(String user_email2) {
+		this.user_email2 = user_email2;
+	}
 	public int getStore_id() {
 		return store_id;
 	}
-
 	public void setStore_id(int store_id) {
 		this.store_id = store_id;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
-				+ user_phone + ", user_lbirth=" + user_lbirth + ", user_email=" + user_email + ", store_id=" + store_id
-				+ "]";
+				+ user_phone + ", user_birth=" + user_birth + ", user_email1=" + user_email1 + ", user_email2="
+				+ user_email2 + ", store_id=" + store_id + "]";
 	}
+	
 	
 }

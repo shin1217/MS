@@ -57,7 +57,6 @@ body {
 	padding: 20px;
 	text-align: center;
 }
-
 </style>
 </head>
 <body>
@@ -70,45 +69,49 @@ body {
 			<!-- 아이디 -->
 			<div class="form-group">
 				<label for="reg_id">아이디</label> <input type="text"
-					class="form-control" id="reg_id" name = "userId" placeholder="ID">
-				<div class="check_font" id ="id_check"></div>
+					class="form-control" id="reg_id" name="user_id" placeholder="ID">
+				<div class="check_font" id="id_check"></div>
 			</div>
 			<!-- 비밀번호 -->
 			<div class="form-group">
 				<label for="reg_pw">비밀번호</label> <input type="text"
-					class="form-control" id="reg_pw" placeholder="PASSWORD">
+					class="form-control" id="reg_pw" name="user_pw"
+					placeholder="PASSWORD">
 				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 비밀번호 재확인 -->
 			<div class="form-group">
 				<label for="reg_pw2">비밀번호 재확인</label> <input type="text"
-					class="form-control" id="reg_pw2" placeholder="Confirm Password">
+					class="form-control" id="reg_pw2" name="user_pw2"
+					placeholder="Confirm Password">
 				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 이름 -->
 			<div class="form-group">
 				<label for="reg_name">이름</label> <input type="text"
-					class="form-control" id="reg_name" placeholder="Name">
+					class="form-control" id="reg_name" name="user_name"
+					placeholder="Name">
 				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 생년월일 -->
 			<div class="form-group">
 				<label for="reg_birth">생년월일</label> <input type="text"
-					class="form-control" id="reg_birth" placeholder="Birth">
+					class="form-control" id="reg_birth" name="user_birth"
+					placeholder="Birth">
 				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 본인확인 이메일 -->
 			<label for="reg_email">이메일</label>
 			<div class="form-inline">
 				<input type="text" class="form-control mb-2 mr-sm-2" id="reg_email"
-					placeholder="E-mail">
+					name="user_email1" placeholder="E-mail">
 				<!-- Default input -->
 				<div class="input-group mb-2 mr-sm-2">
 					<div class="input-group-prepend">
 						<div class="input-group-text">@</div>
 					</div>
 					<input type="text" class="form-control py-0" id="reg_email2"
-						placeholder="">
+						name="user_email2" placeholder="">
 				</div>
 				<button type="button" class="btn btn-outline-info waves-effect px-3">
 					<i class="fa fa-envelope"></i>&nbsp;인증
@@ -118,71 +121,69 @@ body {
 			<!-- 휴대전화 -->
 			<div class="form-group">
 				<label for="reg_birth">휴대전화</label> <input type="text"
-					class="form-control" id="reg_birth" placeholder="Phone Number">
+					class="form-control" id="reg_birth" name="user_phone"
+					placeholder="Phone Number">
 				<div class="check_font">confirm message</div>
 			</div>
 
-			<!--Dropdown primary-->
-			<div class="dropdown">
-				<!--Trigger-->
-				<button class="btn btn-default dropdown-toggle" type="button"
-					id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false">방문하신 지점은?</button>
-				<!--Menu-->
-				<div class="dropdown-menu dropdown-primary">
-					<a class="dropdown-item" href="#">MS 스터디카페</a> <a
-						class="dropdown-item" href="#">MS PC방</a> <a class="dropdown-item"
-						href="#">MS 코인노래방</a>
-				</div>
+			<div>
+				<span>방문하신 지점은?</span>
+				<select name="store_id">
+					<option value="ms1">MS 스터디카페</option>
+					<option value="ms2">MS PC방</option>
+					<option value="ms3">MS 코인노래방</option>
+				</select>
 			</div>
-			<!--/Dropdown primary-->
 			<div class="reg_button">
 				<button type="button" class="btn btn-danger px-3">
 					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
 				</button>
 				&emsp;&emsp;
-				<button type="button" class="btn btn-primary px-3" id="reg_submit">
+				<button type="submit" class="btn btn-primary px-3" id="reg_submit">
 					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
 				</button>
 			</div>
 		</form>
 	</div>
 </body>
-	<script>
-	
-		// 회원가입 유효성 검사(1 = 중복 / 0 != 중복)
-		var idChk = 0;
-		$("#reg_id").blur(function(){
-			
-			// id = "id_reg" / name = "userId"
-			$.ajax({
-				url: '${pageContext.request.contextPath}/user/idCheck?userId='+$("#reg_id").val(),
-				type: 'get',
-				success: function(data){
-					console.log("1 = 중복o / 0 = 중복x : " + data);
-					
-					if(data == 1){
-						// 1 : 아이디가 중복되는 문구
-						$("#id_check").text("아이디가 존재하니 다른 아이디를 사용해주세요 :p");
-						$("#id_check").css("color", "red");
-						$("#reg_submit").click(function(){
-							
-						});
-						
-					} else {
-						// 0 : 아이디 길이 / 문자열 검사
-						$("#id_check").text("멋진 아이디네요!");
-					}
-					
-				},
-				error: function() {
-					console.log("실패");
-				}
-				
-			});
-			
-		});
-		
-	</script>
-	
+<script>
+	// 회원가입 유효성 검사(1 = 중복 / 0 != 중복)
+	var idChk = 0;
+
+	$("#reg_id")
+			.blur(
+					function() {
+
+						// id = "id_reg" / name = "userId"
+						$
+								.ajax({
+									url : '${pageContext.request.contextPath}/user/idCheck?userId='
+											+ $("#reg_id").val(),
+									type : 'get',
+									success : function(data) {
+										console.log("1 = 중복o / 0 = 중복x : "
+												+ data);
+
+										if (data == 1) {
+											// 1 : 아이디가 중복되는 문구
+											$("#id_check")
+													.text(
+															"아이디가 존재하니 다른 아이디를 사용해주세요 :p");
+											$("#id_check").css("color", "red");
+
+										} else {
+											// 0 : 아이디 길이 / 문자열 검사
+											$("#id_check").text("멋진 아이디네요!");
+										}
+
+									},
+									error : function() {
+										console.log("실패");
+									}
+
+								});
+
+					});
+</script>
+
 </html>
