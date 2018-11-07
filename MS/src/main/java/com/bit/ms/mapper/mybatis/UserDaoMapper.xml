@@ -4,10 +4,10 @@
 <!-- namespace - 인터페이스에 있는 패키지 명 + 인터페이스 명 -->
 <mapper namespace="com.bit.ms.member.dao.UserDaoInterface">
    <!-- 회원가입 -->
-   <insert id="insertUser" parameterType="userVO">
-   
-      insert into userinfo (user_id, username, userpw, userphone, userbirth)
-      values (#{user_id}, #{userName}, #{userPw}, #{userPhone}, #{userBirth})
+   <insert id="regUser" parameterType="userVO">
+  
+      insert into userinfo (user_id, store_id, user_pw, user_name, user_phone, user_birth, user_email)
+      values (#{user_id}, #{store_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_birth}, #{user_email})
 
    </insert>
 

@@ -12,11 +12,8 @@ public class UserVO {
 	private String user_pw; // 비밀번호
 	private String user_phone; // 폰번호
 	private String user_birth; // 생년월일
-	private String user_email1; // 이메일1(front)
-	private String user_email2; // 이메일2(back)
+	private String user_email; // 이메일 (스크립트 단에서 1+2)
 	private int store_id; //매장번호
-	
-	
 	
 	public UserVO() {
 	}
@@ -72,26 +69,16 @@ public class UserVO {
 	}
 
 
-	public String getUser_email1() {
-		return user_email1;
+	public String getUser_email() {
+		return user_email;
 	}
 
 
-	public void setUser_email1(String user_email1) {
-		this.user_email1 = user_email1;
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
 	}
 
-
-	public String getUser_email2() {
-		return user_email2;
-	}
-
-
-	public void setUser_email2(String user_email2) {
-		this.user_email2 = user_email2;
-	}
-
-
+	
 	public int getStore_id() {
 		return store_id;
 	}
@@ -105,8 +92,7 @@ public class UserVO {
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
-				+ user_phone + ", user_birth=" + user_birth + ", user_email1=" + user_email1 + ", user_email2="
-				+ user_email2 + ", store_id=" + store_id + "]";
+				+ user_phone + ", user_birth=" + user_birth + ", user_email=" + user_email + ", store_id=" + store_id + "]";
 	}
 	
 	

@@ -1,12 +1,14 @@
 package com.bit.ms.member.dao;
 
+import java.sql.SQLException;
+
 import com.bit.ms.member.model.OrderVO;
 import com.bit.ms.member.model.UserVO;
 
 public interface UserDaoInterface {
 
 	// 유저 회원가입 메서드	
-	public int insertUser(UserVO user) throws Exception;
+	public int regUser(UserVO userVO) throws SQLException;
 	
 	// 유저 로그인 메서드
 	public UserVO loginUser(String userId);

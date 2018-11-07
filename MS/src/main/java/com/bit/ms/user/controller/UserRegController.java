@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.ms.member.model.UserVO;
 import com.bit.ms.user.service.UserIdCheckService;
+import com.bit.ms.user.service.UserRegService;
 
 @Controller
 public class UserRegController {
 
 	@Autowired
-	private UserIdCheckService idcheckService;
+	private UserRegService reg_service;
+	@Autowired
+	private UserIdCheckService idcheck_service;
 	
 	@RequestMapping(value = "/user/reg", method = RequestMethod.GET)
 	public String userReg() {
@@ -25,7 +28,9 @@ public class UserRegController {
 	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
 	public String userRegOk(UserVO userVO) {
 		
+		System.out.println("컨트롤러 콘솔 확인");
 		
+		reg_service.userReg_service(userVO);
 		
 		return "redirect:/";
 	}
@@ -35,6 +40,8 @@ public class UserRegController {
 	@ResponseBody
 	public int IdCheck(@RequestParam("userId")String user_id) {
 		
-		return idcheckService.userIdCheck(user_id);
+		
+		
+		return idcheck_service.userIdCheck(user_id);
 	}
 }

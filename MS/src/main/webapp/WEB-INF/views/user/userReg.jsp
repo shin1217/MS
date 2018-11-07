@@ -74,14 +74,14 @@ body {
 			</div>
 			<!-- 비밀번호 -->
 			<div class="form-group">
-				<label for="user_pw">비밀번호</label> <input type="text"
+				<label for="user_pw">비밀번호</label> <input type="password"
 					class="form-control" id="user_pw"" name="user_pw"
 					placeholder="PASSWORD">
 				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 비밀번호 재확인 -->
 			<div class="form-group">
-				<label for="user_pw2">비밀번호 재확인</label> <input type="text"
+				<label for="user_pw2">비밀번호 확인</label> <input type="password"
 					class="form-control" id="user_pw2" name="user_pw2"
 					placeholder="Confirm Password">
 				<div class="check_font">confirm message</div>
@@ -103,15 +103,14 @@ body {
 			<!-- 본인확인 이메일 -->
 			<label for="user_email1">이메일</label>
 			<div class="form-inline">
-				<input type="text" class="form-control mb-2 mr-sm-2" id="user_email1"
-					name="user_email1" placeholder="E-mail">
+				<input type="hidden" name="user_email">
+				<input type="text" class="form-control mb-2 mr-sm-2" id="user_email1" placeholder="E-mail">
 				<!-- Default input -->
 				<div class="input-group mb-2 mr-sm-2">
 					<div class="input-group-prepend">
 						<div class="input-group-text">@</div>
 					</div>
-					<input type="text" class="form-control py-0" id="user_email2"
-						name="user_email2" placeholder="">
+					<input type="text" class="form-control py-0" id="user_email2" placeholder="">
 				</div>
 				<button type="button" class="btn btn-outline-info waves-effect px-3">
 					<i class="fa fa-envelope"></i>&nbsp;인증
@@ -150,40 +149,36 @@ body {
 	// 회원가입 유효성 검사(1 = 중복 / 0 != 중복)
 	var idChk = 0;
 
-	$("#user_id")
-			.blur(
-					function() {
+	$("#user_id").blur(function() {
+		// id = "id_reg" / name = "userId"
+		$.ajax({
+			url : '${pageContext.request.contextPath}/user/idCheck?userId='+ $("#user_id").val(),
+			type : 'get',
+			success : function(data) {
+				console.log("1 = 중복o / 0 = 중복x : "+ data);
+					if (data == 1) {
+						// 1 : 아이디가 중복되는 문구
+						$("#id_check").text("아이디가 존재하니 다른 아이디를 사용해주세요 :p");
+						$("#id_check").css("color", "red");
 
-						// id = "id_reg" / name = "userId"
-						$
-								.ajax({
-									url : '${pageContext.request.contextPath}/user/idCheck?userId='
-											+ $("#user_id").val(),
-									type : 'get',
-									success : function(data) {
-										console.log("1 = 중복o / 0 = 중복x : "
-												+ data);
+					} else {
+						// 0 : 아이디 길이 / 문자열 검사
+						$("#id_check").text("멋진 아이디네요!");
+					}
+			}, error : function() {console.log("실패");}
 
-										if (data == 1) {
-											// 1 : 아이디가 중복되는 문구
-											$("#id_check")
-													.text(
-															"아이디가 존재하니 다른 아이디를 사용해주세요 :p");
-											$("#id_check").css("color", "red");
-
-										} else {
-											// 0 : 아이디 길이 / 문자열 검사
-											$("#id_check").text("멋진 아이디네요!");
-										}
-
-									},
-									error : function() {
-										console.log("실패");
-									}
-
-								});
-
-					});
+		});
+	});
+	
+	// 파라미터 값으로 넘기기 위한 email1 +  email2 처리
+	var user_email = '';
+	$('#user_email').on('change', function(){
+		// 이 식이 말이 되는지 모르겟다... 그리고 오류 해결 못 하겠어 미안
+		// MySQL 뭔가 이상하다니까 함 봐줘 점심시간 전에 갈 듯 수고 ~
+		user_emil = $('#user_email1').val() + $('#user_email2').val();
+		
+	});
+	
 </script>
 
 </html>
