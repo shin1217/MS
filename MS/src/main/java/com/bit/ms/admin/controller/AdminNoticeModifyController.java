@@ -24,12 +24,10 @@ public class AdminNoticeModifyController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView noticeModify(@PathVariable("id") int id) {
 
-		/* System.out.println(req.getHeader("referer")); */
-
 		ModelAndView modelAndView = new ModelAndView();
 		NoticeVO no = viewService.getView(id);
 
-		modelAndView.setViewName("admin/noticeModifyForm");
+		modelAndView.setViewName("/admin/adminNoticeModifyForm");
 		modelAndView.addObject("modifyView", no);
 
 		return modelAndView;
@@ -38,7 +36,7 @@ public class AdminNoticeModifyController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String noticeModifySuccess(@PathVariable("id") int id, NoticeVO noticeVO, Model model) {
 
-		noticeVO.setNoticeId(id); // 받은 id값을 noticeI에 넣어줌
+		noticeVO.setNotice_id(id); // 받은 id값을 notice_id에 넣어줌
 
 		modifyService.noticeModify(noticeVO);
 

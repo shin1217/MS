@@ -34,29 +34,29 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<h4 style="color: #1e1e1e;">
-					<strong>${view.noticeTitle}</strong>
+					<strong>${view.notice_title}</strong>
 				</h4>
-				<fmt:parseDate value="${view.noticeDate}" pattern="yyyy-MM-dd HH:mm"
+				<fmt:parseDate value="${view.notice_date}" pattern="yyyy-MM-dd HH:mm"
 					var="date" />
 				<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
 			</div>
 			<div class="col-sm-9" style="height: 400px">
 				<p></p>
-				${view.noticeCon}
+				${view.notice_con}
 			</div>
 		</div>
 		<hr />
 		<div class="buttonsLeft">
 			<button type="button" class="btn btn-outline-elegant waves-effect"
-				onclick="location.href='${pageContext.request.contextPath}/member/notice/${view.noticeId-1}'">이전</button>
+				onclick="location.href='${pageContext.request.contextPath}/member/notice/${view.notice_id-1}'">이전</button>
 			<button type="button" class="btn btn-outline-elegant waves-effect"
-				onclick="location.href='${pageContext.request.contextPath}/member/notice/${view.noticeId+1}'">다음</button>
+				onclick="location.href='${pageContext.request.contextPath}/member/notice/${view.notice_id+1}'">다음</button>
 		</div>
 		<div class="buttonsRight">
 			<button type="button" class="btn btn-dark" data-toggle="modal"
 				data-target="#modalNoticeDeleteForm">삭제</button>
 			<button type="button" class="btn btn-dark"
-				onclick="location.href='${pageContext.request.contextPath}/admin/notice/modify/${view.noticeId}'">수정</button>
+				onclick="location.href='${pageContext.request.contextPath}/admin/notice/modify/${view.notice_id}'">수정</button>
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='${pageContext.request.contextPath}/member/notice?page=1'">
 				<i class="fa fa-th-list pr-2" aria-hidden="true"></i>목록
@@ -82,11 +82,11 @@
 					class="btn btn-default btn-sm btn-rounded">댓글 입력</button>
 				<c:if test="${adminVO.adminId != null}">
 					<!-- 세션에 userId가 존재하면 hidden에 넣어줌(댓글이름에 사용) -->
-					<input id="nick" type="hidden" value="${adminVO.adminId}" />
+					<input id="nick" type="hidden" value="${adminVO.admin_id}" />
 				</c:if>
 				<c:if test="${userVO.userId != null}">
 					<!-- 세션에 userI가 존재하면 hidden에 넣어줌(댓글이름에 사용) -->
-					<input id="nick" type="hidden" value="${userVO.userId}" />
+					<input id="nick" type="hidden" value="${userVO.user_id}" />
 				</c:if>
 			</div>
 		</div>
@@ -109,7 +109,7 @@
 			</div>
 			<div class="modal-footer d-flex justify-content-center">
 				<a class="btn btn-danger"
-					href="${pageContext.request.contextPath}/admin/notice/delete/${view.noticeId}">삭제</a>
+					href="${pageContext.request.contextPath}/admin/notice/delete/${view.notice_id}">삭제</a>
 				<a class="btn btn-dark" data-dismiss="modal">취소</a>
 			</div>
 		</div>
@@ -135,7 +135,7 @@
 			</div>
 			<div class="modal-footer d-flex justify-content-center">
 				<a class="btn btn-danger"
-					href="${pageContext.request.contextPath}/admin/notice/delete/${view.noticeId}">삭제</a>
+					href="${pageContext.request.contextPath}/admin/notice/delete/${view.notice_id}">삭제</a>
 				<a class="btn btn-dark" data-dismiss="modal">취소</a>
 			</div>
 		</div>
@@ -148,7 +148,7 @@
 		getAllList();
 	});
 
-	var noid = '${view.noticeId}';
+	var noid = '${view.notice_id}';
 	var reply = '';
 
 	function getAllList() {

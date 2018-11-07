@@ -8,7 +8,7 @@
 		useGeneratedKeys="true" keyProperty="notice_id">
 
 		insert into noticeboard(notice_title,notice_con) 
-		values (#{noticeTitle}, #{noticeCon})
+		values (#{notice_title}, #{notice_con})
 
 	</insert>
 
@@ -38,8 +38,8 @@
 	
 	<update id="updateNotice" parameterType="noticeVO">
 	
-		update noticeboard set notice_title=#{noticeTitle}, notice_con=#{noticeCon} 
-		where notice_id=#{noticeId};
+		update noticeboard set notice_title=#{notice_title}, notice_con=#{notice_con} 
+		where notice_id=#{notice_id};
 	
 	</update>
 </mapper>
