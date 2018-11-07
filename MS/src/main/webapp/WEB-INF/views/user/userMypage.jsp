@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/common/userHeader.jsp"%>
 	<h1>유저 마이페이지</h1>
 </body>
 </html>

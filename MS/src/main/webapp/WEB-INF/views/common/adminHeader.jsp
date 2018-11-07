@@ -11,23 +11,14 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="#">Navbar</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarNav" aria-controls="navbarNav"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+	<a class="navbar-brand" href="${pageContext.request.contextPath}/user/main">MS :p</a>
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
-			<li class="nav-item active"><a class="nav-link" href="#">
-				<i class="fa fa-home" aria-hidden="true"></i> 
-				<span class="sr-only">(current)</span></a>
-			</li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userMypage">내정보</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userOrders">음식주문</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice">공지사항</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userBoard">유저게시판</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">로그아웃</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/">로그아웃</a></li>
 		</ul>
 	</div>
 </nav>

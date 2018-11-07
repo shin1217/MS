@@ -8,7 +8,7 @@
 	
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/common/userHeader.jsp"%>
 	<h1 class=>유저게시판</h1>
 
 </body>
