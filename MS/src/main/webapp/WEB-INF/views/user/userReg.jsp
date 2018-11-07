@@ -43,7 +43,9 @@ body {
 	padding: 30px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	color: #2E64FE;
+	
+	/* color: #2E64FE; */
+	color: black;
 }
 
 .container h1 {
@@ -52,9 +54,13 @@ body {
 	text-align: center;
 }
 
-.reg_button{
+.reg_button {
 	padding: 10px;
 	text-align: center;
+}
+
+.check_font{
+	color: red;
 }
 
 </style>
@@ -70,47 +76,62 @@ body {
 			<div class="form-group">
 				<label for="reg_id">아이디</label> <input type="text"
 					class="form-control" id="reg_id" placeholder="ID">
-				<div>confirm message</div>
+				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 비밀번호 -->
 			<div class="form-group">
 				<label for="reg_pw">비밀번호</label> <input type="text"
 					class="form-control" id="reg_pw" placeholder="PASSWORD">
-				<div>confirm message</div>
+				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 비밀번호 재확인 -->
 			<div class="form-group">
 				<label for="reg_pw2">비밀번호 재확인</label> <input type="text"
 					class="form-control" id="reg_pw2" placeholder="Confirm Password">
-				<div>confirm message</div>
+				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 이름 -->
 			<div class="form-group">
 				<label for="reg_name">이름</label> <input type="text"
 					class="form-control" id="reg_name" placeholder="Name">
-				<div>confirm message</div>
+				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 생년월일 -->
 			<div class="form-group">
 				<label for="reg_birth">생년월일</label> <input type="text"
 					class="form-control" id="reg_birth" placeholder="Birth">
-				<div>confirm message</div>
+				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 본인확인 이메일 -->
-			<div class="form-group">
-				<label for="reg_email">이메일</label> <input type="text"
-					class="form-control" id="reg_email" placeholder="E-Mail">
-				<div>confirm message</div>
+			<label for="reg_email">이메일</label>
+			<div class="form-inline">
+				<input type="text" class="form-control mb-2 mr-sm-2" id="reg_email"
+					placeholder="E-mail">
+				<!-- Default input -->
+				<div class="input-group mb-2 mr-sm-2">
+					<div class="input-group-prepend">
+						<div class="input-group-text">@</div>
+					</div>
+					<input type="text" class="form-control py-0" id="reg_email2"
+						placeholder="">
+				</div>
+				<button type="button" class="btn btn-rounded btn-primary">
+					인증하기<i class="fa fa-android" aria-hidden="true"></i>
+				</button>
+				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 휴대전화 -->
 			<div class="form-group">
 				<label for="reg_birth">휴대전화</label> <input type="text"
 					class="form-control" id="reg_birth" placeholder="Phone Number">
-				<div>confirm message</div>
+				<div class="check_font">confirm message</div>
 			</div>
 			<div class="reg_button">
-				<button type="button" class="btn btn-outline-primary waves-effect">
-					<i class="fa fa-sun-o pr-2" aria-hidden="true"></i>가입하기
+				<button type="button" class="btn btn-danger px-3">
+					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
+				</button>&emsp;&emsp;
+				<button type="button" class="btn btn-primary px-3">
+					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
 				</button>
 			</div>
 		</form>
