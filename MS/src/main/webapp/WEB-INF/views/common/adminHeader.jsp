@@ -11,14 +11,23 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="${pageContext.request.contextPath}/user/main">MS :p</a>
+	<a class="navbar-brand" href="${pageContext.request.contextPath}/admin/main">MS :p</a>
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userMypage">내정보</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userOrders">음식주문</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/amdin/adminMypage">내정보</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice">공지사항</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userBoard">유저게시판</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/">로그아웃</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/userList">회원리스트</a></li>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#"
+				id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false"> 관리하기 </a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					<a class="dropdown-item" href="#">매출기록</a> 
+					<a class="dropdown-item" href="#">상품관리</a> 
+					<a class="dropdown-item" href="#">좌석관리</a>
+					<a class="dropdown-item" href="${pageContext.request.contextPath}/user/userBoard">유저게시판</a>
+				</div></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin">로그아웃</a></li>
 		</ul>
 	</div>
 </nav>

@@ -15,8 +15,8 @@
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userMypage">내정보</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userOrders">음식주문</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice">공지사항</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userOrders">음식주문</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userBoard">유저게시판</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/">로그아웃</a></li>
 		</ul>
