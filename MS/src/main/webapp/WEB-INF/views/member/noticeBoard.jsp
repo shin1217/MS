@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<title>PC Management</title>
+<title>MS</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -39,7 +39,7 @@
 			<tbody>
 				<c:if test="${viewData.isEmpty()}">
 					<tr>
-						<td>작성된 방명록 메시지가 없습니다.</td>
+						<td>작성된 게시글이 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:if test="${!viewData.isEmpty()}">
