@@ -26,7 +26,7 @@ public class UserMypageController {
 			
 		UserVO userData = (UserVO) session.getAttribute("userVO");
 		
-		String userId = userData.getUserId();
+		String userId = userData.getUser_id();
 		
 		model.addAttribute("user",service.getMyPage(userId));
 		

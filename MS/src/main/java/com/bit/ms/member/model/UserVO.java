@@ -7,63 +7,90 @@ import org.apache.ibatis.type.Alias;
 @Alias("userVO")
 public class UserVO {
 
-	private String userId; // 회원 아이디
-	private String userName; // 유저이름
-	private String userPw; // 비밀번호
-	private String userPhone; // 폰번호
-	private String userBirth; // 생년월일
-	private String userEmail; // 이메일
-	private int storeId; //매장번호
+	private String user_id; // 회원 아이디
+	private String user_name; // 유저이름
+	private String user_pw; // 비밀번호
+	private String user_phone; // 폰번호
+	private String user_lbirth; // 생년월일
+	private String user_email; // 이메일
+	private int store_id; //매장번호
 	
-	public String getUserId() {
-		return userId;
+	public UserVO() {
+
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+
+	public UserVO(String user_id, String user_name, String user_pw, String user_phone, String user_lbirth,
+			String user_email, int store_id) {
+		this.user_id = user_id;
+		this.user_name = user_name;
+		this.user_pw = user_pw;
+		this.user_phone = user_phone;
+		this.user_lbirth = user_lbirth;
+		this.user_email = user_email;
+		this.store_id = store_id;
 	}
-	public String getUserName() {
-		return userName;
+
+	public String getUser_id() {
+		return user_id;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
-	public String getUserPw() {
-		return userPw;
+
+	public String getUser_name() {
+		return user_name;
 	}
-	public void setUserPw(String userPw) {
-		this.userPw = userPw;
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
-	public String getUserPhone() {
-		return userPhone;
+
+	public String getUser_pw() {
+		return user_pw;
 	}
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
+
+	public void setUser_pw(String user_pw) {
+		this.user_pw = user_pw;
 	}
-	public String getUserBirth() {
-		return userBirth;
+
+	public String getUser_phone() {
+		return user_phone;
 	}
-	public void setUserBirth(String userBirth) {
-		this.userBirth = userBirth;
+
+	public void setUser_phone(String user_phone) {
+		this.user_phone = user_phone;
 	}
-	public String getUserEmail() {
-		return userEmail;
+
+	public String getUser_lbirth() {
+		return user_lbirth;
 	}
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+
+	public void setUser_lbirth(String user_lbirth) {
+		this.user_lbirth = user_lbirth;
 	}
-	public int getStoreId() {
-		return storeId;
+
+	public String getUser_email() {
+		return user_email;
 	}
-	public void setStoreId(int storeId) {
-		this.storeId = storeId;
+
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
 	}
-	
+
+	public int getStore_id() {
+		return store_id;
+	}
+
+	public void setStore_id(int store_id) {
+		this.store_id = store_id;
+	}
+
 	@Override
 	public String toString() {
-		return "UserVO [userId=" + userId + ", userName=" + userName + ", userPw=" + userPw + ", userPhone=" + userPhone
-				+ ", userBirth=" + userBirth + ", userEmail=" + userEmail + ", storeId=" + storeId + "]";
+		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
+				+ user_phone + ", user_lbirth=" + user_lbirth + ", user_email=" + user_email + ", store_id=" + store_id
+				+ "]";
 	}
-	
-
 	
 }

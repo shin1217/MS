@@ -6,8 +6,8 @@
    <!-- 회원가입 -->
    <insert id="insertUser" parameterType="userVO">
    
-      insert into user (userid, username, userpw, userphone, userbirth)
-      values (#{userId}, #{userName}, #{userPw}, #{userPhone}, #{userBirth})
+      insert into userinfo (user_id, username, userpw, userphone, userbirth)
+      values (#{user_id}, #{userName}, #{userPw}, #{userPhone}, #{userBirth})
 
    </insert>
 
@@ -63,7 +63,7 @@
    <!-- 아이디 중복 검사 -->
    <select id="checkOverId" parameterType="String" resultType="int">
    
-      select count(*) from user where userid = #{userId}
+      select count(*) from userinfo where user_id = #{user_id}
    
    </select>
    

@@ -30,7 +30,7 @@ public interface UserDaoInterface {
 	public int insertOrder(OrderVO order);
 	
 	// 아이디 중복 체크
-	public int checkOverId(String userId);
+	public int checkOverId(String user_id);
 	
 	// 유저 전화번호 중복 체크
 	public String checkOverPhoneNum(String userPhone);

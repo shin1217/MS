@@ -69,12 +69,12 @@ body {
 		<div class="titleStyle">
 			<h1>MS :p</h1>
 		</div>
-		<form action="">
+		<form>
 			<!-- 아이디 -->
 			<div class="form-group">
 				<label for="reg_id">아이디</label> <input type="text"
-					class="form-control" id="reg_id" placeholder="ID">
-				<div class="check_font">confirm message</div>
+					class="form-control" id="reg_id" name = "userId" placeholder="ID">
+				<div class="check_font" id ="id_check"></div>
 			</div>
 			<!-- 비밀번호 -->
 			<div class="form-group">
@@ -153,11 +153,34 @@ body {
 </body>
 	<script>
 	
-		function validate(){
+		// 회원가입 유효성 검사(1 = 중복 / 0 != 중복)
+		var idChk = 0;
+		$("#reg_id").blur(function(){
 			
-			var id = 
+			// id = "id_reg" / name = "userId"
+			$.ajax({
+				url: '${pageContext.request.contextPath}/user/idCheck?id='+$("#reg_id").val(),
+				type: 'get',
+				success: function(data){
+					console.log("1 = 중복o / 0 = 중복x : " + data);
+					
+					if(data == 1){
+						// 1 : 아이디가 중복되는 문구
+						$("#id_check").text("아이디가 존재하니 다른 아이디를 사용해주세요 :p");
+					} else {
+						// 0 : 아이디 길이 / 문자열 검사
+						$("#id_check").text("멋진 아이디네요!");
+					}
+					
+				},
+				error: function() {
+					console.log("실패");
+				}
+				
+			});
 			
-		}
-	
+		});
+		
 	</script>
+	
 </html>
