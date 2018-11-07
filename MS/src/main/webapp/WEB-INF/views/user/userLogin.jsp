@@ -33,12 +33,12 @@ body {
 
 .container {
 	min-height: 100%;
-	width: 30%;
+	position: relative;
 }
 
 .full {
 	background-image:
-		url("<%=request.getContextPath()%>/images/main_back.jpg");
+		url("<%=request.getContextPath()%>/images/userLogin_back.jpg");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -47,26 +47,31 @@ body {
 
 .area_inputs {
 	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: 30%;
+	height: 30%;
 }
 </style>
 </head>
 <body>
+
 	<div class="full">
+		<div style="float: right; margin-top: 30px; margin-right: 30px;">
+			<a href="admin"> <img
+				src="${pageContext.request.contextPath}/images/admin_setting2.png"
+				style="height: 50px;" />
+			</a>
+		</div>
 		<div class="container">
-			<div style="text-align: right;">
-				<a href="admin"> <img
-					src="${pageContext.request.contextPath}/images/admin_setting.png"
-					alt="관리자페이지" style="height: 50px; margin-top: 30px;" />
-				</a>
-			</div>
-			<div class="area_inputs">
+			<div class="area_inputs wow fadeIn">
 				<form action="${pageContext.request.contextPath}/user/main"
 					method="get">
 					<div class="form-group">
-						<label for="inputId">아이디</label>
+						<label class="font-weight-bold text-white" for="inputId">아이디</label>
 						<div>
 							<input type="text" class="form-control" id="inputId"
 								placeholder="아이디">
@@ -74,7 +79,7 @@ body {
 					</div>
 
 					<div class="form-group">
-						<label for="inputPassword">비밀번호</label>
+						<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
 						<div>
 							<input type="password" class="form-control" id="inputPassword"
 								placeholder="비밀번호">
@@ -94,4 +99,7 @@ body {
 		</div>
 	</div>
 </body>
+<script>
+	new WOW().init();
+</script>
 </html>
