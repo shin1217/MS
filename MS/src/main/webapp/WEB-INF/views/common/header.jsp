@@ -31,7 +31,7 @@
 			</li>
 			<li class="nav-item"><a class="nav-link" href="#">내정보</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">음식주문</a></li>
-			<li class="nav-item"><a class="nav-link" href="/member/notice">공지사항</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice">공지사항</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">유저게시판</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">로그아웃</a></li>
 		</ul>

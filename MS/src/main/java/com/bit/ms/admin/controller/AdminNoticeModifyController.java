@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bitcamp.pc.admin.service.NoticeModifyService;
-import com.bitcamp.pc.member.model.NoticeVO;
-import com.bitcamp.pc.member.service.NoticeViewService;
+import com.bit.ms.admin.model.NoticeVO;
+import com.bit.ms.admin.service.AdminNoticeModifyService;
+import com.bit.ms.member.service.MemberNoticeViewService;
 
 @Controller
 @RequestMapping("/admin/notice/modify/{id}")
-public class NoticeModifyController {
+public class AdminNoticeModifyController {
 
 	@Autowired
-	NoticeViewService viewService;
+	MemberNoticeViewService viewService;
 	@Autowired
-	NoticeModifyService modifyService;
+	AdminNoticeModifyService modifyService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView noticeModify(@PathVariable("id") int id) {

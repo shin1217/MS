@@ -42,11 +42,11 @@
 	</beans:bean>
 
 	<!-- mybatis-spring 모듈이 제공하는 SqlSessionFactoryBean 이용해 mybatis의 SqlSessionFactory를생성 -->
-<!-- 	<beans:bean id="sqlSessionFactory"
+	<beans:bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="mapperLocations"
-			value="classpath:com/bitcamp/pc/member/mapper/mybatis/*.xml" />
+			value="classpath:com/bit/ms/mapper/mybatis/*.xml" />
 		<beans:property name="configLocation"
 			value="classpath:/mybatis-config.xml" />
 	</beans:bean>
@@ -54,6 +54,6 @@
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0"
 			ref="sqlSessionFactory" />
-	</beans:bean> -->
-	
+	</beans:bean>
+
 </beans:beans>

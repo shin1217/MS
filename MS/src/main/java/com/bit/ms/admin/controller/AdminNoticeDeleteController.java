@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bitcamp.pc.admin.service.NoticeDeleteService;
+import com.bit.ms.admin.service.AdminNoticeDeleteService;
 
 @Controller
-public class NoticeDeleteController {
+public class AdminNoticeDeleteController {
 
 	@Autowired
-	private NoticeDeleteService service;
+	private AdminNoticeDeleteService service;
 
 	// 삭제 모달창에서 삭제를 누르면 해당 글이 삭제되고 목록으로 돌아감
 	@RequestMapping(value = "/admin/notice/delete/{id}", method = RequestMethod.GET)
