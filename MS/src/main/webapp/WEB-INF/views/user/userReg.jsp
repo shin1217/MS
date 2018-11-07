@@ -69,7 +69,7 @@ body {
 		<div class="titleStyle">
 			<h1>MS :p</h1>
 		</div>
-		<form>
+		<form method="POST">
 			<!-- 아이디 -->
 			<div class="form-group">
 				<label for="reg_id">아이디</label> <input type="text"
@@ -159,7 +159,7 @@ body {
 			
 			// id = "id_reg" / name = "userId"
 			$.ajax({
-				url: '${pageContext.request.contextPath}/user/idCheck?id='+$("#reg_id").val(),
+				url: '${pageContext.request.contextPath}/user/idCheck?userId='+$("#reg_id").val(),
 				type: 'get',
 				success: function(data){
 					console.log("1 = 중복o / 0 = 중복x : " + data);
