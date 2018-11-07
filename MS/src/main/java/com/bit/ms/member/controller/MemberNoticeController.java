@@ -21,7 +21,7 @@ public class MemberNoticeController {
 	public ModelAndView getNoticeList(HttpServletRequest req) {
 
 		String pageParam = req.getParameter("page");
-		System.out.println("pageParam"+pageParam);
+
 		int pageNum = 1;
 		if (pageParam != null) {
 			pageNum = Integer.parseInt(pageParam);

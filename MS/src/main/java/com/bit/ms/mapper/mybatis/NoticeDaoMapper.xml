@@ -7,7 +7,7 @@
 	<insert id="insertNotice" parameterType="noticeVO"
 		useGeneratedKeys="true" keyProperty="notice_id">
 
-		insert into noticeboard(notice_title,notice_con) 
+		insert into noticeboard(notice_title, notice_con) 
 		values (#{notice_title}, #{notice_con})
 
 	</insert>
@@ -25,14 +25,14 @@
 	</select>
 	
 	<select id="selectView" resultType="noticeVO">
-	
-		select * from noticeboard where notice_id=#{id}
+
+	select * from noticeboard where notice_id=#{notice_id}
 
 	</select>
 	
 	<delete id="deleteNotice" parameterType="int">
 	
-		delete from noticeboard where notice_id=#{id}
+		delete from noticeboard where notice_id=#{notice_id}
 	
 	</delete>
 	

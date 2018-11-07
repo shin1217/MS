@@ -26,6 +26,7 @@ public class AdminNoticeWriteController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String writeSuccess(NoticeVO noticeVO) {
 
+		System.out.println("noticeVO확인 " + noticeVO);
 		service.noticeWrite(noticeVO);
 		
 		return "redirect:/member/notice?page=1";
