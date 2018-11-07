@@ -1,14 +1,43 @@
 package com.bit.ms.user.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.bit.ms.member.model.UserVO;
+import com.bit.ms.user.service.UserMyPageService;
+
 
 @Controller
 public class UserMypageController {
 	
+	@Autowired
+	UserMyPageService service;
+	
 	@RequestMapping("/user/userMypage")
-	public String userMypage() {
+	public String userMypage(HttpSession session, Model model) {
 		
-		return "user/userMypage";
+		String result;
+
+		try {
+			
+		UserVO userData = (UserVO) session.getAttribute("userVO");
+		
+		String userId = userData.getUserId();
+		
+		model.addAttribute("user",service.getMyPage(userId));
+		
+		result = "user/myPage";
+			
+		} catch(Exception e) {
+			
+			result = "redirect:/";
+			
+		}
+		
+		return result;
 	}
 }
