@@ -58,9 +58,6 @@ body {
 	text-align: center;
 }
 
-.check_font {
-	color: red;
-}
 </style>
 </head>
 <body>
@@ -144,7 +141,7 @@ body {
 					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
 				</button>
 				&emsp;&emsp;
-				<button type="button" class="btn btn-primary px-3">
+				<button type="button" class="btn btn-primary px-3" id="reg_submit">
 					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
 				</button>
 			</div>
@@ -167,6 +164,11 @@ body {
 					if(data == 1){
 						// 1 : 아이디가 중복되는 문구
 						$("#id_check").text("아이디가 존재하니 다른 아이디를 사용해주세요 :p");
+						$("#id_check").css("color", "red");
+						$("#reg_submit").click(function(){
+							
+						});
+						
 					} else {
 						// 0 : 아이디 길이 / 문자열 검사
 						$("#id_check").text("멋진 아이디네요!");
