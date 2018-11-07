@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<package name="com.bit.ms.member.model" />
-		<package name="com.bit.ms.admin.model" />
+		<package name="com.bit.ms" />
 	</typeAliases>
 </configuration>
