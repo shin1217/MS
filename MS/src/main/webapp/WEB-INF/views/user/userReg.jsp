@@ -36,14 +36,13 @@ body {
 
 .container {
 	min-height: 100%;
-	width: 30%;
+	width: 28.9%;
 }
 
 .titleStyle {
 	padding: 30px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	
 	/* color: #2E64FE; */
 	color: black;
 }
@@ -55,14 +54,13 @@ body {
 }
 
 .reg_button {
-	padding: 10px;
+	padding: 20px;
 	text-align: center;
 }
 
-.check_font{
+.check_font {
 	color: red;
 }
-
 </style>
 </head>
 <body>
@@ -115,8 +113,8 @@ body {
 					<input type="text" class="form-control py-0" id="reg_email2"
 						placeholder="">
 				</div>
-				<button type="button" class="btn btn-rounded btn-primary">
-					인증하기<i class="fa fa-android" aria-hidden="true"></i>
+				<button type="button" class="btn btn-outline-info waves-effect px-3">
+					<i class="fa fa-envelope"></i>&nbsp;인증
 				</button>
 				<div class="check_font">confirm message</div>
 			</div>
@@ -126,10 +124,26 @@ body {
 					class="form-control" id="reg_birth" placeholder="Phone Number">
 				<div class="check_font">confirm message</div>
 			</div>
+
+			<!--Dropdown primary-->
+			<div class="dropdown">
+				<!--Trigger-->
+				<button class="btn btn-default dropdown-toggle" type="button"
+					id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">방문하신 지점은?</button>
+				<!--Menu-->
+				<div class="dropdown-menu dropdown-primary">
+					<a class="dropdown-item" href="#">MS 스터디카페</a> <a
+						class="dropdown-item" href="#">MS PC방</a> <a class="dropdown-item"
+						href="#">MS 코인노래방</a>
+				</div>
+			</div>
+			<!--/Dropdown primary-->
 			<div class="reg_button">
 				<button type="button" class="btn btn-danger px-3">
 					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
-				</button>&emsp;&emsp;
+				</button>
+				&emsp;&emsp;
 				<button type="button" class="btn btn-primary px-3">
 					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
 				</button>
@@ -137,4 +151,13 @@ body {
 		</form>
 	</div>
 </body>
+	<script>
+	
+		function validate(){
+			
+			var id = 
+			
+		}
+	
+	</script>
 </html>
