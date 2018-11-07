@@ -22,14 +22,12 @@ public class UserRegController {
 		return "user/userReg";
 	}
 	
-	@RequestMapping(value = "/user/reg", method=RequestMethod.POST)
+	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
 	public String userRegOk(UserVO userVO) {
 		
-		System.out.println(userVO);
 		
 		
-		
-		return "/";
+		return "redirect:/";
 	}
 	
 	// id 중복 체크 컨트롤러

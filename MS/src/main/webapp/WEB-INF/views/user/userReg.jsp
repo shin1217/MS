@@ -68,49 +68,49 @@ body {
 		<form method="POST">
 			<!-- 아이디 -->
 			<div class="form-group">
-				<label for="reg_id">아이디</label> <input type="text"
-					class="form-control" id="reg_id" name="user_id" placeholder="ID">
+				<label for="user_id">아이디</label> <input type="text"
+					class="form-control" id="user_id" name="user_id" placeholder="ID">
 				<div class="check_font" id="id_check"></div>
 			</div>
 			<!-- 비밀번호 -->
 			<div class="form-group">
-				<label for="reg_pw">비밀번호</label> <input type="text"
-					class="form-control" id="reg_pw" name="user_pw"
+				<label for="user_pw">비밀번호</label> <input type="text"
+					class="form-control" id="user_pw"" name="user_pw"
 					placeholder="PASSWORD">
 				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 비밀번호 재확인 -->
 			<div class="form-group">
-				<label for="reg_pw2">비밀번호 재확인</label> <input type="text"
-					class="form-control" id="reg_pw2" name="user_pw2"
+				<label for="user_pw2">비밀번호 재확인</label> <input type="text"
+					class="form-control" id="user_pw2" name="user_pw2"
 					placeholder="Confirm Password">
 				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 이름 -->
 			<div class="form-group">
-				<label for="reg_name">이름</label> <input type="text"
-					class="form-control" id="reg_name" name="user_name"
+				<label for="user_name">이름</label> <input type="text"
+					class="form-control" id="user_name" name="user_name"
 					placeholder="Name">
 				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 생년월일 -->
 			<div class="form-group">
-				<label for="reg_birth">생년월일</label> <input type="text"
-					class="form-control" id="reg_birth" name="user_birth"
+				<label for="user_birth">생년월일</label> <input type="text"
+					class="form-control" id="user_birth" name="user_birth"
 					placeholder="Birth">
 				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 본인확인 이메일 -->
-			<label for="reg_email">이메일</label>
+			<label for="user_email1">이메일</label>
 			<div class="form-inline">
-				<input type="text" class="form-control mb-2 mr-sm-2" id="reg_email"
+				<input type="text" class="form-control mb-2 mr-sm-2" id="user_email1"
 					name="user_email1" placeholder="E-mail">
 				<!-- Default input -->
 				<div class="input-group mb-2 mr-sm-2">
 					<div class="input-group-prepend">
 						<div class="input-group-text">@</div>
 					</div>
-					<input type="text" class="form-control py-0" id="reg_email2"
+					<input type="text" class="form-control py-0" id="user_email2"
 						name="user_email2" placeholder="">
 				</div>
 				<button type="button" class="btn btn-outline-info waves-effect px-3">
@@ -120,8 +120,8 @@ body {
 			</div>
 			<!-- 휴대전화 -->
 			<div class="form-group">
-				<label for="reg_birth">휴대전화</label> <input type="text"
-					class="form-control" id="reg_birth" name="user_phone"
+				<label for="user_phone">휴대전화</label> <input type="text"
+					class="form-control" id="user_phone" name="user_phone"
 					placeholder="Phone Number">
 				<div class="check_font">confirm message</div>
 			</div>
@@ -129,9 +129,9 @@ body {
 			<div>
 				<span>방문하신 지점은?</span>
 				<select name="store_id">
-					<option value="ms1">MS 스터디카페</option>
-					<option value="ms2">MS PC방</option>
-					<option value="ms3">MS 코인노래방</option>
+					<option value="1">MS 스터디카페</option>
+					<option value="2">MS PC방</option>
+					<option value="3">MS 코인노래방</option>
 				</select>
 			</div>
 			<div class="reg_button">
@@ -150,7 +150,7 @@ body {
 	// 회원가입 유효성 검사(1 = 중복 / 0 != 중복)
 	var idChk = 0;
 
-	$("#reg_id")
+	$("#user_id")
 			.blur(
 					function() {
 
@@ -158,7 +158,7 @@ body {
 						$
 								.ajax({
 									url : '${pageContext.request.contextPath}/user/idCheck?userId='
-											+ $("#reg_id").val(),
+											+ $("#user_id").val(),
 									type : 'get',
 									success : function(data) {
 										console.log("1 = 중복o / 0 = 중복x : "
