@@ -37,7 +37,7 @@
 		<beans:property name="driverClass"
 			value="com.mysql.jdbc.Driver" />
 		<beans:property name="jdbcUrl"
-			value="jdbc:mysql://127.0.0.1/pc" />
+			value="jdbc:mysql://127.0.0.1/ms" />
 		<beans:property name="user" value="bit" />
 		<beans:property name="password" value="1234" />
 	</beans:bean>
