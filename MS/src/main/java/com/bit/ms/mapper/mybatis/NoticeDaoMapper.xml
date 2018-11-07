@@ -5,41 +5,41 @@
 <mapper namespace="com.bit.ms.member.dao.MemberNoticeDaoInterface">
 
 	<insert id="insertNotice" parameterType="noticeVO"
-		useGeneratedKeys="true" keyProperty="noticeid">
+		useGeneratedKeys="true" keyProperty="notice_id">
 
-		insert into notice(noticetitle,noticecon) 
+		insert into noticeboard(notice_title,notice_con) 
 		values (#{noticeTitle}, #{noticeCon})
 
 	</insert>
 
 	<select id="pageCount" resultType="int">
 	
-		select count(*) from notice;
+		select count(*) from noticeboard;
 	
 	</select>
 
 	<select id="selectList" parameterType="map" resultType="noticeVO">
 	
-		select * from notice order by noticeid desc limit #{firstRow}, 10
+		select * from noticeboard order by notice_id desc limit #{firstRow}, 10
 	
 	</select>
 	
 	<select id="selectView" resultType="noticeVO">
 	
-		select * from notice where noticeid=#{id}
+		select * from noticeboard where notice_id=#{id}
 
 	</select>
 	
 	<delete id="deleteNotice" parameterType="int">
 	
-		delete from notice where noticeid=#{id}
+		delete from noticeboard where notice_id=#{id}
 	
 	</delete>
 	
 	<update id="updateNotice" parameterType="noticeVO">
 	
-		update notice set noticetitle=#{noticeTitle}, noticeCon=#{noticeCon} 
-		where noticeid=#{noticeId};
+		update noticeboard set notice_title=#{noticeTitle}, notice_con=#{noticeCon} 
+		where notice_id=#{noticeId};
 	
 	</update>
 </mapper>

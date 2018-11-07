@@ -15,7 +15,7 @@
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/amdin/adminMypage">내정보</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice">공지사항</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice?page=1">공지사항</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/userList">회원리스트</a></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#"

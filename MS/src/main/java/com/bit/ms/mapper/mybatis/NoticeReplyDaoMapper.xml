@@ -7,31 +7,31 @@
 	<select id="replyList" resultType="replyVO">
 
 		select *
-		from reply
-		where noid = #{noId}
-		order by replyid
+		from noticereply
+		where notice_id = #{notice_id}
+		order by reply_id
 
 	</select>
 
 	<insert id="insertReply" parameterType="replyVO">
 
-		insert into reply(noid, nickname, replycon)
-		values (#{noId}, #{nickName}, #{replyCon})
+		insert into noticereply(notice_id, admin_id, reply_con)
+		values (#{notice_id}, #{admin_id}, #{reply_con})
 
 	</insert>
 
 
 	<update id="updateReply" parameterType="replyVO">
 
-		update reply set replycon =#{replyCon}
-		where replyid = #{replyId};
+		update noticereply set reply_con =#{reply_con}
+		where reply_id = #{reply_id};
 
 	</update>
 
 	<delete id="deleteReply" parameterType="int">
 
-		delete from reply
-		where replyid = #{replyId}
+		delete noticereply
+		where reply_id = #{reply+id}
 
 	</delete>
 </mapper>

@@ -35,6 +35,7 @@ public class MemberNoticeService {
 		if (noticeTotalCount > 0) {
 			firstRow = (pageNum - 1) * NOTICE_COUNT_PER_PAGE + 1;
 			noticeList = daoInterface.selectList(firstRow - 1); // mysql은 0열부터 시작 -1을 해줌
+			System.out.println("리스트확인 "+noticeList);
 		} else {
 			currentPageNum = 0;
 			noticeList = Collections.emptyList();

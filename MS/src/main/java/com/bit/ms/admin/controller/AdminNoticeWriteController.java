@@ -19,7 +19,7 @@ public class AdminNoticeWriteController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String getWriteForm() {
 
-		return "admin/noticeWriteForm";
+		return "admin/adminNoticeWriteForm";
 	}
 
 	// 글작성 완료시 다시 공지사항 게시판으로 이동

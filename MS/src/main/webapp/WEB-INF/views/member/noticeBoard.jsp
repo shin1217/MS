@@ -25,7 +25,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/userHeader.jsp"%>
 	<div class="container">
-		<c:if test="${adminVO != null}">
+		<c:if test="${adminVO == null}">
 			<a id="write" class="btn btn-outline-elegant waves-effect"
 				href="${pageContext.request.contextPath}/admin/noticeWrite">글쓰기</a>
 		</c:if>
