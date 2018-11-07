@@ -28,7 +28,7 @@ public class UserRegController {
 	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
 	public String userRegOk(UserVO userVO) {
 		
-		System.out.println("컨트롤러 콘솔 확인");
+		System.out.println("컨트롤러 콘솔 확인"+userVO);
 		
 		reg_service.userReg_service(userVO);
 		

@@ -103,7 +103,7 @@ body {
 			<!-- 본인확인 이메일 -->
 			<label for="user_email1">이메일</label>
 			<div class="form-inline">
-				<input type="hidden" name="user_email">
+				<input type="hidden" id="user_email" name="user_email">
 				<input type="text" class="form-control mb-2 mr-sm-2" id="user_email1" placeholder="E-mail">
 				<!-- Default input -->
 				<div class="input-group mb-2 mr-sm-2">
@@ -172,10 +172,12 @@ body {
 	
 	// 파라미터 값으로 넘기기 위한 email1 +  email2 처리
 	var user_email = '';
-	$('#user_email').on('change', function(){
-		// 이 식이 말이 되는지 모르겟다... 그리고 오류 해결 못 하겠어 미안
+	var user_email1 = $('#user_email1').val();
+	var user_email2 = $('#user_email2').val();
+	$('#user_email').change(function(){
+		// 이 식이 말이 되는지 모르겟다... 확인해보니까 값을 못 받아ㅜㅜ
 		// MySQL 뭔가 이상하다니까 함 봐줘 점심시간 전에 갈 듯 수고 ~
-		user_emil = $('#user_email1').val() + $('#user_email2').val();
+		user_email = $('#user_email1').val() + $('#user_email2').val();
 		
 	});
 	
