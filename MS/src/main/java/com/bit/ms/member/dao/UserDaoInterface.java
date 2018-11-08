@@ -27,10 +27,7 @@ public interface UserDaoInterface {
 
 	// 유저 삭제
 	public int deleteUser(String user_id);
-	
-	// 주문 정보
-	public int insertOrder(OrderVO order);
-	
+
 	// 아이디 중복 체크
 	public int checkOverId(String user_id);
 	

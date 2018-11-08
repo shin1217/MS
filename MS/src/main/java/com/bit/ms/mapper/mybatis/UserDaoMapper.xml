@@ -53,13 +53,6 @@
 
    </delete>
    
-   <!-- 주문 테이블 정보 저장 -->
-   <insert id="insertOrder" parameterType="orderVO">
-      insert into orders (comid, orderfoodid, ordercnt)
-      values (#{comId}, #{orderFoodId}, #{orderCnt})
-
-   </insert>
-   
    <!-- 아이디 중복 검사 -->
    <select id="checkOverId" parameterType="String" resultType="int">
    
