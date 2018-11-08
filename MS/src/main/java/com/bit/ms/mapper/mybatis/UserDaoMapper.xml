@@ -14,7 +14,7 @@
    <!-- 로그인 -->
    <select id="loginUser" resultType="userVO">
 
-      select * from user where user_id = #{user_id}
+      select * from userinfo where user_id = #{user_id}
 
    </select>
 

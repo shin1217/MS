@@ -26,7 +26,7 @@ public class UserRegController {
 	}
 
 	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
-	public String userRegOk(UserVO userVO) {
+	public String userRegPass(UserVO userVO) {
 
 		userVO.setUser_email(userVO.getUser_email1() + "@" + userVO.getUser_email2()); // 이메일 앞뒤를 합쳐줌
 
