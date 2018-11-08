@@ -36,9 +36,9 @@
 		<beans:property name="driverClass"
 			value="com.mysql.jdbc.Driver" />
 		<beans:property name="jdbcUrl"
-			value="jdbc:mysql://127.0.0.1/ms" />
+			value="jdbc:mysql://ms-project.ctgvi4ryx7dh.ap-northeast-2.rds.amazonaws.com/ms" />
 		<beans:property name="user" value="bit" />
-		<beans:property name="password" value="1234" />
+		<beans:property name="password" value="123456789" />
 	</beans:bean>
 
 	<!-- mybatis-spring 모듈이 제공하는 SqlSessionFactoryBean 이용해 mybatis의 SqlSessionFactory를생성 -->
