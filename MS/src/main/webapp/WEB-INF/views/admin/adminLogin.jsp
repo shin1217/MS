@@ -73,14 +73,14 @@ body {
 						<label class="font-weight-bold text-white" for="inputId">아이디</label>
 						<div>
 							<input type="text" class="form-control" id="inputId"
-								placeholder="아이디">
+								name="admin_id" placeholder="아이디">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
 						<div>
 							<input type="password" class="form-control" id="inputPassword"
-								placeholder="비밀번호">
+								name="admin_pw" placeholder="비밀번호">
 						</div>
 					</div>
 					<div class="form-group">
