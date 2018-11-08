@@ -12,7 +12,7 @@ public class MemberLogoutController {
 
 		String page = "redirect:/";
 
-		if (session.getAttribute("userVO") == null) { //admin이 로그아웃하면 adminLogin페이지로 보내줌 
+		if (session.getAttribute("userSession") == null) { //admin이 로그아웃하면 adminLogin페이지로 보내줌 
 			page = "redirect:/admin";
 		}
 		
