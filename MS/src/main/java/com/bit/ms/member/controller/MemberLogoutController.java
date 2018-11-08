@@ -18,7 +18,6 @@ public class MemberLogoutController {
 		
 		session.invalidate();
 
-
 		return page;
 	}
 }

@@ -29,15 +29,13 @@ public class UserLoginService {
 				
 				// 세션 저장하기 전에 비밀번호 가리기
 				vo.setUser_pw("");
+				
 				// 세션에 vo 객체 저장
 				httpSession.setAttribute("userSession", vo);
 				System.out.println("세션확인 " + httpSession.getAttribute("userSession"));
 				result = true;
 			}
 		}
-		
-		System.out.println("서비스 확인"+ vo);
-		
 		return result;
 	}
 }

@@ -29,13 +29,13 @@ public class AdminLoginService {
 				
 				// 세션 저장하기 전에 비밀번호 변경
 				vo.setAdmin_pw("");
+				
 				// 세션에 vo 객체 저장
 				httpSession.setAttribute("adminSession", vo);
 				System.out.println("세션확인 " + httpSession.getAttribute("adminSession"));
 				result = true;
 			}
 		}
-		
 		return result;
 	}
 }

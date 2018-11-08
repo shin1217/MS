@@ -8,7 +8,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
-<link rel="stylesheet" href="../css/font.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <style>
 .navbar-nav li {
 	margin-left: 20px;
