@@ -20,16 +20,12 @@ public class UserMypageController {
 	@RequestMapping("/user/userMypage")
 	public String userMypage(HttpSession session, Model model) {
 		
-		String result;
-			
 		UserVO userData = (UserVO) session.getAttribute("userVO");
 		
 		String userId = userData.getUser_id();
 		
 		model.addAttribute("user",service.getMyPage(userId));
 		
-		result = "user/userMypage";
-		
-		return result;
+		return "user/userMypage";
 	}
 }
