@@ -5,22 +5,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.UserDaoInterface;
-import com.bit.ms.user.model.UserBoardVO;
 
 @Service
-public class UserBoardViewService {
+public class UserBoardDeleteService {
 
 	@Autowired
 	private SqlSessionTemplate sessionTemplate;
 
 	private UserDaoInterface userDaoInterface;
 
-	public UserBoardVO getUserBoardViewS(int uboard_id) {
+	public int UserBoardDeleteS(int uboard_id) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
-		UserBoardVO userBoardVO = userDaoInterface.getUserBoardViewI(uboard_id);
+		int resultCnt = 0;
 
-		return userBoardVO;
+		try {
+			resultCnt = userDaoInterface.UserBoardDeleteI(uboard_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resultCnt;
+
 	}
+
 }

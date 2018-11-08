@@ -27,7 +27,7 @@
 }
 
 .hypertext_none {
-	color: black;s
+	color: black;
 	text-decoration: none;
 }
 </style>
@@ -36,10 +36,10 @@
 	<%@ include file="/WEB-INF/views/common/userHeader.jsp"%>
 	<div class="userBoard_header">
 		<br> <a class="nav-link"
-			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1>유저게시판</h1></a>
-
-		<a id="write" class="btn btn-outline-elegant waves-effect"
-			href="${pageContext.request.contextPath}/user/userBoardWrite">글쓰기</a>
+			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1
+				class="hypertext_none">유저게시판</h1></a> <a id="write"
+			class="btn btn-outline-elegant waves-effect"
+			href="${pageContext.request.contextPath}/user/userBoard/Write">글쓰기</a>
 	</div>
 	<div class="container">
 		<table class="table">
@@ -62,7 +62,7 @@
 						<tr>
 							<td style="text-align: center;">${userBoardVO.uboard_id}</td>
 							<td><a
-								href="${pageContext.request.contextPath}/user/userBoardView/${userBoardVO.uboard_id}">${userBoardVO.uboard_title}</a></td>
+								href="${pageContext.request.contextPath}/user/userBoard/View/${userBoardVO.uboard_id}">${userBoardVO.uboard_title}</a></td>
 							<td style="text-align: center;"><fmt:formatDate
 									value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>

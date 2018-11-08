@@ -16,7 +16,7 @@ public class UserBoardViewController {
 	@Autowired
 	private UserBoardViewService userBoardViewService;
 
-	@RequestMapping("user/userBoardView/{uboard_id}")
+	@RequestMapping("user/userBoard/View/{uboard_id}")
 	public String getUserBoardViewC(@PathVariable("uboard_id") int uboard_id, Model model) throws Exception {
 
 		UserBoardVO userboardVO = userBoardViewService.getUserBoardViewS(uboard_id);

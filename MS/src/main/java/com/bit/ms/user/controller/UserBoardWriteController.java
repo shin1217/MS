@@ -10,7 +10,7 @@ import com.bit.ms.user.service.UserBoardService;
 import com.bit.ms.user.service.UserBoardWriteService;
 
 @Controller
-@RequestMapping("/user/userBoardWrite")
+@RequestMapping("/user/userBoard/Write")
 public class UserBoardWriteController {
 
 	@Autowired

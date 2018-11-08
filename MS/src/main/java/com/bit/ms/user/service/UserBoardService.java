@@ -17,26 +17,26 @@ public class UserBoardService {
 	@Autowired
 	private SqlSessionTemplate sessionTemplate;
 
-	private UserDaoInterface userBoardDaoInterface;
+	private UserDaoInterface userDaoInterface;
 
 	// 페이지마다 보여줄 게시글의 수
 	private static final int USERBOARD_COUNT_PER_PAGE = 10;
 
 	public UserBoardListVO getUserBoardList(int pageNum) {
 
-		userBoardDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
 		int currentPageNum = pageNum;
 
 		// 전체 게시글 구하기
-		int userBoardTotalCount = userBoardDaoInterface.UserBoardPageCount();
+		int userBoardTotalCount = userDaoInterface.UserBoardTotalCount();
 
 		List<UserBoardVO> userBoardList = null;
 		int firstRow = 0;
 
 		if (userBoardTotalCount > 0) {
 			firstRow = (pageNum - 1) * USERBOARD_COUNT_PER_PAGE + 1;
-			userBoardList = userBoardDaoInterface.UserBoardSelectList(firstRow - 1); // mysql은 0열부터 시작 -1을 해줌
+			userBoardList = userDaoInterface.UserBoardSelectList(firstRow - 1); // mysql은 0열부터 시작 -1을 해줌
 		} else {
 			currentPageNum = 0;
 			userBoardList = Collections.emptyList();

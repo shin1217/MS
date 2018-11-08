@@ -12,9 +12,10 @@
 
 	</select>
 
-	<select id="UserBoardPageCount" resultType="int">
+	<select id="UserBoardTotalCount" resultType="int">
 
-		select count(*) from userboard;
+		select count(*) from
+		userboard;
 
 	</select>
 
@@ -34,6 +35,12 @@
 		userboard where uboard_id=#{uboard_id};
 
 	</select>
+
+	<delete id="UserBoardDeleteI" parameterType="UserBoardVO">
+		delete from
+		userboard
+		where uboard_id=#{uboard_id};
+	</delete>
 
 
 </mapper>
