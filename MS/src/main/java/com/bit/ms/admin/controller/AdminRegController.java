@@ -11,24 +11,23 @@ import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.service.AdminRegService;
 
 @Controller
-@RequestMapping(value = "/admin/reg")
 public class AdminRegController {
 
 	@Autowired
 	AdminRegService reg_service;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/reg", method = RequestMethod.GET)
 	public String adminReg() {
 
 		return "admin/adminReg";
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/reg", method = RequestMethod.POST)
 	public String adminRegPass(AdminVO adminVO) {
 		
 		reg_service.adminReg_service(adminVO);
 		
-		return "redirect:/";
+		return "redirect:/admin";
 	}
 	
 	// 아이디 중복 체크
@@ -36,7 +35,9 @@ public class AdminRegController {
 	@ResponseBody
 	public int idCheck(@RequestParam("adminId") String admin_id) {
 		
+		int result = 0;
+		result = reg_service.adminIdCheck(admin_id);
 		
-		return 1;
+		return result;
 	}
 }

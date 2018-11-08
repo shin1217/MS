@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace - 인터페이스에 있는 패키지 명 + 인터페이스 명 -->
-<mapper namespace="com.bit.ms.admin.dao.AdminDaoInterface">
+<mapper namespace="com.bit.ms.dao.AdminDaoInterface">
 
 	<!-- Admin 회원가입 -->
-	<insert id="regUser" parameterType="AdminVO">
+	<insert id="regAdmin" parameterType="AdminVO">
 
 		insert into admininfo (admin_id, admin_pw, admin_name, admin_phone,
 		admin_birth, store_id)
@@ -17,7 +17,7 @@
 	<!-- Admin 아이디 중복 검사 -->
 	<select id="checkOverId" parameterType="String" resultType="int">
 
-		select count(*) from adimininfo where admin_id = #{admin_id}
+		select count(*) from admininfo where admin_id = #{admin_id}
 
 	</select>
 

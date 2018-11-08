@@ -134,11 +134,10 @@ body {
 	$("#admin_id")
 			.blur(
 					function() {
-						// id = "id_reg" / name = "userId"
+						// id = "id_reg" / name = "admin_id"
 						$
 								.ajax({
-									url : '${pageContext.request.contextPath}/admin/idCheck?adminId='
-											+ $("#admin_id").val(),
+									url : '${pageContext.request.contextPath}/admin/idCheck?adminId='+$("#admin_id").val(),
 									type : 'get',
 									success : function(data) {
 										console.log("1 = 중복o / 0 = 중복x : "

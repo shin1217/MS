@@ -23,4 +23,14 @@ public class AdminRegService {
 		
 		return result;
 	}
+
+	// 아이디 중복 체크
+	public int adminIdCheck(String admin_id) {
+
+		int result = 0;
+		adminDao = adminSqlSession.getMapper(AdminDaoInterface.class);
+		result = adminDao.checkOverId(admin_id);
+		
+		return result;
+	}
 }
