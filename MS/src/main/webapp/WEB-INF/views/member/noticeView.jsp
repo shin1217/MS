@@ -148,15 +148,13 @@
 		getAllList();
 	});
 
-	var noid = '${view.notice_id}';
+	var notice_id = '${view.notice_id}';
 	var reply = '';
 
 	function getAllList() {
-		$
-				.ajax({
+		$.ajax({
 					type : 'get',
-					url : '${pageContext.request.contextPath}' + '/reply/all/'
-							+ noid,
+					url : '${pageContext.request.contextPath}' + '/reply/all/' + notice_id,
 					dataType : 'json',
 					success : function(data) {
 						$('#commentsNum').html(data.length + ' comments');
@@ -170,21 +168,20 @@
 											reply += '<img class="card-img-64 rounded-circle z-depth-1 d-flex mx-auto mb-3" src="https://post-phinf.pstatic.net/MjAxODAzMjJfMjY4/MDAxNTIxNzAxODU2MTQy.V91kaps6gaHaHS6JhzoHGT98PuoEv8kSz3zjgWT4kOAg.ffqd0efJQR_23lCWLTjDfjS3Hd-jfqEjSxNLCilQMScg.JPEG/%EC%88%98%EB%A7%8C%EA%B0%80%EC%A7%80%ED%91%9C%EC%A0%95%EC%9D%98%EB%A0%89%EC%8B%9C%EA%B3%A0%EC%96%91%EC%9D%B4_02.jpg?type=w1200">';
 											reply += '<div class="media-body text-center text-md-left ml-md-3 ml-0">';
 											reply += '<h5 class="font-weight-bold mt-0">';
-											/* reply += '<button id="replyDeleteBtn' + item.replyId +'" data-toggle="modal" data-target="#modalReplyDeleteForm" type="button" class="btn btn-danger px-3 float-right"><i class="fa fa-trash" aria-hidden="true"></i></button>'; */
 											reply += '<button id="replyDeleteBtn'
-													+ item.replyId
+													+ item.reply_id
 													+ '" onclick="replyDelete('
-													+ item.replyId
+													+ item.reply_id
 													+ ')" type="button" class="btn btn-danger px-3 float-right"><i class="fa fa-trash" aria-hidden="true"></i></button>';
 											reply += '<button id="replyEditBtn'
-													+ item.replyId
+													+ item.reply_id
 													+ '" onclick="replyEdit('
-													+ item.replyId
+													+ item.reply_id
 													+ ')" type="button" class="btn btn-primary px-3 float-right"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>';
 											reply += '<a class="text-default">'
 													+ item.nickName
 													+ '</a></h5>';
-											reply += '<input id="replyInput' + item.replyId +'" class="form-control w-75" value="'+ item.replyCon +'" style="border: 0px; background: white;" readonly="true"></input><hr /></div></div>';
+											reply += '<input id="replyInput' + item.reply_id +'" class="form-control w-75" value="'+ item.replyCon +'" style="border: 0px; background: white;" readonly="true"></input><hr /></div></div>';
 											$('#replyAllBody').html(reply);
 										});
 						reply = '';
@@ -201,9 +198,9 @@
 			url : '${pageContext.request.contextPath}' + '/reply',
 			dataType : 'text',
 			data : {
-				noId : noid,
-				nickName : nick,
-				replyCon : replyText
+				notice_id : notice_id,
+				admin_id : nick,
+				reply_con : replyText
 			},
 			success : function(data) {
 				console.log('댓글작성완료');
@@ -213,11 +210,11 @@
 		});
 	});
 
-	function replyDelete(replyId) {
+	function replyDelete(reply_id) {
 		$.ajax({
 			type : 'get',
 			url : '${pageContext.request.contextPath}' + '/reply/delete/'
-					+ replyId,
+					+ reply_id,
 			success : function(data) {
 				console.log('삭제확인');
 				getAllList();
@@ -233,8 +230,8 @@
 			url : '${pageContext.request.contextPath}' + '/reply/modify',
 			dataType : 'text',
 			data : {
-				replyId : reid,
-				replyCon : replyText
+				reply_id : reid,
+				reply_con : replyText
 			},
 			success : function(data) {
 				console.log('수정확인');
@@ -244,7 +241,6 @@
 	};
 
 	function replyEdit(reid) { //댓글수정 클릭시
-
 		$('#replyInput' + reid).attr("readonly", false);
 		$('#replyEditBtn' + reid).find('i').attr("class", "fa fa-check"); //댓글 수정클릭시 모양바뀜
 		$('#replyInput' + reid).focus();
