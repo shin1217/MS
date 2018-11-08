@@ -9,13 +9,14 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
+<link rel="stylesheet" href="../css/font.css" type="text/css">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-family: 'BMHANNAPro' !important;">
 	<a class="navbar-brand" href="${pageContext.request.contextPath}/admin/main"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 80px;"/></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
   	</button>
-	<div class="collapse navbar-collapse" id="navbarNav" style="font-size: 1.5em">
+	<div class="collapse navbar-collapse" id="navbarNav" style="font-size: 1.8em">
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/adminMypage">내정보</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice?page=1">공지사항</a></li>
