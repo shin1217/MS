@@ -38,7 +38,7 @@ body {
 
 .full {
 	background-image:
-		url("<%=request.getContextPath()%>/images/userLogin_back.jpg");
+		url("<%=request.getContextPath()%>/images/login-back.jpg");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -59,14 +59,15 @@ body {
 </head>
 <body>
 	<div class="full">
-		<div style="float: right; margin-top: 30px; margin-right: 30px;">
-			<a href="admin"> <img
-				src="${pageContext.request.contextPath}/images/admin_setting.png"
+		<div class="wow flipInY"
+			style="float: right; margin-top: 30px; margin-right: 30px;">
+			<a href="${pageContext.request.contextPath}/admin"> <img
+				src="${pageContext.request.contextPath}/images/adminLogin-move.png"
 				style="height: 50px;" />
 			</a>
 		</div>
 		<div class="container">
-			<div class="area_inputs wow fadeIn">
+			<div class="area_inputs wow fadeIn" data-wow-delay="0.3s">
 				<form action="${pageContext.request.contextPath}/user/main"
 					method="get">
 					<div class="form-group">
