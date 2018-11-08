@@ -19,18 +19,25 @@
 .table {
 	table-layout: fixed;
 }
+
 .userBoard_header {
 	overflow: hidden;
 	width: 1140px;
 	margin: 0 auto;
+}
+
+.hypertext_none {
+	color: black;s
+	text-decoration: none;
 }
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/userHeader.jsp"%>
 	<div class="userBoard_header">
-		<br>
-		<h1>유저게시판</h1>
+		<br> <a class="nav-link"
+			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1>유저게시판</h1></a>
+
 		<a id="write" class="btn btn-outline-elegant waves-effect"
 			href="${pageContext.request.contextPath}/user/userBoardWrite">글쓰기</a>
 	</div>

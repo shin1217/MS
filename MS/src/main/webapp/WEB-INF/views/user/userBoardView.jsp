@@ -46,17 +46,15 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/userHeader.jsp"%>
 	<div class="userBoardView_header">
-		<br>
-		<h1>유저게시판</h1>
+		<br> <a class="nav-link"
+			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1>유저게시판</h1></a>
+
 		<a id="write" class="btn btn-outline-elegant waves-effect"
 			href="${pageContext.request.contextPath}/user/userBoardWrite">글쓰기</a>
 	</div>
 	<table class="container">
-
 		<thead>
-
 			<tr class="row">
-
 				<th class="col-sm-3" colspan="3">
 					<h3 style="color: #1e1e1e;">
 						<strong>${userboardvo.uboard_title}</strong>
