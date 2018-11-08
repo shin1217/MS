@@ -12,4 +12,6 @@ public interface UserBoardDaoInterface {
 
 	int insertUserBoard(UserBoardVO userBoardVO);
 
+	UserBoardVO getUserBoardViewI(int uboard_id);
+
 }

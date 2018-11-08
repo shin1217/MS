@@ -7,7 +7,7 @@
 	<select id="UserBoardSelectList" resultType="UserBoardVO">
 
 		select * from
-		userBoard order
+		userboard order
 		by uboard_id desc limit #{firstRow}, 10;
 
 	</select>
@@ -15,7 +15,7 @@
 	<select id="UserBoardPageCount" resultType="int">
 
 		select count(*) from
-		userBoard;
+		userboard;
 
 	</select>
 
@@ -23,10 +23,18 @@
 		useGeneratedKeys="true" keyProperty="uboard_id">
 
 		insert into
-		userBoard(uboard_title, uboard_con)
-		values(#{uboard_title}, #{uboard_con})
+		userboard(uboard_title, uboard_con)
+		values(#{uboard_title},
+		#{uboard_con})
 
 	</insert>
+
+	<select id="getUserBoardViewI" resultType="UserBoardVO">
+
+		select * from
+		userboard where uboard_id=#{uboard_id};
+
+	</select>
 
 
 </mapper>

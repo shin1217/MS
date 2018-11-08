@@ -42,7 +42,7 @@ public class UserBoardService {
 			userBoardList = Collections.emptyList();
 		}
 
-		int userBoardPageTotalCount = (userBoardTotalCount / USERBOARD_COUNT_PER_PAGE) + 1;// 페이지 수
+		int userBoardPageTotalCount = ((userBoardTotalCount - 1) / USERBOARD_COUNT_PER_PAGE) + 1;// 페이지 수
 
 		return new UserBoardListVO(userBoardList, userBoardTotalCount, currentPageNum, userBoardPageTotalCount,
 				USERBOARD_COUNT_PER_PAGE, firstRow);
