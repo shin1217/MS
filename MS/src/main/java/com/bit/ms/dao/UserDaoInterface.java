@@ -37,5 +37,8 @@ public interface UserDaoInterface {
 	public UserBoardVO getUserBoardViewI(int uboard_id);
 
 	public int UserBoardDeleteI(int uboard_id);
+	
+	/*시간충전*/
+	public int addTime(long addTime, String userId);
 
 }

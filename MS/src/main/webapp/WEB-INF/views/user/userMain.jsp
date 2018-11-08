@@ -16,7 +16,7 @@
 .left_area {
 	width: 30%;
 	padding-top: 3%;
-	padding-left: 6%;
+	padding-left: 4%;
 	float: left;
 }
 
@@ -66,7 +66,7 @@
 	text-align: left;
 }
 
-/* 쪽지함 */
+/* 쪽지함(부트스트랩) */
 .btn-mdb-color {
 	position: relative;
 	top: 90%;
@@ -218,7 +218,8 @@
 			var seatId = $(seatObj).attr('id'); // 좌석 번호
 			
 			$.ajax({
-				url: '<%=request.getContextPath()%>/user/addTime?addTime=' + addTime + '&seatId=' + seatId, 
+				// 로그인한 아이디와 남은 시간, 충전 시간을 파라미터로 넘겨줌.
+				url: '<%=request.getContextPath()%>/user/addTime?addTime=' + addTime + '&userId=${userSession.user_id}&userTime=${userSession.user_time}', 
 				type: 'get',
 				
 				success:function(data){
@@ -229,7 +230,7 @@
 				} /* end success */
 			}); /* end ajax */
 			
-
+			
 			$(seatObj).css({
 				'font-size' : 25,
 				'color' : 'white',
