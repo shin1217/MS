@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bit.ms.member.dao.UserBoardDaoInterface;
+import com.bit.ms.dao.UserDaoInterface;
 import com.bit.ms.user.model.UserBoardListVO;
 import com.bit.ms.user.model.UserBoardVO;
 
@@ -17,14 +17,14 @@ public class UserBoardService {
 	@Autowired
 	private SqlSessionTemplate sessionTemplate;
 
-	private UserBoardDaoInterface userBoardDaoInterface;
+	private UserDaoInterface userBoardDaoInterface;
 
 	// 페이지마다 보여줄 게시글의 수
 	private static final int USERBOARD_COUNT_PER_PAGE = 10;
 
 	public UserBoardListVO getUserBoardList(int pageNum) {
 
-		userBoardDaoInterface = sessionTemplate.getMapper(UserBoardDaoInterface.class);
+		userBoardDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
 		int currentPageNum = pageNum;
 

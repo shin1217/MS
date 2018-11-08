@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bit.ms.member.dao.UserBoardDaoInterface">
+<mapper namespace="com.bit.ms.dao.UserDaoInterface">
 
 	<select id="UserBoardSelectList" resultType="UserBoardVO">
 
@@ -14,8 +14,7 @@
 
 	<select id="UserBoardPageCount" resultType="int">
 
-		select count(*) from
-		userboard;
+		select count(*) from userboard;
 
 	</select>
 

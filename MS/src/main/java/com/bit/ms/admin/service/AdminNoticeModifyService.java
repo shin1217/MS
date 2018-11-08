@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.ms.admin.model.NoticeVO;
-import com.bit.ms.member.dao.MemberNoticeDaoInterface;
+import com.bit.ms.dao.MemberDaoInterface;
 
 @Service
 public class AdminNoticeModifyService {
@@ -14,12 +14,12 @@ public class AdminNoticeModifyService {
 	@Autowired
 	SqlSessionTemplate sessionTemplate;
 	
-	MemberNoticeDaoInterface daoInterface;
+	MemberDaoInterface daoInterface;
 	
 	@Transactional
 	public void noticeModify(NoticeVO noticeVO) {
 		
-		daoInterface = sessionTemplate.getMapper(MemberNoticeDaoInterface.class);
+		daoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
 		
 		try {
 			daoInterface.updateNotice(noticeVO);

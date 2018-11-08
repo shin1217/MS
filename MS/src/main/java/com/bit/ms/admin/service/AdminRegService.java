@@ -4,8 +4,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bit.ms.admin.dao.AdminDaoInterface;
 import com.bit.ms.admin.model.AdminVO;
+import com.bit.ms.dao.AdminDaoInterface;
 
 @Service
 public class AdminRegService {

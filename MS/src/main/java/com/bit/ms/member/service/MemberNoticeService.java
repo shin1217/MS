@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.admin.model.NoticeVO;
-import com.bit.ms.member.dao.MemberNoticeDaoInterface;
+import com.bit.ms.dao.MemberDaoInterface;
 import com.bit.ms.member.model.NoticeListVO;
 
 @Service
@@ -17,13 +17,13 @@ public class MemberNoticeService {
 	@Autowired
 	private SqlSessionTemplate sessionTemplate;
 
-	private MemberNoticeDaoInterface daoInterface;
+	private MemberDaoInterface daoInterface;
 
 	// 페이지마다 보여줄 게시글의 수
 	private static final int NOTICE_COUNT_PER_PAGE = 10;
 
 	public NoticeListVO getNoticeList(int pageNum) throws Exception {
-		daoInterface = sessionTemplate.getMapper(MemberNoticeDaoInterface.class);
+		daoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
 
 		int currentPageNum = pageNum;
 

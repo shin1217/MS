@@ -15,7 +15,7 @@
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
   	</button>
-	<div class="collapse navbar-collapse" id="navbarNav">
+	<div class="collapse navbar-collapse" id="navbarNav" style="font-size: 1.5em">
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userMypage">내정보</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice?page=1">공지사항</a></li>

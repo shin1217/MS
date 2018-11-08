@@ -2,36 +2,30 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bit.ms.member.dao.MemberReplyDaoInterface">
+<mapper namespace="com.bit.ms.dao.MemberDaoInterface">
 
+	<!-- 공지사항 댓글 -->
 	<select id="replyList" resultType="replyVO">
-
 		select *
 		from noticereply
 		where notice_id = #{notice_id}
 		order by reply_id
-
 	</select>
 
 	<insert id="insertReply" parameterType="replyVO">
-
 		insert into noticereply(notice_id, admin_id, reply_con)
 		values (#{notice_id}, #{admin_id}, #{reply_con})
-
 	</insert>
 
-
 	<update id="updateReply" parameterType="replyVO">
-
 		update noticereply set reply_con =#{reply_con}
 		where reply_id = #{reply_id};
-
 	</update>
 
 	<delete id="deleteReply" parameterType="int">
-
 		delete noticereply
 		where reply_id = #{reply+id}
-
 	</delete>
+	
+	
 </mapper>
