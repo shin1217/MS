@@ -230,7 +230,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/userHeader.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	
 	<div class="container">
       <h1 class = "adminMypage_title">마이 페이지</h1>

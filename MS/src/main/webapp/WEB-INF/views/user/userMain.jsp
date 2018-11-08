@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Management System</title>
+<title>MS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 * {
@@ -124,7 +124,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/userHeader.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 	<div class="userMain_container">
 		<div class="left_area">

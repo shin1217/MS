@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>MS</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/userHeader.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<h1>유저 음식 주문</h1>
 </body>
 </html>

@@ -23,7 +23,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/adminHeader.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="userBoard_header">
 		<br> <a class="nav-link"
 			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1

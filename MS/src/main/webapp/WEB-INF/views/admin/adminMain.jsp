@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Management System</title>
+<title>MS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/adminHeader.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<h1>관리자 메인페이지입니다.</h1>
 </body>
 </html>

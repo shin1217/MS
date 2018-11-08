@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/adminHeader.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container">
 		<form class="text-center p-5" method="post" >
 			<input type="text" class="form-control" placeholder="제목" name="notice_title">
