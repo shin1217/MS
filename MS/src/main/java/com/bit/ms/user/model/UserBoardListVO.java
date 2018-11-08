@@ -31,16 +31,6 @@ public class UserBoardListVO {
 		this.firstRow = firstRow;
 	}
 
-	public UserBoardListVO(List<UserBoardVO> userBoardList, int userBoardTotalCount, int currentPageNum,
-			int userBoardCountPerPage, int firstRow) {
-		super();
-		UserBoardTotalCount = userBoardTotalCount;
-		this.currentPageNum = currentPageNum;
-		this.userBoardList = userBoardList;
-		this.userBoardCountPerPage = userBoardCountPerPage;
-		this.firstRow = firstRow;
-	}
-
 	public int getUserBoardTotalCount() {
 		return UserBoardTotalCount;
 	}

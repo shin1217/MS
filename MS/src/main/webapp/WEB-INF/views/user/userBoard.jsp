@@ -45,7 +45,8 @@
 					<c:forEach var="userBoardVO" items="${userboardlist.userBoardList}">
 						<tr>
 							<td>${userBoardVO.uboard_title}</td>
-							<td>${userBoardVO.uboard_date}</td>
+							<td style="text-align: center;"><fmt:formatDate
+									value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd" /></td>
 						</tr>
 					</c:forEach>
 				</c:if>

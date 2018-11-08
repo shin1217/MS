@@ -6,7 +6,8 @@
 
 	<select id="UserBoardSelectList" resultType="UserBoardVO">
 
-		select * from userBoard order
+		select * from
+		userBoard order
 		by uboard_id desc limit #{firstRow}, 10;
 
 	</select>
@@ -17,6 +18,15 @@
 		userBoard;
 
 	</select>
+
+	<insert id="insertUserBoard" parameterType="UserBoardVO"
+		useGeneratedKeys="true" keyProperty="uboard_id">
+
+		insert into
+		userBoard(uboard_title, uboard_con)
+		values(#{uboard_title}, #{uboard_con})
+
+	</insert>
 
 
 </mapper>

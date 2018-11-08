@@ -10,4 +10,6 @@ public interface UserBoardDaoInterface {
 
 	int UserBoardPageCount();
 
+	int insertUserBoard(UserBoardVO userBoardVO);
+
 }
