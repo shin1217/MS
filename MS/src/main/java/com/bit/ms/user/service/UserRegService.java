@@ -18,8 +18,6 @@ public class UserRegService {
 	
 	public int userReg_service(UserVO userVO) {
 		
-		System.out.println("서비스 콘솔 확인");
-		
 		int resultCnt = 0;
 		
 		userDao = userSqlSessin.getMapper(UserDaoInterface.class);
