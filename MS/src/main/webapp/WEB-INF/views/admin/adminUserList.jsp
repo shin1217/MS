@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <style>
 .container {
 	margin-top: 20px;
@@ -17,7 +19,7 @@
 
 	<div class="container">
 		<h1>회원목록</h1>
-		<table class="table table-striped table-bordered">
+		<table id="userListTable" class="table table-striped table-bordered">
 			<thead>
 				<tr>
 					<th class="th-sm"><i class="fa fa-sort float-right" aria-hidden="true"></i>회원아이디</th>
@@ -41,4 +43,9 @@
 		</table>
 	</div>
 </body>
+<script>
+	$(document).ready(function() {
+	    $('#userListTable').DataTable();
+	} );
+</script>
 </html>

@@ -62,7 +62,7 @@ body {
 	<div class="full">
 		<div style="float: right; margin-top: 30px; margin-right: 30px;">
 			<a href="admin"> <img
-				src="${pageContext.request.contextPath}/images/admin_setting2.png"
+				src="${pageContext.request.contextPath}/images/admin_setting.png"
 				style="height: 50px;" />
 			</a>
 		</div>
