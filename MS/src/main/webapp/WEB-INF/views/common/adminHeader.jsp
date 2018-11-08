@@ -27,7 +27,7 @@
 					<a class="dropdown-item" href="#">좌석관리</a>
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/user/userBoard">유저게시판</a>
 				</div></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin">로그아웃</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/meber/logout">로그아웃</a></li>
 		</ul>
 	</div>
 </nav>

@@ -80,11 +80,11 @@
 			<div class="text-center my-4">
 				<button id="commentSubmit"
 					class="btn btn-default btn-sm btn-rounded">댓글 입력</button>
-				<c:if test="${adminVO.adminId != null}">
+				<c:if test="${adminVO.admin_id != null}">
 					<!-- 세션에 userId가 존재하면 hidden에 넣어줌(댓글이름에 사용) -->
 					<input id="nick" type="hidden" value="${adminVO.admin_id}" />
 				</c:if>
-				<c:if test="${userVO.userId != null}">
+				<c:if test="${userVO.user_id != null}">
 					<!-- 세션에 userI가 존재하면 hidden에 넣어줌(댓글이름에 사용) -->
 					<input id="nick" type="hidden" value="${userVO.user_id}" />
 				</c:if>
