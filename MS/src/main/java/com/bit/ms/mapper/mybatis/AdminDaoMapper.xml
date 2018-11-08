@@ -4,6 +4,15 @@
 <!-- namespace - 인터페이스에 있는 패키지 명 + 인터페이스 명 -->
 <mapper namespace="com.bit.ms.admin.dao.AdminDaoInterface">
 
+	<!-- Admin 회원가입 -->
+	<insert id="regUser" parameterType="AdminVO">
+	
+	insert into admininfo (admin_id, admin_pw, admin_name, admin_phone, admin_birth, store_id)
+	values (#{admin_id}, #{admin_pw}, #{admin_name}, #{admin_phone}, #{admin_birth}, #{store_id})
+	
+	</insert>
+
+	<!-- 회원 리스트 뽑기 -->
    <select id="getUserList" resultType="userVO">
    
    		select * from userinfo
