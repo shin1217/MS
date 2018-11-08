@@ -5,23 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.member.dao.UserDaoInterface;
-import com.bit.ms.member.model.UserVO;
-
 
 @Service
-public class UserMyPageService {
+public class UserDeleteService {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	  
+	
 	private UserDaoInterface userDao;
-	   
-	public UserVO getMyPage(String user_id) {
+	
+	public int deleteUser(String user_id) {
 		
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
+		return userDao.deleteUser(user_id);
 		
-		UserVO userData = userDao.getMyPage(user_id);
-		
-		return userData;
 	}
+	
 }

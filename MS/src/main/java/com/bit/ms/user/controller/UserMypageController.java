@@ -21,8 +21,6 @@ public class UserMypageController {
 	public String userMypage(HttpSession session, Model model) {
 		
 		String result;
-
-		try {
 			
 		UserVO userData = (UserVO) session.getAttribute("userVO");
 		
@@ -30,13 +28,7 @@ public class UserMypageController {
 		
 		model.addAttribute("user",service.getMyPage(userId));
 		
-		result = "user/myPage";
-			
-		} catch(Exception e) {
-			
-			result = "redirect:/";
-			
-		}
+		result = "user/userMypage";
 		
 		return result;
 	}

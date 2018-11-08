@@ -35,21 +35,21 @@
    <!-- 내 정보 얻어오기 -->
    <select id="getMyPage" resultType="userVO">
 
-      select * from user where userid = #{userId}
+      select * from userInfo where user_id = #{user_id}
    </select>
 
    <!-- 내 정보 수정 -->
    <update id="editUser" parameterType="userVO">
 
-      update user set userpw = #{userPw}, username = #{userName}, userphone =
-      #{userPhone}, userbirth = #{userBirth}
-      where userid = #{userId}
+      update userinfo set user_pw = #{user_pw}, user_name = #{user_name}, user_phone =
+      #{user_phone}, user_birth = #{user_birth}
+      where user_id = #{user_id}
 
    </update>
 
    <!-- 유저 삭제 -->
    <delete id="deleteUser">
-      delete from user where userid = #{userId}
+      delete from userinfo where user_id = #{user_id}
 
    </delete>
    

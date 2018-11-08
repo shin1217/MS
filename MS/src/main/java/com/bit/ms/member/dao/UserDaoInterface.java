@@ -20,13 +20,13 @@ public interface UserDaoInterface {
 	public UserVO searchPw(String userId);
 	
 	// 마이페이지 메서드
-	public UserVO getMyPage(String userId);
+	public UserVO getMyPage(String user_id);
 	
 	// 유저 수정
-	public int editUser(UserVO user);
+	public int editUser(UserVO userVo);
 
 	// 유저 삭제
-	public int deleteUser(String userId);
+	public int deleteUser(String user_id);
 	
 	// 주문 정보
 	public int insertOrder(OrderVO order);
