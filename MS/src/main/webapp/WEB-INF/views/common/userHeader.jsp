@@ -10,19 +10,23 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 <link rel="stylesheet" href="../css/font.css" type="text/css">
-
+<style>
+.navbar-nav li {
+	margin-left: 20px;
+}
+</style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-family: 'BMHANNAPro' !important;">
-	<a class="navbar-brand" href="${pageContext.request.contextPath}/user/main"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 80px;"/></a>
+	<a class="navbar-brand" href="${pageContext.request.contextPath}/user/main"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 80px; margin-left: 10px;"/></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
   	</button>
 	<div class="collapse navbar-collapse" id="navbarNav" style="font-size: 1.8em">
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userMypage">내정보</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice?page=1">공지사항</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userOrders">음식주문</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userBoard?page=1">유저게시판</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userMypage"><i class="fa fa-address-card-o" aria-hidden="true"></i>내정보</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice?page=1"><i class="fa fa-bullhorn" aria-hidden="true"></i>공지사항</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userOrders"><i class="fa fa-cutlery" aria-hidden="true"></i>음식주문</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userBoard?page=1"><i class="fa fa-comments" aria-hidden="true"></i>유저게시판</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout"><i class="fa fa-unlock-alt" aria-hidden="true"></i>로그아웃</a></li>
 		</ul>
 	</div>
 </nav>
