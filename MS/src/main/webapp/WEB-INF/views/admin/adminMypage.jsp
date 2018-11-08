@@ -252,7 +252,7 @@
                	  <th>매장정보</th>
                	  <td class = "adminMypage_management">
                   	<c:forEach var = "store" items = "${store}">
-                  		<input type = "button" class = "adminMypage_storeName" value = "${store.store_name}">
+                  		<input type = "button" class = "adminMypage_storeName" id = "adminMypage_storeName" value = "${store.store_name}">
                   	</c:forEach>
                   	<span id = "adminMypage_addStore" class = "adminMypage_addStore">+</span>
                   </td>
@@ -350,7 +350,25 @@
         	 
          });
          
-         $('#')
+         //매장정보에 마우스오버시 매장에 대한 정보가 뜸
+         $('#adminMypage_storeName').each(function(index,item){
+        	 
+        	 $('#adminMypage_storeName').mouseover(function(){
+        	 
+        		 var store_name = $('#adminMypage_storeName').val();
+        	 
+        		 $.ajax({
+        		 
+        			 url : '${pageContext.request.contextPath}' + '/admin/adminMypage?store=' + store_name,
+        			 success : function(data){
+        				 console.log(data);
+        			 }
+        		 });
+        	 
+        	 });
+         });
+         
+         
          //모달창에서 삭제확인버튼클릭시 로그인페이지로 이동
          $('#adminMypage_deleteOkBtn').click(function(){
         	 $.ajax({

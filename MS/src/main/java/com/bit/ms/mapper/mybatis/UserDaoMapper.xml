@@ -35,7 +35,7 @@
    <!-- 내 정보 얻어오기 -->
    <select id="getMyPage" resultType="userVO">
 
-      select * from userInfo where user_id = #{user_id}
+      select * from userinfo where user_id = #{user_id}
    </select>
 
    <!-- 내 정보 수정 -->

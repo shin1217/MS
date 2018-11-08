@@ -30,5 +30,6 @@ public class AdminMypageController {
 		
 		return "admin/adminMypage";
 	}
+	
 
 }
