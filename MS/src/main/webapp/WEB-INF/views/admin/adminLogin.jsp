@@ -61,7 +61,7 @@ body {
 	<div class="full">
 		<div class="wow flipInY"
 			style="float: right; margin-top: 30px; margin-right: 30px;">
-			<a href="${pageContext.request.contextPath}"> <img
+			<a href="${pageContext.request.contextPath}/"> <img
 				src="${pageContext.request.contextPath}/images/back-arrow.png"
 				style="height: 50px;" />
 			</a>
