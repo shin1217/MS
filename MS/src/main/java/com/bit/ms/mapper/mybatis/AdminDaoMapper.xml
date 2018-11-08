@@ -20,6 +20,13 @@
 		select count(*) from admininfo where admin_id = #{admin_id}
 
 	</select>
+	
+	<!-- Admin 로그인 -->
+	<select id="loginAdmin" resultType="adminVO">
+			
+		select * from admininfo where admin_id = #{admin_id}
+			
+	</select>
 
 	<!-- 회원 리스트 뽑기 -->
 	<select id="getUserList" resultType="userVO">

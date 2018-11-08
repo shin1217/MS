@@ -68,8 +68,7 @@ body {
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn" data-wow-delay="0.3s">
-				<form action="${pageContext.request.contextPath}/admin/main"
-					method="get">
+				<form method="post">
 					<div class="form-group">
 						<label class="font-weight-bold text-white" for="inputId">아이디</label>
 						<div>
