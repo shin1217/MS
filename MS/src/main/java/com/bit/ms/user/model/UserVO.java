@@ -1,4 +1,4 @@
-package com.bit.ms.member.model;
+package com.bit.ms.user.model;
 
 import org.apache.ibatis.type.Alias;
 

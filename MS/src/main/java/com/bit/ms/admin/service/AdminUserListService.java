@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.admin.dao.AdminDaoInterface;
-import com.bit.ms.member.model.UserVO;
+import com.bit.ms.user.model.UserVO;
 
 @Service
 public class AdminUserListService {

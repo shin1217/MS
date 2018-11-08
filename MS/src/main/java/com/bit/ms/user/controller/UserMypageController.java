@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bit.ms.member.model.UserVO;
+import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserMyPageService;
 
 

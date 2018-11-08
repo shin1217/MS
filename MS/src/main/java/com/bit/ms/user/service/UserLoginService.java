@@ -7,21 +7,20 @@ import org.springframework.stereotype.Service;
 import com.bit.ms.member.dao.UserDaoInterface;
 import com.bit.ms.user.model.UserVO;
 
-
 @Service
-public class UserMyPageService {
+public class UserLoginService {
 
 	@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;
-	  
+	private SqlSessionTemplate userSqlSession;
 	private UserDaoInterface userDao;
-	   
-	public UserVO getMyPage(String user_id) {
+	
+	public boolean userLogin_service(UserVO userVO) {
 		
-		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
+		boolean result = false;
+		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		
-		UserVO userData = userDao.getMyPage(user_id);
 		
-		return userData;
+		
+		return result;
 	}
 }

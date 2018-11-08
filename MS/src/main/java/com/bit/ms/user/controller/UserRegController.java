@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.ms.member.model.UserVO;
+import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserIdCheckService;
 import com.bit.ms.user.service.UserRegService;
 

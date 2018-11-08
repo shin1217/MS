@@ -3,7 +3,7 @@ package com.bit.ms.member.dao;
 import java.sql.SQLException;
 
 import com.bit.ms.member.model.OrderVO;
-import com.bit.ms.member.model.UserVO;
+import com.bit.ms.user.model.UserVO;
 
 public interface UserDaoInterface {
 
@@ -11,7 +11,7 @@ public interface UserDaoInterface {
 	public int regUser(UserVO userVO) throws SQLException;
 	
 	// 유저 로그인 메서드
-	public UserVO loginUser(String userId);
+	public UserVO loginUser(String user_id);
 	
 	// 유저 ID 찾기
 	public UserVO searchId(String userPhone);
