@@ -12,6 +12,7 @@ import com.bit.ms.user.service.UserIdCheckService;
 import com.bit.ms.user.service.UserRegService;
 
 @Controller
+@RequestMapping(value = "/user/reg")
 public class UserRegController {
 
 	@Autowired
@@ -19,13 +20,13 @@ public class UserRegController {
 	@Autowired
 	private UserIdCheckService idcheck_service;
 
-	@RequestMapping(value = "/user/reg", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String userReg() {
 
 		return "user/userReg";
 	}
 
-	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public String userRegPass(UserVO userVO) {
 
 		userVO.setUser_email(userVO.getUser_email1() + "@" + userVO.getUser_email2()); // 이메일 앞뒤를 합쳐줌
@@ -38,7 +39,7 @@ public class UserRegController {
 	// id 중복 체크 컨트롤러
 	@RequestMapping(value = "/user/idCheck", method = RequestMethod.GET)
 	@ResponseBody
-	public int IdCheck(@RequestParam("userId") String user_id) {
+	public int idCheck(@RequestParam("userId") String user_id) {
 
 		return idcheck_service.userIdCheck(user_id);
 	}

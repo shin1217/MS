@@ -4,48 +4,65 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("adminVO")
 public class AdminVO {
-	private String adminId;
-	private String adminName;
-	private String adminPw;
+	private String admin_id;
+	private String admin_pw;
+	private String admin_name;
+	private String admin_phone;
+	private String admin_birth;
+	private int store_id;
 
-	public AdminVO() {
-
+	public String getAdmin_id() {
+		return admin_id;
 	}
 
-	public AdminVO(String adminId, String adminName, String adminPw) {
-
-		this.adminId = adminId;
-		this.adminName = adminName;
-		this.adminPw = adminPw;
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
 	}
 
-	public String getAdminId() {
-		return adminId;
+	public String getAdmin_pw() {
+		return admin_pw;
 	}
 
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
+	public void setAdmin_pw(String admin_pw) {
+		this.admin_pw = admin_pw;
 	}
 
-	public String getAdminName() {
-		return adminName;
+	public String getAdmin_name() {
+		return admin_name;
 	}
 
-	public void setAdminName(String adminName) {
-		this.adminName = adminName;
+	public void setAdmin_name(String admin_name) {
+		this.admin_name = admin_name;
 	}
 
-	public String getAdminPw() {
-		return adminPw;
+	public String getAdmin_phone() {
+		return admin_phone;
 	}
 
-	public void setAdminPw(String adminPw) {
-		this.adminPw = adminPw;
+	public void setAdmin_phone(String admin_phone) {
+		this.admin_phone = admin_phone;
+	}
+
+	public String getAdmin_birth() {
+		return admin_birth;
+	}
+
+	public void setAdmin_birth(String admin_birth) {
+		this.admin_birth = admin_birth;
+	}
+
+	public int getStore_id() {
+		return store_id;
+	}
+
+	public void setStore_id(int store_id) {
+		this.store_id = store_id;
 	}
 
 	@Override
 	public String toString() {
-		return "Admin [adminId=" + adminId + ", adminName=" + adminName + ", adminPw=" + adminPw + "]";
+		return "AdminVO [admin_id=" + admin_id + ", admin_pw=" + admin_pw + ", admin_name=" + admin_name
+				+ ", admin_phone=" + admin_phone + ", admin_birth=" + admin_birth + ", store_id=" + store_id + "]";
 	}
 
 }
