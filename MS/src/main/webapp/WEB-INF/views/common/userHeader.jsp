@@ -11,7 +11,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="${pageContext.request.contextPath}/user/main"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 100px;"/></a>
+	<a class="navbar-brand" href="${pageContext.request.contextPath}/user/main"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 80px;"/></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
   	</button>
@@ -20,7 +20,7 @@
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userMypage">내정보</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice?page=1">공지사항</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userOrders">음식주문</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userBoard">유저게시판</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userBoard?page=1">유저게시판</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
 		</ul>
 	</div>
