@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MS</title>
+<title>Management System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 * {
@@ -215,11 +215,10 @@
 			}
 			
 			var addTime = $('#select_add_time option:selected').val(); // 충전할 시간
-			var seatId = $(seatObj).attr('id'); // 좌석 번호
 			
 			$.ajax({
-				// 로그인한 아이디와 남은 시간, 충전 시간을 파라미터로 넘겨줌.
-				url: '<%=request.getContextPath()%>/user/addTime?addTime=' + addTime + '&userId=${userSession.user_id}&userTime=${userSession.user_time}', 
+				// 충전 시간을 파라미터로 넘겨줌.
+				url: '<%=request.getContextPath()%>/user/addTime?addTime=' + addTime, 
 				type: 'get',
 				
 				success:function(data){

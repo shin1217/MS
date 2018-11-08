@@ -1,5 +1,7 @@
 package com.bit.ms.user.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserAddTimeService;
 
 @Controller
@@ -17,14 +20,13 @@ public class UserAddTimeController {
 	
 	@RequestMapping(value="/user/addTime", method=RequestMethod.GET)
 	@ResponseBody
-	public int addTime(@RequestParam("addTime") long addTime,
-						@RequestParam("userTime") long userTime,
-						@RequestParam("userId") String userId){
+	public int addTime(HttpSession session, 
+						@RequestParam("addTime") long addTime){
 		
-		System.out.println("남은 시간 : " + userTime);
-		System.out.println("충전 시간 : " + addTime);
-		System.out.println("유저 아이디 " + userId);
+		UserVO userVO =  (UserVO)session.getAttribute("userSession"); // 세션에 저장된 유저 객체 불러오기
+		userVO.setUser_time(addTime+userVO.getUser_time()); // 충전할 시간과 남은 시간 더해서 변경
+		session.setAttribute("userSession", userVO); // 변경된 유저 객체를 다시 세션에 저장
 		
-		return service.addTime((addTime+userTime), userId);
+		return service.addTime(userVO.getUser_time(), userVO.getUser_id());
 	}
 }
