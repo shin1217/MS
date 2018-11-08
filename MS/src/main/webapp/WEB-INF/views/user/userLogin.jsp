@@ -58,7 +58,6 @@ body {
 </style>
 </head>
 <body>
-
 	<div class="full">
 		<div style="float: right; margin-top: 30px; margin-right: 30px;">
 			<a href="admin"> <img
@@ -77,7 +76,6 @@ body {
 								placeholder="아이디">
 						</div>
 					</div>
-
 					<div class="form-group">
 						<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
 						<div>
