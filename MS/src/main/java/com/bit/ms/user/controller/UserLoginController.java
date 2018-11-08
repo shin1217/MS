@@ -29,9 +29,6 @@ public class UserLoginController {
 		
 		login_service.userLogin_service(user_id, user_pw, httpSession);
 		
-		System.out.println("컨트롤러 세션 확인 " + httpSession.getAttribute("userVO"));
-		
-		
 		return "redirect:/user/main";
 	}
 	
