@@ -6,48 +6,58 @@
 
 	<!-- Admin 회원가입 -->
 	<insert id="regUser" parameterType="AdminVO">
-	
-	insert into admininfo (admin_id, admin_pw, admin_name, admin_phone, admin_birth, store_id)
-	values (#{admin_id}, #{admin_pw}, #{admin_name}, #{admin_phone}, #{admin_birth}, #{store_id})
-	
+
+		insert into admininfo (admin_id, admin_pw, admin_name, admin_phone,
+		admin_birth, store_id)
+		values (#{admin_id}, #{admin_pw}, #{admin_name}, #{admin_phone},
+		#{admin_birth}, #{store_id})
+
 	</insert>
 
+	<!-- Admin 아이디 중복 검사 -->
+	<select id="checkOverId" parameterType="String" resultType="int">
+
+		select count(*) from adimininfo where admin_id = #{admin_id}
+
+	</select>
+
 	<!-- 회원 리스트 뽑기 -->
-   <select id="getUserList" resultType="userVO">
-   
-   		select * from userinfo
-   
-   </select>
-   
-   <!--관리자 정보가져오기  -->
-   <select id = "getAdminMyage" resultType = "AdminVO">
-   
-   		select * from admininfo where admin_id = #{admin_id}
-   	
-   </select>
-   
-   <!--관리자가 갖고있는 매장정보 가져오기  -->
-   <select id = "getStore" resultType = "storeVO">
-   
-   		select * from store where store_id in 
-   		(select store_id from admininfo where admin_id = #{admin_id})
-   
-   </select>
-   
-   <!--관리자 수정하기  -->
-   <update id="editAdmin" parameterType="AdminVO">
+	<select id="getUserList" resultType="userVO">
 
-      update admininfo set admin_pw = #{admin_pw}, admin_name = #{admin_name}, admin_phone =
-      #{admin_phone}, admin_birth = #{admin_birth}
-      where admin_id = #{admin_id}
+		select * from userinfo
 
-   </update>
-   
-   <!-- 관리자 삭제하기 -->
-   <delete id="deleteAdmin">
-   
-      delete from admininfo where admin_id = #{admin_id}
+	</select>
 
-   </delete>
-	
+	<!--관리자 정보가져오기 -->
+	<select id="getAdminMyage" resultType="AdminVO">
+
+		select * from admininfo where admin_id = #{admin_id}
+
+	</select>
+
+	<!--관리자가 갖고있는 매장정보 가져오기 -->
+	<select id="getStore" resultType="storeVO">
+
+		select * from store where store_id in
+		(select store_id from admininfo where admin_id = #{admin_id})
+
+	</select>
+
+	<!--관리자 수정하기 -->
+	<update id="editAdmin" parameterType="AdminVO">
+
+		update admininfo set admin_pw = #{admin_pw}, admin_name = #{admin_name},
+		admin_phone =
+		#{admin_phone}, admin_birth = #{admin_birth}
+		where admin_id = #{admin_id}
+
+	</update>
+
+	<!-- 관리자 삭제하기 -->
+	<delete id="deleteAdmin">
+
+		delete from admininfo where admin_id = #{admin_id}
+
+	</delete>
+
 </mapper>

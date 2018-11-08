@@ -8,25 +8,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.ms.user.model.UserVO;
-import com.bit.ms.user.service.UserIdCheckService;
 import com.bit.ms.user.service.UserRegService;
 
 @Controller
-@RequestMapping(value = "/user/reg")
 public class UserRegController {
 
 	@Autowired
 	private UserRegService reg_service;
-	@Autowired
-	private UserIdCheckService idcheck_service;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/user/reg", method = RequestMethod.GET)
 	public String userReg() {
 
 		return "user/userReg";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
 	public String userRegPass(UserVO userVO) {
 
 		userVO.setUser_email(userVO.getUser_email1() + "@" + userVO.getUser_email2()); // 이메일 앞뒤를 합쳐줌
@@ -41,6 +37,6 @@ public class UserRegController {
 	@ResponseBody
 	public int idCheck(@RequestParam("userId") String user_id) {
 
-		return idcheck_service.userIdCheck(user_id);
+		return reg_service.userIdCheck(user_id);
 	}
 }

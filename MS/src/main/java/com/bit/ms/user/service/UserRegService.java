@@ -15,11 +15,11 @@ public class UserRegService {
 	@Autowired
 	private SqlSessionTemplate userSqlSessin;
 	private UserDaoInterface userDao;
-	
+
 	public int userReg_service(UserVO userVO) {
-		
+
 		int resultCnt = 0;
-		
+
 		userDao = userSqlSessin.getMapper(UserDaoInterface.class);
 		try {
 			resultCnt = userDao.regUser(userVO);
@@ -27,7 +27,14 @@ public class UserRegService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return resultCnt;
+	}
+
+	public int userIdCheck(String user_id) {
+
+		userDao = userSqlSessin.getMapper(UserDaoInterface.class);
+
+		return userDao.checkOverId(user_id);
 	}
 }
