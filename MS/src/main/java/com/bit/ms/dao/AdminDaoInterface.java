@@ -17,5 +17,6 @@ public interface AdminDaoInterface {
 	public List<StoreVO> getStore(String admin_id);	// 관리자의 해당 매장정보를 가져오는
 	public int editAdmin(AdminVO adminVo);	// 관리자 수정
 	public int deleteAdmin(String admin_id);// 관리자 삭제
+	public StoreVO getStoreDetail(String store_name); //매장 상세정보
 
 }

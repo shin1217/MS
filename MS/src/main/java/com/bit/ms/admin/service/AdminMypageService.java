@@ -37,4 +37,11 @@ public class AdminMypageService {
 		
 		return list;
 	}
+	
+	public StoreVO getStoreDetail(String store_name) {
+		
+		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		
+		return adminDao.getStoreDetail(store_name);
+	}
 }

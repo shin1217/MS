@@ -20,7 +20,7 @@ public class UserMypageController {
 	@RequestMapping("/user/userMypage")
 	public String userMypage(HttpSession session, Model model) {
 		
-		UserVO userData = (UserVO) session.getAttribute("userVO");
+		UserVO userData = (UserVO) session.getAttribute("userSession");
 		
 		String userId = userData.getUser_id();
 		

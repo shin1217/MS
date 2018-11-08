@@ -36,7 +36,7 @@
 	</select>
 
 	<!--관리자 정보가져오기 -->
-	<select id="getAdminMyage" resultType="AdminVO">
+	<select id="getAdminMyage" resultType="adminVO">
 
 		select * from admininfo where admin_id = #{admin_id}
 
@@ -48,6 +48,13 @@
 		select * from store where store_id in
 		(select store_id from admininfo where admin_id = #{admin_id})
 
+	</select>
+	
+	<!--해당 매장에대한 상세정보  -->
+	<select id="getStoreDetail" resultType = "storeVO">
+	
+		select * from store where store_name = #{store_name}
+	
 	</select>
 
 	<!--관리자 수정하기 -->

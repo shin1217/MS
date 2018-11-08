@@ -10,7 +10,7 @@
    margin: 30px 20px;
    position : relative;
 }
-.adminMypage_adminTable th {
+.adminMypage_adminTable>tbody>tr>th {
    color: black;
    width : 240px;
    height : 80px;
@@ -21,7 +21,7 @@
    border-right : 2px solid darkgray;
    font-weight : bold;
 }
-.adminMypage_adminTable td {
+.adminMypage_adminTable>tbody>tr>td {
    width : 600px;
    color: black;
    border-top: 2px solid darkgray;
@@ -217,6 +217,16 @@
 	margin-right : 10px;
 	font-weight : bold;
 }
+.adminMypage_storeDetail{
+	border : 1px solid black;
+	position : absolute;
+	top : -180%;
+	left : 20px;
+}
+.adminMypage_management table>tbody>tr>th{
+	font-size : 20px;
+	font-weight : bold;
+}
 </style>
 </head>
 <body>
@@ -251,8 +261,8 @@
                <tr>
                	  <th>매장정보</th>
                	  <td class = "adminMypage_management">
-                  	<c:forEach var = "store" items = "${store}">
-                  		<input type = "button" class = "adminMypage_storeName" id = "adminMypage_storeName" value = "${store.store_name}">
+                  	<c:forEach var = "store" items = "${store}" varStatus = "status">
+                  		<input type = "button" class = "adminMypage_storeName" id = "adminMypage_storeName${status.count}" value = "${store.store_name}">
                   	</c:forEach>
                   	<span id = "adminMypage_addStore" class = "adminMypage_addStore">+</span>
                   </td>
@@ -312,7 +322,6 @@
 </body>
 <script>
       $(document).ready(function(){
-         
          $('#adminMypage_mainModal').hide(); // 시작시 수정모달창을 가림
          $('#adminMypage_deleteModal').hide(); // 시작시 삭제모달창 가림
          
@@ -351,22 +360,28 @@
          });
          
          //매장정보에 마우스오버시 매장에 대한 정보가 뜸
-         $('#adminMypage_storeName').each(function(index,item){
-        	 
-        	 $('#adminMypage_storeName').mouseover(function(){
-        	 
-        		 var store_name = $('#adminMypage_storeName').val();
-        	 
-        		 $.ajax({
-        		 
-        			 url : '${pageContext.request.contextPath}' + '/admin/adminMypage?store=' + store_name,
-        			 success : function(data){
-        				 console.log(data);
-        			 }
-        		 });
-        	 
-        	 });
-         });
+			$('.adminMypage_storeName').mouseover(function(){
+				console.log($(this).val());
+				var store_name = $(this).val();
+				$.ajax({
+					url : '${pageContext.request.contextPath}' + '/admin/adminMypage/' + store_name,
+					type : 'get',
+					success : function(data){
+						console.log(data.store_name);
+						
+						var str = "<div class = 'adminMypage_storeDetail'><table><tr><th>매장아이디</th><td>" + data.store_id + "</td></tr>";
+							str += "<th>매장이름</th><td>" + data.store_name + "</td></tr>";
+							str += "<th>매장주소</th><td>" + data.store_address + "</td></tr>";
+							str += "<th>매장번호</th><td>" + data.store_num + "</td></tr>";
+							str += "<th>등록날짜</th><td>" + data.store_regDate + "</td></tr></table></div>";
+						
+						$('.adminMypage_management').append(str);
+					}
+				});
+				
+				
+			});        	
+         
          
          
          //모달창에서 삭제확인버튼클릭시 로그인페이지로 이동
