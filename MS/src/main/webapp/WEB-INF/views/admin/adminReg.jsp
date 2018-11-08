@@ -77,14 +77,13 @@ body {
 				<label for="admin_pw">비밀번호</label> <input type="password"
 					class="form-control" id="admin_pw" name="admin_pw"
 					placeholder="PASSWORD">
-				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 비밀번호 재확인 -->
 			<div class="form-group">
-				<label for="admin_pw2">비밀번호 확인</label> <input type="password"
+				<label for="admin_pw2">비밀번호 재확인</label> <input type="password"
 					class="form-control" id="admin_pw2" name="admin_pw2"
 					placeholder="Confirm Password">
-				<div class="check_font">confirm message</div>
+				<div class="check_font" id="pw_check"></div>
 			</div>
 			<!-- 이름 -->
 			<div class="form-group">
@@ -128,38 +127,65 @@ body {
 	</div>
 </body>
 <script>
-	// 회원가입 유효성 검사(1 = 중복 / 0 != 중복)
+	// <회원가입> 중복 유효성 검사(1 = 중복 / 0 != 중복)
 	var idChk = 0;
 
-	$("#admin_id")
-			.blur(
-					function() {
-						// id = "id_reg" / name = "admin_id"
-						$
-								.ajax({
-									url : '${pageContext.request.contextPath}/admin/idCheck?adminId='+$("#admin_id").val(),
-									type : 'get',
-									success : function(data) {
-										console.log("1 = 중복o / 0 = 중복x : "
-												+ data);
-										if (data == 1) {
-											// 1 : 아이디가 중복되는 문구
-											$("#id_check")
-													.text(
-															"아이디가 존재하니 다른 아이디를 사용해주세요 :p");
-											$("#id_check").css("color", "red");
-
-										} else {
-											// 0 : 아이디 길이 / 문자열 검사
-											$("#id_check").text("성공을 부르는 아이디네요!");
-										}
-									},
-									error : function() {
-										console.log("실패");
-									}
-
-								});
+	$("#admin_id").blur(function() {
+		// id = "id_reg" / name = "admin_id"
+		$.ajax({
+			url : '${pageContext.request.contextPath}/admin/idCheck?adminId='+$("#admin_id").val(),
+			type : 'get',
+			success : function(data) {
+			console.log("1 = 중복o / 0 = 중복x : "+ data);
+				if (data == 1) {// 1 : 아이디가 중복되는 경우
+					$("#id_check").text("아이디가 존재하니다 :(");
+					$("#id_check").css("color", "red");
+					$("#reg_submit").click(function(){
+						alert("아이디를 변경해주세요 :(");
+						$("#admin_id").focus();
+						
+						return false;
 					});
+					
+				} else {// 0 : 아이디 길이, 문자열 검사
+					$("#id_check").text("성공을 부르는 아이디네요 :p");
+					$("#id_check").css("color", "blue");
+					$("#reg_submit").click(function(){
+						
+						return true;
+					});
+				}
+			},
+			error : function() {console.log("실패");
+			}
+		});
+	});
+	
+	// <비밀번호> 일치 검사
+	$("#admin_pw2").blur(function(){
+		// pw1 & pw2 일치하지 않는다면,
+		if($("#admin_pw").val() != $(this).val()){
+			$("#pw_check").text("비밀번호가 일치하지 않습니다 :(");
+			$("#pw_check").css("color", "red");
+			$("#reg_submit").click(function(){
+				
+				alert("비밀번호를 일치시켜주세요 :(");
+				$("#admin_pw").focus();
+				
+				return false;
+			});
+			
+		} else {
+			$("#pw_check").text("양식에 맞게 잘 기입하고 계십니다 :p");
+			$("#pw_check").css("color", "blue");
+			$("#reg_submit").click(function(){
+			
+				return true;
+			});
+		}
+	});
+	
+	
 </script>
 
 </html>
