@@ -127,7 +127,7 @@ body {
 			</div>
 
 			<div>
-				<span>방문하신 지점은?</span> <select name="store_id">
+				<span>가입하실 매장을 선택해주세요.</span> <select name="store_id">
 					<option value="1">MS 스터디카페</option>
 					<option value="2">MS PC방</option>
 					<option value="3">MS 코인노래방</option>
