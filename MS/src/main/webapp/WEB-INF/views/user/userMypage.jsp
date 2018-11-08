@@ -68,8 +68,8 @@
    width : 500px;
    height : 500px;
    position : absolute;
-   top : 150px;
-   right : 500px;
+   top : 15%;
+   right : 30%;
 }
 
 .userMyPage_edit_table th {

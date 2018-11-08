@@ -69,8 +69,8 @@
    width : 500px;
    height : 500px;
    position : absolute;
-   top : 150px;
-   right : 500px;
+   top : 15%;
+   right : 35%;
 }
 
 .adminMypage_edit_table th {
@@ -218,14 +218,53 @@
 	font-weight : bold;
 }
 .adminMypage_storeDetail{
-	border : 1px solid black;
 	position : absolute;
-	top : -180%;
-	left : 20px;
+	top : -370px;
+	left : -60px;
 }
 .adminMypage_management table>tbody>tr>th{
 	font-size : 20px;
 	font-weight : bold;
+}
+.adminMypage_storeDetail th {
+	width : 160px;
+	padding : 10px 0px 10px 20px;
+	border-right : 1px solid white;
+	border-bottom : 1px solid white;
+	color : white;
+	height : 60px;
+	/* -webkit-text-stroke : 1px black; */
+}
+.adminMypage_storeDetail td {
+	width : 220px;
+	padding : 10px 30px;
+	font-weight : bold;
+	font-size : 20px;
+	color : white;
+	border-bottom : 1px solid white;
+	/* -webkit-text-stroke : 1px black; */
+}
+.adminMypage_storeTitle{
+	text-align : center;
+	height : 70px !important;
+	background-color : black;
+	color : white;
+	font-size : 25px !important;
+}
+#adminMypage_study{
+	background-image : url('${pageContext.request.contextPath}/images/study.jpg');
+	background-size : 100%;
+	background-repeat : round;
+}
+#adminMypage_pc{
+	background-image : url('${pageContext.request.contextPath}/images/pc.jpg');
+	background-size : 100%;
+	background-repeat : round;
+}
+#adminMypage_sing{
+	background-image : url('${pageContext.request.contextPath}/images/sing.jpg');
+	background-size : 100%;
+	background-repeat : round;
 }
 </style>
 </head>
@@ -262,6 +301,7 @@
                	  <th>매장정보</th>
                	  <td class = "adminMypage_management">
                   	<c:forEach var = "store" items = "${store}" varStatus = "status">
+                  		<p id = "adminMypage_hidden" style = "width : 100px; height : 0px; margin : 0px" ></p>
                   		<input type = "button" class = "adminMypage_storeName" id = "adminMypage_storeName${status.count}" value = "${store.store_name}">
                   	</c:forEach>
                   	<span id = "adminMypage_addStore" class = "adminMypage_addStore">+</span>
@@ -360,7 +400,7 @@
          });
          
          //매장정보에 마우스오버시 매장에 대한 정보가 뜸
-			$('.adminMypage_storeName').mouseover(function(){
+			$('.adminMypage_storeName').mouseover(function(){ //반복문으로 만들어진것의 선택자를 id 로 입력하면 중복이되어 각각 이벤트를 줄 수 없으므로 class로 선택자를 준다.
 				console.log($(this).val());
 				var store_name = $(this).val();
 				$.ajax({
@@ -369,20 +409,32 @@
 					success : function(data){
 						console.log(data.store_name);
 						
-						var str = "<div class = 'adminMypage_storeDetail'><table><tr><th>매장아이디</th><td>" + data.store_id + "</td></tr>";
-							str += "<th>매장이름</th><td>" + data.store_name + "</td></tr>";
-							str += "<th>매장주소</th><td>" + data.store_address + "</td></tr>";
-							str += "<th>매장번호</th><td>" + data.store_num + "</td></tr>";
-							str += "<th>등록날짜</th><td>" + data.store_regDate + "</td></tr></table></div>";
+						if(data.store_id == "1"){
+							var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_study'>" //매장아이디가 1번이면 
+						} else if (data.store_id == "2"){
+							var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_pc'>" //매장아이디가 2번이면
+						} else {
+							var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_sing'>" //매장아이디가 3번이면
+						}
+							//조건필요없이 무조건 상세테이블 생성
+							str += "<table><tr><th colspan = '2' class = 'adminMypage_storeTitle'>매장 상세정보</th></tr>"
+							str += "<tr><th>매장아이디</th><td>" + data.store_id + "</td></tr>";
+							str += "<tr><th>매장이름</th><td>" + data.store_name + "</td></tr>";
+							str += "<tr><th>매장주소</th><td>" + data.store_address + "</td></tr>";
+							str += "<tr><th>매장번호</th><td>" + data.store_num + "</td></tr>";
+							str += "<tr><th>등록날짜</th><td>" + data.store_regDate + "</td></tr></table></div>";
 						
-						$('.adminMypage_management').append(str);
+						$('#adminMypage_hidden').append(str);
 					}
 				});
-				
-				
 			});        	
          
-         
+         //매장정보에 마우스아웃시 정보가 사라짐
+         $('.adminMypage_storeName').mouseout(function(){
+        	 
+        	 $('.adminMypage_storeDetail').remove();
+        	 
+         });
          
          //모달창에서 삭제확인버튼클릭시 로그인페이지로 이동
          $('#adminMypage_deleteOkBtn').click(function(){
