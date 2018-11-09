@@ -61,17 +61,15 @@
 				<i class="fa fa-th-list pr-2" aria-hidden="true"></i>목록</button>
 		</div>
 
-		<!--Section: Comments-->
+		<!-- 공지사항 댓글은 admin만 보기,입력가능 -->
 		<c:if test="${!empty adminSession}">
 		<section class="comments my-5">
 			<!-- 코멘트 총개수 -->
 			<div id="commentsNum" class="card-header font-weight-bold"></div>
 			<div id="replyAllBody"></div>
 		</section>
-		<!--Section: Comments-->
 
 		<!-- 댓글 입력란 -->
-		<!-- 공지사항 댓글은 admin만 입력가능 -->
 		<div class="md-form mt-4">
 			<label for="replyFormComment">댓글 입력</label>
 			<textarea class="form-control md-textarea" id="replyFormComment" rows="1"></textarea>

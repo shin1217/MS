@@ -56,4 +56,18 @@
 			ref="sqlSessionFactory" />
 	</beans:bean>
 
+	<!-- 인터넵터 맵핑 및 제외맵핑 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/**/" />
+			<mapping path="/member/**/" />
+			<mapping path="/user/**/" />
+			<exclude-mapping path="/admin" />
+			<exclude-mapping path="/amdin/reg" />
+			<exclude-mapping path="/user/login" />
+			<exclude-mapping path="/user/reg" />
+			<beans:bean
+				class="com.bit.ms.interceptor.AuthCheckInterceptor" />
+		</interceptor>
+	</interceptors>
 </beans:beans>
