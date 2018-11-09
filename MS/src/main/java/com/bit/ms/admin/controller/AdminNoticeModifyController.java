@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.admin.model.NoticeVO;
-import com.bit.ms.admin.service.AdminNoticeModifyService;
+import com.bit.ms.admin.service.AdminNoticeBoardService;
 import com.bit.ms.member.service.MemberNoticeViewService;
 
 @Controller
@@ -19,7 +19,7 @@ public class AdminNoticeModifyController {
 	@Autowired
 	MemberNoticeViewService viewService;
 	@Autowired
-	AdminNoticeModifyService modifyService;
+	AdminNoticeBoardService modifyService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView noticeModify(@PathVariable("id") int id) {

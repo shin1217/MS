@@ -129,7 +129,7 @@
 	$(document).ready(function() {
 		getAllList();
 	});
-
+	
 	var notice_id = '${view.notice_id}';
 	var reply = '';
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.ms.dao.AdminDaoInterface;
-import com.bit.ms.dao.MemberDaoInterface;
 import com.bit.ms.member.model.ReplyVO;
 
 @Service
