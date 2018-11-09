@@ -40,8 +40,6 @@ public class AdminMypageController {
 		
 		StoreVO store = service.getStoreDetail(store_name);
 		
-		System.out.println(service.getStore(store_name));
-		
 		return store;
 		
 	}

@@ -1,5 +1,6 @@
 package com.bit.ms.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.bit.ms.admin.model.AdminVO;
@@ -20,7 +21,9 @@ public interface AdminDaoInterface {
 	public int editAdmin(AdminVO adminVo);	// 관리자 수정
 	public int deleteAdmin(String admin_id);// 관리자 삭제
 	public StoreVO getStoreDetail(String store_name); //매장 상세정보
-
+	public List<StoreVO> getStoreList(); //매장 불러옴
+	public void deleteStore(HashMap<String,String> map); //소유한 매장삭제하기
+	
 	/*공지사항 댓글*/
 	List<ReplyVO> replyList(int id) throws Exception;
 	void insertReply(ReplyVO vo) throws Exception;

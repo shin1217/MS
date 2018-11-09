@@ -188,11 +188,11 @@
 .adminMypage_deleteCancelBtn{
 	background-color : black !important;
 }
-.adminMypage_deleteOkBtn:hover{
+.adminMypage_deleteOkBtn:hover, .storeDeleteBtn:hover{
 	background-color : palevioletred;
     cursor : pointer;
 }
-.adminMypage_deleteCancelBtn:hover{
+.adminMypage_deleteCancelBtn:hover, .storeDeleteCancel:hover{
 	background-color : #8e8e8e !important;
     cursor : pointer;
 }
@@ -201,13 +201,17 @@
 	position : relative;
 }
 .adminMypage_addStore{
-	position : absolute;
-	right : 0px;
-	top : 1px;
-	font-size : 50px;
+    width: 100px;
+	font-size : 20px;
 	color : black;
 	font-weight : bold;
 	margin-right : 20px;
+	height: 50px;
+    border: none;
+}
+.adminMypage_addStore:hover{
+	background-color : grey;
+	cursor : pointer;
 }
 .adminMypage_storeName{
 	width : 100px;
@@ -217,10 +221,13 @@
 	margin-right : 10px;
 	font-weight : bold;
 }
+.adminMypage_storeName:hover{
+	background-color : grey;
+}
 .adminMypage_storeDetail{
 	position : absolute;
 	top : -370px;
-	left : -60px;
+	left : 50px;
 }
 .adminMypage_management table>tbody>tr>th{
 	font-size : 20px;
@@ -263,8 +270,62 @@
 }
 #adminMypage_sing{
 	background-image : url('${pageContext.request.contextPath}/images/sing.jpg');
-	background-size : 100%;
 	background-repeat : round;
+}
+.deleteStoreWrap{
+	margin-right : 20px;
+	width : 100px;
+	position : relative;
+	float : left;
+	margin-bottom : 0px;
+}
+.deleteStore{
+	width : 15px;
+	height : 15px;
+	position : absolute;
+	right : 0px;
+	top : 0px;
+}
+.storeDeleteModal{
+   position : fixed;
+   width : 100%;
+   height : 100%;
+   left : 0px;
+   top : 0px;
+   z-index : 1;
+   background-color : rgba(0, 0, 0, 0.4);
+   display : none;
+}
+.deleteStore:hover{
+	cursor : pointer;
+}
+.storeDeleteDiv{
+	position : absolute;
+	top : 20%;
+	left : 35%;
+	width : 500px;
+	height : 200px;
+	background-color : #eee;
+	text-align : center;
+}
+.storeDeleteBtn, .storeDeleteCancel{
+	background-color : red;
+	border : none;
+	width : 130px;
+	height : 50px;
+	color : white;
+	margin-left : 30px;
+	margin-right : 30px;
+	font-size : 18px;
+}
+.storeDeleteCancel{
+	background-color : black !important;
+}
+.storeDeleteDiv p{
+	margin-top : 30px;
+	margin-bottom : 30px;
+	font-size : 35px;
+	font-weight : bold;
 }
 </style>
 </head>
@@ -298,13 +359,13 @@
                   <td><input type = "text" name = "admin_birth" id = "adminMypage_birth" value = "${admin.admin_birth }" readonly></td>
                </tr>
                <tr>
-               	  <th>매장정보</th>
+               	  <th>나의매장정보</th>
                	  <td class = "adminMypage_management">
                   	<c:forEach var = "store" items = "${store}" varStatus = "status">
-                  		<p id = "adminMypage_hidden" style = "width : 100px; height : 0px; margin : 0px" ></p>
-                  		<input type = "button" class = "adminMypage_storeName" id = "adminMypage_storeName${status.count}" value = "${store.store_name}">
+                  		<p class = "deleteStoreWrap"><input type = "button" class = "adminMypage_storeName" id = "adminMypage_storeName${status.count}" value = "${store.store_name}">
+                  		<img src="${pageContext.request.contextPath}/images/minus.PNG" id = "${store.store_id}" class = "deleteStore"></p>
                   	</c:forEach>
-                  	<span id = "adminMypage_addStore" class = "adminMypage_addStore">+</span>
+                  	<input type = "button" id = "adminMypage_addStore" class = "adminMypage_addStore" value = "+">
                   </td>
                </tr>
                <tr>
@@ -318,11 +379,19 @@
 
       </div>
       
-   <!-- 삭제 모달창 -->
+   <!-- 회원 탈퇴 모달창 -->
    		<div id = "adminMypage_deleteModal" class = "adminMypage_deleteModal">
    			<div class = "adminMypage_deleteDiv"><p>정말 탈퇴하시겠습니까?</p>
    				<input type = "button" id = "adminMypage_deleteOkBtn" class = "adminMypage_deleteOkBtn" value = "탈퇴하기">
    				<input type = "button" id = "adminMypage_deleteCancelBtn" class = "adminMypage_deleteCancelBtn" value = "취소하기">
+   			</div>
+   		</div>
+   
+   <!-- 매장 삭제 모달창 -->
+   		<div id = "storeDeleteModal" class = "storeDeleteModal">
+   			<div class = "storeDeleteDiv"><p>정말 매장을 날리시겠습니까?</p>
+   				<input type = "button" id = "storeDeleteBtn" class = "storeDeleteBtn" value = "삭제하기">
+   				<input type = "button" id = "storeDeleteCancel" class = "storeDeleteCancel" value = "취소하기">
    			</div>
    		</div>
    
@@ -364,6 +433,7 @@
       $(document).ready(function(){
          $('#adminMypage_mainModal').hide(); // 시작시 수정모달창을 가림
          $('#adminMypage_deleteModal').hide(); // 시작시 삭제모달창 가림
+         $('#storeDeleteModal').hide(); // 시작시 매장삭제 모달창 가림
          
          $('#adminMypage_editBtn').on('click', function(){
          
@@ -401,13 +471,12 @@
          
          //매장정보에 마우스오버시 매장에 대한 정보가 뜸
 			$('.adminMypage_storeName').mouseover(function(){ //반복문으로 만들어진것의 선택자를 id 로 입력하면 중복이되어 각각 이벤트를 줄 수 없으므로 class로 선택자를 준다.
-				console.log($(this).val());
+				//console.log($(this).val());
 				var store_name = $(this).val();
 				$.ajax({
 					url : '${pageContext.request.contextPath}' + '/admin/adminMypage/' + store_name,
 					type : 'get',
 					success : function(data){
-						console.log(data.store_name);
 						
 						if(data.store_id == "1"){
 							var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_study'>" //매장아이디가 1번이면 
@@ -424,7 +493,7 @@
 							str += "<tr><th>매장번호</th><td>" + data.store_num + "</td></tr>";
 							str += "<tr><th>등록날짜</th><td>" + data.store_regDate + "</td></tr></table></div>";
 						
-						$('#adminMypage_hidden').append(str);
+						$('.adminMypage_management').append(str);
 					}
 				});
 			});        	
@@ -462,19 +531,105 @@
             //jquery는 dom 객체를 jquery 객체로 한 번 감싸 리턴하므로 dom 객체를 얻어와야 비교 가능
             if (event.target == $('#adminMypage_mainModal').get(0)) {
                 $('#adminMypage_mainModal').hide();
+             } else if(event.target == $('#storeDeleteModal').get(0)){
+            	$('#storeDeleteModal').hide();
+             } else if(event.target == $('#adminMypage_deleteModal').get(0)){
+            	$('#adminMypage_deleteModal').hide();
              }
          });
-         $(window).on('click', function() {
-            //jquery는 dom 객체를 jquery 객체로 한 번 감싸 리턴하므로 dom 객체를 얻어와야 비교 가능
-            if (event.target == $('#adminMypage_deleteModal').get(0)) {
-                $('#adminMypage_deleteModal').hide();
-             }
-         });
-      	
          
          //닫기버튼을 누르면 수정모달창 닫음
          $('#adminMypage_close').click(function(){
             $('#adminMypage_mainModal').hide();
+         
+         });
+         
+         //매장 추가 클릭시 select뜸
+         $('.adminMypage_addStore').click(function(){
+
+        	 var store_name = $('.adminMypage_storeName').val();
+        	 
+        	 $.ajax({
+        		 url : '${pageContext.request.contextPath}' + '/admin/adminStoreAdd',
+        		 type : 'get',
+        		 success : function(data){
+        			 //console.log(data[0].store_name);
+        			 
+        			 str = "<div><h2>매장을 선택하세요</h2>";
+        			 str += "<select id = 'adminMypage_select'><option>매장선택</option>";
+        			 for(var i = 0; i < data.length; i++){
+	        			 str += "<option name = 'store_id' id = " + data[i].store_id + ">" + data[i].store_name + "</option>"; 
+        			 }
+        			 str += "<input type = 'button' class = 'addBtn' id = 'addBtn' value = '매장등록'></div>";
+        			 
+        			 $('body').append(str);
+        			 
+        			 //셀렉트박스에서 선택했을때 이벤트
+        			 $('#adminMypage_select').change(function(){
+        				var selected = "";
+        				var selectedId = "";
+        				
+        				//셀렉트박스에서 매장 선택후 등록버튼을 눌렀을때
+        				$('#addBtn').click(function(){
+        			 		selected = $('#adminMypage_select option:selected').val(); //선택된 값의 value 가져오기
+        			 		selectedId = $('#adminMypage_select option:selected').attr("id"); //선택된 값의 아이디값 가져오기
+        					//console.log(selectedId);
+        			 		
+        			 		if(selected != store_name){
+        			 			
+        					 $.ajax({
+        						url : '${pageContext.request.contextPath}' + '/admin/adminStoreAdd',
+        						type : 'post',
+        						data : {
+        							admin_id : $('#adminMypage_id').val(),
+        							store_id : selectedId,
+        							admin_name : $('#adminMypage_name').val(),
+        							admin_pw : $('#adminMypage_pw').val(),
+        							admin_phone : $('#adminMypage_phone').val(),
+        							admin_birth : $('#adminMypage_birth').val()
+        						},
+        						success : function(data){
+        							alert("매장추가에 성공했습니다.")
+        							location.reload();
+        						} //매장추가 끝
+        						
+        					}); //등록버튼 ajax끝 	
+        			 		} else {
+        			 			alert("이미 소유한 매장입니다.");
+        			 		}
+        				}); //등록버튼 끝
+        			 }); //셀렉트박스 change이벤트 끝
+        		 } 
+        	 }); //매장추가 ajax끝
+         }); //매장추가 끝
+         
+         //매장 삭제클릭시 이벤트
+         $('.deleteStore').click(function(){
+	        	 var store_id = $(this).attr("id"); // delete버튼의 아이디값
+        	 $('#storeDeleteModal').show();
+        	 
+        	 $('#storeDeleteBtn').click(function(){
+    	    	 $.ajax({
+        			 url : '${pageContext.request.contextPath}' + '/admin/adminStoreDelete',
+        			 type : 'post',
+        			 data : {
+        				 admin_id : $('#adminMypage_id').val(),
+        				 store_id : store_id
+        		 	},
+        		 	success : function(data){
+        		 		alert("매장삭제를 완료했습니다.");
+        				location.reload(); 
+        		 	}
+        	 	}); // 삭제 ajax끝
+        		 
+        	 });
+        
+         }); //매장 삭제 클릭종료
+         
+       //모달창에서 취소버튼 클릭시 다시 마이페이지이동
+         $('#storeDeleteCancel').click(function(){
+        	 
+        	 $('#storeDeleteModal').hide();
          
          });
       });
