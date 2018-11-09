@@ -7,18 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.admin.model.SalesVO;
-import com.bit.ms.dao.SalesDao;
+import com.bit.ms.dao.AdminDaoInterface;
 
 @Service
 public class AdminSalesCalenderService {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	private SalesDao salesDao;
+	private AdminDaoInterface salesDao;
 	
 	public List<SalesVO> salesList() {
 		
-		salesDao = sqlSessionTemplate.getMapper(SalesDao.class);
+		salesDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		List<SalesVO> list = null;
 		
 		try {

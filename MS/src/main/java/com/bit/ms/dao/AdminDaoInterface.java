@@ -3,6 +3,7 @@ package com.bit.ms.dao;
 import java.util.List;
 
 import com.bit.ms.admin.model.AdminVO;
+import com.bit.ms.admin.model.SalesVO;
 import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.member.model.ReplyVO;
 import com.bit.ms.user.model.UserVO;
@@ -25,4 +26,7 @@ public interface AdminDaoInterface {
 	void insertReply(ReplyVO vo) throws Exception;
 	void updateReply(ReplyVO vo) throws Exception;
 	void deleteReply(int id) throws Exception;
+	
+	/* 매출기록 관련 */
+	public List<SalesVO> listAll() throws Exception; // 매출기록 리스트 출력
 }
