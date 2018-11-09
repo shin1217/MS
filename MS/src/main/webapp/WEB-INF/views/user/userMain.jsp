@@ -160,7 +160,38 @@
 
 <script>
 	$(document).ready(function() {
-
+		
+		/* 페이지 로드 시 좌석 초기화 */
+		$.ajax({
+			url: '<%=request.getContextPath()%>/user/resetSeat', 
+			type: 'get',
+				
+			success:function(data){
+				for(var i=0; i<data.length; i++){
+					if(data[i].user_id != null){ // 사용 중인 좌석만 가져오기
+						
+						$('#seatTable td').each(function() {
+							
+							if($(this).attr('id') == data[i].seat_id){ // 기존 좌석 아이디와 응답 데이터의 좌석 아이디가 일치할 경우 
+								resetSeat($(this), data[i].seat_update_time, 59, data[i].user_id);
+							}
+						});
+					}
+				}
+			}
+		});
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		
+		/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
+		/* window.onbeforeunload = function() {
+			
+			// 현재 시간 데이터베이스에 저장
+			return "Write something clever here...";
+		};
+		 */
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		
 		/* 스크롤따라 움직이는 Div */
 		var currentPosition = parseInt($('.left_content').css('top'));
 
@@ -214,43 +245,25 @@
 				return;
 			}
 			
-			var addTime = $('#select_add_time option:selected').val(); // 충전할 시간
+			var addTime = $('#select_add_time option:selected').val()*60; // 충전할 시간(분 단위)
+			var seatId = $(seatObj).attr('id');
 			
 			$.ajax({
-				// 충전 시간을 파라미터로 넘겨줌.
-				url: '<%=request.getContextPath()%>/user/addTime?addTime=' + addTime, 
+				// 충전 시간과 좌석번호를 파라미터로 넘겨줌.
+				url: '<%=request.getContextPath()%>/user/addTime?addTime=' + addTime + '&seatId=' + seatId, 
 				type: 'get',
 				
-				success:function(data){
-					if(data == 1){
-						console.log("시간 추가 성공");
-					}
+				success:function(minute){
+					console.log(minute); // 분 설정
+					var second = 59; // 초 설정
 					
-				} /* end success */
-			}); /* end ajax */
-			
-			
-			$(seatObj).css({
-				'font-size' : 25,
-				'color' : 'white',
-				'background-color' : '#0099CC',
-				'text-align' : 'right',
-				'padding' : 10,
-				'padding-bottom' : 80
-			});
-
-			str = '<div>';
-			str += '<span style="color: black; font-weight: bold">'+ $(seatObj).attr('id') +'</span>';
-			str += '<span style="float: right">김민수</span>';
-			str += '</div>';
-			str += '<div>30:00</div>';
-			str += '<div>5000</div>';
-
-			$(seatObj).text(''); // 중앙에 써있던 좌석 번호 지우기
-			$(seatObj).append(str); // 좌석 사용 정보 보여주기
-
-			$('#add_time_modal').hide();
-		});
+					resetSeat(seatObj, minute, second, '${userSession.user_id}'); // 좌석 정보 변경
+					timer(minute, second); // 타이머 실행
+					$('#add_time_modal').hide();
+					
+				} // end success 
+			}); // end ajax 
+		}); // end 충전하기
 
 		//////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -266,8 +279,65 @@
 			}
 		});
 
-		//////////////////////////////////////////////////////////////////////////////////////////////
+	}); // end $(document).ready(function())}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/* 좌석 생성 함수(좌석 객체, 분, 초, 유저 아이디) */
+	function resetSeat(obj, m, s, id) {
+		$(obj).css({
+			'font-size' : 25,
+			'color' : 'white',
+			'background-color' : '#0099CC',
+			'text-align' : 'right',
+			'padding' : 10,
+			'padding-bottom' : 80
+		});
+		
+		str = '<div>';
+		str += '<span style="color: black; font-weight: bold">'+ $(obj).attr('id') +'</span>';
+		str += '<span style="float: right">'+ id +'</span>';
+		str += '</div>';
+		str += '<div><span class="countTimeMinute">'+ m +'</span>분<span class="countTimeSecond">'+ s +'</span>초</div>';
+		str += '<div>5000</div>';
 
-	});
+		$(obj).text(''); // 중앙에 써있던 좌석 번호 지우기
+		$(obj).append(str); // 좌석 사용 정보 보여주기
+		
+		// 로그인한 유저의 좌석 외 다른 좌석은 빨간색으로 변경
+		if(id != '${userSession.user_id}'){ 
+			$(obj).css('background-color', '#CC0000'); // 배경색 변경
+			$(obj).children().eq(0).css('background-color', '#ff4444'); // 타이틀 색 변경
+		}
+	}
+	
+	/* 시간 타이머 */
+	function timer(m, s){
+		var timer = setInterval(function () {
+			
+			$('.countTimeMinute').html(m); // 분 텍스트
+			$('.countTimeSecond').html(s); // 초 텍스트
+		
+			if(s == 0 && m == 0){
+				alert('타이머 종료');
+				clearInterval(timer);
+
+			}else{
+				s--;
+				
+				if(s < 10){ // 10초 이하일 경우 두 자리 표시 ex)09
+					$('.countTimeSecond').html('0' + s); 
+				}
+				if(s < 1){
+
+					m--;
+					s = 59;
+				}
+			}
+    	}, 1000); 
+	}
+	
 </script>
 </html>

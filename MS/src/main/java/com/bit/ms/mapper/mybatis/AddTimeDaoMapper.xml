@@ -3,11 +3,23 @@
   
 <mapper namespace="com.bit.ms.dao.UserDaoInterface">
 	
-	<update id="addTime" parameterType="map">
+	<select id="getTime" resultType="long">
+		select user_time from userinfo
+		where user_id=#{user_id}
+	</select>
 	
+	<update id="addTime" parameterType="map">
 		update userinfo set user_time=#{param1} 
 		where user_id=#{param2}
-		
 	</update>
+	
+	<update id="updateSeat" parameterType="map">
+		update seat set seat_update_time=#{param1}, user_id=#{param2} 
+		where seat_id=#{param3}
+	</update>
+	
+	<select id="getSeatInfo" resultType="seatVO">
+		select * from seat;
+	</select>
 	
 </mapper>

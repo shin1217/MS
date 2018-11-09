@@ -3,6 +3,7 @@ package com.bit.ms.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.user.model.UserBoardVO;
 import com.bit.ms.user.model.UserVO;
 
@@ -30,6 +31,8 @@ public interface UserDaoInterface {
 	public int getNextNUM(int uboard_id);
 	
 	/*시간충전*/
+	public long getTime(String userId);
 	public int addTime(long addTime, String userId);
-
+	public int updateSeat(long time, String userId, String seatId);
+	public List<SeatVO> getSeatInfo();
 }
