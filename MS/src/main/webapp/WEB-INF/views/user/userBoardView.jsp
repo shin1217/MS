@@ -60,16 +60,17 @@
 	<table class="container">
 		<thead>
 			<tr class="row">
-				<th class="col-sm-3" colspan="3">
-					<h3 style="color: #1e1e1e;">
-						<strong>${userboardvo.uboard_title}</strong>
+				<th class="col-sm-3" colspan="3" style="width: 800px;">
+					<h3 style="color: #1e1e1e; width: 80%;">
+						<strong style="width: 100%;">${userboardvo.uboard_title}</strong>
 					</h3>
 				</th>
 			</tr>
 			<tr>
-				<th style="width: 30%; text-align: center;">${userboardvo.user_id}</th>
-				<th></th>
-				<th style="width: 30%; text-align: right;"><fmt:formatDate
+				<th style="padding-left: 20px;">${userboardvo.uboard_id}</th>
+				<th style="width: 40%; text-align: center;">${userboardvo.user_id}</th>
+
+				<th style="width: 50%; text-align: right;"><fmt:formatDate
 						value="${userboardvo.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></th>
 			</tr>
 		</thead>
@@ -85,18 +86,24 @@
 	<div class="userBoard_header">
 		<div class="buttonsLeft">
 			<c:choose>
-				<c:when test="${userboardvo.uboard_id==1}">
-					<button type="button" class="btn btn-outline-elegant waves-effect"
-						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/View/1'">이전</button>
+				<c:when test="${previousnum==0}">
+					<button type="button" class="btn btn-outline-elegant waves-effect">없음</button>
 				</c:when>
 				<c:otherwise>
 					<button type="button" class="btn btn-outline-elegant waves-effect"
-						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/View/${userboardvo.uboard_id-1}'">이전</button>
+						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/View/${previousnum}?page=${param.page}'">이전</button>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${nextnum==0}">
+					<button type="button" class="btn btn-outline-elegant waves-effect">없음</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-outline-elegant waves-effect"
+						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/View/${nextnum}?page=${param.page}'">다음</button>
 				</c:otherwise>
 			</c:choose>
 
-			<button type="button" class="btn btn-outline-elegant waves-effect"
-				onclick="location.href='${pageContext.request.contextPath}/user/userBoard/View/${userboardvo.uboard_id+1}'">다음</button>
 		</div>
 
 
@@ -105,9 +112,9 @@
 			<button type="button" class="btn btn-dark" data-toggle="modal"
 				data-target="#modalUserBoardDeleteForm">삭제</button>
 			<button type="button" class="btn btn-dark"
-				onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${userboardvo.uboard_id}'">수정</button>
+				onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${userboardvo.uboard_id}?page=${param.page}'">수정</button>
 			<button type="button" class="btn btn-dark"
-				onclick="location.href='${pageContext.request.contextPath}/user/userBoard?page=1'">
+				onclick="location.href='${pageContext.request.contextPath}/user/userBoard?page=${param.page}'">
 				<i class="fa fa-th-list pr-2" aria-hidden="true"></i>목록
 			</button>
 		</div>

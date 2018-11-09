@@ -21,11 +21,20 @@ public class UserBoardViewController {
 
 		UserBoardVO userboardVO = userBoardViewService.getUserBoardViewS(uboard_id);
 
+		int previousNUM = userBoardViewService.getViewPreviousNUM(uboard_id);
+
+		int nextNUN = userBoardViewService.getViewNextNUM(uboard_id);
+
+		int userBoardTotalCount = userBoardViewService.getViewTotalCount();
+
 		if (userboardVO == null) {
 			throw new Exception();
 		}
 
 		model.addAttribute("userboardvo", userboardVO);
+		model.addAttribute("previousnum", previousNUM);
+		model.addAttribute("nextnum", nextNUN);
+		model.addAttribute("userboardtotalcount", userBoardTotalCount);
 
 		return "user/userBoardView";
 

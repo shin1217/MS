@@ -62,7 +62,7 @@
 						<tr>
 							<td style="text-align: center;">${userBoardVO.uboard_id}</td>
 							<td><a
-								href="${pageContext.request.contextPath}/user/userBoard/View/${userBoardVO.uboard_id}">${userBoardVO.uboard_title}</a></td>
+								href="${pageContext.request.contextPath}/user/userBoard/View/${userBoardVO.uboard_id}?page=${pageNum}">${userBoardVO.uboard_title}</a></td>
 							<td style="text-align: center;"><fmt:formatDate
 									value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>

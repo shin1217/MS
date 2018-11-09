@@ -23,4 +23,31 @@ public class UserBoardViewService {
 
 		return userBoardVO;
 	}
+
+	public int getViewPreviousNUM(int uboard_id) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int num = userDaoInterface.getPreviousNUM(uboard_id);
+
+		return num;
+	}
+
+	public int getViewNextNUM(int uboard_id) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int num = userDaoInterface.getNextNUM(uboard_id);
+
+		return num;
+	}
+
+	public int getViewTotalCount() {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int num = userDaoInterface.UserBoardTotalCount();
+
+		return num;
+	}
 }

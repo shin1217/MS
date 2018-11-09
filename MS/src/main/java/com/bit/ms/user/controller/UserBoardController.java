@@ -42,6 +42,8 @@ public class UserBoardController {
 		modelAndView.setViewName("user/userBoard");
 
 		modelAndView.addObject("userboardlist", ViewData);
+		
+		modelAndView.addObject("pageNum", pageNum);
 
 		return modelAndView;
 	}

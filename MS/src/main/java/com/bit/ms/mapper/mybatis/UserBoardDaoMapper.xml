@@ -42,5 +42,26 @@
 		where uboard_id=#{uboard_id};
 	</delete>
 
+	<update id="UserBoardModifyI" parameterType="UserBoardVO">
+		update userboard set
+		uboard_title=#{uboard_title}, uboard_con=#{uboard_con}
+		where
+		uboard_id=#{uboard_id};
+	</update>
+
+	<select id="getNextNUM" resultType="int">
+		select
+		ifnull(min(uboard_id),0)
+		from
+		userboard where uboard_id>#{uboard_id};
+	</select>
+
+	<select id="getPreviousNUM" resultType="int">
+
+		select ifnull(max(uboard_id),0)
+		from userboard where <![CDATA[uboard_id < #{uboard_id}]]>;
+
+	</select>
+
 
 </mapper>
