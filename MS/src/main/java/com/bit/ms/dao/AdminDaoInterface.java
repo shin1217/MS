@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.model.StoreVO;
+import com.bit.ms.member.model.ReplyVO;
 import com.bit.ms.user.model.UserVO;
 
 public interface AdminDaoInterface {
@@ -19,4 +20,9 @@ public interface AdminDaoInterface {
 	public int deleteAdmin(String admin_id);// 관리자 삭제
 	public StoreVO getStoreDetail(String store_name); //매장 상세정보
 
+	/*공지사항 댓글*/
+	List<ReplyVO> replyList(int id) throws Exception;
+	void insertReply(ReplyVO vo) throws Exception;
+	void updateReply(ReplyVO vo) throws Exception;
+	void deleteReply(int id) throws Exception;
 }

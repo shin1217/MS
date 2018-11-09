@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bit.ms.dao.AdminDaoInterface;
 import com.bit.ms.dao.MemberDaoInterface;
 import com.bit.ms.member.model.ReplyVO;
 
@@ -16,11 +17,11 @@ public class AdminNoticeReplyService {
 	@Autowired
 	private SqlSessionTemplate sessionTemplate;
 
-	private MemberDaoInterface daoInterface;
+	private AdminDaoInterface daoInterface;
 
 	@Transactional
 	public List<ReplyVO> listReply(int id) {
-		daoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
+		daoInterface = sessionTemplate.getMapper(AdminDaoInterface.class);
 		List<ReplyVO> reVO = null;
 		try {
 			reVO = daoInterface.replyList(id);
@@ -32,7 +33,7 @@ public class AdminNoticeReplyService {
 
 	@Transactional
 	public void insertReply(ReplyVO vo) {
-		daoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
+		daoInterface = sessionTemplate.getMapper(AdminDaoInterface.class);
 
 		try {
 			daoInterface.insertReply(vo);
@@ -43,7 +44,7 @@ public class AdminNoticeReplyService {
 	}
 
 	public void deleteReply(int id) {
-		daoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
+		daoInterface = sessionTemplate.getMapper(AdminDaoInterface.class);
 		
 		try {
 			daoInterface.deleteReply(id);
@@ -53,7 +54,7 @@ public class AdminNoticeReplyService {
 	}
 
 	public void updateReply(ReplyVO vo) {
-		daoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
+		daoInterface = sessionTemplate.getMapper(AdminDaoInterface.class);
 		
 		try {
 			daoInterface.updateReply(vo);
