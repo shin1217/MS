@@ -62,6 +62,7 @@
 		</div>
 
 		<!--Section: Comments-->
+		<c:if test="${!empty adminSession}">
 		<section class="comments my-5">
 			<!-- 코멘트 총개수 -->
 			<div id="commentsNum" class="card-header font-weight-bold"></div>
@@ -71,7 +72,6 @@
 
 		<!-- 댓글 입력란 -->
 		<!-- 공지사항 댓글은 admin만 입력가능 -->
-		<c:if test="${!empty adminSession}">
 		<div class="md-form mt-4">
 			<label for="replyFormComment">댓글 입력</label>
 			<textarea class="form-control md-textarea" id="replyFormComment" rows="1"></textarea>
@@ -83,6 +83,7 @@
 		</c:if>
 	</div>
 </body>
+
 <!-- 게시글 삭제확인 모달 -->
 <div class="modal fade" id="modalNoticeDeleteForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">

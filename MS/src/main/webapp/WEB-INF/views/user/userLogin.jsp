@@ -61,14 +61,20 @@ body {
 	<div class="full">
 		<div class="wow flipInY"
 			style="float: right; margin-top: 30px; margin-right: 30px;">
-			<a href="admin"> <img
-				src="${pageContext.request.contextPath}/images/adminLogin-move.png"
-				style="height: 50px;" />
+			<a href="admin"> 
+				<img src="${pageContext.request.contextPath}/images/adminLogin-move.png" style="height: 50px;" />
 			</a>
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn">
 				<form method="post">
+					<div>
+						<select name="store_id">
+							<option value="1">MS 스터디카페</option>
+							<option value="2">MS PC방</option>
+							<option value="3">MS 코인노래방</option>
+						</select>
+					</div>
 					<div class="form-group">
 						<label class="font-weight-bold text-white" for="inputId">아이디</label>
 						<div>
