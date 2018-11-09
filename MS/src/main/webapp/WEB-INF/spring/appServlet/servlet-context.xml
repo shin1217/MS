@@ -63,9 +63,11 @@
 			<mapping path="/member/**/" />
 			<mapping path="/user/**/" />
 			<exclude-mapping path="/admin" />
-			<exclude-mapping path="/amdin/reg" />
 			<exclude-mapping path="/user/login" />
+			<exclude-mapping path="/admin/reg" />
 			<exclude-mapping path="/user/reg" />
+			<exclude-mapping path="/admin/idCheck" />
+			<exclude-mapping path="/user/idCheck" />
 			<beans:bean
 				class="com.bit.ms.interceptor.AuthCheckInterceptor" />
 		</interceptor>
