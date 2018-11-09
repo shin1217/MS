@@ -66,11 +66,9 @@
 	text-align: left;
 }
 
-/* 쪽지함(부트스트랩) */
-.btn-mdb-color {
+.left_btn_wrap {
 	position: relative;
-	top: 90%;
-	border-radius: 10px;
+	top: 88%;
 }
 
 /* modal창 감싸고 있는 배경 Div */
@@ -129,9 +127,11 @@
 	<div class="userMain_container">
 		<div class="left_area">
 			<div class="left_content">
-				<button type="button" class="btn btn-mdb-color"
-					id="user_message_btn">쪽지함</button>
-
+				
+				<div class="left_btn_wrap">
+					<button type="button" class="btn btn-mdb-color">쪽지함</button>
+					<button type="button" class="btn btn-deep-orange">자리 변경</button>
+				</div>
 			</div>
 		</div>
 		<div class="right_area">
@@ -160,6 +160,7 @@
 
 <script>
 	$(document).ready(function() {
+		var seatArr = new Array(20).fill(false); // 좌석 사용 여부 검사 배열
 		
 		/* 페이지 로드 시 좌석 초기화 */
 		$.ajax({
@@ -173,6 +174,7 @@
 						$('#seatTable td').each(function() {
 							
 							if($(this).attr('id') == data[i].seat_id){ // 기존 좌석 아이디와 응답 데이터의 좌석 아이디가 일치할 경우 
+								seatArr[$(this).attr('id')-1] = true;
 								resetSeat($(this), data[i].seat_update_time, 59, data[i].user_id);
 							}
 						});
@@ -223,8 +225,13 @@
 
 		/* 좌석 클릭 시 처리 */
 		var seatObj = null;
-
+		
 		$('#seatTable td').click(function() {
+			
+			if(seatArr[$(this).attr('id')-1]){
+				alert('이미 사용 중인 좌석입니다.');
+				return;
+			}
 			seatObj = $(this); // 선택된 좌석의 객체를 변수 comObj에 저장
 			$('#add_time_modal').show(); // 시간 충전 modal창 띄우기
 		});
@@ -239,7 +246,8 @@
 
 		/* 충전하기 클릭 시 처리 */
 		$('#add_time_btn').click(function() {
-
+			seatArr[$(seatObj).attr('id')-1] = true; // 선택된 좌석 체크
+			
 			if ($('#select_add_time option:selected').val() == 0) {
 				alert('충전하실 시간을 선택하세요.');
 				return;
