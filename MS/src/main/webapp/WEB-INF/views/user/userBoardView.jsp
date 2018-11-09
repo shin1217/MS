@@ -60,7 +60,7 @@
 	<table class="container">
 		<thead>
 			<tr class="row">
-				<th class="col-sm-3" colspan="3" style="width: 800px;">
+				<th colspan="3" style="width: 800px;">
 					<h3 style="color: #1e1e1e; width: 80%;">
 						<strong style="width: 100%;">${userboardvo.uboard_title}</strong>
 					</h3>
@@ -87,7 +87,7 @@
 		<div class="buttonsLeft">
 			<c:choose>
 				<c:when test="${previousnum==0}">
-					<button type="button" class="btn btn-outline-elegant waves-effect">없음</button>
+					<!-- <button type="button" class="btn btn-outline-elegant waves-effect">없음</button> -->
 				</c:when>
 				<c:otherwise>
 					<button type="button" class="btn btn-outline-elegant waves-effect"
@@ -96,7 +96,7 @@
 			</c:choose>
 			<c:choose>
 				<c:when test="${nextnum==0}">
-					<button type="button" class="btn btn-outline-elegant waves-effect">없음</button>
+					<!-- <button type="button" class="btn btn-outline-elegant waves-effect">없음</button> -->
 				</c:when>
 				<c:otherwise>
 					<button type="button" class="btn btn-outline-elegant waves-effect"
@@ -106,15 +106,22 @@
 		</div>
 
 		<div class="buttonsRight">
-			<button type="button" class="btn btn-dark" data-toggle="modal"
-				data-target="#modalUserBoardDeleteForm">삭제</button>
-			<button type="button" class="btn btn-dark"
-				onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${userboardvo.uboard_id}?page=${param.page}'">수정</button>
+
+			<c:if
+				test="${sessionScope.userSession.user_id == userboardvo.user_id}">
+				<button type="button" class="btn btn-dark" data-toggle="modal"
+					data-target="#modalUserBoardDeleteForm">삭제</button>
+				<button type="button" class="btn btn-dark"
+					onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${userboardvo.uboard_id}?page=${param.page}'">수정</button>
+			</c:if>
+
+
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='${pageContext.request.contextPath}/user/userBoard?page=${param.page}'">
 				<i class="fa fa-th-list pr-2" aria-hidden="true"></i>목록
 			</button>
 		</div>
+
 	</div>
 </body>
 

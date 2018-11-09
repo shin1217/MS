@@ -45,15 +45,16 @@
 		<table class="table">
 			<thead>
 				<tr class="text-center">
-					<th>글번호</th>
-					<th style="width: 80%">제목</th>
-					<th>등록일</th>
+					<th style="width: 10%">글번호</th>
+					<th style="width: 55%">제목</th>
+					<th style="width: 15%">작성자</th>
+					<th style="width: 15%">등록일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test='${userboardlist.userBoardList.isEmpty()}'>
 					<tr>
-						<td colspan="3"><h3 style="text-align: center;">작성된 게시글이
+						<td colspan="4"><h3 style="text-align: center;">작성된 게시글이
 								없습니다.</h3></td>
 					</tr>
 				</c:if>
@@ -63,6 +64,7 @@
 							<td style="text-align: center;">${userBoardVO.uboard_id}</td>
 							<td><a
 								href="${pageContext.request.contextPath}/user/userBoard/View/${userBoardVO.uboard_id}?page=${pageNum}">${userBoardVO.uboard_title}</a></td>
+							<td style="text-align: center;">${userBoardVO.user_id}</td>
 							<td style="text-align: center;"><fmt:formatDate
 									value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>
