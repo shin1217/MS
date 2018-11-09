@@ -41,7 +41,8 @@
 
 	int startDay = cal.getMinimum(java.util.Calendar.DATE);
 	int endDay = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-	int start = cal.get(java.util.Calendar.DAY_OF_WEEK);
+	int starts = cal.get(java.util.Calendar.DAY_OF_WEEK);
+	int start = starts - 1;
 	int newLine = 0;
 
 	//오늘 날짜 저장.
@@ -73,7 +74,7 @@
 <body>
 <div class="container" style="width:712px;">
 	
-	<table width="100%" border="0" cellspacing="1" cellpadding="1" bgcolor="#FFFFFF">
+	<table width="100%" border="1" cellspacing="1" cellpadding="1" bgcolor="#FFFFFF">
 		<thead>
 			<tr bgcolor="#CECECE">
 				<td width="100px">
@@ -102,9 +103,10 @@
 		
 		<tbody>
 			<tr>
-				
-		
-		
+				<c:forEach var="i" begin="1" end="${ start }">
+					<td width="100px" height="80px" valign="top" align="left" nowrap></td>
+				</c:forEach>
+			</tr>
 		</tbody>
 		
 		

@@ -23,8 +23,8 @@ public class AdminSalesCalenderController {
 		
 		List<SalesVO> list = salesService.salesList();
 		
-		modelAndView.addObject("slaesList", list);
-		modelAndView.setViewName("admin/adminSalesCalender");
+		modelAndView.addObject("salesList", list);
+		modelAndView.setViewName("admin/adminSalesCalenderJS");
 		
 		return modelAndView;
 	}
