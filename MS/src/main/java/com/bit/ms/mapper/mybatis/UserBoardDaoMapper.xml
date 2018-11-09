@@ -23,9 +23,9 @@
 		useGeneratedKeys="true" keyProperty="uboard_id">
 
 		insert into
-		userboard(uboard_title, uboard_con)
+		userboard(uboard_title, uboard_con, user_id, store_id)
 		values(#{uboard_title},
-		#{uboard_con})
+		#{uboard_con},#{user_id},#{store_id})
 
 	</insert>
 

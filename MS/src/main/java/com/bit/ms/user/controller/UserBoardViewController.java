@@ -25,8 +25,6 @@ public class UserBoardViewController {
 
 		int nextNUN = userBoardViewService.getViewNextNUM(uboard_id);
 
-		int userBoardTotalCount = userBoardViewService.getViewTotalCount();
-
 		if (userboardVO == null) {
 			throw new Exception();
 		}
@@ -34,7 +32,6 @@ public class UserBoardViewController {
 		model.addAttribute("userboardvo", userboardVO);
 		model.addAttribute("previousnum", previousNUM);
 		model.addAttribute("nextnum", nextNUN);
-		model.addAttribute("userboardtotalcount", userBoardTotalCount);
 
 		return "user/userBoardView";
 

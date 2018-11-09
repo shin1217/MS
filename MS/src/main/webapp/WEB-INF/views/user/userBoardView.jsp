@@ -103,10 +103,7 @@
 						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/View/${nextnum}?page=${param.page}'">다음</button>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
-
-
 
 		<div class="buttonsRight">
 			<button type="button" class="btn btn-dark" data-toggle="modal"
