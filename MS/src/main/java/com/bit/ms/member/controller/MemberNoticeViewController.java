@@ -18,9 +18,9 @@ public class MemberNoticeViewController {
 	@RequestMapping("/member/notice/{noticeId}")
 	public String getContent(@PathVariable("noticeId") int id, Model model) {
 		
-		NoticeVO no = service.getView(id);		
+		NoticeVO vo = service.getView(id);		
 		
-		model.addAttribute("view", no);
+		model.addAttribute("view", vo);
 		
 		return "member/noticeView";
 	}

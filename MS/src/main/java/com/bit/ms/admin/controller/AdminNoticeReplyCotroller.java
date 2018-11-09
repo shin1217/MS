@@ -1,4 +1,4 @@
-package com.bit.ms.member.controller;
+package com.bit.ms.admin.controller;
 
 import java.util.List;
 
@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bit.ms.admin.service.AdminNoticeReplyService;
 import com.bit.ms.member.model.ReplyVO;
-import com.bit.ms.member.service.MemberReplyService;
 
 @RestController
 @RequestMapping("/reply")
-public class MemberReplyCotroller {
+public class AdminNoticeReplyCotroller {
 
 	@Autowired
-	MemberReplyService service;
+	AdminNoticeReplyService service;
 
-	@RequestMapping(value = "/all/{noid}", method = RequestMethod.GET)
-	public List<ReplyVO> replyList(@PathVariable("noid") int id) {
+	@RequestMapping(value = "/all/{notice_id}", method = RequestMethod.GET)
+	public List<ReplyVO> replyList(@PathVariable("notice_id") int id) {
 
 		List<ReplyVO> list = service.listReply(id);
 
@@ -33,8 +33,8 @@ public class MemberReplyCotroller {
 
 	}
 
-	@RequestMapping(value = "/delete/{replyid}", method = RequestMethod.GET)
-	public void replyDelete(@PathVariable("replyid") int id) {
+	@RequestMapping(value = "/delete/{reply_id}", method = RequestMethod.GET)
+	public void replyDelete(@PathVariable("reply_id") int id) {
 
 		service.deleteReply(id);
 	}

@@ -47,10 +47,10 @@
 						<tr>
 							<td style="padding: 20px;"><a class="notice-title"
 								href="notice/${list.notice_id}">${list.notice_title}</a></td>
-							<td class="text-center"><fmt:parseDate
-									value="${list.notice_date}" pattern="yyyy-MM-dd HH:mm"
-									var="date" /> <fmt:formatDate value="${date}"
-									pattern="yyyy-MM-dd" /></td>
+							<td class="text-center">
+								<fmt:parseDate value="${list.notice_date}" pattern="yyyy-MM-dd HH:mm" var="date" /> 
+								<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" />
+							</td>
 						</tr>
 					</c:forEach>
 				</c:if>

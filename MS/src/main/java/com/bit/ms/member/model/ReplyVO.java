@@ -9,6 +9,7 @@ public class ReplyVO {
 	private int notice_id;
 	private String admin_id;
 	private String reply_con;
+	private int store_id;
 
 	public int getReply_id() {
 		return reply_id;
@@ -42,9 +43,18 @@ public class ReplyVO {
 		this.reply_con = reply_con;
 	}
 
+	public int getStore_id() {
+		return store_id;
+	}
+
+	public void setStore_id(int store_id) {
+		this.store_id = store_id;
+	}
+
 	@Override
 	public String toString() {
 		return "ReplyVO [reply_id=" + reply_id + ", notice_id=" + notice_id + ", admin_id=" + admin_id + ", reply_con="
-				+ reply_con + "]";
+				+ reply_con + ", store_id=" + store_id + "]";
 	}
+
 }

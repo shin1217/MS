@@ -1,4 +1,4 @@
-package com.bit.ms.member.service;
+package com.bit.ms.admin.service;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import com.bit.ms.dao.MemberDaoInterface;
 import com.bit.ms.member.model.ReplyVO;
 
 @Service
-public class MemberReplyService {
+public class AdminNoticeReplyService {
 
 	@Autowired
 	private SqlSessionTemplate sessionTemplate;

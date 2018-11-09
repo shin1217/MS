@@ -6,15 +6,14 @@
 
 	<!-- 공지사항 댓글 -->
 	<select id="replyList" resultType="replyVO">
-		select *
-		from noticereply
+		select * from noticereply
 		where notice_id = #{notice_id}
 		order by reply_id
 	</select>
 
 	<insert id="insertReply" parameterType="replyVO">
-		insert into noticereply(notice_id, admin_id, reply_con)
-		values (#{notice_id}, #{admin_id}, #{reply_con})
+		insert into noticereply(notice_id, admin_id, reply_con, store_id)
+		values (#{notice_id}, #{admin_id}, #{reply_con}, #{store_id})
 	</insert>
 
 	<update id="updateReply" parameterType="replyVO">
@@ -23,8 +22,8 @@
 	</update>
 
 	<delete id="deleteReply" parameterType="int">
-		delete noticereply
-		where reply_id = #{reply+id}
+		delete from noticereply
+		where reply_id = #{reply_id}
 	</delete>
 	
 	

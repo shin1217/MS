@@ -8,6 +8,8 @@ public class NoticeVO {
 	private String notice_title;
 	private String notice_con;
 	private String notice_date;
+	private String admin_id;
+	private int store_id;
 
 	public int getNotice_id() {
 		return notice_id;
@@ -41,10 +43,26 @@ public class NoticeVO {
 		this.notice_date = notice_date;
 	}
 
+	public String getAdmin_id() {
+		return admin_id;
+	}
+
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
+	}
+
+	public int getStore_id() {
+		return store_id;
+	}
+
+	public void setStore_id(int store_id) {
+		this.store_id = store_id;
+	}
+
 	@Override
 	public String toString() {
 		return "NoticeVO [notice_id=" + notice_id + ", notice_title=" + notice_title + ", notice_con=" + notice_con
-				+ ", notice_date=" + notice_date + "]";
+				+ ", notice_date=" + notice_date + ", admin_id=" + admin_id + ", store_id=" + store_id + "]";
 	}
 
 }
