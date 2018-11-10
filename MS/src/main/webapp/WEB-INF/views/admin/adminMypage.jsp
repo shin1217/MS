@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>MS</title>
 <style>
 .adminMypage_adminInfo {
    margin: 30px 20px;
@@ -51,6 +51,7 @@
    color : white;
    margin-left : 70px;
    font-size : 20px;
+   border-radius: 7px;
 }
 .adminMypage_deleteBtn{
 	margin-left : 20px !important;
@@ -123,6 +124,7 @@
    height : 40px;
    font-weight : bold;
    font-size : 18px;
+   border-radius: 7px;
 }
 .adminMypage_editOkBtn:hover {
    background-color : #8e8e8e;
@@ -168,6 +170,7 @@
 	height : 200px;
 	background-color : #eee;
 	text-align : center;
+	border-radius: 10px;
 }
 .adminMypage_deleteDiv p{
 	margin-top : 30px;
@@ -184,6 +187,7 @@
 	margin-left : 30px;
 	margin-right : 30px;
 	font-size : 18px;
+	border-radius: 10px;
 }
 .adminMypage_deleteCancelBtn{
 	background-color : black !important;
@@ -192,7 +196,7 @@
 	background-color : palevioletred;
     cursor : pointer;
 }
-.adminMypage_deleteCancelBtn:hover, .storeDeleteCancel:hover{
+.adminMypage_deleteCancelBtn:hover, .storeDeleteCancel:hover, .addBtn:hover{
 	background-color : #8e8e8e !important;
     cursor : pointer;
 }
@@ -208,6 +212,7 @@
 	margin-right : 20px;
 	height: 50px;
     border: none;
+    border-radius: 7px;
 }
 .adminMypage_addStore:hover{
 	background-color : grey;
@@ -220,6 +225,7 @@
 	font-size : 16px;
 	margin-right : 10px;
 	font-weight : bold;
+	border-radius: 7px;
 }
 .adminMypage_storeName:hover{
 	background-color : grey;
@@ -278,6 +284,7 @@
 	position : relative;
 	float : left;
 	margin-bottom : 0px;
+	border-radius: 10px;
 }
 .deleteStore{
 	width : 15px;
@@ -285,6 +292,7 @@
 	position : absolute;
 	right : 0px;
 	top : 0px;
+	border-radius: 10px;
 }
 .storeDeleteModal{
    position : fixed;
@@ -296,17 +304,18 @@
    background-color : rgba(0, 0, 0, 0.4);
    display : none;
 }
-.deleteStore:hover{
+.deleteStore:hover, .adminMypage_select{
 	cursor : pointer;
 }
 .storeDeleteDiv{
 	position : absolute;
 	top : 20%;
 	left : 35%;
-	width : 500px;
+	width : 550px;
 	height : 200px;
 	background-color : #eee;
 	text-align : center;
+	border-radius: 10px;
 }
 .storeDeleteBtn, .storeDeleteCancel{
 	background-color : red;
@@ -317,6 +326,7 @@
 	margin-left : 30px;
 	margin-right : 30px;
 	font-size : 18px;
+	border-radius: 10px;
 }
 .storeDeleteCancel{
 	background-color : black !important;
@@ -326,6 +336,61 @@
 	margin-bottom : 30px;
 	font-size : 35px;
 	font-weight : bold;
+}
+.addStoreModal{
+   position : fixed;
+   width : 100%;
+   height : 100%;
+   left : 0px;
+   top : 0px;
+   z-index : 1;
+   background-color : rgba(0, 0, 0, 0.4);
+   display : none;
+}
+.addStoreWrap{
+	position : absolute;
+	top : 20%;
+	left : 35%;
+	width : 500px;
+	height : 150px;
+	background-color : white;
+	text-align : center;
+	border-radius: 10px;
+}
+.addStoreWrap p{
+	position : relative;
+	font-size : 30px;
+	margin-top : 20px;
+	margin-bottom : 15px;
+	font-weight : bold;
+}
+.adminMypage_select{
+	width : 220px;
+	font-size : 15px;
+	height : 38px;
+	padding : 7px;
+	background-color : #eee;
+	margin-right : 30px;
+	font-weight : bold;
+}
+.addBtn{
+	border : none;
+	background-color : black;
+	color : white;
+	width : 100px;
+	height : 50px;
+	border-radius: 10px;
+}
+.storeClose{
+	position : absolute;
+	top : 0px;
+	right : 15px;
+	font-size : 30px;
+	font-weight : bold;
+}
+.storeClose:hover{
+	color : grey;
+	cursor : pointer;
 }
 </style>
 </head>
@@ -365,7 +430,7 @@
                   		<p class = "deleteStoreWrap"><input type = "button" class = "adminMypage_storeName" id = "adminMypage_storeName${status.count}" value = "${store.store_name}">
                   		<img src="${pageContext.request.contextPath}/images/minus.PNG" id = "${store.store_id}" class = "deleteStore"></p>
                   	</c:forEach>
-                  	<input type = "button" id = "adminMypage_addStore" class = "adminMypage_addStore" value = "+">
+                  	
                   </td>
                </tr>
                <tr>
@@ -377,6 +442,12 @@
          </form>
 
 
+      </div>
+      <!-- 매장 추가 모달창 -->
+      <div class = "addStoreModal" id = "addStoreModal">
+     	 <div class = 'addStoreWrap' id = "addStoreWrap">
+     	 <span class = 'storeClose' id = 'storeClose'>×</span>
+     	 </div>
       </div>
       
    <!-- 회원 탈퇴 모달창 -->
@@ -434,6 +505,7 @@
          $('#adminMypage_mainModal').hide(); // 시작시 수정모달창을 가림
          $('#adminMypage_deleteModal').hide(); // 시작시 삭제모달창 가림
          $('#storeDeleteModal').hide(); // 시작시 매장삭제 모달창 가림
+        // $('#addStoreModal').hide(); // 시작시 매장추가 모달창 가림
          
          $('#adminMypage_editBtn').on('click', function(){
          
@@ -535,34 +607,47 @@
             	$('#storeDeleteModal').hide();
              } else if(event.target == $('#adminMypage_deleteModal').get(0)){
             	$('#adminMypage_deleteModal').hide();
+             } else if(event.target == $('#addStoreModal').get(0)){
+            	$('#addStoreModal').hide();
+            	$('#newAddStore').remove();
              }
          });
          
          //닫기버튼을 누르면 수정모달창 닫음
          $('#adminMypage_close').click(function(){
             $('#adminMypage_mainModal').hide();
-         
          });
          
+         $('#adminMypage_close').click(function(){
+            $('#adminMypage_mainModal').hide();
+         });
+         
+         var list = new Array(); //소유한 매장이름을 받아올 리스트
+         <c:forEach items = "${store}" var = "store"> //소유한 매장이름을 list에 넣음
+         	list.push("${store.store_name}");
+         </c:forEach>
+         
+         if(list.length < 3){ // 모든매장을 다 갖고있으면 매장추가 버튼이 사라진다
+        	 $('.adminMypage_management').append('<input type = "button" id = "adminMypage_addStore" class = "adminMypage_addStore" value = "+">');
+         }
          //매장 추가 클릭시 select뜸
          $('.adminMypage_addStore').click(function(){
-
+			$('#addStoreModal').show();
         	 var store_name = $('.adminMypage_storeName').val();
-        	 
         	 $.ajax({
         		 url : '${pageContext.request.contextPath}' + '/admin/adminStoreAdd',
         		 type : 'get',
         		 success : function(data){
         			 //console.log(data[0].store_name);
         			 
-        			 str = "<div><h2>매장을 선택하세요</h2>";
-        			 str += "<select id = 'adminMypage_select'><option>매장선택</option>";
+        			 str = "<div id = 'newAddStore'><p>매장을 선택하세요</p>";
+        			 str += "<select id = 'adminMypage_select' class = 'adminMypage_select'><option>매장선택</option>";
         			 for(var i = 0; i < data.length; i++){
 	        			 str += "<option name = 'store_id' id = " + data[i].store_id + ">" + data[i].store_name + "</option>"; 
         			 }
         			 str += "<input type = 'button' class = 'addBtn' id = 'addBtn' value = '매장등록'></div>";
         			 
-        			 $('body').append(str);
+        			 $('#addStoreWrap').append(str);
         			 
         			 //셀렉트박스에서 선택했을때 이벤트
         			 $('#adminMypage_select').change(function(){
@@ -575,12 +660,13 @@
         			 		selectedId = $('#adminMypage_select option:selected').attr("id"); //선택된 값의 아이디값 가져오기
         					//console.log(selectedId);
         			 		
-        			 		if(selected != store_name){
-        			 			
+        			 			if(list[0] == selected || list[1] == selected){ //내가 소유한 매장리스트의 값과 추가할 매장이 같다면
+        			 				alert("이미 소유하신 매장입니다.")
+        			 			} else {
         					 $.ajax({
         						url : '${pageContext.request.contextPath}' + '/admin/adminStoreAdd',
         						type : 'post',
-        						data : {
+        						data : { //기존 회원정보와 추가할 매장번호를 넘김
         							admin_id : $('#adminMypage_id').val(),
         							store_id : selectedId,
         							admin_name : $('#adminMypage_name').val(),
@@ -592,16 +678,18 @@
         							alert("매장추가에 성공했습니다.")
         							location.reload();
         						} //매장추가 끝
-        						
         					}); //등록버튼 ajax끝 	
-        			 		} else {
-        			 			alert("이미 소유한 매장입니다.");
-        			 		}
+        					 } //else문 끝
         				}); //등록버튼 끝
         			 }); //셀렉트박스 change이벤트 끝
         		 } 
         	 }); //매장추가 ajax끝
          }); //매장추가 끝
+         
+       //닫기버튼을 누르면 매장추가모달창 닫음
+         $('#storeClose').click(function(){
+            $('#addStoreModal').hide();
+         });
          
          //매장 삭제클릭시 이벤트
          $('.deleteStore').click(function(){
@@ -617,7 +705,7 @@
         				 store_id : store_id
         		 	},
         		 	success : function(data){
-        		 		alert("매장삭제를 완료했습니다.");
+        		 		alert("매장을 날리셨습니다.");
         				location.reload(); 
         		 	}
         	 	}); // 삭제 ajax끝
