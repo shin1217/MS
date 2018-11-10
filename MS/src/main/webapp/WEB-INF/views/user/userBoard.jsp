@@ -37,9 +37,11 @@
 	<div class="userBoard_header">
 		<br> <a class="nav-link"
 			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1
-				class="hypertext_none">유저게시판</h1></a> <a id="write"
-			class="btn btn-outline-elegant waves-effect"
-			href="${pageContext.request.contextPath}/user/userBoard/Write">글쓰기</a>
+				class="hypertext_none">유저게시판</h1></a>
+		<c:if test="${sessionScope.userSession != NULL}">
+			<a id="write" class="btn btn-outline-elegant waves-effect"
+				href="${pageContext.request.contextPath}/user/userBoard/Write">글쓰기</a>
+		</c:if>
 	</div>
 	<div class="container">
 		<table class="table">

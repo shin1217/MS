@@ -108,7 +108,7 @@
 		<div class="buttonsRight">
 
 			<c:if
-				test="${sessionScope.userSession.user_id == userboardvo.user_id}">
+				test="${sessionScope.userSession.user_id == userboardvo.user_id || sessionScope.adminSession != null}">
 				<button type="button" class="btn btn-dark" data-toggle="modal"
 					data-target="#modalUserBoardDeleteForm">삭제</button>
 				<button type="button" class="btn btn-dark"
