@@ -67,9 +67,8 @@ body {
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn">
-				<form method="post">
 					<div>
-						<select name="store_id">
+						<select id="store_id" name="store_id">
 							<option value="1">MS 스터디카페</option>
 							<option value="2">MS PC방</option>
 							<option value="3">MS 코인노래방</option>
@@ -78,26 +77,22 @@ body {
 					<div class="form-group">
 						<label class="font-weight-bold text-white" for="inputId">아이디</label>
 						<div>
-							<input type="text" class="form-control" id="inputId"
-								name="user_id" placeholder="아이디">
+							<input type="text" class="form-control" id="inputId" name="user_id" placeholder="아이디">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
 						<div>
-							<input type="password" class="form-control" id="inputPassword"
-								name="user_pw" placeholder="비밀번호">
+							<input type="password" class="form-control" id="inputPassword" name="user_pw" placeholder="비밀번호">
 						</div>
 					</div>
 					<div class="form-group">
 						<div>
-							<button type="submit" class="btn btn-primary btn-block">로그인</button>
+							<button id="loginBtn" type="submit" class="btn btn-primary btn-block">로그인</button>
 						</div>
 					</div>
-				</form>
 				<div class="col-sm-10">
-					<a class="btn btn-primary"
-						href="${pageContext.request.contextPath}/user/reg">회원가입</a>
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
 			</div>
 		</div>
@@ -105,5 +100,24 @@ body {
 </body>
 <script>
 	new WOW().init();
+	
+	$('#loginBtn').click(function(){
+		var id = $('#inputId').val();
+		var pw = $('#inputPassword').val();
+		var store = $('#store_id').val();
+
+		$.ajax({
+			type : 'post',
+			url : '${pageContext.request.contextPath}/',
+			data : {
+				user_id : id,
+				user_pw : pw,
+				store_id : store
+			},
+			success : function(data){
+				location.href='${pageContext.request.contextPath}/user/main';
+			}
+		});
+	});
 </script>
 </html>

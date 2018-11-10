@@ -24,7 +24,6 @@ public class AdminNoticeBoardService {
 		try {
 			memberDaoInterface.deleteNotice(id);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

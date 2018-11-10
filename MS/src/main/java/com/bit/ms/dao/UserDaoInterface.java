@@ -11,7 +11,7 @@ public interface UserDaoInterface {
 
 	/* 유저정보관련 */
 	public int regUser(UserVO userVO) throws SQLException;// 유저 회원가입 메서드
-	public UserVO loginUser(String user_id);// 유저 로그인 메서드
+	public UserVO loginUser(String user_id, int store_id);// 유저 로그인 메서드
 	public UserVO searchId(String userPhone);// 유저 ID 찾기
 	public UserVO searchPw(String userId);// 유저 PW 찾기
 	public UserVO getMyPage(String user_id);// 마이페이지 메서드

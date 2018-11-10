@@ -16,16 +16,17 @@ public class UserLoginService {
 	private SqlSessionTemplate userSqlSession;
 	private UserDaoInterface userDao;
 	
-	public boolean userLogin_service(String user_id, String user_pw, HttpSession httpSession) {
+	public int userLogin_service(String user_id, String user_pw, int store_id, HttpSession httpSession) {
 		
-		boolean result = false;
+		int result = 0;
 		
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
-		UserVO vo = userDao.loginUser(user_id);
+		UserVO vo = userDao.loginUser(user_id, store_id);
 		
 		// 아이디로 값을 찾은 경우
 		if(vo !=null) {
-			if(vo.getUser_id().equals(user_id) && vo.getUser_pw().equals(user_pw)) {
+			// 아이디,비번,스토어id가 모두 같은경우
+			if(vo.getUser_id().equals(user_id) && vo.getUser_pw().equals(user_pw) && vo.getStore_id() == store_id) {
 				
 				// 세션 저장하기 전에 비밀번호 가리기
 				vo.setUser_pw("");
@@ -33,7 +34,7 @@ public class UserLoginService {
 				// 세션에 vo 객체 저장
 				httpSession.setAttribute("userSession", vo);
 				System.out.println("세션확인 " + httpSession.getAttribute("userSession"));
-				result = true;
+				result = 1;
 			}
 		}
 		return result;

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.ms.user.service.UserLoginService;
 
@@ -24,12 +24,12 @@ public class UserLoginController {
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String userLoingPass(@RequestParam("user_id") String user_id,
-			@RequestParam("user_pw") String user_pw, HttpSession httpSession) {
+	@ResponseBody 			 /*String으로 받으면 자동으로 map형태로 받음 그러나 객체형태로 받는게 관리하기 편함*/
+	public int userLoingPass(String user_id, String user_pw, int store_id, HttpSession httpSession) {
 		
-		login_service.userLogin_service(user_id, user_pw, httpSession);
+		int result = login_service.userLogin_service(user_id, user_pw, store_id, httpSession);
 		
-		return "redirect:/user/main";
+		return result;
 	}
 	
 }

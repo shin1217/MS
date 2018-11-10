@@ -11,10 +11,10 @@
 
    </insert>
 
-   <!-- 로그인 -->
+   <!-- 로그인 / 아이디와 스토어id로 찾음-->
    <select id="loginUser" resultType="userVO">
 
-      select * from userinfo where user_id = #{user_id}
+      select * from userinfo where user_id = #{param1} and store_id = #{param2}
 
    </select>
 
