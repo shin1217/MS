@@ -106,7 +106,6 @@
 		</div>
 
 		<div class="buttonsRight">
-
 			<c:if
 				test="${sessionScope.userSession.user_id == userboardvo.user_id || sessionScope.adminSession != null}">
 				<button type="button" class="btn btn-dark" data-toggle="modal"
@@ -114,7 +113,6 @@
 				<button type="button" class="btn btn-dark"
 					onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${userboardvo.uboard_id}?page=${param.page}'">수정</button>
 			</c:if>
-
 
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='${pageContext.request.contextPath}/user/userBoard?page=${param.page}'">
