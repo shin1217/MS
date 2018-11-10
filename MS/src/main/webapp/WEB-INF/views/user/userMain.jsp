@@ -63,7 +63,17 @@
 	background-color: #33b5e5;
 	padding-left: 5px;
 	padding-right: 5px;
-	text-align: left;
+}
+
+/* 사용 종료 */
+.end_btn {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border: none;
+	margin-top: 30px;
+	font-size: 20px;
+	width: 100%;
+	height: 40px;
 }
 
 .left_btn_wrap {
@@ -118,6 +128,7 @@
 	font-size: 28px;
 	font-weight: bold;
 	font-size: 28px;
+	
 }
 </style>
 </head>
@@ -174,7 +185,7 @@
 						$('#seatTable td').each(function() {
 							
 							if($(this).attr('id') == data[i].seat_id){ // 기존 좌석 아이디와 응답 데이터의 좌석 아이디가 일치할 경우 
-								seatArr[$(this).attr('id')-1] = true;
+								seatArr[$(this).attr('id')-1] = true; // 좌석 사용 상태 true 변경
 								resetSeat($(this), data[i].seat_update_time, 59, data[i].user_id);
 							}
 						});
@@ -227,14 +238,34 @@
 		var seatObj = null;
 		
 		$('#seatTable td').click(function() {
+			seatObj = $(this); // 선택한 좌석 객체를 변수에 저장
 			
-			if(seatArr[$(this).attr('id')-1]){
-				alert('이미 사용 중인 좌석입니다.');
-				return;
-			}
-			seatObj = $(this); // 선택된 좌석의 객체를 변수 comObj에 저장
-			$('#add_time_modal').show(); // 시간 충전 modal창 띄우기
-		});
+			$.ajax({
+				url: '<%=request.getContextPath()%>/user/isUsingSeat?userId=${userSession.user_id}', 
+				type: 'get',
+				
+				success:function(data){
+					if(data == ''){ // 로그인한 유저가 사용 중인 좌석이 없다면...
+						
+						if(seatArr[$(seatObj).attr('id')-1]){ // 다른 사용자가 사용 중인 좌석 선택
+							alert('이미 사용 중인 좌석입니다.');
+						}
+						else{
+							$('#add_time_modal').show(); // 시간 충전 modal창 띄우기
+						}
+					}
+					
+					else{ // 로그인한 유저가 사용 중인 좌석이 있다면...
+						console.log("현재 로그인한 유저가 사용 중인 좌석 아이디 " + data.seat_id);
+						console.log("선택된 좌석 아이디 " +  $(seatObj).attr('id'));
+						
+						if(data.seat_id == $(seatObj).attr('id')){ // 사용 중인 좌석과 선택한 좌석이 일치할 경우(충전)
+							$('#add_time_modal').show(); // 시간 충전 modal창 띄우기
+						}
+					}
+				} // end success
+			}); // end ajax
+		}); // end 좌석 선택 처리
 
 		//////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -246,7 +277,6 @@
 
 		/* 충전하기 클릭 시 처리 */
 		$('#add_time_btn').click(function() {
-			seatArr[$(seatObj).attr('id')-1] = true; // 선택된 좌석 체크
 			
 			if ($('#select_add_time option:selected').val() == 0) {
 				alert('충전하실 시간을 선택하세요.');
@@ -255,6 +285,8 @@
 			
 			var addTime = $('#select_add_time option:selected').val()*60; // 충전할 시간(분 단위)
 			var seatId = $(seatObj).attr('id');
+			
+			seatArr[seatId-1] = true; // 선택된 좌석 체크
 			
 			$.ajax({
 				// 충전 시간과 좌석번호를 파라미터로 넘겨줌.
@@ -301,15 +333,20 @@
 			'background-color' : '#0099CC',
 			'text-align' : 'right',
 			'padding' : 10,
-			'padding-bottom' : 80
+			'vertical-align': 'top'
 		});
 		
 		str = '<div>';
-		str += '<span style="color: black; font-weight: bold">'+ $(obj).attr('id') +'</span>';
-		str += '<span style="float: right">'+ id +'</span>';
+		str += '<span style="color: black; font-weight: bold; float: left">'+ $(obj).attr('id') +'</span>';
+		str += '<span>'+ id +'</span>';
 		str += '</div>';
 		str += '<div><span class="countTimeMinute">'+ m +'</span>분<span class="countTimeSecond">'+ s +'</span>초</div>';
 		str += '<div>5000</div>';
+		
+		// 자신의 좌석에만 사용 종료 버튼 표시
+		if(id == '${userSession.user_id}'){
+			str += '<button class="end_btn">사용 종료</button>';
+		}
 
 		$(obj).text(''); // 중앙에 써있던 좌석 번호 지우기
 		$(obj).append(str); // 좌석 사용 정보 보여주기
@@ -321,7 +358,7 @@
 		}
 	}
 	
-	/* 시간 타이머 */
+	/* 시간 타이머(분, 초) */
 	function timer(m, s){
 		var timer = setInterval(function () {
 			

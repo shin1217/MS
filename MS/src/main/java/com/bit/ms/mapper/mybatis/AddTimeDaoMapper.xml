@@ -22,4 +22,9 @@
 		select * from seat;
 	</select>
 	
+	<select id="isUsingSeat" resultType="seatVO">
+		select * from seat 
+		where user_id=#{user_id}
+	</select>
+	
 </mapper>

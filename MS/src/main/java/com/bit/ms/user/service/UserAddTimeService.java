@@ -43,4 +43,11 @@ public class UserAddTimeService {
 		
 		return userDao.getSeatInfo();
 	}
+	
+	// 로그인한 유저의 좌석 사용 상태 검사
+	public SeatVO isUsingSeat(String userId) {
+		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
+		
+		return userDao.isUsingSeat(userId);
+	}
 }

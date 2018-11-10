@@ -47,4 +47,12 @@ public class UserAddTimeController {
 		
 		return service.getSeatInfo();
 	}
+	
+	// 로그인한 유저의 좌석 사용 상태 검사
+	@RequestMapping(value="/user/isUsingSeat", method=RequestMethod.GET)
+	@ResponseBody 
+	public SeatVO isUsingSeat(@RequestParam("userId") String userId) {
+		
+		return service.isUsingSeat(userId);
+	}
 }

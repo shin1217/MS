@@ -35,4 +35,5 @@ public interface UserDaoInterface {
 	public int addTime(long addTime, String userId);
 	public int updateSeat(long time, String userId, String seatId);
 	public List<SeatVO> getSeatInfo();
+	public SeatVO isUsingSeat(String userId);
 }
