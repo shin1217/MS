@@ -7,12 +7,12 @@ import org.apache.ibatis.type.Alias;
 @Alias("UserBoardVO")
 public class UserBoardVO {
 
-	int uboard_id; // 유저게시판 번호
-	String uboard_title; // 유저게시판 제목
-	String uboard_con; // 유저게시판 내용
-	Timestamp uboard_date; // 유저게시판 작성날짜
-	String user_id; // 회원 아이디
-	int store_id; // 매장 번호
+	private int uboard_id; // 유저게시판 번호
+	private String uboard_title; // 유저게시판 제목
+	private String uboard_con; // 유저게시판 내용
+	private Timestamp uboard_date; // 유저게시판 작성날짜
+	private String user_id; // 회원 아이디
+	private int store_id; // 매장 번호
 
 	@Override
 	public String toString() {
