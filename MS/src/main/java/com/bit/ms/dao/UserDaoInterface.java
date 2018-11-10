@@ -33,7 +33,9 @@ public interface UserDaoInterface {
 	/*시간충전*/
 	public long getTime(String userId);
 	public int addTime(long addTime, String userId);
-	public int updateSeat(long time, String userId, String seatId);
+	public int updateSeat(long nowTime, long addTime, String userId, String seatId);
+	public int updateSeatAll(long nowTime);
 	public List<SeatVO> getSeatInfo();
 	public SeatVO isUsingSeat(String userId);
+	public int saveTime();
 }
