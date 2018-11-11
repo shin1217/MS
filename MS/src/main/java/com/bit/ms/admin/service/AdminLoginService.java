@@ -1,5 +1,7 @@
 package com.bit.ms.admin.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,7 +23,7 @@ public class AdminLoginService {
 		boolean result = false;
 		
 		adminDao = adminSqlSession.getMapper(AdminDaoInterface.class);
-		AdminVO vo = adminDao.loginAdmin(admin_id);
+		AdminVO vo = adminDao.loginAdmin(admin_id).get(0);
 		
 		// 아이디 값으로 객체 비교
 		if(vo != null) {
