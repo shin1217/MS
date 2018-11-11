@@ -30,13 +30,6 @@
 
 	</select>
 
-	<!-- 회원 리스트 뽑기 -->
-	<select id="getUserList" resultType="userVO">
-
-		select * from userinfo
-
-	</select>
-
 	<!--관리자 정보가져오기 -->
 	<select id="getAdminMyage" resultType="adminVO">
 
@@ -98,4 +91,17 @@
 
 	</delete>
 
+	<!-- 회원 리스트 뽑기 -->
+	<select id="getUserList" resultType="userVO">
+
+		select * from userinfo
+
+	</select>
+	
+	<!-- 회원리스트 sorting -->
+	<select id="sortingUserList" resultType="userVO">
+	
+		select * from userinfo order by ${sortName} desc
+	
+	</select>
 </mapper>

@@ -19,7 +19,6 @@ public interface AdminDaoInterface {
 	int regAdmin(AdminVO adminVO);// admin 회원가입
 	int checkOverId(String admin_id);// admin 아이디 중복 검사
 	AdminVO loginAdmin(@Param("admin_id")String admin_id, @Param("store_id")int store_id);// admin 로그인
-	List<UserVO> getUserList();// User List 출력
 	List<AdminVO> getAdminMyage(String admin_id);// 관리자 마이페이지(매장은 다르나 동일한관리자를 배열로 다 받아옴)
 	List<StoreVO> getStore(String admin_id);	// 관리자의 해당 매장정보를 가져오는
 	int editAdmin(AdminVO adminVo);	// 관리자 수정
@@ -41,6 +40,10 @@ public interface AdminDaoInterface {
 	void insertReply(ReplyVO vo) throws Exception;
 	void updateReply(ReplyVO vo) throws Exception;
 	void deleteReply(int id) throws Exception;
+	
+	/*회원리스트 관련*/
+	List<UserVO> getUserList();//회원리스트 전체 출력
+	List<UserVO> sortingUserList(@Param("sortName")String sortName); //클릭한 열로 정렬
 	
 	/* 매출기록 관련 */
 	public List<SalesVO> listAll() throws Exception; // 매출기록 리스트 출력
