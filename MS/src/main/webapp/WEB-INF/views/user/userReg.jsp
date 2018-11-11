@@ -77,14 +77,14 @@ body {
 				<label for="user_pw">비밀번호</label> <input type="password"
 					class="form-control" id="user_pw" name="user_pw"
 					placeholder="PASSWORD">
-				<div class="check_font">confirm message</div>
+				<div class="check_font"></div>
 			</div>
 			<!-- 비밀번호 재확인 -->
 			<div class="form-group">
 				<label for="user_pw2">비밀번호 확인</label> <input type="password"
 					class="form-control" id="user_pw2" name="user_pw2"
 					placeholder="Confirm Password">
-				<div class="check_font">confirm message</div>
+				<div class="check_font" id="pw2_check"></div>
 			</div>
 			<!-- 이름 -->
 			<div class="form-group">
@@ -134,10 +134,10 @@ body {
 				</select>
 			</div>
 			<div class="reg_button">
-				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/">
-					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
-				</a>
-				&emsp;&emsp;
+				<a class="btn btn-danger px-3"
+					href="${pageContext.request.contextPath}/"> <i
+					class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
+				</a> &emsp;&emsp;
 				<button type="submit" class="btn btn-primary px-3" id="reg_submit">
 					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
 				</button>
@@ -146,6 +146,35 @@ body {
 	</div>
 </body>
 <script>
+	//회원 가입 유효성 검사 (validate)
+	function validate() {
+		var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
+		var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		// 이메일이 적합한지 검사할 정규식
+
+		/* 각 id 속성 값 */
+		var id = document.getElementById('user_id');
+		var pw = document.getElementById('user_pw');
+		var name = document.getElementById('user_name');
+		var phone = documnet.getElementById('user_phone');
+
+		// 정규식 활용
+		if (!check(re, id, "아이디는 4~12자의 영문 및 숫자로만 입력해주세요")) {
+			return false;
+		}
+
+	}
+
+	//check() 메서드
+	function check(re, what, message) {
+		if (re.test(what.value)) {
+			return tru
+		}
+		alert(message);
+		what.value = "";
+		what.focus();
+		// return false;
+	}
 	// 회원가입 유효성 검사(1 = 중복 / 0 != 중복)
 	var idChk = 0;
 
@@ -171,6 +200,7 @@ body {
 										} else {
 											// 0 : 아이디 길이 / 문자열 검사
 											$("#id_check").text("멋진 아이디네요!");
+											$("#id_check").css("color", "blue");
 										}
 									},
 									error : function() {
@@ -179,6 +209,31 @@ body {
 
 								});
 					});
+
+	// 패스워드 관련 유효성 검사
+	// 1-1 패스워드 일치 확인
+	$('#user_pw2').blur(function() {
+		if ($('#user_pw').val() != $(this).val()) {
+			$('#pw2_check').text('비밀번호가 일치하지 않습니다 :(');
+			$('#pw2_check').css('color', 'red');
+		} else {
+			$('#pw2_check').text('회원가입을 계속 진행해주세요 :)');
+			$('#pw2_check').css('color', 'blue');
+		}
+	});
+
+	// 1-2 패스워드 일치해야 가입하기 버튼 실행
+	$('#reg_submit').click(function() {
+		if ($('#user_pw').val() != ($('#user_pw2').val())) {
+
+			alert('비밀번호를 확인해주세요 :)');
+			return false;
+		} else {
+
+			return true;
+		}
+
+	});
 </script>
 
 </html>
