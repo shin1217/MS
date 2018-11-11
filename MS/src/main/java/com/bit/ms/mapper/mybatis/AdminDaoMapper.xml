@@ -7,7 +7,8 @@
 	<!-- Admin 회원가입 -->
 	<insert id="regAdmin" parameterType="AdminVO">
 
-		insert into admininfo (admin_id, admin_pw, admin_name, admin_phone,
+		insert into admininfo
+		(admin_id, admin_pw, admin_name, admin_phone,
 		admin_birth, store_id)
 		values (#{admin_id}, #{admin_pw}, #{admin_name}, #{admin_phone},
 		#{admin_birth}, #{store_id})
@@ -20,12 +21,13 @@
 		select count(*) from admininfo where admin_id = #{admin_id}
 
 	</select>
-	
+
 	<!-- Admin 로그인 -->
 	<select id="loginAdmin" resultType="adminVO">
-			
-		select * from admininfo where admin_id = #{admin_id}
-			
+
+		select * from admininfo where
+		admin_id = #{admin_id}
+
 	</select>
 
 	<!-- 회원 리스트 뽑기 -->
@@ -38,32 +40,38 @@
 	<!--관리자 정보가져오기 -->
 	<select id="getAdminMyage" resultType="adminVO">
 
-		select * from admininfo where admin_id = #{admin_id}
+		select * from admininfo
+		where admin_id = #{admin_id}
 
 	</select>
 
 	<!--관리자가 갖고있는 매장정보 가져오기 -->
 	<select id="getStore" resultType="storeVO">
 
-		select * from store where store_id in
-		(select store_id from admininfo where admin_id = #{admin_id})
+		select * from store where
+		store_id in
+		(select store_id from admininfo where admin_id =
+		#{admin_id})
 
 	</select>
-	
-	<!--해당 매장에대한 상세정보  -->
-	<select id="getStoreDetail" resultType = "storeVO">
-	
-		select * from store where store_name = #{store_name}
-	
+
+	<!--해당 매장에대한 상세정보 -->
+	<select id="getStoreDetail" resultType="storeVO">
+
+		select * from store where
+		store_name = #{store_name}
+
 	</select>
 
 	<!--관리자 수정하기 -->
 	<update id="editAdmin" parameterType="AdminVO">
 
-		update admininfo set admin_pw = #{admin_pw}, admin_name = #{admin_name},
+		update admininfo set
+		admin_pw = #{admin_pw}, admin_name = #{admin_name},
 		admin_phone =
 		#{admin_phone}, admin_birth = #{admin_birth}
-		where admin_id = #{admin_id}
+		where admin_id =
+		#{admin_id}
 
 	</update>
 
@@ -73,18 +81,21 @@
 		delete from admininfo where admin_id = #{admin_id}
 
 	</delete>
-	
+
 	<!-- 전체 매장리스트 불러오기 -->
-	<select id = "getStoreList" resultType = "storeVO">
-		
-		select * from store 
-		
+	<select id="getStoreList" resultType="storeVO">
+
+		select * from store
+
 	</select>
-	
-	<!--매장삭제  -->
-	<delete id = "deleteStore" parameterType="hashmap">
-	
-		delete from admininfo where admin_id = #{admin_id} and store_id = #{store_id}
-	
+
+	<!--매장삭제 -->
+	<delete id="deleteStore" parameterType="hashmap">
+
+		delete from admininfo
+		where admin_id = #{admin_id} and store_id =
+		#{store_id}
+
 	</delete>
+
 </mapper>

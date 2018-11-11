@@ -19,6 +19,7 @@ public class UserBoardService {
 
 	private UserDaoInterface userDaoInterface;
 
+	// List
 	// 페이지마다 보여줄 게시글의 수
 	private static final int USERBOARD_COUNT_PER_PAGE = 10;
 
@@ -47,6 +48,88 @@ public class UserBoardService {
 		return new UserBoardListVO(userBoardList, userBoardTotalCount, currentPageNum, userBoardPageTotalCount,
 				USERBOARD_COUNT_PER_PAGE, firstRow);
 
+	}
+
+	public int userBoardWrite(UserBoardVO userBoardVO) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int resultCnt = 0;
+
+		try {
+			resultCnt = userDaoInterface.insertUserBoard(userBoardVO);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resultCnt;
+	}
+
+	public int UserBoardDeleteS(int uboard_id) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int resultCnt = 0;
+
+		try {
+			resultCnt = userDaoInterface.UserBoardDeleteI(uboard_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resultCnt;
+
+	}
+
+	public int UserBoardModifyS(UserBoardVO userBoardVO) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int resultCnt = 0;
+
+		resultCnt = userDaoInterface.UserBoardModifyI(userBoardVO);
+
+		return resultCnt;
+
+	}
+
+	// ViewViewViewViewViewViewViewViewViewViewViewViewViewViewViewViewView
+
+	public UserBoardVO getUserBoardViewS(int uboard_id) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		UserBoardVO userBoardVO = userDaoInterface.getUserBoardViewI(uboard_id);
+
+		return userBoardVO;
+	}
+
+	public int getViewPreviousNUM(int uboard_id) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int num = userDaoInterface.getPreviousNUM(uboard_id);
+
+		return num;
+	}
+
+	public int getViewNextNUM(int uboard_id) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int num = userDaoInterface.getNextNUM(uboard_id);
+
+		return num;
+	}
+
+	public int getViewTotalCount() {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int num = userDaoInterface.UserBoardTotalCount();
+
+		return num;
 	}
 
 }
