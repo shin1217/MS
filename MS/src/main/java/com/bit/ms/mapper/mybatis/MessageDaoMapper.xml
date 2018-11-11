@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace - 인터페이스에 있는 패키지 명 + 인터페이스 명 -->
+<mapper namespace="com.bit.ms.dao.MemberDaoInterface">
+
+<!-- 메시지 리스트 불러오기 -->
+	<select id="getMessageList" parameterType="hashmap" resultType="messageVO">
+		select * from message where receive_id = #{receive_id} and store_id = #{store_id}
+	</select>
+	<!-- 메시지 쓰기 -->
+	<insert id="writeMessage" parameterType="messageVo">
+		insert into message (message_title, message_con, send_id, receive_id, store_id) 
+		values (#{message_title}, #{message_con}, #{send_id}, #{receive_id}, #{store_id})
+	</insert>
+	<!--메시지 삭제  -->	
+	<delete id="deleteMessage" parameterType="hashmap">
+		delete from message where message_id = #{message_id} and store_id = #{store_id}
+	</delete>
+	<!-- 읽은 메시지 수정 -->	
+	<update id="readMessage" parameterType="hashmap">
+		update message set message_read = #{message_read} where message_id = #{message_id} and store_id = #{store_id}
+	</update>
+	<!-- 안읽은 메시지 카운트 -->	
+	<select id="adminMessageCnt" parameterType="hashmap">
+		select count(*) from message where receive_id = #{receive_id} and store_id = #{store_id} and message_read = "N"
+	</select>
+	
+</mapper>
