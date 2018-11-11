@@ -1,5 +1,7 @@
 package com.bit.ms.user.service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -17,7 +19,7 @@ public class UserLoginService {
 	
 	private UserDaoInterface userDao;
 	
-	public int userLogin_service(String user_id, String user_pw, int store_id, HttpSession httpSession) {
+	public int userLogin_service(String user_id, String user_pw, int store_id, HttpSession httpSession, String check, HttpServletResponse response) {
 		
 		int result = 0;
 		
@@ -29,6 +31,20 @@ public class UserLoginService {
 		if(vo != null) {
 			// 아이디,비번,스토어id가 모두 같은경우
 			if(vo.getUser_id().equals(user_id) && vo.getUser_pw().equals(user_pw) && vo.getStore_id() == store_id) {
+				
+				// 쿠키 체크 검사
+				if(check != null) {
+					Cookie cookie = new Cookie("check", user_id);
+					response.addCookie(cookie);
+					
+					// 쿠키 확인
+					System.out.println("쿠키 확인 : " + cookie);
+				}else{
+					Cookie cookie = new Cookie("check", "");
+					cookie.setMaxAge(0);				
+					response.addCookie(cookie);
+				}
+				
 				
 				// 세션 저장하기 전에 비밀번호 가리기
 				vo.setUser_pw("");
