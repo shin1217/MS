@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.ms.admin.model.NoticeVO;
-import com.bit.ms.dao.MemberDaoInterface;
+import com.bit.ms.dao.AdminDaoInterface;
 
 @Service
 public class AdminNoticeBoardService {
@@ -14,15 +14,15 @@ public class AdminNoticeBoardService {
 	@Autowired
 	private SqlSessionTemplate sessionTemplate;
 
-	private MemberDaoInterface memberDaoInterface;
+	private AdminDaoInterface adminDaoInterface;
 
 	//공지사항 글 삭제
 	@Transactional
 	public void noticeDelete(int id) {
-		memberDaoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
+		adminDaoInterface = sessionTemplate.getMapper(AdminDaoInterface.class);
 
 		try {
-			memberDaoInterface.deleteNotice(id);
+			adminDaoInterface.deleteNotice(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -31,10 +31,10 @@ public class AdminNoticeBoardService {
 	//공지사항 글 쓰기
 	@Transactional
 	public void noticeWrite(NoticeVO noticeVO) {
-		memberDaoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
+		adminDaoInterface = sessionTemplate.getMapper(AdminDaoInterface.class);
 
 		try {
-			memberDaoInterface.insertNotice(noticeVO);
+			adminDaoInterface.insertNotice(noticeVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,10 +43,10 @@ public class AdminNoticeBoardService {
 	//공지사항 글 수정
 	@Transactional
 	public void noticeModify(NoticeVO noticeVO) {
-		memberDaoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
+		adminDaoInterface = sessionTemplate.getMapper(AdminDaoInterface.class);
 
 		try {
-			memberDaoInterface.updateNotice(noticeVO);
+			adminDaoInterface.updateNotice(noticeVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

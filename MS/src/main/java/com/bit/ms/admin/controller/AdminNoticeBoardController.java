@@ -10,14 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.admin.model.NoticeVO;
 import com.bit.ms.admin.service.AdminNoticeBoardService;
-import com.bit.ms.member.service.MemberNoticeViewService;
+import com.bit.ms.member.service.MemberNoticeBoardService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminNoticeBoardController {
 
 	@Autowired
-	MemberNoticeViewService viewService;
+	MemberNoticeBoardService viewService;
 	@Autowired
 	AdminNoticeBoardService noticeBoardService;
 

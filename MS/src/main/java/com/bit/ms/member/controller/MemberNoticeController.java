@@ -4,20 +4,24 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bit.ms.admin.model.NoticeVO;
 import com.bit.ms.member.model.NoticeListVO;
-import com.bit.ms.member.service.MemberNoticeService;
+import com.bit.ms.member.service.MemberNoticeBoardService;
 
 @Controller
+@RequestMapping("/member")
 public class MemberNoticeController {
 
 	@Autowired
-	private MemberNoticeService service;
+	private MemberNoticeBoardService service;
 
 	// 공지사항 클릭시 공지사항을 리스트를 보여줌
-	@RequestMapping("/member/notice")
+	@RequestMapping(value = "/notice")
 	public ModelAndView getNoticeList(HttpServletRequest req) {
 
 		String pageParam = req.getParameter("page");
@@ -42,5 +46,16 @@ public class MemberNoticeController {
 		modelAndView.addObject("viewData", viewData);
 
 		return modelAndView;
+	}
+
+	// 공지사항 상세정보 컨트롤러
+	@RequestMapping(value = "/notice/{noticeId}")
+	public String getContent(@PathVariable("noticeId") int id, Model model) {
+
+		NoticeVO vo = service.getView(id);
+
+		model.addAttribute("view", vo);
+
+		return "member/noticeView";
 	}
 }
