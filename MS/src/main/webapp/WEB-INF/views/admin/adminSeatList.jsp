@@ -4,7 +4,8 @@
 <html>
 <head>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <style>
 .container {
 	margin-top: 20px;
@@ -18,25 +19,27 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 	<div class="container">
-		<h1>회원목록</h1>
-		<table id="userListTable" class="table table-striped table-bordered">
+		<h1>좌석 목록</h1>
+		<table id="seatListTable" class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th class="th-sm"><i class="fa fa-sort float-right" aria-hidden="true"></i>회원아이디</th>
-					<th class="th-sm"><i class="fa fa-sort float-right" aria-hidden="true"></i>회원이름</th>
-					<th class="th-sm"><i class="fa fa-sort float-right" aria-hidden="true"></i>비밀번호</th>
-					<th class="th-sm"><i class="fa fa-sort float-right" aria-hidden="true"></i>핸드폰번호</th>
-					<th class="th-sm"><i class="fa fa-sort float-right" aria-hidden="true"></i>생년월일</th>
+					<th class="th-sm"><i class="fa fa-sort float-right"
+						aria-hidden="true"></i>좌석번호</th>
+					<th class="th-sm"><i class="fa fa-sort float-right"
+						aria-hidden="true"></i>비용</th>
+					<th class="th-sm"><i class="fa fa-sort float-right"
+						aria-hidden="true"></i>QR코드</th>
+					<th class="th-sm"><i class="fa fa-sort float-right"
+						aria-hidden="true"></i>관리</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="list" items="${userlist}">
+				<c:forEach var="list" items="${seatlist}">
 					<tr>
-						<td>${list.user_id}</td>
-						<td>${list.user_name}</td>
-						<td>${list.user_pw}</td>
-						<td>${list.user_phone}</td>
-						<td>${list.user_birth}</td>
+						<td>${list.seat_id}</td>
+						<td>${list.seat_pay}</td>
+						<td>${list.seat_qr}</td>
+						<td></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -45,7 +48,7 @@
 </body>
 <script>
 	$(document).ready(function() {
-	    $('#userListTable').DataTable();
-	} );
+		$('#seatListTable').DataTable();
+	});
 </script>
 </html>

@@ -7,6 +7,7 @@ import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.model.SalesVO;
 import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.member.model.ReplyVO;
+import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.user.model.UserVO;
 
 public interface AdminDaoInterface {
@@ -32,4 +33,7 @@ public interface AdminDaoInterface {
 	
 	/* 매출기록 관련 */
 	public List<SalesVO> listAll() throws Exception; // 매출기록 리스트 출력
+	
+	/* 좌석관리 */
+	public List<SeatVO> getSeatListI();
 }

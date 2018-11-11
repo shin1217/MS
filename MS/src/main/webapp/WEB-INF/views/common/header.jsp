@@ -35,7 +35,7 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/salesCalender"><i class="fa fa-pie-chart" aria-hidden="true"></i> 매출기록</a> 
 					<a class="dropdown-item" href="#"><i class="fa fa-book" aria-hidden="true"></i> 상품관리</a> 
-					<a class="dropdown-item" href="#"><i class="fa fa-eye" aria-hidden="true"></i> 좌석관리</a>
+					<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/seat"><i class="fa fa-eye" aria-hidden="true"></i> 좌석관리</a>
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/user/userBoard?page=1"><i class="fa fa-comments" aria-hidden="true"></i> 유저게시판</a>
 				</div></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout"><i class="fa fa-unlock-alt" aria-hidden="true"></i>로그아웃</a></li>
