@@ -6,22 +6,13 @@
 <meta charset="UTF-8">
 <title>MS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css"
-	rel="stylesheet">
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 <style>
 html, body {
 	height: 100%;
@@ -59,8 +50,7 @@ body {
 </head>
 <body>
 	<div class="full">
-		<div class="wow flipInY"
-			style="float: right; margin-top: 30px; margin-right: 30px;">
+		<div class="wow flipInY" style="float: right; margin-top: 30px; margin-right: 30px;">
 			<a href="admin"> 
 				<img src="${pageContext.request.contextPath}/images/adminLogin-move.png" style="height: 50px;" />
 			</a>
@@ -87,6 +77,9 @@ body {
 						</div>
 					</div>
 					<div class="form-group">
+						<span class="font-weight-bold text-white bg-dark" id="spanLoginCheck"></span>
+					</div>
+				<div class="form-group">
 						<div>
 							<button id="loginBtn" type="submit" class="btn btn-primary btn-block">로그인</button>
 						</div>
@@ -115,7 +108,11 @@ body {
 				store_id : store
 			},
 			success : function(data){
-				location.href='${pageContext.request.contextPath}/user/main';
+				if(data == 0){ //로그인 실패시
+					$('#spanLoginCheck').text('로그인 정보를 정확히 입력해주세요.');
+				} else { //로그인 성공시
+					location.href='${pageContext.request.contextPath}/user/main';
+				}
 			}
 		});
 	});
