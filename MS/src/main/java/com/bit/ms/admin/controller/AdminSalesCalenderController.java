@@ -24,7 +24,7 @@ public class AdminSalesCalenderController {
 		List<SalesVO> list = salesService.salesList();
 		
 		modelAndView.addObject("salesList", list);
-		modelAndView.setViewName("admin/adminSalesCalenderJS");
+		modelAndView.setViewName("admin/adminSalesCalender");
 		
 		return modelAndView;
 	}

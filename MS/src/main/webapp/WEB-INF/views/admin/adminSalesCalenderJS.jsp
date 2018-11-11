@@ -7,7 +7,7 @@
 
 <html>
 <head>
-    <title>달력</title>
+    <title>매출 현황표</title>
     <style type="text/css">
         td {
             width: 100px;
@@ -16,10 +16,13 @@
             font-size: 20px;
             font-family: 굴림;
             border:2px border-color: #787878;
-            border-radius: 8px;/*모서리 둥글게*/
+            border-radius: 8px; /*모서리 둥글게*/
         }
     </style>
 <script type="text/javascript">
+
+		var sales = new listAll();
+
         var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
         var date = new Date();//today의 Date를 세어주는 역할
         function prevCalendar() {//이전 달
@@ -111,7 +114,7 @@
     <tr><!-- label은 마우스로 클릭을 편하게 해줌 -->
         <td>
         	<label onclick="prevCalendar()">
-        		<h1> < </h1>
+        		<h1> 이전달 </h1>
         	</label>
         </td>
         <td align="center" id="tbCalendarYM" colspan="5">
@@ -119,7 +122,7 @@
         </td>
         <td>
         	<label onclick="nextCalendar()">
-        		<h1> > </h1>
+        		<h1> 다음달 </h1>
         	</label>
         </td>
     </tr>
