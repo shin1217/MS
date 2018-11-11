@@ -57,33 +57,33 @@ body {
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn">
-					<div>
-						<select id="store_id" name="store_id">
-							<option value="1">MS 스터디카페</option>
-							<option value="2">MS PC방</option>
-							<option value="3">MS 코인노래방</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputId">아이디</label>
-						<div>
-							<input type="text" class="form-control" id="inputId" name="user_id" placeholder="아이디">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
-						<div>
-							<input type="password" class="form-control" id="inputPassword" name="user_pw" placeholder="비밀번호">
-						</div>
-					</div>
-					<div class="form-group">
-						<span class="font-weight-bold text-white bg-dark" id="spanLoginCheck"></span>
-					</div>
+				<div>
+					<select id="store_id" name="store_id">
+						<option value="1">MS 스터디카페</option>
+						<option value="2">MS PC방</option>
+						<option value="3">MS 코인노래방</option>
+					</select>
+				</div>
 				<div class="form-group">
-						<div>
-							<button id="loginBtn" type="submit" class="btn btn-primary btn-block">로그인</button>
-						</div>
+					<label class="font-weight-bold text-white" for="inputId">아이디</label>
+					<div>
+						<input type="text" class="form-control" id="inputId" name="user_id" placeholder="아이디">
 					</div>
+				</div>
+				<div class="form-group">
+					<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
+					<div>
+						<input type="password" class="form-control" id="inputPassword" name="user_pw" placeholder="비밀번호">
+					</div>
+				</div>
+				<div class="form-group">
+					<span class="font-weight-bold text-white bg-dark" id="spanLoginCheck"></span>
+				</div>
+				<div class="form-group">
+					<div>
+						<button id="loginBtn" type="submit" class="btn btn-primary btn-block">로그인</button>
+					</div>
+				</div>
 				<div class="col-sm-10">
 					<a class="btn btn-primary" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
@@ -92,6 +92,7 @@ body {
 	</div>
 </body>
 <script>
+	//애니메이션 메서드
 	new WOW().init();
 	
 	$('#loginBtn').click(function(){

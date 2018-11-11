@@ -16,9 +16,9 @@ public class AdminNoticeBoardService {
 
 	private MemberDaoInterface memberDaoInterface;
 
+	//공지사항 글 삭제
 	@Transactional
 	public void noticeDelete(int id) {
-
 		memberDaoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
 
 		try {
@@ -28,9 +28,9 @@ public class AdminNoticeBoardService {
 		}
 	}
 
+	//공지사항 글 쓰기
 	@Transactional
 	public void noticeWrite(NoticeVO noticeVO) {
-
 		memberDaoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
 
 		try {
@@ -39,16 +39,16 @@ public class AdminNoticeBoardService {
 			e.printStackTrace();
 		}
 	}
-	
+
+	//공지사항 글 수정
 	@Transactional
 	public void noticeModify(NoticeVO noticeVO) {
-		
 		memberDaoInterface = sessionTemplate.getMapper(MemberDaoInterface.class);
-		
+
 		try {
 			memberDaoInterface.updateNotice(noticeVO);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 }

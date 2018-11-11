@@ -134,9 +134,9 @@ body {
 				</select>
 			</div>
 			<div class="reg_button">
-				<button type="button" class="btn btn-danger px-3">
+				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/">
 					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
-				</button>
+				</a>
 				&emsp;&emsp;
 				<button type="submit" class="btn btn-primary px-3" id="reg_submit">
 					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기

@@ -14,6 +14,7 @@ public class AdminUserListService {
 
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
+	
 	AdminDaoInterface adminDao;
 	
 	public List<UserVO> getUserList(){

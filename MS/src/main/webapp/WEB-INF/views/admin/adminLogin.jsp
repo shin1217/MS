@@ -6,22 +6,13 @@
 <meta charset="UTF-8">
 <title>MS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css"
-	rel="stylesheet">
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 <style>
 html, body {
 	height: 100%;
@@ -67,43 +58,65 @@ body {
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn" data-wow-delay="0.3s">
-				<form method="post">
+				<div>
+					<select id="store_id" name="store_id">
+						<option value="1">MS 스터디카페</option>
+						<option value="2">MS PC방</option>
+						<option value="3">MS 코인노래방</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="font-weight-bold text-white" for="inputId">아이디</label>
 					<div>
-						<select name="store_id">
-							<option value="1">MS 스터디카페</option>
-							<option value="2">MS PC방</option>
-							<option value="3">MS 코인노래방</option>
-						</select>
+						<input type="text" class="form-control" id="inputId" name="admin_id" placeholder="아이디">
 					</div>
-					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputId">아이디</label>
-						<div>
-							<input type="text" class="form-control" id="inputId"
-								name="admin_id" placeholder="아이디">
-						</div>
+				</div>
+				<div class="form-group">
+					<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
+					<div>
+						<input type="password" class="form-control" id="inputPassword" name="admin_pw" placeholder="비밀번호">
 					</div>
-					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
-						<div>
-							<input type="password" class="form-control" id="inputPassword"
-								name="admin_pw" placeholder="비밀번호">
-						</div>
+				</div>
+				<div class="form-group">
+					<span class="font-weight-bold text-white bg-dark" id="spanLoginCheck"></span>
+				</div>
+				<div class="form-group">
+					<div>
+						<button id="loginBtn" type="submit" class="btn btn-danger btn-block">로그인</button>
 					</div>
-					<div class="form-group">
-						<div>
-							<button type="submit" class="btn btn-danger btn-block">로그인</button>
-						</div>
-					</div>
-				</form>
+				</div>
 				<div class="col-sm-10">
-					<a class="btn btn-danger"
-						href="${pageContext.request.contextPath}/admin/reg">회원가입</a>
+					<a class="btn btn-danger" href="${pageContext.request.contextPath}/admin/reg">회원가입</a>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script>
+	//애니메이션 메서드
 	new WOW().init();
+	
+	$('#loginBtn').click(function(){
+		var id = $('#inputId').val();
+		var pw = $('#inputPassword').val();
+		var store = $('#store_id').val();
+		
+		$.ajax({
+			type : 'post',
+			url : '${pageContext.request.contextPath}/admin',
+			data : {
+				admin_id : id,
+				admin_pw : pw,
+				store_id : store
+			},
+			success : function(data){
+				if(data == 0){
+					$('#spanLoginCheck').text('로그인 정보를 정확히 입력해주세요.');
+				} else {
+					location.href='${pageContext.request.contextPath}/admin/main';
+				}
+			}
+		});
+	});
 </script>
 </html>

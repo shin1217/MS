@@ -44,7 +44,7 @@ public class AdminNoticeReplyService {
 
 	public void deleteReply(int id) {
 		daoInterface = sessionTemplate.getMapper(AdminDaoInterface.class);
-		
+
 		try {
 			daoInterface.deleteReply(id);
 		} catch (Exception e) {
@@ -54,7 +54,7 @@ public class AdminNoticeReplyService {
 
 	public void updateReply(ReplyVO vo) {
 		daoInterface = sessionTemplate.getMapper(AdminDaoInterface.class);
-		
+
 		try {
 			daoInterface.updateReply(vo);
 		} catch (Exception e) {

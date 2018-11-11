@@ -1,7 +1,5 @@
 package com.bit.ms.admin.service;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,18 +14,20 @@ public class AdminLoginService {
 
 	@Autowired
 	private SqlSessionTemplate adminSqlSession;
+	
 	private AdminDaoInterface adminDao;
 	
-	public boolean adminLogin_service(String admin_id, String admin_pw, HttpSession httpSession) {
+	public int adminLogin_service(String admin_id, String admin_pw, int store_id, HttpSession httpSession) {
 		
-		boolean result = false;
+		int result = 0;
 		
 		adminDao = adminSqlSession.getMapper(AdminDaoInterface.class);
-		AdminVO vo = adminDao.loginAdmin(admin_id).get(0);
 		
-		// 아이디 값으로 객체 비교
+		AdminVO vo = adminDao.loginAdmin(admin_id, store_id);
+		
+		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
 		if(vo != null) {
-			if(vo.getAdmin_id().equals(admin_id) && vo.getAdmin_pw().equals(admin_pw)) {
+			if(vo.getAdmin_id().equals(admin_id) && vo.getAdmin_pw().equals(admin_pw) && vo.getStore_id() == store_id) {
 				
 				// 세션 저장하기 전에 비밀번호 변경
 				vo.setAdmin_pw("");
@@ -35,7 +35,7 @@ public class AdminLoginService {
 				// 세션에 vo 객체 저장
 				httpSession.setAttribute("adminSession", vo);
 				System.out.println("세션확인 " + httpSession.getAttribute("adminSession"));
-				result = true;
+				result = 1;
 			}
 		}
 		return result;

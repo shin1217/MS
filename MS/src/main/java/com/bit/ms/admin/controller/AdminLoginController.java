@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.ms.admin.service.AdminLoginService;
 
@@ -24,11 +24,11 @@ public class AdminLoginController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String adminLoginPass(@RequestParam("admin_id") String admin_id,
-			@RequestParam("admin_pw") String admin_pw, HttpSession httpSession) {
+	@ResponseBody
+	public int adminLoginPass(String admin_id, String admin_pw, int store_id, HttpSession httpSession) {
 		
-		adminLog_service.adminLogin_service(admin_id, admin_pw, httpSession);
+		int result = adminLog_service.adminLogin_service(admin_id, admin_pw, store_id, httpSession);
 		
-		return "redirect:/admin/main";
+		return result;
 	}
 }
