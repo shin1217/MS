@@ -10,7 +10,7 @@ import com.bit.ms.dao.AdminDaoInterface;
 import com.bit.ms.member.model.SeatVO;
 
 @Service
-public class AdminSeatListService {
+public class AdminSeatService {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -19,8 +19,11 @@ public class AdminSeatListService {
 
 	public List<SeatVO> getSeatListS() {
 
-		adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-
+		try {
+			adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return adminDaoInterface.getSeatListI();
 	}
 

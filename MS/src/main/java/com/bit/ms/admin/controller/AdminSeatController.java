@@ -7,19 +7,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bit.ms.admin.service.AdminSeatListService;
+import com.bit.ms.admin.service.AdminSeatService;
 import com.bit.ms.member.model.SeatVO;
 
 @Controller
-public class AdminSeatListController {
+public class AdminSeatController {
 
 	@Autowired
-	AdminSeatListService adminSeatListService;
+	AdminSeatService adminSeatService;
 
 	@RequestMapping("/admin/seat")
-	public ModelAndView getAdminSeatList() {
+	public ModelAndView getAdminSeatList() {// 좌석관리 리스트
 
-		List<SeatVO> seatlist = adminSeatListService.getSeatListS();
+		List<SeatVO> seatlist = adminSeatService.getSeatListS();
 
 		ModelAndView mav = new ModelAndView();
 

@@ -21,6 +21,33 @@
 	<div class="container">
 		<h1>좌석 목록</h1>
 		<table id="seatListTable" class="table table-striped table-bordered">
+			<!-- 좌석등록 폼 -->
+			<thead>
+				<tr>
+					<th class="th-sm">좌석 추가</th>
+					<th class="th-sm">비용</th>
+					<th class="th-sm">QR코드</th>
+					<th class="th-sm">관리</th>
+				</tr>
+			</thead>
+			<tbody>
+				<form action="">
+					<tr>
+						<td></td>
+						<td style="text-align: center;"><input type="text"
+							name="seat_pay" style="width: 80%;" /> 원 / 시간</td>
+						<td><input type="file" name="seat_qr" /></td>
+						<td style="text-align: center;"><button id="addseat"
+								type="button">등록</button>
+							<button id="reset" type="reset">취소</button></td>
+					</tr>
+				</form>
+				<tr>
+					<td colspan="4"></td>
+				</tr>
+			</tbody>
+			<!-- 좌석등록 폼 -->
+			<!-- 좌석리스트 -->
 			<thead>
 				<tr>
 					<th class="th-sm"><i class="fa fa-sort float-right"
@@ -33,16 +60,19 @@
 						aria-hidden="true"></i>관리</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="listbody">
 				<c:forEach var="list" items="${seatlist}">
 					<tr>
 						<td>${list.seat_id}</td>
-						<td>${list.seat_pay}</td>
-						<td>${list.seat_qr}</td>
-						<td></td>
+						<td style="text-align: right;">${list.seat_pay}</td>
+						<td style="text-align: center;">${list.seat_qr}</td>
+						<td style="text-align: center;"><button id="seat_modify"
+								type="button">수정</button>
+							<button id="seat_delete" type="button">삭제</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
+			<!-- 좌석리스트 -->
 		</table>
 	</div>
 </body>

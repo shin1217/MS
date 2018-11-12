@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
 import com.bit.ms.user.model.UserVO;
 
@@ -30,6 +31,9 @@ public interface UserDaoInterface {
 	int UserBoardModifyI(UserBoardVO userBoardVO);
 	int getPreviousNUM(int uboard_id);
 	int getNextNUM(int uboard_id);
+	
+	/* 유저게시판 */
+	List<UserBoardReplyVO> getUserBoardReplyListI(int uboard_id);
 	
 	/*시간충전*/
 	int updateUserAddTime(long useTime, long addTime, int seatId, String userId);

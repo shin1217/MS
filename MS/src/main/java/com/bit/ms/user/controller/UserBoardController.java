@@ -58,13 +58,13 @@ public class UserBoardController {
 
 	// Write
 
-	@RequestMapping(value = "/user/userBoard/Write", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/userBoard/write", method = RequestMethod.GET)
 	public String userBoardWriteForm() {
 
 		return "user/userBoardWriteForm";
 	}
 
-	@RequestMapping(value = "/user/userBoard/Write", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/userBoard/write", method = RequestMethod.POST)
 	public String userBoardWriteReg(UserBoardVO userBoardVO, HttpSession httpsession) {
 
 		UserVO userVO = (UserVO) httpsession.getAttribute("userSession");
@@ -84,7 +84,7 @@ public class UserBoardController {
 
 	// Delete
 
-	@RequestMapping(value = "/user/userBoard/Delete/{uboard_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/userBoard/delete/{uboard_id}", method = RequestMethod.GET)
 	public String userBoardDelete(@PathVariable("uboard_id") int uboard_id) {
 
 		userBoardService.UserBoardDeleteS(uboard_id);
@@ -124,14 +124,14 @@ public class UserBoardController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/user/userBoard/View/" + uboard_id + "?page=" + page;
+		return "redirect:/user/userBoard/view/" + uboard_id + "?page=" + page;
 	}
 
 	// Modify
 
 	// View
 
-	@RequestMapping("user/userBoard/View/{uboard_id}")
+	@RequestMapping("user/userBoard/view/{uboard_id}")
 	public String getUserBoardViewC(@PathVariable("uboard_id") int uboard_id, Model model) throws Exception {
 
 		UserBoardVO userboardVO = userBoardService.getUserBoardViewS(uboard_id);

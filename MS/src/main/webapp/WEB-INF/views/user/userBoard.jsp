@@ -40,7 +40,7 @@
 				class="hypertext_none">유저게시판</h1></a>
 		<c:if test="${sessionScope.userSession != NULL}">
 			<a id="write" class="btn btn-outline-elegant waves-effect"
-				href="${pageContext.request.contextPath}/user/userBoard/Write">글쓰기</a>
+				href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
 		</c:if>
 	</div>
 	<div class="container">
@@ -50,7 +50,7 @@
 					<th style="width: 10%">글번호</th>
 					<th style="width: 55%">제목</th>
 					<th style="width: 15%">작성자</th>
-					<th style="width: 15%">등록일</th>
+					<th style="width: 15%">등록시간</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -65,7 +65,7 @@
 						<tr>
 							<td style="text-align: center;">${userBoardVO.uboard_id}</td>
 							<td><a
-								href="${pageContext.request.contextPath}/user/userBoard/View/${userBoardVO.uboard_id}?page=${pageNum}">${userBoardVO.uboard_title}</a></td>
+								href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}">${userBoardVO.uboard_title}</a></td>
 							<td style="text-align: center;">${userBoardVO.user_id}</td>
 							<td style="text-align: center;"><fmt:formatDate
 									value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>

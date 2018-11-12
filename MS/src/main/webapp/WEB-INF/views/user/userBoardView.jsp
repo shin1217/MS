@@ -42,7 +42,7 @@
 	margin: 0 auto;
 }
 
-.hypertext_none {
+.userBoard_hypertext_none {
 	color: black;
 	text-decoration: none;
 }
@@ -52,11 +52,13 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="userBoard_header">
 		<br> <a class="nav-link"
-			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1
-				class="hypertext_none">유저게시판</h1></a> <a id="write"
-			class="btn btn-outline-elegant waves-effect"
-			href="${pageContext.request.contextPath}/user/userBoard/Write">글쓰기</a>
+			href="${pageContext.request.contextPath}/user/userBoard?page=1">
+			<h1 class="userBoard_hypertext_none">유저게시판</h1>
+		</a> <a id="write" class="btn btn-outline-elegant waves-effect"
+			href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
 	</div>
+
+	<!-- 게시글  -->
 	<table class="container">
 		<thead>
 			<tr class="row">
@@ -67,10 +69,11 @@
 				</th>
 			</tr>
 			<tr>
-				<th style="padding-left: 20px;">${userboardvo.uboard_id}</th>
-				<th style="width: 40%; text-align: center;">${userboardvo.user_id}</th>
+				<th style="padding-left: 20px;">글번호 : ${userboardvo.uboard_id}</th>
+				<th style="width: 40%; text-align: center;">작성자 :
+					${userboardvo.user_id}</th>
 
-				<th style="width: 50%; text-align: right;"><fmt:formatDate
+				<th style="width: 50%; text-align: right;">등록시간 : <fmt:formatDate
 						value="${userboardvo.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></th>
 			</tr>
 		</thead>
@@ -91,7 +94,7 @@
 				</c:when>
 				<c:otherwise>
 					<button type="button" class="btn btn-outline-elegant waves-effect"
-						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/View/${previousnum}?page=${param.page}'">이전</button>
+						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/view/${previousnum}?page=${param.page}'">이전</button>
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
@@ -100,7 +103,7 @@
 				</c:when>
 				<c:otherwise>
 					<button type="button" class="btn btn-outline-elegant waves-effect"
-						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/View/${nextnum}?page=${param.page}'">다음</button>
+						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/view/${nextnum}?page=${param.page}'">다음</button>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -119,7 +122,27 @@
 				<i class="fa fa-th-list pr-2" aria-hidden="true"></i>목록
 			</button>
 		</div>
+		<!-- 게시글  -->
 
+		<!-- 댓글  -->
+		<section class="comments my-5"> <!-- 코멘트 총개수 -->
+		<div id="UserBoardCommentsNum" class="card-header font-weight-bold"></div>
+		<div id="UserBoardReplyAllBody"></div>
+		</section>
+
+		<!-- 댓글 입력란 -->
+		<div class="md-form mt-4">
+			<label for="UserBoardReplyFormComment">댓글 입력</label>
+			<textarea class="form-control md-textarea"
+				id="UserBoardReplyFormComment" rows="1"></textarea>
+			<div class="text-center my-4">
+				<button id="UserBoardCommentSubmit"
+					class="btn btn-default btn-sm btn-rounded">댓글 입력</button>
+				<input id="user_id" type="hidden"
+					value="${sessionScope.userSession.user_id}" />
+			</div>
+		</div>
+		<!-- 댓글  -->
 	</div>
 </body>
 
@@ -139,11 +162,48 @@
 			</div>
 			<div class="modal-footer d-flex justify-content-center">
 				<a class="btn btn-danger"
-					href="${pageContext.request.contextPath}/user/userBoard/Delete/${userboardvo.uboard_id}">삭제</a>
+					href="${pageContext.request.contextPath}/user/userBoard/delete/${userboardvo.uboard_id}">삭제</a>
 				<a class="btn btn-dark" data-dismiss="modal">취소</a>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- 게시글 삭제확인 모달 끝 -->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		getUserBoardReplyList();
+	});
+
+	var uboard_id = '${userboardvo.uboard_id}';
+	var uboard_reply = '';
+
+	function getUserBoardReplyList() {
+		$.ajax({
+					type : 'get',
+					url : '${pageContext.request.contextPath}/user/userBoard/reply/all/' + uboard_id,
+					dataType : 'json',
+					success : function(data) {
+	 				$('#UserBoardCommentsNum').html(
+								data.length + ' comments');
+						$('#UserBoardReplyAllBody').html(''); 
+						$(data).each(function(index,item){
+							$('#UserBoardCommentsNum').html(
+									data.length + ' comments');
+							uboard_reply += '<div class="media d-block d-md-flex mt-4">';
+							uboard_reply += '<img class="card-img-64 rounded-circle z-depth-1 d-flex mx-auto mb-3" src="https://post-phinf.pstatic.net/MjAxODAzMjJfMjY4/MDAxNTIxNzAxODU2MTQy.V91kaps6gaHaHS6JhzoHGT98PuoEv8kSz3zjgWT4kOAg.ffqd0efJQR_23lCWLTjDfjS3Hd-jfqEjSxNLCilQMScg.JPEG/%EC%88%98%EB%A7%8C%EA%B0%80%EC%A7%80%ED%91%9C%EC%A0%95%EC%9D%98%EB%A0%89%EC%8B%9C%EA%B3%A0%EC%96%91%EC%9D%B4_02.jpg?type=w1200">';
+							uboard_reply += '<div class="media-body text-center text-md-left ml-md-3 ml-0">';
+							uboard_reply += '<h5 class="font-weight-bold mt-0">';
+							uboard_reply += '<button id="UserBoardReplyDeleteBtn' + item.uboard_reply_id + '" onclick="UserBoardReplyDelete(' + item.uboard_reply_id + ')" type="button" class="btn btn-danger px-3 float-right"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+							uboard_reply += '<button id="UserBoardReplyEditBtn' + item.uboard_reply_id+ '" onclick="UserBoardReplyEdit(' + item.uboard_reply_id + ')" type="button" class="btn btn-primary px-3 float-right"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>';
+							uboard_reply += '<a class="text-default">' + item.user_id + '</a></h5>';
+							uboard_reply += '<input id="replyInput' + item.uboard_reply_id +'" class="form-control w-75" value="'+ item.uboard_reply_con +'" style="border: 0px; background: white;" readonly="true"></input><hr /></div></div>';
+						$('#UserBoardReplyAllBody').html(uboard_reply);
+					});
+					uboard_reply = '';
+			}
+		});
+	}
+</script>
+
 </html>
