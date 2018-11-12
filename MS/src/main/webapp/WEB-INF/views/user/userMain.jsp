@@ -184,7 +184,7 @@
 					seatArr[data[i].seat_id-1] = true; // 좌석 사용 상태 true 변경
 					
 					resetSeat($('#seatTable td').eq(data[i].seat_id-1), data[i].seat_id, data[i].user_time, data[i].user_id);
-					// timer(data[i].seat_update_time, 59, data[i].seat_id);
+					timer(data[i].user_time, data[i].seat_id);
 				}
 			}
 		});
@@ -322,8 +322,8 @@
 	
 	/* 좌석 생성 함수(좌석 객체, 좌석 번호, 초, 유저 아이디) */
 	function resetSeat(obj, seatId, s, userId) {	
-		var min = s/60; // 분 계산
-		var sec = s%60; // 초 계산
+		var min = Math.floor(s/60); // 분 계산
+		var sec = Math.floor(s%60); // 초 계산
 		
 		$(obj).css({
 			'font-size' : 25,
@@ -338,8 +338,8 @@
 		str += '<span style="color: black; font-weight: bold; float: left">'+ seatId +'</span>';
 		str += '<span>'+ userId +'</span>';
 		str += '</div>';
-		str += '<div><span id="countTimeMinute'+ seatId +'">'+ Math.floor(min) +'</span>분';
-		str += '<span id="countTimeSecond'+ seatId +'">'+ Math.floor(sec) +'</span>초</div>';
+		str += '<div><span id="countTimeMinute'+ seatId +'">'+ min +'</span>분';
+		str += '<span id="countTimeSecond'+ seatId +'">'+ sec +'</span>초</div>';
 		str += '<div>5000</div>';
 		
 		// 자신의 좌석에만 사용 종료 버튼 표시
@@ -365,30 +365,30 @@
 		
 	/* 시간 타이머(초, 좌석 아이디) */
 	function timer(s, seatId){	
-		var min = s/60; // 분 계산
-		var sec = s%60; // 초 계산
+		var min = Math.floor(s/60); // 분 계산
+		var sec = Math.floor(s%60); // 초 계산
 		
 		var timer = setInterval(function () {
 			
-			$('#countTimeMinute'+seatId).html(m); // 분 텍스트
-			$('#countTimeSecond'+seatId).html(s); // 초 텍스트
+			$('#countTimeMinute'+seatId).html(min); // 분 텍스트
+			$('#countTimeSecond'+seatId).html(sec); // 초 텍스트
 			
 			console.log(new Date().getMinutes());
 			
-			if(s == 0 && m == 0){
+			if(sec == 0 && min == 0){
 				alert('타이머 종료');
 				clearInterval(timer);
 
 			}else{
-				s--;
+				sec--;
 				
-				if(s < 10){ // 10초 이하일 경우 두 자리 표시 ex)09
-					$('#countTimeSecond'+seatId).html('0' + s); 
+				if(sec < 10){ // 10초 이하일 경우 두 자리 표시 ex)09
+					$('#countTimeSecond'+seatId).html('0' + sec); 
 				}
-				if(s < 1){
+				if(sec < 1){
 
-					m--;
-					s = 59;
+					min--;
+					sec = 59;
 				}
 			}
     	}, 1000); 
