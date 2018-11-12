@@ -89,25 +89,25 @@
 		<thead>
 			<tr bgcolor="#CECECE">
 				<td width="100px">
-					<div align="center"><font color="red">일</font></div>
+					<div align="center" style="font-weight: bold;"><font color="red">일</font></div>
 				</td>
 				<td width="100px">
-					<div align="center">월</div>
+					<div align="center" style="font-weight: bold;">월</div>
 				</td>
 				<td width="100px">
-					<div align="center">화</div>
+					<div align="center" style="font-weight: bold;">화</div>
 				</td>
 				<td width="100px">
-					<div align="center">수</div>
+					<div align="center" style="font-weight: bold;">수</div>
 				</td>
 				<td width="100px">
-					<div align="center">목</div>
+					<div align="center" style="font-weight: bold;">목</div>
 				</td>
 				<td width="100px">
-					<div align="center">금</div>
+					<div align="center" style="font-weight: bold;">금</div>
 				</td>
 				<td width="100px">
-					<div align="center"><font color="#529DBC">토</font></div>
+					<div align="center" style="font-weight: bold;"><font color="#529DBC">토</font></div>
 				</td>
 			</tr>
 		</thead>
@@ -125,61 +125,55 @@
 				<c:forEach var="i" begin="1" end="${ endDay }">
 					<c:set var="index" value="${index + 1}"></c:set>
 					<c:choose> 
-						<c:when test="${newLine eq '0'}"> 
-							<c:set var="color" value="RED"></c:set>
+						<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 1}"> 
+								<td width="100px" height="80px" valign="top" align="left" nowrap>
+								<p><font style="font-weight: bold; color: RED;">${ index }</font></p>
+							<br>
 						</c:when> 
-						<c:when test="${newLine eq '6'}"> 
-							<c:set var="color" value="#529DBC"></c:set>
+						<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 0}"> 
+								<td width="100px" height="80px" valign="top" align="left" nowrap>
+								<p><font style="font-weight: bold; color: #529DBC;" >${ index }</font></p>
+							<br>
 						</c:when> 
 						<c:otherwise> 
-							<c:set var="color" value="BLACK"></c:set>
+								<td width="100px" height="80px" valign="top" align="left" nowrap>
+								<p><font style="font-weight: bold; color: BLACK;">${ index }</font></p>
+							<br>
 						</c:otherwise> 
 					</c:choose>
 					
-					
-					
-					<td width="100px" height="80px" valign="top" align="left" nowrap>
-					<font color='${ color }'>${ index }</font>
-					<br>
-						
-						
-						
-						
 						<c:if test="${ intToday eq sales.sales_day }"></c:if>
 						${ sales.sales_total }
 					<br>
 					</td>
 					
 					<c:if test="${((i-(8-firstDayOfWeek)) % 7) == 0}">
-						</TR>
-						<TR>
+						<tr>
+						</tr>
 					</c:if>
 					
 				</c:forEach>
 				
 				<c:if test="${ lastDayOfLastWeek != '7' }">
 					<c:forEach var="i" begin="1" end="${ 7-lastDayOfLastWeek }">
-						<TD width="100px" height="80px" valign="top" align="right" nowrap>
-						</TD>
+						<td width="100px" height="80px" valign="top" align="right" nowrap>
+						</td>
 					</c:forEach>
 				</c:if>
 				
 			</tr>
 		</tbody>
 		
-		
-		
-		
-		
 	</table>
 
-
-	
 	<h1>${year }</h1>
 	<h1>${month }</h1>
 	<h1>${date }</h1>
 	<h1>${ intToday }</h1>
 	<h1>${sales.sales_day}</h1>
+	<h1>${lastDayOfLastWeek}</h1>
+	<h1>${firstDayOfWeek}</h1>
+	<h1>${date }</h1>
 	
 </div>
 </body>
