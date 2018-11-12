@@ -31,7 +31,7 @@ public class AdminLoginService {
 		if(vo != null) {
 			if(vo.getAdmin_id().equals(admin_id) && vo.getAdmin_pw().equals(admin_pw) && vo.getStore_id() == store_id) {
 
-				Cookie cookie = new Cookie("check", admin_id);
+				Cookie cookie = new Cookie("amdin_check", admin_id);
 				if(check.equals("true")) {
 					response.addCookie(cookie);
 				} else {

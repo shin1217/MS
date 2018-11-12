@@ -85,7 +85,7 @@ body {
 					<label class="font-weight-bold text-white" for="inputId">아이디</label>
 					<div>
 						<input type="text" class="form-control" id="inputId"
-							name="user_id" value="${cookie.check.value}" placeholder="아이디">
+							name="user_id" value="${cookie.user_check.value}" placeholder="아이디">
 					</div>
 				</div>
 				<div class="form-group">
