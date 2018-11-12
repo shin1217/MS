@@ -19,7 +19,7 @@ public class AdminUserListController {
 	@Autowired
 	AdminUserListService listService;
 
-	// admin메인페이지에서 회원목록 클릭시
+	// admin메인페이지에서 회원목록 클릭시 회원목록을 뿌려줌
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	
 	public String getUserList(Model model) {
@@ -29,7 +29,7 @@ public class AdminUserListController {
 		return "admin/adminUserList";
 	}
 	
-	// 회원목록에서 각 열을 클릭시 정렬
+	// 회원목록에서 각 해당 열을 클릭시 정렬해줌
 	@RequestMapping(value = "/sort", method = RequestMethod.GET)
 	@ResponseBody
 	public List<UserVO> sortingUserList(String sortName, String orderBy) {

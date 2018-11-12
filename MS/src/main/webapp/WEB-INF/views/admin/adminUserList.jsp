@@ -67,22 +67,22 @@
 					$('#userIdTh').attr('onclick', "sorting('user_id', 'desc')");
 				}
 				
-				if($('#userNameTh').attr('onclick') == "sorting('user_id', 'desc')"){
-					$('#userNameTh').attr('onclick', "sorting('user_id', 'asc')");
+				if($('#userNameTh').attr('onclick') == "sorting('user_Name', 'desc')"){
+					$('#userNameTh').attr('onclick', "sorting('user_Name', 'asc')");
 				} else {
-					$('#userNameTh').attr('onclick', "sorting('user_id', 'desc')");
+					$('#userNameTh').attr('onclick', "sorting('user_Name', 'desc')");
 				}
 				
-				if($('#userPhoneTh').attr('onclick') == "sorting('user_id', 'desc')"){
-					$('#userPhoneTh').attr('onclick', "sorting('user_id', 'asc')");
+				if($('#userPhoneTh').attr('onclick') == "sorting('user_Phone', 'desc')"){
+					$('#userPhoneTh').attr('onclick', "sorting('user_Phone', 'asc')");
 				} else {
-					$('#userPhoneTh').attr('onclick', "sorting('user_id', 'desc')");
+					$('#userPhoneTh').attr('onclick', "sorting('user_Phone', 'desc')");
 				}
 				
-				if($('#userBirthTh').attr('onclick') == "sorting('user_id', 'desc')"){
-					$('#userBirthTh').attr('onclick', "sorting('user_id', 'asc')");
+				if($('#userBirthTh').attr('onclick') == "sorting('user_Birth', 'desc')"){
+					$('#userBirthTh').attr('onclick', "sorting('user_Birth', 'asc')");
 				} else {
-					$('#userBirthTh').attr('onclick', "sorting('user_id', 'desc')");
+					$('#userBirthTh').attr('onclick', "sorting('user_Birth', 'desc')");
 				}
 			}
 		});
