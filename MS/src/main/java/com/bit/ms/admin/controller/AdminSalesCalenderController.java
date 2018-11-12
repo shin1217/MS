@@ -29,4 +29,17 @@ public class AdminSalesCalenderController {
 		return modelAndView;
 	}
 	
+	@RequestMapping("admin/salesInfo")
+	public ModelAndView adminSalesInfo() {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		List<SalesVO> list = salesService.salesList();
+		
+		modelAndView.addObject("salesList", list);
+		modelAndView.setViewName("admin/adminSalesCalender");
+		
+		return modelAndView;
+	}
+	
 }

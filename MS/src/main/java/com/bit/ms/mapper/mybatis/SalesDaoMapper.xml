@@ -9,9 +9,9 @@
  		select sales_id, DATE_FORMAT(sales_day,'%d') sales_day, sales_total, sales_food, sales_seat, store_id from sales;
  	</select>
  	
- 	<select id="listSum" resultType="com.bit.ms.admin.model.SalesVO">
+ 	<!-- <select id="listSum" resultType="com.bit.ms.admin.model.SalesVO">
  		select sales_id, DATE_FORMAT(sales_day,'%d') sales_day, sum(sales_total), sum(sales_food), sum(sales_seat), store_id from sales where DATE_FORMAT(sales_day,'%d') = ;
- 	</select>
+ 	</select> -->
  	
  </mapper>
  

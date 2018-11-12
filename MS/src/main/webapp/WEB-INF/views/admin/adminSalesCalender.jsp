@@ -129,7 +129,8 @@
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 1}"> 
 									<td width="100px" height="80px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: RED;">${ index }</font></p>
-									<p><font style="font-weight: bold; color: GRAY;"><a>
+									<p><font style="font-weight: bold; color: GRAY;">
+									<a data-target="#layerpop" data-toggle="modal">
 									
 									<c:set var="total" value="0"></c:set>
 									
@@ -147,7 +148,8 @@
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 0}"> 
 									<td width="100px" height="80px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: #529DBC;" >${ index }</font></p>
-									<p><font style="font-weight: bold; color: GRAY;"><a>
+									<p><font style="font-weight: bold; color: GRAY;">
+									<a data-target="#layerpop" data-toggle="modal">
 									
 									<c:set var="total" value="0"></c:set>
 									
@@ -165,7 +167,8 @@
 							<c:otherwise> 
 									<td width="100px" height="80px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: BLACK;">${ index }</font></p>
-									<p><font style="font-weight: bold; color: GRAY;"><a>
+									<p><font style="font-weight: bold; color: GRAY;">
+									<a data-target="#layerpop" data-toggle="modal">
 									
 									<c:set var="total" value="0"></c:set>
 									
@@ -203,7 +206,6 @@
 					</c:if>
 					
 				</tr>
-				<h1>${sales.sales_day}</h1>
 		</tbody>
 		
 	</table>
@@ -218,5 +220,62 @@
 	<h1>${date }</h1>
 	
 </div>
+
+<!-- 모달 창 -->
+
+<div class="modal fade" id="layerpop" >
+	<div class="modal-dialog">
+		<div class="modal-content">
+		
+			<!-- header -->
+			<div class="modal-header">
+				<!-- header title -->
+				<h4 class="modal-title"></h4>
+				<!-- 닫기(x) 버튼 -->
+				<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+			
+			<!-- body -->
+			<div class="modal-body">
+			
+			</div>
+			
+			<!-- Footer -->
+			<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	$(document).ready(function() {
+		getListAll();
+	});
+	
+	var sales_id = ${}
+	
+	function getListAll() {
+		$.ajax({
+			type : 'get',
+			url : '${pageContext.request.contextPath}/admin/salesInfo',
+			dataType : 'text',
+			data : {
+				sales_id : sales_id,
+				sales_day : sales_day,
+				sales_total : sales_total,
+				sales_food : sales_food,
+				sales_seat : sales_seat,
+				store_id : store_id
+			}
+			
+		})
+	}
+	
+
+</script>
+
 </body>
 </html>
