@@ -262,7 +262,7 @@
 			type : 'get',
 			url : '${pageContext.request.contextPath}/admin/salesInfo',
 			dataType : 'text',
-			data : {
+			data : { 
 				sales_id : sales_id,
 				sales_day : sales_day,
 				sales_total : sales_total,
