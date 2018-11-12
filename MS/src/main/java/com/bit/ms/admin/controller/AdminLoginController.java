@@ -29,9 +29,9 @@ public class AdminLoginController {
 	@ResponseBody
 	public int adminLoginPass(String admin_id, String admin_pw, int store_id, HttpSession httpSession, HttpServletRequest request, HttpServletResponse response) {
 		
-		String check = request.getParameter("remember_id");
-		
-		int result = adminLog_service.adminLogin_service(admin_id, admin_pw, store_id, check, response, httpSession);
+		String admin_check = request.getParameter("remember_adminId");
+		System.out.println("controller" + admin_id);
+		int result = adminLog_service.adminLogin_service(admin_id, admin_pw, store_id, admin_check, response, httpSession);
 		
 		return result;
 	}

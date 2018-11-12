@@ -60,7 +60,7 @@ body {
 </head>
 <body>
 	<!-- Cookie가 비어있지 않을 때 checked 속성을 줌 -->
-	<c:if test="${not empty cookie.check}">
+	<c:if test="${not empty cookie.user_check}">
 		<c:set value="checked" var="checked"/>
 	</c:if>
 	
@@ -102,7 +102,7 @@ body {
 				<div class="form-group">
 					<label class="font-weight-bold text-white"> 
 					
-						<input type="checkbox" id="remember" name="remember_id" ${checked}> 아이디 기억하기
+						<input type="checkbox" id="remember_us" name="remember_userId" ${checked}> 아이디 기억하기
 																				
 					</label>
 					<div class="font-weight-bold text-white">
@@ -132,8 +132,8 @@ body {
 						var id = $('#inputId').val();
 						var pw = $('#inputPassword').val();
 						var store = $('#store_id').val();
-						var remember = $('#remember').is(':checked');
-						console.log(remember);
+						var remember_us = $('#remember_us').is(':checked');
+						console.log(remember_us);
 								$.ajax({
 									type : 'post',
 									url : '${pageContext.request.contextPath}/',
@@ -142,7 +142,7 @@ body {
 										user_id : id,
 										user_pw : pw,
 										store_id : store,
-										remember_id : remember
+										remember_userId : remember_us
 									},
 									success : function(data) {
 										if (data == 0) { //로그인 실패시
@@ -154,12 +154,6 @@ body {
 									}
 								});
 					});
-
-		/*if($('#remember').is(":checked")){
-			$('#rememer').val()
-		} else {
-			
-		} */
 	
 </script>
 </html>

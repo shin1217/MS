@@ -61,7 +61,7 @@ body {
 <body>
 	
 	<!-- Cookie 객체 확인 및 checked 속성 바꾸기 -->
-	<c:if test="${not empty cookie.check}">
+	<c:if test="${not empty cookie.admin_check}">
 		<c:set value="checked" var="checked"/>
 	</c:if>
 	<div class="full">
@@ -85,7 +85,7 @@ body {
 					<label class="font-weight-bold text-white" for="inputId">아이디</label>
 					<div>
 						<input type="text" class="form-control" id="inputId"
-							name="admin_id" value="${cookie.admin_check.value }" placeholder="아이디">
+							name="admin_id" value="${cookie.admin_check.value}" placeholder="아이디">
 					</div>
 				</div>
 				<div class="form-group">
@@ -101,7 +101,7 @@ body {
 				</div>
 				<div class="form-group">
 					<label class="font-weight-bold text-white"> <input
-						type="checkbox" id="remember" name="remember_id" ${checked}>
+						type="checkbox" id="remember_ad" name="remember_adminId" ${checked}>
 						아이디 기억하기
 					</label>
 					<div class="font-weight-bold text-white">
@@ -131,8 +131,8 @@ body {
 						var id = $('#inputId').val();
 						var pw = $('#inputPassword').val();
 						var store = $('#store_id').val();
-						var remember = $('#remember').is(':checked');
-						console.log(remember);
+						var remember_ad = $('#remember_ad').is(':checked');
+						console.log(remember_ad);
 						$
 								.ajax({
 									type : 'post',
@@ -142,7 +142,7 @@ body {
 										admin_id : id,
 										admin_pw : pw,
 										store_id : store,
-										remember_id : remember
+										remember_adminId : remember_ad
 									},
 									success : function(data) {
 										if (data == 0) {

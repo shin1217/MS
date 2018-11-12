@@ -19,7 +19,7 @@ public class UserLoginService {
 	
 	private UserDaoInterface userDao;
 	
-	public int userLogin_service(String user_id, String user_pw, int store_id, HttpSession httpSession, String check, HttpServletResponse response) {
+	public int userLogin_service(String user_id, String user_pw, int store_id, HttpSession httpSession, String user_check, HttpServletResponse response) {
 		
 		int result = 0;
 		
@@ -32,7 +32,7 @@ public class UserLoginService {
 			if(vo.getUser_id().equals(user_id) && vo.getUser_pw().equals(user_pw) && vo.getStore_id() == store_id) {
 				// 쿠키 체크 검사
 				Cookie cookie = new Cookie("user_check", user_id);
-				if(check.equals("true")) {
+				if(user_check.equals("true")) {
 					response.addCookie(cookie);
 					
 					// 쿠키 확인
