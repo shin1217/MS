@@ -249,9 +249,7 @@ body {
 				}
 				// 이름이 이상할 경우
 				if (nameJ.test($('#user_name').val())) {
-
 					return true;
-
 				}
 				esle
 				{

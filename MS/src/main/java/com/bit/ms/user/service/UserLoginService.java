@@ -42,7 +42,6 @@ public class UserLoginService {
 					response.addCookie(cookie);
 				}
 				
-				
 				// 세션 저장하기 전에 비밀번호 가리기
 				vo.setUser_pw("");
 				

@@ -59,6 +59,11 @@ body {
 </style>
 </head>
 <body>
+	<!-- Cookie가 비어있지 않을 때 checked 속성을 줌 -->
+	<c:if test="${not empty cookie.check}">
+		<c:set value="checked" var="checked"/>
+	</c:if>
+	
 	<div class="full">
 		<div class="wow flipInY"
 			style="float: right; margin-top: 30px; margin-right: 30px;">
@@ -95,9 +100,10 @@ body {
 						id="spanLoginCheck"></span>
 				</div>
 				<div class="form-group">
-					<label class="font-weight-bold text-white"> <input
-						type="checkbox" id="remember" name="remember_id"> 아이디
-						기억하기
+					<label class="font-weight-bold text-white"> 
+					
+						<input type="checkbox" id="remember" name="remember_id" ${checked}> 아이디 기억하기
+																				
 					</label>
 					<div class="font-weight-bold text-white">
 						<a href="<%=request.getContextPath()%>/user/userSearch.jsp" target="-blank">&nbsp; 아이디 / 비밀번호 찾기</a>

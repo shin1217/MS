@@ -59,6 +59,11 @@ body {
 </style>
 </head>
 <body>
+	
+	<!-- Cookie 객체 확인 및 checked 속성 바꾸기 -->
+	<c:if test="${not empty cookie.check}">
+		<c:set value="checked" var="checked"/>
+	</c:if>
 	<div class="full">
 		<div class="wow flipInY"
 			style="float: right; margin-top: 30px; margin-right: 30px;">
@@ -96,7 +101,7 @@ body {
 				</div>
 				<div class="form-group">
 					<label class="font-weight-bold text-white"> <input
-						type="checkbox" id="remember" name="remember_id">
+						type="checkbox" id="remember" name="remember_id" ${checked}>
 						아이디 기억하기
 					</label>
 					<div class="font-weight-bold text-white">
