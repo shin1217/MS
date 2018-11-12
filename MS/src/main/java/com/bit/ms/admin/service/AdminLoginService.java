@@ -1,5 +1,7 @@
 package com.bit.ms.admin.service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -17,7 +19,7 @@ public class AdminLoginService {
 	
 	private AdminDaoInterface adminDao;
 	
-	public int adminLogin_service(String admin_id, String admin_pw, int store_id, HttpSession httpSession) {
+	public int adminLogin_service(String admin_id, String admin_pw, int store_id,String check, HttpServletResponse response, HttpSession httpSession) {
 		
 		int result = 0;
 		
@@ -28,7 +30,18 @@ public class AdminLoginService {
 		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
 		if(vo != null) {
 			if(vo.getAdmin_id().equals(admin_id) && vo.getAdmin_pw().equals(admin_pw) && vo.getStore_id() == store_id) {
-				
+				if(check != null) {
+
+					Cookie cookie = new Cookie("check", admin_id);
+					response.addCookie(cookie);
+					
+				} else {
+					
+					Cookie cookie = new Cookie("check", "");
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+					
+				}
 				// 세션 저장하기 전에 비밀번호 변경
 				vo.setAdmin_pw("");
 				

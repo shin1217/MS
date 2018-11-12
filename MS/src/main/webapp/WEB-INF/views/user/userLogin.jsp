@@ -133,6 +133,7 @@ body {
 									type : 'post',
 									url : '${pageContext.request.contextPath}/',
 									data : {
+										// name 값 : id 값
 										user_id : id,
 										user_pw : pw,
 										store_id : store,
@@ -149,6 +150,5 @@ body {
 								});
 					});
 
-	// 아이디 기억하기 체크 박스
 </script>
 </html>

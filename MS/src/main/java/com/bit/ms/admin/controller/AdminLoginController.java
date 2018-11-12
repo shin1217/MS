@@ -1,5 +1,7 @@
 package com.bit.ms.admin.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,11 @@ public class AdminLoginController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public int adminLoginPass(String admin_id, String admin_pw, int store_id, HttpSession httpSession) {
+	public int adminLoginPass(String admin_id, String admin_pw, int store_id, HttpSession httpSession, HttpServletRequest request, HttpServletResponse response) {
 		
-		int result = adminLog_service.adminLogin_service(admin_id, admin_pw, store_id, httpSession);
+		String check = request.getParameter("remember_id");
+		
+		int result = adminLog_service.adminLogin_service(admin_id, admin_pw, store_id, check, response, httpSession);
 		
 		return result;
 	}
