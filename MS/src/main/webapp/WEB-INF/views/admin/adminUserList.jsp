@@ -41,6 +41,7 @@
 </body>
 <script>
 	var list = '';
+	var store_id = ${adminSession.store_id};
 	
 	function sorting(sortName, orderBy){
 		$.ajax({
@@ -48,7 +49,8 @@
 			url : '${pageContext.request.contextPath}/admin/userList/sort',
 			data : {
 				sortName : sortName,
-				orderBy : orderBy
+				orderBy : orderBy,
+				store_id : store_id
 			},
 			success : function(data){
 				$(data).each(function(index, item){
@@ -61,6 +63,7 @@
 					$('#userListBody').html(list);
 				});
 				list = '';
+				
 				if($('#userIdTh').attr('onclick') == "sorting('user_id', 'desc')"){
 					$('#userIdTh').attr('onclick', "sorting('user_id', 'asc')");
 				} else {

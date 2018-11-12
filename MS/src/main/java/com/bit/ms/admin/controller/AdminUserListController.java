@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.ms.admin.model.UserListVO;
 import com.bit.ms.admin.service.AdminUserListService;
 import com.bit.ms.user.model.UserVO;
 
@@ -32,9 +33,11 @@ public class AdminUserListController {
 	// 회원목록에서 각 해당 열을 클릭시 정렬해줌
 	@RequestMapping(value = "/sort", method = RequestMethod.GET)
 	@ResponseBody
-	public List<UserVO> sortingUserList(String sortName, String orderBy) {
+	public List<UserVO> sortingUserList(UserListVO userListVO) {
 		
-		List<UserVO> result = listService.sortingUserList(sortName, orderBy);
+		System.out.println(userListVO);
+		
+		List<UserVO> result = listService.sortingUserList(userListVO);
 		
 		return result;
 	}

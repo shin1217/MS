@@ -9,6 +9,7 @@ import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.model.NoticeVO;
 import com.bit.ms.admin.model.SalesVO;
 import com.bit.ms.admin.model.StoreVO;
+import com.bit.ms.admin.model.UserListVO;
 import com.bit.ms.member.model.ReplyVO;
 import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.user.model.UserVO;
@@ -43,7 +44,7 @@ public interface AdminDaoInterface {
 	
 	/*회원리스트 관련*/
 	List<UserVO> getUserList();//회원리스트 전체 출력
-	List<UserVO> sortingUserList(@Param("sortName")String sortName, @Param("orderBy")String orderBy); //클릭한 열로 정렬
+	List<UserVO> sortingUserList(UserListVO userListVO); //클릭한 열로 정렬
 	
 	/* 매출기록 관련 */
 	public List<SalesVO> listAll() throws Exception; // 매출기록 리스트 출력
