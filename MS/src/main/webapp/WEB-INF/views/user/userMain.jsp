@@ -190,13 +190,13 @@
 		/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
 		 window.onbeforeunload = function() {
 			
-			// 현재 시간 데이터베이스에 저장
 			$.ajax({
-				url: '<%=request.getContextPath()%>/user/saveTime?nowTime='+new Date().getMinutes(),
+				// 현재 시간(종료 시간) 전송
+				url: '<%=request.getContextPath()%>/user/saveTime?nowTime='+new Date().getMinutes(), 
 				type: 'get',
 				
-				success:function(data){
-					console.log("ㅎㅎㅎ");
+				success:function(){
+					console.log("시간 저장");
 				}
 			});
 		};
@@ -287,7 +287,7 @@
 			seatArr[seatId-1] = true; // 선택된 좌석 상태 변경
 			
 			$.ajax({
-				// 충전 시간과 좌석번호를 파라미터로 넘겨줌.
+				// 로그인한 아이디와 충전 시간, 좌석번호, 현재 시간을 파라미터로 넘겨줌.
 				url: '<%=request.getContextPath()%>/user/addTime?userId=${userSession.user_id}&addTime=' + addTime + '&seatId=' + seatId + '&nowTime='+new Date().getMinutes(), 
 				type: 'get',
 				

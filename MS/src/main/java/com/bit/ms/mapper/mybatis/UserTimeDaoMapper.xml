@@ -23,6 +23,15 @@
 		where user_id is not null
 	</update>
 	
+	<update id="updateSeatAddTime">
+		update seat set seat_add_time=seat_add_time-#{use_time} 
+	</update>
+	
+	<update id="updateUserAddTime">
+		update userinfo set user_time=user_time-#{use_time} 
+		where user_time > 0
+	</update>
+	
 	<select id="getSeatInfo" resultType="seatVO">
 		select * from seat
 		where user_id is not null

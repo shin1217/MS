@@ -41,7 +41,19 @@ public class UserTimeService {
 		return userDao.updateSeatAll(nowTime);
 	}
 	
-	// 현재 모든 좌석 정보 가져오기
+	// 사용 시간에 따라 좌석 시간 업데이트
+	public int updateSeatAddTime(long useTime) {
+		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
+		return userDao.updateSeatAddTime(useTime);
+	}
+	
+	// 사용 시간에 따라 사용자가 가지고 있던 시간 업데이트
+	public int updateUserAddTime(long useTime) {
+		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
+		return userDao.updateUserAddTime(useTime);
+	}
+	
+	// 현재 사용 중인 모든 좌석 정보 가져오기
 	public List<SeatVO> getSeatInfo(){
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
 		return userDao.getSeatInfo();

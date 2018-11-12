@@ -60,10 +60,17 @@ public class UserTimeController {
 	
 	// 페이지 이동 시 시간 저장
 	@RequestMapping(value="/user/saveTime", method=RequestMethod.GET)
-	@ResponseBody
-	public int saveTime(@RequestParam("nowTime") long nowTime) {
-		// 현재 시간에서 디비에 저장된 현재 시간을 뺀 값(사용 시간)을 좌석 테이블의 add_time과 유저 테이블의 user_time에 저장
+	public void saveTime(@RequestParam("nowTime") long nowTime) {
 		
-		return 1;
+		List<SeatVO> list = service.getSeatInfo();
+		System.out.println("사용 시간 : " + (nowTime - list.get(0).getSeat_update_time()) + "분");
+		
+		long useTime = nowTime - list.get(0).getSeat_update_time(); // 사용 시간은 동일하므로 우선 하나만 가져옴.
+			
+		//좌석 테이블의 add_time 업데이트 
+		service.updateSeatAddTime(useTime);
+		
+		//유저 테이블의 user_time에 저장
+		service.updateUserAddTime(useTime);
 	}
 }
