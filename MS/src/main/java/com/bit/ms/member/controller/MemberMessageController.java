@@ -1,15 +1,23 @@
 package com.bit.ms.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.admin.model.AdminVO;
+import com.bit.ms.admin.model.StoreVO;
+import com.bit.ms.admin.service.AdminMypageService;
+import com.bit.ms.admin.service.AdminUserListService;
 import com.bit.ms.member.model.MessageVO;
 import com.bit.ms.member.service.MemberMessageService;
 import com.bit.ms.user.model.UserVO;
@@ -31,7 +39,7 @@ public class MemberMessageController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", service.getMessageList(receive_id, store_id));
-		mv.setViewName("admin/message");
+		mv.setViewName("admin/adminMain");
 		
 		return mv;
 	}
@@ -46,16 +54,17 @@ public class MemberMessageController {
 				
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", service.getMessageList(receive_id, store_id));
-		mv.setViewName("admin/message");
+		mv.setViewName("user/userMain");
 				
 		return mv;
 	}
 	// 메시지 쓰기
 	@RequestMapping(value = "member/writeMessage", method = RequestMethod.POST)
-	public int writeMessage(MessageVO messageVo) {
+	public String writeMessage(MessageVO messageVo) {
+		System.out.println("메시지 작성 성공");
+		service.messageWrite(messageVo);
 		
-		return service.messageWrite(messageVo);
-		
+		return "admin/adminMain";
 	}
 	//메시지 삭제
 	@RequestMapping(value = "member/deleteMessage", method = RequestMethod.POST)
@@ -90,5 +99,17 @@ public class MemberMessageController {
 		String store_id = Integer.toString(userVo.getStore_id()); 
 			
 		return service.messageCnt(receive_id, store_id);
+	}
+	//사용자 리스트를 받아오기
+	@RequestMapping(value = "member/sendList", method = RequestMethod.GET)
+	public @ResponseBody List<UserVO> getReceiveList() {
+
+		return service.getUserListDinstinct();
+	}
+	//받는 사람 아이디에 해당하는 매장이름 받아오기(관리자용)
+	@RequestMapping(value = "member/sendStore/{id}")
+	public @ResponseBody List<StoreVO> getReceiveStoreId(@PathVariable("id") String send_id){
+		
+		return service.getStoreName(send_id);
 	}
 }

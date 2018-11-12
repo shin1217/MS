@@ -25,5 +25,12 @@
 	<select id="adminMessageCnt" parameterType="hashmap">
 		select count(*) from message where receive_id = #{receive_id} and store_id = #{store_id} and message_read = "N"
 	</select>
-	
+	<!--사용자의 매장리스트 -->
+	<select id = "getStoreList" resultType = "storeVO">
+		select store_name from userinfo a, store b where a.user_id = #{send_id} and a.store_id = b.store_id
+	</select>
+	<!-- 중복사용자 제거리스트 -->
+	<select id="userListDistinct" resultType = "userVo">
+		select distinct user_id from userinfo
+	</select>
 </mapper>

@@ -3,7 +3,9 @@ package com.bit.ms.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.member.model.MessageVO;
+import com.bit.ms.user.model.UserVO;
 
 public interface MemberDaoInterface {
 
@@ -13,4 +15,6 @@ public interface MemberDaoInterface {
 		public void deleteMessage(HashMap<String,Integer> map); //메시지 삭제하기
 		public int readMessage(HashMap<String,String> map); //메시지 읽은것 확인
 		public int messageCnt(HashMap<String,String> map); //안읽은 메시지 카운트
+		public List<StoreVO> getStoreList(String send_id); //받는사용자의 리스트
+		public List<UserVO> userListDistinct();
 }

@@ -7,8 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.dao.MemberDaoInterface;
 import com.bit.ms.member.model.MessageVO;
+import com.bit.ms.user.model.UserVO;
 
 @Service
 public class MemberMessageService {
@@ -67,4 +69,18 @@ public class MemberMessageService {
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		return memberDao.messageCnt(map);
 	}
+	//사용자의 매장이름을 가져옴
+	public List<StoreVO> getStoreName(String send_id){
+		
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.getStoreList(send_id);
+	}
+	//사용자 중복아이디를 제외한 리스트 받아오기
+	public List<UserVO> getUserListDinstinct(){
+		
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.userListDistinct();
+		
+	}
+	
 }
