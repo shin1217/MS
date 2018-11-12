@@ -99,7 +99,7 @@ body {
 				<label for="user_birth">생년월일</label> <input type="text"
 					class="form-control" id="user_birth" name="user_birth"
 					placeholder="Birth" required>
-				<div class="check_font">confirm message</div>
+				<div class="check_font" id="birth_check"></div>
 			</div>
 			<!-- 본인확인 이메일 -->
 			<label for="user_email1">이메일</label>
@@ -114,15 +114,16 @@ body {
 					<input type="text" class="form-control py-0" name="user_email2"
 						id="user_email2" placeholder="" required>
 				</div>
-				<button type="button" class="btn btn-outline-info waves-effect px-3">
-					<i class="fa fa-envelope"></i>&nbsp;인증
-				</button>
-				<div class="check_font">confirm message</div>
+					<button type="button"
+						class="btn btn-outline-info waves-effect px-1">
+						<i class="fa fa-envelope"></i>&nbsp;인증
+					</button>
+				<div class="check_font" id="email_check"></div>
 			</div>
 			<!-- 휴대전화 -->
 			<div class="form-group">
-				<label for="user_phone">휴대전화</label> <input type="text"
-					class="form-control" id="user_phone" name="user_phone"
+				<label for="user_phone">휴대전화 (ex. 010-1111-2222)</label> <input
+					type="text" class="form-control" id="user_phone" name="user_phone"
 					placeholder="Phone Number" required>
 				<div class="check_font">confirm message</div>
 			</div>
@@ -147,7 +148,8 @@ body {
 	</div>
 </body>
 <script>
-	//회원 가입 유효성 검사 (validate)
+	//아이디, 비밀번호 정규식
+	var idJ = /^[A-Za-z0-9]{4,8}$/;
 	var pwJ = /^[A-Za-z0-9]{6,12}$/;
 	// 이름 정규식
 	var nameJ = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
@@ -175,7 +177,6 @@ body {
 												alert("다른 아이디를 사용해주세요 :)");
 												$('#user_id').focus();
 												return false;
-												
 											});
 
 										} else {
@@ -183,9 +184,7 @@ body {
 											$("#id_check").text("멋진 아이디네요!");
 											$("#id_check").css("color", "blue");
 											$("#reg_submit").click(function() {
-												
 												return true;
-												
 											});
 										}
 									},
@@ -196,7 +195,23 @@ body {
 								});
 					});
 
-	// 패스워드 관련 유효성 검사
+	// 아이디 정규식 체크
+	$('#user_id').blur(function(){
+		if(idJ.test($('#user_id').val())) {
+			console.log(idJ.test($('#user_id').val()));
+			$('#id_check').text('');
+			$("#reg_submit").click(function() {
+				// 1+n번째 실행했을 때 경고문이 너무 많이 뜸
+				alert("다른 아이디를 사용해주세요 :)");
+				$('#user_id').focus();
+				return false;
+			});
+		} else {
+			$('#id_check').text('문자 or 숫자 4~8자리');
+			$('#id_check').css('color', 'red');
+		}
+	});
+	
 	// 1-1 정규식 체크
 	$('#user_pw').blur(function() {
 		if (pwJ.test($('#user_pw').val())) {
@@ -234,30 +249,34 @@ body {
 	});
 
 	// 가입하기 실행 버튼 유효성 검사!
-	$('#reg_submit').click(
-			function() {
-				// 비밀번호가 같은 경우 && 비밀번호 정규식
-				if (($('#user_pw').val() == ($('#user_pw2').val()))
-						&& pwJ.test($('#user_pw').val())) {
+	$('#reg_submit').click(function() {
+		// 아이디 정규식
+		if (idJ.test($('#user_id').val())) {
+			return true;
+		}else {
+			alert('아이디를 확인해주세요 :)');
+			return false;
+		}
+		
+		// 비밀번호가 같은 경우 && 비밀번호 정규식
+		if (($('#user_pw').val() == ($('#user_pw2').val()))
+		&& pwJ.test($('#user_pw').val())) {
+			return true;
 
-					return true;
-
-				} else {
-					alert('비밀번호를 확인해주세요 :)');
-					return false;
-
-				}
-				// 이름이 이상할 경우
-				if (nameJ.test($('#user_name').val())) {
-					return true;
-				}
-				esle
-				{
-					alert('이름을 확인해주세요 :)');
-					return false;
-				}
-
-			});
+		} else {
+			alert('비밀번호를 확인해주세요 :)');
+			return false;
+		}
+		
+		// 이름 정규식
+		if (nameJ.test($('#user_name').val())) {
+			return true;
+		} else {
+			alert('이름을 확인해주세요 :)');
+			return false;
+		}
+	});
+	
 </script>
 
 </html>
