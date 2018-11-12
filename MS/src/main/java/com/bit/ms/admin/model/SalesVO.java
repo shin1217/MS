@@ -1,13 +1,11 @@
 package com.bit.ms.admin.model;
 
-import java.util.Date;
-
 import org.apache.ibatis.type.Alias;
 
 @Alias("salesVO")
 public class SalesVO {
 	
-	private Date sales_day;
+	private String sales_day;
 	private int sales_total;
 	private int sales_food;
 	private int sales_seat;
@@ -19,11 +17,11 @@ public class SalesVO {
 				+ ", sales_seat=" + sales_seat + ", sales_id=" + sales_id + "]";
 	}
 	
-	public Date getSales_day() {
+	public String getSales_day() {
 		return sales_day;
 	}
 	
-	public void setSales_day(Date sales_day) {
+	public void setSales_day(String sales_day) {
 		this.sales_day = sales_day;
 	}
 	

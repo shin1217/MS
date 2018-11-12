@@ -6,8 +6,11 @@
  <mapper namespace="com.bit.ms.dao.AdminDaoInterface">
  
  	<select id="listAll" resultType="com.bit.ms.admin.model.SalesVO">
- 		select * from sales
- 		order by sales_day DESC
+ 		select sales_id, DATE_FORMAT(sales_day,'%d') sales_day, sales_total, sales_food, sales_seat, store_id from sales;
+ 	</select>
+ 	
+ 	<select id="listSum" resultType="com.bit.ms.admin.model.SalesVO">
+ 		select sales_id, DATE_FORMAT(sales_day,'%d') sales_day, sum(sales_total), sum(sales_food), sum(sales_seat), store_id from sales where DATE_FORMAT(sales_day,'%d') = ;
  	</select>
  	
  </mapper>
