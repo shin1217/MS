@@ -3,12 +3,11 @@ package com.bit.ms.user.service;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.UserDaoInterface;
-import com.bit.ms.member.model.SeatVO;
+import com.bit.ms.user.model.UserVO;
 
 @Service
 public class UserTimeService {
@@ -16,51 +15,27 @@ public class UserTimeService {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	private UserDaoInterface userDao;
-	
-	// 로그인한 유저의 남은 시간 
-	public long getTime(String userId) {
+
+	// 선택한 좌석의 유저 시간 업데이트(사용시간, 충전시간, 좌석 번호)
+	public int updateUserAddTime(long useTime, long addTime, int seatId, String userId) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.getTime(userId);
+		return userDao.updateUserAddTime(useTime, addTime, seatId, userId);
 	}
 	
-	// 시간 충전
-	public int addTime(long addTime, String userId) {
+	// 사용 중인 모든 좌석의 유저 시간 업데이트(사용시간, 충전시간)
+	public int updateUserAddTimeAll(long useTime) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.addTime(addTime, userId);
+		return userDao.updateUserAddTimeAll(useTime);
 	}
 	
-	// 좌석 업데이트 
-	public int updateSeat(long nowTime, long addTime, String userId, String seatId) {
+	// 현재 좌석 사용 중인 사용자 정보 모두 가져오기
+	public List<UserVO> getUserInfo(){
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.updateSeat(nowTime, addTime, userId, seatId);
-	}
-	
-	// 모든 좌석의 현재 시간 필드 업데이트 
-	public int updateSeatAll(long nowTime) {
-		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.updateSeatAll(nowTime);
-	}
-	
-	// 사용 시간에 따라 좌석 시간 업데이트
-	public int updateSeatAddTime(long useTime) {
-		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.updateSeatAddTime(useTime);
-	}
-	
-	// 사용 시간에 따라 사용자가 가지고 있던 시간 업데이트
-	public int updateUserAddTime(long useTime) {
-		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.updateUserAddTime(useTime);
-	}
-	
-	// 현재 사용 중인 모든 좌석 정보 가져오기
-	public List<SeatVO> getSeatInfo(){
-		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.getSeatInfo();
+		return userDao.getUserInfo();
 	}
 	
 	// 로그인한 유저의 좌석 사용 상태 검사
-	public SeatVO isUsingSeat(String userId) {
+	public UserVO isUsingSeat(String userId) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
 		return userDao.isUsingSeat(userId);
 	}

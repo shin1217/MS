@@ -172,14 +172,18 @@
 	$(document).ready(function() {
 		var seatArr = new Array(20).fill(false); // 좌석 사용 여부 검사 배열
 		
+		var useTime = 0; // 사용 시간(초)	
+		setInterval(function () { useTime++; }, 1000); // 1초 마다 1씩 증가
+
 		/* 페이지 로드 시 좌석 초기화 */
 		$.ajax({
-			url: '<%=request.getContextPath()%>/user/resetSeat?nowTime='+new Date().getMinutes(), 
+			url: '<%=request.getContextPath()%>/user/resetSeat', 
 			type: 'get',
-			success:function(data){ // 사용 중인 좌석 모두 가져옴.
+			success:function(data){ // 좌석을 사용 중인 사용자 모두 가져오기
 				for(var i=0; i<data.length; i++){
 					seatArr[data[i].seat_id-1] = true; // 좌석 사용 상태 true 변경
-					resetSeat($('#seatTable td').eq(data[i].seat_id-1), data[i].seat_add_time, 59, data[i].user_id);
+					
+					resetSeat($('#seatTable td').eq(data[i].seat_id-1), data[i].seat_id, data[i].user_time, data[i].user_id);
 					// timer(data[i].seat_update_time, 59, data[i].seat_id);
 				}
 			}
@@ -188,11 +192,10 @@
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		
 		/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
-		 window.onbeforeunload = function() {
-			
+		 window.onbeforeunload = function() {				
 			$.ajax({
 				// 현재 시간(종료 시간) 전송
-				url: '<%=request.getContextPath()%>/user/saveTime?nowTime='+new Date().getMinutes(), 
+				url: '<%=request.getContextPath()%>/user/saveTime?useTime='+useTime, 
 				type: 'get',
 				
 				success:function(){
@@ -281,23 +284,18 @@
 				return;
 			}
 			
-			var addTime = $('#select_add_time option:selected').val()*60; // 충전할 시간(분 단위)
-			var seatId = $(seatObj).attr('id');
+			var addTime = $('#select_add_time option:selected').val()*60*60; // 충전할 시간(초 단위)
+			var seatId = $(seatObj).attr('id'); // 좌석 번호
 			
 			seatArr[seatId-1] = true; // 선택된 좌석 상태 변경
 			
 			$.ajax({
-				// 로그인한 아이디와 충전 시간, 좌석번호, 현재 시간을 파라미터로 넘겨줌.
-				url: '<%=request.getContextPath()%>/user/addTime?userId=${userSession.user_id}&addTime=' + addTime + '&seatId=' + seatId + '&nowTime='+new Date().getMinutes(), 
+				// 유저 아이디, 충전 시간, 좌석번호, 현재 시간을 파라미터로 넘겨줌.
+				url: '<%=request.getContextPath()%>/user/addTime?userId=${userSession.user_id}&addTime=' + addTime + '&seatId=' + seatId + '&useTime='+useTime, 
 				type: 'get',
 				
-				success:function(minute){
-					console.log(minute); // 분 설정
-					var second = 59; // 초 설정
-					
-					resetSeat(seatObj, minute, second, '${userSession.user_id}'); // 좌석 정보 변경
-					// timer(minute, second, seatId); // 타이머 실행
-					$('#add_time_modal').hide();
+				success:function(){
+					location.reload();
 					
 				} // end success 
 			}); // end ajax 
@@ -322,9 +320,10 @@
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	
-	/* 좌석 생성 함수(좌석 객체, 분, 초, 유저 아이디) */
-	function resetSeat(obj, m, s, userId) {
-		var seatId =  $(obj).attr('id');
+	/* 좌석 생성 함수(좌석 객체, 좌석 번호, 초, 유저 아이디) */
+	function resetSeat(obj, seatId, s, userId) {	
+		var min = s/60; // 분 계산
+		var sec = s%60; // 초 계산
 		
 		$(obj).css({
 			'font-size' : 25,
@@ -339,8 +338,8 @@
 		str += '<span style="color: black; font-weight: bold; float: left">'+ seatId +'</span>';
 		str += '<span>'+ userId +'</span>';
 		str += '</div>';
-		str += '<div><span id="countTimeMinute'+ seatId +'">'+ m +'</span>분';
-		str += '<span id="countTimeSecond'+ seatId +'">'+ s +'</span>초</div>';
+		str += '<div><span id="countTimeMinute'+ seatId +'">'+ Math.floor(min) +'</span>분';
+		str += '<span id="countTimeSecond'+ seatId +'">'+ Math.floor(sec) +'</span>초</div>';
 		str += '<div>5000</div>';
 		
 		// 자신의 좌석에만 사용 종료 버튼 표시
@@ -363,9 +362,12 @@
 			$(obj).children().eq(0).css('background-color', '#ff4444'); // 타이틀 색 변경
 		}
 	}
-	
-	/* 시간 타이머(분, 초, 좌석 아이디) */
-	function timer(m, s, seatId){
+		
+	/* 시간 타이머(초, 좌석 아이디) */
+	function timer(s, seatId){	
+		var min = s/60; // 분 계산
+		var sec = s%60; // 초 계산
+		
 		var timer = setInterval(function () {
 			
 			$('#countTimeMinute'+seatId).html(m); // 분 텍스트

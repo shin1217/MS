@@ -3,42 +3,27 @@
   
 <mapper namespace="com.bit.ms.dao.UserDaoInterface">
 	
-	<select id="getTime" resultType="long">
-		select user_time from userinfo
-		where user_id=#{user_id}
+	<!-- 선택한 좌석의 유저 시간 업데이트(사용시간, 충전시간, 좌석번호) -->
+	<update id="updateUserAddTime" parameterType="map">
+		update userinfo set user_time=((user_time-#{param1})+#{param2}), seat_id=#{param3} 
+		where user_id=#{param4}
+	</update>
+	
+	<!-- 사용 중인 모든 좌석의 유저 시간 업데이트(사용시간) -->
+	<update id="updateUserAddTimeAll">
+		update userinfo set user_time=user_time-#{use_time}
+		where seat_id is not null
+	</update>
+	
+	<!-- 현재 좌석 사용 중인 사용자 정보 모두 가져오기 -->
+	<select id="getUserInfo" resultType="userVO">
+		select * from userinfo
+		where seat_id is not null
 	</select>
 	
-	<update id="addTime" parameterType="map">
-		update userinfo set user_time=#{param1} 
-		where user_id=#{param2}
-	</update>
-	
-	<update id="updateSeat" parameterType="map">
-		update seat set seat_update_time=#{param1}, seat_add_time=#{param2}, user_id=#{param3} 
-		where seat_id=#{param4}
-	</update>
-	
-	<update id="updateSeatAll">
-		update seat set seat_update_time=#{now_time}
-		where user_id is not null
-	</update>
-	
-	<update id="updateSeatAddTime">
-		update seat set seat_add_time=seat_add_time-#{use_time} 
-	</update>
-	
-	<update id="updateUserAddTime">
-		update userinfo set user_time=user_time-#{use_time} 
-		where user_time > 0
-	</update>
-	
-	<select id="getSeatInfo" resultType="seatVO">
-		select * from seat
-		where user_id is not null
-	</select>
-	
-	<select id="isUsingSeat" resultType="seatVO">
-		select * from seat 
-		where user_id=#{user_id}
+	<!-- 로그인한 유저의 좌석 사용 상태 검사 -->
+	<select id="isUsingSeat" resultType="userVO">
+		select * from userinfo 
+		where user_id=#{user_id} and seat_id is not null
 	</select>
 </mapper>

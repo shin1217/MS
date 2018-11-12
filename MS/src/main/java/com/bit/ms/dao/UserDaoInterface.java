@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.user.model.UserBoardVO;
 import com.bit.ms.user.model.UserVO;
 
@@ -33,14 +32,8 @@ public interface UserDaoInterface {
 	int getNextNUM(int uboard_id);
 	
 	/*시간충전*/
-	long getTime(String userId);
-	int addTime(long addTime, String userId);
-	int updateSeat(long nowTime, long addTime, String userId, String seatId);
-	int updateSeatAll(long nowTime);
-	int updateSeatAddTime(long useTime);
-	int updateUserAddTime(long useTime);
-	List<SeatVO> getSeatInfo();
-	SeatVO isUsingSeat(String userId);
-	int saveTime();
-	
+	int updateUserAddTime(long useTime, long addTime, int seatId, String userId);
+	int updateUserAddTimeAll(long useTime);
+	List<UserVO> getUserInfo(); 
+	UserVO isUsingSeat(String userId);
 }
