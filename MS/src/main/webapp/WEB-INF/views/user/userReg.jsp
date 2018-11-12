@@ -69,49 +69,49 @@ body {
 			<!-- 아이디 -->
 			<div class="form-group">
 				<label for="user_id">아이디</label> <input type="text"
-					class="form-control" id="user_id" name="user_id" placeholder="ID">
+					class="form-control" id="user_id" name="user_id" placeholder="ID" required>
 				<div class="check_font" id="id_check"></div>
 			</div>
 			<!-- 비밀번호 -->
 			<div class="form-group">
 				<label for="user_pw">비밀번호</label> <input type="password"
 					class="form-control" id="user_pw" name="user_pw"
-					placeholder="PASSWORD">
-				<div class="check_font"></div>
+					placeholder="PASSWORD" required>
+				<div class="check_font" id="pw_check"></div>
 			</div>
 			<!-- 비밀번호 재확인 -->
 			<div class="form-group">
 				<label for="user_pw2">비밀번호 확인</label> <input type="password"
 					class="form-control" id="user_pw2" name="user_pw2"
-					placeholder="Confirm Password">
+					placeholder="Confirm Password" required>
 				<div class="check_font" id="pw2_check"></div>
 			</div>
 			<!-- 이름 -->
 			<div class="form-group">
 				<label for="user_name">이름</label> <input type="text"
 					class="form-control" id="user_name" name="user_name"
-					placeholder="Name">
-				<div class="check_font">confirm message</div>
+					placeholder="Name" required>
+				<div class="check_font" id="name_check"></div>
 			</div>
 			<!-- 생년월일 -->
 			<div class="form-group">
 				<label for="user_birth">생년월일</label> <input type="text"
 					class="form-control" id="user_birth" name="user_birth"
-					placeholder="Birth">
+					placeholder="Birth" required>
 				<div class="check_font">confirm message</div>
 			</div>
 			<!-- 본인확인 이메일 -->
 			<label for="user_email1">이메일</label>
 			<div class="form-inline">
 				<input type="text" class="form-control mb-2 mr-sm-2"
-					name="user_email1" id="user_email1" placeholder="E-mail">
+					name="user_email1" id="user_email1" placeholder="E-mail" required>
 				<!-- Default input -->
 				<div class="input-group mb-2 mr-sm-2">
 					<div class="input-group-prepend">
 						<div class="input-group-text">@</div>
 					</div>
 					<input type="text" class="form-control py-0" name="user_email2"
-						id="user_email2" placeholder="">
+						id="user_email2" placeholder="" required>
 				</div>
 				<button type="button" class="btn btn-outline-info waves-effect px-3">
 					<i class="fa fa-envelope"></i>&nbsp;인증
@@ -122,7 +122,7 @@ body {
 			<div class="form-group">
 				<label for="user_phone">휴대전화</label> <input type="text"
 					class="form-control" id="user_phone" name="user_phone"
-					placeholder="Phone Number">
+					placeholder="Phone Number" required>
 				<div class="check_font">confirm message</div>
 			</div>
 
@@ -135,7 +135,7 @@ body {
 			</div>
 			<div class="reg_button">
 				<a class="btn btn-danger px-3"
-					href="${pageContext.request.contextPath}/"> <i
+					href="${pageContext.request.contextPath}"> <i
 					class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
 				</a> &emsp;&emsp;
 				<button type="submit" class="btn btn-primary px-3" id="reg_submit">
@@ -147,10 +147,12 @@ body {
 </body>
 <script>
 	//회원 가입 유효성 검사 (validate)
+	var pwJ = /^[A-Za-z0-9]{6,12}$/;
+	// 이메일 검사 정규식
+	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	// 특수문자 정규식
+
 	function validate() {
-		var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디와 패스워드가 적합한지 검사할 정규식
-		var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		// 이메일이 적합한지 검사할 정규식
 
 		/* 각 id 속성 값 */
 		var id = document.getElementById('user_id');
@@ -211,29 +213,50 @@ body {
 					});
 
 	// 패스워드 관련 유효성 검사
-	// 1-1 패스워드 일치 확인
+	// 1-1 정규식 체크
+	$('#user_pw').blur(function() {
+		if (pwJ.test($('#user_pw').val())) {
+			console.log('ture');
+			$('#pw_check').text('');
+		} else {
+			console.log('false');
+			$('#pw_check').text('숫자 or 문자로 6~12자리 입력');
+			$('#pw_check').css('color', 'red');
+		}
+
+	});
+	// 1-2 패스워드 일치 확인
 	$('#user_pw2').blur(function() {
 		if ($('#user_pw').val() != $(this).val()) {
 			$('#pw2_check').text('비밀번호가 일치하지 않습니다 :(');
 			$('#pw2_check').css('color', 'red');
 		} else {
-			$('#pw2_check').text('회원가입을 계속 진행해주세요 :)');
-			$('#pw2_check').css('color', 'blue');
+			$('#pw2_check').text('');
 		}
 	});
+	// 1-3 패스워드 일치해야 가입하기 버튼 실행
+	$('#reg_submit').click(
+			function() {
+				if ($('#user_pw').val() != ($('#user_pw2').val()) && pwJ.text($('#user_pw').val())) {
 
-	// 1-2 패스워드 일치해야 가입하기 버튼 실행
-	$('#reg_submit').click(function() {
-		if ($('#user_pw').val() != ($('#user_pw2').val())) {
+					return true;
 
-			alert('비밀번호를 확인해주세요 :)');
-			return false;
-		} else {
+				} else {
+					alert('비밀번호를 확인해주세요 :)');
+					return false;
 
-			return true;
+				}
+
+			});
+
+	/* // 이름에 특수문자 들어가지 않도록 설정
+	$("#user_name").blur(function() {
+		if (re2.test($('#user_name').val())) {
+
+			console.log("실행됐니");
 		}
 
-	});
+	}); */
 </script>
 
 </html>

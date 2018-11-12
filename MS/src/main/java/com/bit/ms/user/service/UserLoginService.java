@@ -26,19 +26,17 @@ public class UserLoginService {
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		
 		UserVO vo = userDao.loginUser(user_id, store_id);
-		
 		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
 		if(vo != null) {
 			// 아이디,비번,스토어id가 모두 같은경우
 			if(vo.getUser_id().equals(user_id) && vo.getUser_pw().equals(user_pw) && vo.getStore_id() == store_id) {
-				
 				// 쿠키 체크 검사
 				if(check != null) {
 					Cookie cookie = new Cookie("check", user_id);
 					response.addCookie(cookie);
 					
 					// 쿠키 확인
-					System.out.println("쿠키 확인 : " + cookie);
+					System.out.println("Service check" + check);
 				}else{
 					Cookie cookie = new Cookie("check", "");
 					cookie.setMaxAge(0);				

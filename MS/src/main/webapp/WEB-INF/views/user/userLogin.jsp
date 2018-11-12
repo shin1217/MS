@@ -135,7 +135,8 @@ body {
 									data : {
 										user_id : id,
 										user_pw : pw,
-										store_id : store
+										store_id : store,
+										remember_id : remember
 									},
 									success : function(data) {
 										if (data == 0) { //로그인 실패시
