@@ -88,25 +88,25 @@
 	<table width="100%" border="1" cellspacing="1" cellpadding="1" bgcolor="#FFFFFF">
 		<thead>
 			<tr bgcolor="#CECECE">
-				<td width="100px">
+				<td width="100px" height="40px">
 					<div align="center" style="font-weight: bold;"><font color="red">일</font></div>
 				</td>
-				<td width="100px">
+				<td width="100px" height="40px">
 					<div align="center" style="font-weight: bold;">월</div>
 				</td>
-				<td width="100px">
+				<td width="100px" height="40px">
 					<div align="center" style="font-weight: bold;">화</div>
 				</td>
-				<td width="100px">
+				<td width="100px" height="40px">
 					<div align="center" style="font-weight: bold;">수</div>
 				</td>
-				<td width="100px">
+				<td width="100px" height="40px">
 					<div align="center" style="font-weight: bold;">목</div>
 				</td>
-				<td width="100px">
+				<td width="100px" height="40px">
 					<div align="center" style="font-weight: bold;">금</div>
 				</td>
-				<td width="100px">
+				<td width="100px" height="40px">
 					<div align="center" style="font-weight: bold;"><font color="#529DBC">토</font></div>
 				</td>
 			</tr>
@@ -114,54 +114,96 @@
 		
 		<tbody>
 		
-			<fmt:parseDate var="dateString" value="${sales.sales_day}" pattern="yyyyMMdd" />
-		
-			<tr>
-				<c:forEach var="i" begin="1" end="${ start }">
-					<td width="100px" height="80px" valign="top" align="left" nowrap></td>
-					<c:set var="newLine" value="${newLine + 1}" />
-				</c:forEach>
-				
-				<c:forEach var="i" begin="1" end="${ endDay }">
-					<c:set var="index" value="${index + 1}"></c:set>
-					<c:choose> 
-						<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 1}"> 
-								<td width="100px" height="80px" valign="top" align="left" nowrap>
-								<p><font style="font-weight: bold; color: RED;">${ index }</font></p>
-							<br>
-						</c:when> 
-						<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 0}"> 
-								<td width="100px" height="80px" valign="top" align="left" nowrap>
-								<p><font style="font-weight: bold; color: #529DBC;" >${ index }</font></p>
-							<br>
-						</c:when> 
-						<c:otherwise> 
-								<td width="100px" height="80px" valign="top" align="left" nowrap>
-								<p><font style="font-weight: bold; color: BLACK;">${ index }</font></p>
-							<br>
-						</c:otherwise> 
-					</c:choose>
+				<%-- <fmt:formatDate value="${sales.sales_day}" type pattern="yyyyMMdd" /> --%>
+			
+				<tr>
+					<c:forEach var="i" begin="1" end="${ start }">
+						<td width="100px" height="80px" valign="top" align="left" nowrap></td>
+						<c:set var="newLine" value="${newLine + 1}" />
+					</c:forEach>
 					
-						<c:if test="${ intToday eq sales.sales_day }"></c:if>
-						${ sales.sales_total }
-					<br>
-					</td>
+					<c:forEach var="i" begin="1" end="${ endDay }">
+						<c:set var="index" value="${index + 1}"></c:set>
+						
+						<c:choose> 
+							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 1}"> 
+									<td width="100px" height="80px" valign="top" align="left" nowrap>
+									<p><font style="font-weight: bold; color: RED;">${ index }</font></p>
+									<p><font style="font-weight: bold; color: GRAY;"><a>
+									
+									<c:set var="total" value="0"></c:set>
+									
+									<c:forEach items="${ salesList }" var="sales">
+										<c:if test="${ index eq sales.sales_day }">
+											<%-- 총 매출 : ${ sales.sales_total }
+											음식 매출 : ${ sales.sales_food }
+											좌석 매출 : ${ sales.sales_seat } --%>
+											<c:set var="total" value="${total + sales.sales_total}"></c:set>
+										</c:if>
+									</c:forEach>
+										총 매출 : <c:out value="${total }"></c:out>
+									</a></font></p>
+							</c:when> 
+							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 0}"> 
+									<td width="100px" height="80px" valign="top" align="left" nowrap>
+									<p><font style="font-weight: bold; color: #529DBC;" >${ index }</font></p>
+									<p><font style="font-weight: bold; color: GRAY;"><a>
+									
+									<c:set var="total" value="0"></c:set>
+									
+									<c:forEach items="${ salesList }" var="sales">
+										<c:if test="${ index eq sales.sales_day }">
+											<%-- 총 매출 : ${ sales.sales_total }
+											음식 매출 : ${ sales.sales_food }
+											좌석 매출 : ${ sales.sales_seat } --%>
+											<c:set var="total" value="${total + sales.sales_total}"></c:set>
+										</c:if>
+									</c:forEach>
+										총 매출 : <c:out value="${total }"></c:out>
+									</a></font></p>
+							</c:when> 
+							<c:otherwise> 
+									<td width="100px" height="80px" valign="top" align="left" nowrap>
+									<p><font style="font-weight: bold; color: BLACK;">${ index }</font></p>
+									<p><font style="font-weight: bold; color: GRAY;"><a>
+									
+									<c:set var="total" value="0"></c:set>
+									
+									<c:forEach items="${ salesList }" var="sales">
+										<c:if test="${ index eq sales.sales_day }">
+											<%-- 총 매출 : ${ total }
+											음식 매출 : ${ sales.sales_food }
+											좌석 매출 : ${ sales.sales_seat } --%>
+											<c:set var="total" value="${total + sales.sales_total}"></c:set>
+										</c:if>
+									</c:forEach>
+										총 매출 : <c:out value="${total }"></c:out>
+									</a></font></p>
+							</c:otherwise> 
+						</c:choose>
+						
+							<%-- <c:if test="${ intToday eq sales.sales_day }">
+							${ sales.sales_total }
+							</c:if> --%>
+							
+						</td>
+						
+						<c:if test="${((i-(8-firstDayOfWeek)) % 7) == 0}">
+							<tr>
+							</tr>
+						</c:if>
+						
+					</c:forEach>
 					
-					<c:if test="${((i-(8-firstDayOfWeek)) % 7) == 0}">
-						<tr>
-						</tr>
+					<c:if test="${ lastDayOfLastWeek != '7' }">
+						<c:forEach var="i" begin="1" end="${ 7-lastDayOfLastWeek }">
+							<td width="100px" height="80px" valign="top" align="right" nowrap>
+							</td>
+						</c:forEach>
 					</c:if>
 					
-				</c:forEach>
-				
-				<c:if test="${ lastDayOfLastWeek != '7' }">
-					<c:forEach var="i" begin="1" end="${ 7-lastDayOfLastWeek }">
-						<td width="100px" height="80px" valign="top" align="right" nowrap>
-						</td>
-					</c:forEach>
-				</c:if>
-				
-			</tr>
+				</tr>
+				<h1>${sales.sales_day}</h1>
 		</tbody>
 		
 	</table>
