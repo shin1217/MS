@@ -136,7 +136,7 @@
 	function getAllList() {
 		$.ajax({
 			type : 'get',
-				url : '${pageContext.request.contextPath}' + '/reply/all/' + notice_id,
+				url : '${pageContext.request.contextPath}/reply/all/' + notice_id,
 				dataType : 'json',
 				success : function(data) {
 					$('#commentsNum').html(data.length + ' comments');
@@ -165,7 +165,7 @@
 
 		$.ajax({
 			type : 'post',
-			url : '${pageContext.request.contextPath}' + '/reply',
+			url : '${pageContext.request.contextPath}/reply',
 			dataType : 'text',
 			data : {
 				notice_id : notice_id,
@@ -183,8 +183,8 @@
 
 	function replyDelete(reply_id) {
 		$.ajax({
-			type : 'get',
-			url : '${pageContext.request.contextPath}' + '/reply/delete/' + reply_id,
+			type : 'delete',
+			url : '${pageContext.request.contextPath}/reply/delete/' + reply_id,
 			success : function(data) {
 				console.log('삭제확인');
 				getAllList();
@@ -197,7 +197,7 @@
 
 		$.ajax({
 			type : 'get',
-			url : '${pageContext.request.contextPath}' + '/reply/modify',
+			url : '${pageContext.request.contextPath}/reply/modify',
 			dataType : 'text',
 			data : {
 				reply_id : reid,
@@ -212,8 +212,8 @@
 
 	function replyEdit(reid) { //댓글수정 클릭시
 		$('#replyInput' + reid).attr("readonly", false);
-		$('#replyEditBtn' + reid).find('i').attr("class", "fa fa-check"); //댓글 수정클릭시 모양바뀜
 		$('#replyInput' + reid).focus();
+		$('#replyEditBtn' + reid).find('i').attr("class", "fa fa-check"); //댓글 수정클릭시 모양바뀜
 		$('#replyEditBtn' + reid).attr("onclick", 'replyModify(' + reid + ')');
 	};
 </script>

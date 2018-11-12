@@ -20,10 +20,10 @@
 		<table id="userListTable" class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th class="th-sm"><i class="fa fa-sort float-right" onclick="sorting('user_id')" aria-hidden="true"></i>회원아이디</th>
-					<th class="th-sm"><i class="fa fa-sort float-right" onclick="sorting('user_name')" aria-hidden="true"></i>회원이름</th>
-					<th class="th-sm"><i class="fa fa-sort float-right" onclick="sorting('user_phone')" aria-hidden="true"></i>핸드폰번호</th>
-					<th class="th-sm"><i class="fa fa-sort float-right" onclick="sorting('user_birth')" aria-hidden="true"></i>생년월일</th>
+					<th class="th-sm"><i class="fa fa-sort float-right" id="userIdTh" onclick="sorting('user_id', 'desc')" aria-hidden="true"></i>회원아이디</th>
+					<th class="th-sm"><i class="fa fa-sort float-right" id="userNameTh"onclick="sorting('user_name', 'desc')" aria-hidden="true"></i>회원이름</th>
+					<th class="th-sm"><i class="fa fa-sort float-right" id="userPhoneTh" onclick="sorting('user_phone', 'desc')" aria-hidden="true"></i>핸드폰번호</th>
+					<th class="th-sm"><i class="fa fa-sort float-right" id="userBirthTh" onclick="sorting('user_birth', 'desc')" aria-hidden="true"></i>생년월일</th>
 				</tr>
 			</thead>
 			<tbody id="userListBody">
@@ -42,10 +42,14 @@
 <script>
 	var list = '';
 
-	function sorting(sortName){
+	function sorting(sortName, orderBy){
 		$.ajax({
 			type : 'get',
-			url : '${pageContext.request.contextPath}/admin/userList/sort/' + sortName,
+			url : '${pageContext.request.contextPath}/admin/userList/sort',
+			data : {
+				sortName : sortName,
+				orderBy : orderBy
+			},
 			success : function(data){
 				$(data).each(function(index, item){
 					list += '<tr>';
@@ -57,6 +61,11 @@
 					$('#userListBody').html(list);
 				});
 				list = '';
+				if($('#userIdTh').attr('onclick') == 'desc'){
+					$('#userIdTh').attr('onclick', 'sorting("user_id", "asc")');
+				} else {
+					$('#userIdTh').attr('onclick', 'sorting("user_id", "desc")');
+				}
 			}
 		});
 	};

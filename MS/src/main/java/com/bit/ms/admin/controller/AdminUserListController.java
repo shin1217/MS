@@ -29,15 +29,11 @@ public class AdminUserListController {
 		return "admin/adminUserList";
 	}
 	
-	@RequestMapping(value = "/sort/{sortName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/sort", method = RequestMethod.GET)
 	@ResponseBody
-	public List<UserVO> sortingUserList(@PathVariable("sortName") String sortName) {
+	public List<UserVO> sortingUserList(String sortName, String orderBy) {
 		
-		System.out.println(sortName);
-		
-		List<UserVO> result = listService.sortingUserList(sortName);
-		
-		System.out.println(result);
+		List<UserVO> result = listService.sortingUserList(sortName, orderBy);
 		
 		return result;
 	}

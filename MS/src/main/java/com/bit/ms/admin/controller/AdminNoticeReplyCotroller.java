@@ -33,7 +33,7 @@ public class AdminNoticeReplyCotroller {
 
 	}
 
-	@RequestMapping(value = "/delete/{reply_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{reply_id}", method = RequestMethod.DELETE)
 	public void replyDelete(@PathVariable("reply_id") int id) {
 
 		service.deleteReply(id);

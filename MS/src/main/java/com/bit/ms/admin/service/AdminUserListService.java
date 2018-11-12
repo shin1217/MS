@@ -24,11 +24,11 @@ public class AdminUserListService {
 		return adminDao.getUserList();
 	}
 
-	public List<UserVO> sortingUserList(String sortName) {
+	public List<UserVO> sortingUserList(String sortName, String orderBy) {
 		
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		
-		return adminDao.sortingUserList(sortName);		
+		return adminDao.sortingUserList(sortName, orderBy);		
 	}
 	
 }
