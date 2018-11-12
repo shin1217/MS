@@ -21,7 +21,7 @@
 			<thead>
 				<tr>
 					<th class="th-sm"><i class="fa fa-sort float-right" id="userIdTh" onclick="sorting('user_id', 'desc')" aria-hidden="true"></i>회원아이디</th>
-					<th class="th-sm"><i class="fa fa-sort float-right" id="userNameTh"onclick="sorting('user_name', 'desc')" aria-hidden="true"></i>회원이름</th>
+					<th class="th-sm"><i class="fa fa-sort float-right" id="userNameTh" onclick="sorting('user_name', 'desc')" aria-hidden="true"></i>회원이름</th>
 					<th class="th-sm"><i class="fa fa-sort float-right" id="userPhoneTh" onclick="sorting('user_phone', 'desc')" aria-hidden="true"></i>핸드폰번호</th>
 					<th class="th-sm"><i class="fa fa-sort float-right" id="userBirthTh" onclick="sorting('user_birth', 'desc')" aria-hidden="true"></i>생년월일</th>
 				</tr>
@@ -41,7 +41,7 @@
 </body>
 <script>
 	var list = '';
-
+	
 	function sorting(sortName, orderBy){
 		$.ajax({
 			type : 'get',
@@ -61,10 +61,28 @@
 					$('#userListBody').html(list);
 				});
 				list = '';
-				if($('#userIdTh').attr('onclick') == 'desc'){
-					$('#userIdTh').attr('onclick', 'sorting("user_id", "asc")');
+				if($('#userIdTh').attr('onclick') == "sorting('user_id', 'desc')"){
+					$('#userIdTh').attr('onclick', "sorting('user_id', 'asc')");
 				} else {
-					$('#userIdTh').attr('onclick', 'sorting("user_id", "desc")');
+					$('#userIdTh').attr('onclick', "sorting('user_id', 'desc')");
+				}
+				
+				if($('#userNameTh').attr('onclick') == "sorting('user_id', 'desc')"){
+					$('#userNameTh').attr('onclick', "sorting('user_id', 'asc')");
+				} else {
+					$('#userNameTh').attr('onclick', "sorting('user_id', 'desc')");
+				}
+				
+				if($('#userPhoneTh').attr('onclick') == "sorting('user_id', 'desc')"){
+					$('#userPhoneTh').attr('onclick', "sorting('user_id', 'asc')");
+				} else {
+					$('#userPhoneTh').attr('onclick', "sorting('user_id', 'desc')");
+				}
+				
+				if($('#userBirthTh').attr('onclick') == "sorting('user_id', 'desc')"){
+					$('#userBirthTh').attr('onclick', "sorting('user_id', 'asc')");
+				} else {
+					$('#userBirthTh').attr('onclick', "sorting('user_id', 'desc')");
 				}
 			}
 		});
