@@ -51,6 +51,7 @@
    color : white;
    margin-left : 90px;
    font-size : 20px;
+   border-radius: 10px;
 }
 .userMyPage_deleteBtn{
 	background-color : red;
@@ -167,6 +168,7 @@
 	height : 200px;
 	background-color : #eee;
 	text-align : center;
+	border-radius: 10px;
 }
 .userMyPage_deleteDiv p{
 	margin-top : 30px;
@@ -183,6 +185,7 @@
 	margin-left : 30px;
 	margin-right : 30px;
 	font-size : 18px;
+	border-radius: 10px;
 }
 .userMyPage_deleteCancelBtn{
 	background-color : black !important;

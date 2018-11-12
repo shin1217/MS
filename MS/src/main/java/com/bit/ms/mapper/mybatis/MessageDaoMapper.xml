@@ -31,6 +31,6 @@
 	</select>
 	<!-- 중복사용자 제거리스트 -->
 	<select id="userListDistinct" resultType = "userVo">
-		select distinct user_id from userinfo
+		select distinct user_id, store_id from userinfo
 	</select>
 </mapper>

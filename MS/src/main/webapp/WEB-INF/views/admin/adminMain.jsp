@@ -101,6 +101,39 @@ hr{
 .receiveWrap{
 	width : 100%;
 }
+.messageUl{
+	background-color: #eee;
+	padding: 15px 10px;
+	text-align: center;
+	width: 250px;
+	height: 250px;
+	border-right : 3px solid #8e8e8e;
+	border-bottom : 3px solid #8e8e8e;
+	margin-left: 65px;
+	list-style: none;
+	margin-bottom: 30px;
+	border-radius: 10px;
+}
+.messageUlWrap{
+	float: left;
+}
+.messageUl textarea {
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 2px;
+	height: 120px;
+	border-radius: 5px;
+}
+.messageReply, .messageDetail{
+	margin: 0px 6px;
+	font-size: 15px;
+	color: white;
+	background-color: black;
+	text-decoration: none;
+	padding: 4px;
+	border-radius: 5px;
+	width : 70px;
+}
 </style>
 </head>
 <body>
@@ -116,24 +149,11 @@ hr{
 				<h1 class="messageListTitle">메시지 리스트</h1>
 				<input type = "button" class = "btn btn-outline-elegant waves-effect" id = "writeMessage" value = "쪽지쓰기">
 				<hr>
-				<c:if test="${empty list}">
+				<%-- <c:if test="${empty list}">
 					<!-- jstl 에서 null값인지 확인할때는 empty를 넣어줘야함 -->
 					<div id="noMessage">※ 메세지가 없습니다.</div>
-				</c:if>
-
-				<c:if test="${list != null}">
-					<c:forEach var="message" items="${list}" varStatus="status">
-						<div id="messageUlWrap">
-							<ul id="messageUl">
-								<li>메시지 번호 : ${message.message_id}</li>
-								<li>보내는 사람 : ${message.send_id}</li>
-								<li><textarea readonly cols="20">${message.message_con}</textarea></li>
-								<input type = "button" id = "messageReply" class = "messageReply" value = "답장">
-								<input type = "button" id = "messageDetail" class = "messageDetail" value = "상세">
-							</ul>
-						</div>
-					</c:forEach>
-				</c:if>
+				</c:if> --%>
+				<div id = "messageList"></div>
 			</div>
 		</div>
 	
@@ -189,19 +209,30 @@ hr{
 	
 		$('#messageBtn').click(function(){
 			$('#messageModal').show(); //쪽지함을 클릭하면 모달창 뜸
-			
 			$.ajax({
 				url : '${pageContext.request.contextPath}' + '/admin/message',
+				type : 'get',
 				success : function(data){
-					console.log(data);
+					//console.log(data[1].message_con);
+					$('#messageList').html("");
+					for(var i = 0; i < data.length; i++){
+						str = '<div id="messageUlWrap" class = "messageUlWrap">';
+						str += '<ul id="messageUl" class = "messageUl">';
+						str += '	<li id = "li_message_id">메시지 번호 : ' + data[i].message_id + '</li>';
+						str += '	<li id = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
+						str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+						str += '	<input type = "button" id = "messageReply" class = "messageReply" value = "답장">';
+						str += '	<input type = "button" id = "messageDetail" class = "messageDetail" value = "상세">';
+						str += '</ul></div>';
+					$('#messageList').append(str);
+					} str = '';
 				}
 			}); //쪽지함클릭 ajax끝
 		});
-		
+		///////////// 쪽지쓰기버튼 이벤트///////////////
 		$('#writeMessage').click(function(){
 			$('#messageModal').hide(); //쪽지쓰기 클릭하면 리스트창 끔
 			$('#writeMessageModal').show(); //쪽지쓰기를 클릭하면 모달창 뜸
-			
 			$.ajax({
 				url : '${pageContext.request.contextPath}' + '/member/sendList',
 				type : 'get',
@@ -211,7 +242,7 @@ hr{
 						list += "<option name = 'send_id' id = '"+ data[i].store_id +"'>" + data[i].user_id + "</option>";
 					}
 					list += "</select>";
-					$('#sendWrap').append(list);
+					$('#sendWrap').html(list);
 					
 					$('#sendList').change(function(){ //받는사람 리스트 변경 이벤트
 						send_id = $('#sendList option:selected').val(); //선택된 아이디값을 가져옴
@@ -228,15 +259,13 @@ hr{
 							$('#selectStore').html(store_name);
 							} //매장이름 가져오기 성공 끝
 						}); // 보내는아이디에 해당하는 매장번호 구하는 ajax 끝
-						
 					});
-					
 				} //성공 끝
 			}); //ajax 끝
 		}); //쪽지쓰기 이벤트 끝
-		
+		///////////////// 보내기버튼 이벤트//////////////////
 		$('#sendBtn').click(function(){
-			console.log(send_id);
+			console.log($('#sendList option:selected').attr("id"));
 			$.ajax({
 				url : '${pageContext.request.contextPath}' + '/member/writeMessage',
 				type : 'post',

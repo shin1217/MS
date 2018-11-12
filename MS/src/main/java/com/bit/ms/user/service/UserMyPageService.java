@@ -1,5 +1,7 @@
 package com.bit.ms.user.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,8 @@ public class UserMyPageService {
 	public UserVO getMyPage(String user_id) {
 		
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		UserVO userData = userDao.getMyPage(user_id);
 		
-		return userData;
+		return userDao.getMyPage(user_id).get(0);
 	}
 	//사용자 삭제 메서드
 	public int deleteUser(String user_id) {

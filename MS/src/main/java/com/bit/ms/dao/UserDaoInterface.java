@@ -16,7 +16,7 @@ public interface UserDaoInterface {
 	UserVO loginUser(@Param("user_id")String user_id, @Param("store_id")int store_id);// 유저 로그인 메서드
 	UserVO searchId(String userPhone);// 유저 ID 찾기
 	UserVO searchPw(String userId);// 유저 PW 찾기
-	UserVO getMyPage(String user_id);// 마이페이지 메서드
+	List<UserVO> getMyPage(String user_id);// 마이페이지 메서드
 	int editUser(UserVO userVo);// 유저 수정
 	int deleteUser(String user_id);// 유저 삭제
 	int checkOverId(String user_id);// 아이디 중복 체크
