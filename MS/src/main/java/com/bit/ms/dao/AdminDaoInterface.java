@@ -43,7 +43,7 @@ public interface AdminDaoInterface {
 	void deleteReply(int id) throws Exception;
 	
 	/*회원리스트 관련*/
-	List<UserVO> getUserList();//회원리스트 전체 출력
+	List<UserVO> getUserList(int store_id);//회원리스트 전체 출력
 	List<UserVO> sortingUserList(UserListVO userListVO); //클릭한 열로 정렬
 	
 	/* 매출기록 관련 */

@@ -156,7 +156,7 @@
 				reply = '';
 			}
 		});
-	}
+	};
 
 	$('#commentSubmit').click(function() {
 		var reply_con = $('#replyFormComment').val(); //댓글내용을 가져옴

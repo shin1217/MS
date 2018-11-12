@@ -60,19 +60,16 @@
 	<!--매장삭제 -->
 	<delete id="deleteStore" parameterType="hashmap">
 		delete from admininfo
-		where admin_id = #{admin_id} and store_id =
-		#{store_id}
+		where admin_id = #{admin_id} and store_id =	#{store_id}
 	</delete>
 
 	<!-- 회원리스트 출력 -->
-	<select id="getUserList" resultType="userVO">
-		select * from userinfo
+	<select id="getUserList" parameterType="int" resultType="userVO">
+		select * from userinfo where store_id = #{store_id}
 	</select>
 	
 	<!-- 회원리스트 sorting -->
-	<select id="sortingUserList" resultType="userVO">
-		select * from userinfo where store_id = #{store_id} order by #{sortName}
-		<if test="orderBy == 'desc'">#{orderBy}</if>
-		<if test="orderBy == 'asc'">#{orderBy}</if>
+	<select id="sortingUserList" parameterType="userListVO" resultType="userVO">
+		select * from userinfo where store_id = #{store_id} order by ${sortName} ${orderBy}
 	</select>
 </mapper>

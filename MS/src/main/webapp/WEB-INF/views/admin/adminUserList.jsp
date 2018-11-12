@@ -27,21 +27,44 @@
 				</tr>
 			</thead>
 			<tbody id="userListBody">
-				<c:forEach var="list" items="${userlist}">
+<%-- 				<c:forEach var="list" items="${userlist}">
 					<tr>
 						<td>${list.user_id}</td>
 						<td>${list.user_name}</td>
 						<td>${list.user_phone}</td>
 						<td>${list.user_birth}</td>
 					</tr>
-				</c:forEach>
+				</c:forEach> --%>
 			</tbody>
 		</table>
 	</div>
 </body>
 <script>
+	$(document).ready(function(){
+		getAllList();
+	});
+	
 	var list = '';
 	var store_id = ${adminSession.store_id};
+		
+	function getAllList(){
+		$.ajax({
+			type : 'get',
+			url : '${pageContext.request.contextPath}/admin/userList/all/' + store_id,
+			success : function(data){
+				$(data).each(function(index, item) {
+					list += '<tr>';
+					list += '<td>'+ item.user_id +'</td>';
+					list += '<td>'+ item.user_name +'</td>';
+					list += '<td>'+ item.user_phone +'</td>';
+					list += '<td>'+ item.user_birth +'</td>';
+					list += '</tr>';
+					$('#userListBody').html(list);
+				});
+				list = '';
+			}
+		});
+	};
 	
 	function sorting(sortName, orderBy){
 		$.ajax({
