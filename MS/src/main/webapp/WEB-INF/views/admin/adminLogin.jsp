@@ -96,7 +96,7 @@ body {
 				</div>
 				<div class="form-group">
 					<label class="font-weight-bold text-white"> <input
-						type="checkbox" id="remember" checked="checked" name="remember_id">
+						type="checkbox" id="remember" name="remember_id">
 						아이디 기억하기
 					</label>
 					<div class="font-weight-bold text-white">
@@ -126,13 +126,14 @@ body {
 						var id = $('#inputId').val();
 						var pw = $('#inputPassword').val();
 						var store = $('#store_id').val();
-						var remember = $('#remember').val();
-
+						var remember = $('#remember').is(':checked');
+						console.log(remember);
 						$
 								.ajax({
 									type : 'post',
 									url : '${pageContext.request.contextPath}/admin',
 									data : {
+										// name : id
 										admin_id : id,
 										admin_pw : pw,
 										store_id : store,

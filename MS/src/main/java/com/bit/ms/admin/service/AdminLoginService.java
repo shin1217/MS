@@ -30,17 +30,13 @@ public class AdminLoginService {
 		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
 		if(vo != null) {
 			if(vo.getAdmin_id().equals(admin_id) && vo.getAdmin_pw().equals(admin_pw) && vo.getStore_id() == store_id) {
-				if(check != null) {
 
-					Cookie cookie = new Cookie("check", admin_id);
+				Cookie cookie = new Cookie("check", admin_id);
+				if(check.equals("true")) {
 					response.addCookie(cookie);
-					
 				} else {
-					
-					Cookie cookie = new Cookie("check", "");
 					cookie.setMaxAge(0);
 					response.addCookie(cookie);
-					
 				}
 				// 세션 저장하기 전에 비밀번호 변경
 				vo.setAdmin_pw("");

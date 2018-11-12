@@ -31,14 +31,13 @@ public class UserLoginService {
 			// 아이디,비번,스토어id가 모두 같은경우
 			if(vo.getUser_id().equals(user_id) && vo.getUser_pw().equals(user_pw) && vo.getStore_id() == store_id) {
 				// 쿠키 체크 검사
-				if(check != null) {
-					Cookie cookie = new Cookie("check", user_id);
+				Cookie cookie = new Cookie("check", user_id);
+				if(check.equals("true")) {
 					response.addCookie(cookie);
 					
 					// 쿠키 확인
-					System.out.println("Service check" + check);
-				}else{
-					Cookie cookie = new Cookie("check", "");
+					System.out.println("Service check" + cookie);
+				} else{
 					cookie.setMaxAge(0);				
 					response.addCookie(cookie);
 				}

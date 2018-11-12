@@ -31,6 +31,7 @@ public class UserLoginController {
 		
 		// userLogin.jsp에서 아이디기억하기 name값(remember) 가져오기
 		String check = request.getParameter("remember_id");
+		System.err.println(check);
 		int result = login_service.userLogin_service(user_id, user_pw, store_id, httpSession, check, response);
 		
 		

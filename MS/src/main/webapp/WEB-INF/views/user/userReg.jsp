@@ -69,7 +69,8 @@ body {
 			<!-- 아이디 -->
 			<div class="form-group">
 				<label for="user_id">아이디</label> <input type="text"
-					class="form-control" id="user_id" name="user_id" placeholder="ID" required>
+					class="form-control" id="user_id" name="user_id" placeholder="ID"
+					required>
 				<div class="check_font" id="id_check"></div>
 			</div>
 			<!-- 비밀번호 -->
@@ -148,61 +149,44 @@ body {
 <script>
 	//회원 가입 유효성 검사 (validate)
 	var pwJ = /^[A-Za-z0-9]{6,12}$/;
+	// 이름 정규식
+	var nameJ = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+	//sadtear.tistory.com/106 [[ Be Happy...]]
 	// 이메일 검사 정규식
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	// 특수문자 정규식
 
-	function validate() {
-
-		/* 각 id 속성 값 */
-		var id = document.getElementById('user_id');
-		var pw = document.getElementById('user_pw');
-		var name = document.getElementById('user_name');
-		var phone = documnet.getElementById('user_phone');
-
-		// 정규식 활용
-		if (!check(re, id, "아이디는 4~12자의 영문 및 숫자로만 입력해주세요")) {
-			return false;
-		}
-
-	}
-
-	//check() 메서드
-	function check(re, what, message) {
-		if (re.test(what.value)) {
-			return tru
-		}
-		alert(message);
-		what.value = "";
-		what.focus();
-		// return false;
-	}
 	// 회원가입 유효성 검사(1 = 중복 / 0 != 중복)
 	var idChk = 0;
 
-	$("#user_id")
-			.blur(
-					function() {
-						// id = "id_reg" / name = "userId"
-						$
-								.ajax({
-									url : '${pageContext.request.contextPath}/user/idCheck?userId='
-											+ $("#user_id").val(),
-									type : 'get',
-									success : function(data) {
-										console.log("1 = 중복o / 0 = 중복x : "
-												+ data);
-										if (data == 1) {
+	$("#user_id").blur(function() {
+		// id = "id_reg" / name = "userId"
+		$.ajax({
+			url : '${pageContext.request.contextPath}/user/idCheck?userId='	+ $("#user_id").val(),
+			type : 'get',
+			success : function(data) {
+				console.log("1 = 중복o / 0 = 중복x : "+ data);
+									if (data == 1) {
 											// 1 : 아이디가 중복되는 문구
-											$("#id_check")
-													.text(
-															"아이디가 존재하니 다른 아이디를 사용해주세요 :p");
+											$("#id_check").text("아이디가 존재하니 다른 아이디를 사용해주세요 :p");
 											$("#id_check").css("color", "red");
+											$("#reg_submit").click(function() {
+												// 1+n번째 실행했을 때 경고문이 너무 많이 뜸
+												alert("다른 아이디를 사용해주세요 :)");
+												$('#user_id').focus();
+												return false;
+												
+											});
 
 										} else {
 											// 0 : 아이디 길이 / 문자열 검사
 											$("#id_check").text("멋진 아이디네요!");
 											$("#id_check").css("color", "blue");
+											$("#reg_submit").click(function() {
+												
+												return true;
+												
+											});
 										}
 									},
 									error : function() {
@@ -234,10 +218,27 @@ body {
 			$('#pw2_check').text('');
 		}
 	});
-	// 1-3 패스워드 일치해야 가입하기 버튼 실행
+
+	// 이름에 특수문자 들어가지 않도록 설정
+	$("#user_name").blur(function() {
+		if (nameJ.test($('#user_name').val())) {
+
+			$("#name_check").text('');
+
+		} else {
+
+			$('#name_check').text('이름을 확인해주세요');
+			$('#name_check').css('color', 'red');
+		}
+
+	});
+
+	// 가입하기 실행 버튼 유효성 검사!
 	$('#reg_submit').click(
 			function() {
-				if ($('#user_pw').val() != ($('#user_pw2').val()) && pwJ.text($('#user_pw').val())) {
+				// 비밀번호가 같은 경우 && 비밀번호 정규식
+				if (($('#user_pw').val() == ($('#user_pw2').val()))
+						&& pwJ.test($('#user_pw').val())) {
 
 					return true;
 
@@ -246,17 +247,19 @@ body {
 					return false;
 
 				}
+				// 이름이 이상할 경우
+				if (nameJ.test($('#user_name').val())) {
+
+					return true;
+
+				}
+				esle
+				{
+					alert('이름을 확인해주세요 :)');
+					return false;
+				}
 
 			});
-
-	/* // 이름에 특수문자 들어가지 않도록 설정
-	$("#user_name").blur(function() {
-		if (re2.test($('#user_name').val())) {
-
-			console.log("실행됐니");
-		}
-
-	}); */
 </script>
 
 </html>

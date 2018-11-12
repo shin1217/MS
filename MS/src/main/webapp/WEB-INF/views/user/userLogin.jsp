@@ -96,14 +96,14 @@ body {
 				</div>
 				<div class="form-group">
 					<label class="font-weight-bold text-white"> <input
-						type="checkbox" id="remember" checked="checked" name="remember_id"> 아이디
+						type="checkbox" id="remember" name="remember_id"> 아이디
 						기억하기
 					</label>
 					<div class="font-weight-bold text-white">
 						<a href="<%=request.getContextPath()%>/user/userSearch.jsp" target="-blank">&nbsp; 아이디 / 비밀번호 찾기</a>
 					</div>
 					<div>
-						<button id="loginBtn" type="submit"
+						<button id="loginBtn" type="button"
 							class="btn btn-primary btn-block">로그인</button>
 					</div>
 				</div>
@@ -126,10 +126,9 @@ body {
 						var id = $('#inputId').val();
 						var pw = $('#inputPassword').val();
 						var store = $('#store_id').val();
-						var remember = $('#remember').val();
-
-						$
-								.ajax({
+						var remember = $('#remember').is(':checked');
+						console.log(remember);
+								$.ajax({
 									type : 'post',
 									url : '${pageContext.request.contextPath}/',
 									data : {
@@ -150,5 +149,11 @@ body {
 								});
 					});
 
+		/*if($('#remember').is(":checked")){
+			$('#rememer').val()
+		} else {
+			
+		} */
+	
 </script>
 </html>
