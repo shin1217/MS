@@ -27,6 +27,7 @@ html, body {
 	display: inline-block;
 	width: 33%;
 	height: 100%;
+	padding-top: 10px;
 	border: 1px solid black;
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
@@ -108,7 +109,6 @@ html, body {
 			<hr>
 			<div class="content_text">5/20</div>
 			<table id="seatTable" class="seatTable">
-
 			</table>
 		</div>
 
@@ -116,7 +116,6 @@ html, body {
 			<div class="content_text">시간선택</div>
 			<hr>
 			<table id="timeTable" class="timeTable">
-
 			</table>
 		</div>
 
@@ -130,44 +129,67 @@ html, body {
 
 <script>
 	$(document).ready(function() {
-		/* 시간 테이블 동적 생성 */
-		var str = '';
-		var id = 1;
-
-		for (var i = 0; i < 6; i++) {
-			str += '<tr>';
-
-			for (var j = 0; j < 2; j++) {
-				str += '<td id=t' + id + '>' + id + '시간</td>';
-				id++;
-			}
-			str += '</tr>';
-		}
-		$('#timeTable').append(str);
-		str = '';
-		id = 1;
+		createTable('s', $('#seatTable'), 5, 4); // 좌석 테이블 동적 생성	
+		createTable('t', $('#timeTable'), 6, 2); // 시간 테이블 동적 생성
 		
-		//////////////////////////////////////////////////////////////////////////////////////
-	
-		for (var i = 0; i < 5; i++) {
-			str += '<tr>';
-
-			for (var j = 0; j < 4; j++) {
-				str += '<td id=s' + id + '>' + id + '번</td>';
-				id++;
-			}
-			str += '</tr>';
-		}
-		$('#seatTable').append(str);
-		str = '';
-		id = 1;
+		//////////////////////////////////////////////////////////////////////////////////////////////
 		
+		/* 좌석 선택 */
+		$('#seatTable td').on('click', function() {
+			
+		});
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		
+		/* 시간 선택 */
+		$('#timeTable td').on('click', function() {
+		});
 		
 	}); // end $(document).ready(function())}
 	
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
 	
+	/* 테이블 동적 생성(아이디 구분 문자, 테이블 객체, 행, 열) */
+	function createTable(ch, obj, r, c) {
+		var str = '';
+		var id = 1;
+		var price = 1000;
+
+		for (var i = 0; i < r; i++) {
+			str += '<tr>';
+
+			for (var j = 0; j < c; j++) {
+				
+				if(ch == 't'){ // 시간 테이블
+					str += '<td id='+ ch + id + '>';
+					str += '<div>'+ numberWithCommas(price) +'원</div>';
+					price += 1000;
+					
+					if(id < 10){
+						str += '<div>0' + id + ':00</div>';
+					}
+					else {
+						str += '<div>' + id + ':00</div>';
+					}
+					str += '</td>';
+				}
+				else { // 좌석 테이블
+					str += '<td id='+ ch + id + '>' + id + '</td>';
+				}
+				id++;
+			}
+			str += '</tr>';
+		}
+		$(obj).append(str);
+	}
 	
-	
+	/* 가격에 콤마 표시 */
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
 </script>
 </html>
 
