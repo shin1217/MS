@@ -12,9 +12,10 @@ public class UserVO {
 	private String user_pw; // 비밀번호
 	private String user_phone; // 폰번호
 	private String user_birth; // 생년월일
-	private String user_email; // 이메일 합치기
-	private String user_email1; // 이메일 앞
-	private String user_email2; // 이메일 뒤
+	private String user_year; // 년
+	private String user_month; // 월
+	private String user_day; // 일
+	private String user_email; // 이메일
 	private long user_time; // 남은 시간
 	private int store_id; // 매장번호
 	private int seat_id; // 사용 중인 좌석 번호
@@ -49,23 +50,29 @@ public class UserVO {
 	public void setUser_birth(String user_birth) {
 		this.user_birth = user_birth;
 	}
+	public String getUser_year() {
+		return user_year;
+	}
+	public void setUser_year(String user_year) {
+		this.user_year = user_year;
+	}
+	public String getUser_month() {
+		return user_month;
+	}
+	public void setUser_month(String user_month) {
+		this.user_month = user_month;
+	}
+	public String getUser_day() {
+		return user_day;
+	}
+	public void setUser_day(String user_day) {
+		this.user_day = user_day;
+	}
 	public String getUser_email() {
 		return user_email;
 	}
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
-	}
-	public String getUser_email1() {
-		return user_email1;
-	}
-	public void setUser_email1(String user_email1) {
-		this.user_email1 = user_email1;
-	}
-	public String getUser_email2() {
-		return user_email2;
-	}
-	public void setUser_email2(String user_email2) {
-		this.user_email2 = user_email2;
 	}
 	public long getUser_time() {
 		return user_time;
@@ -89,8 +96,9 @@ public class UserVO {
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
-				+ user_phone + ", user_birth=" + user_birth + ", user_email=" + user_email + ", user_email1="
-				+ user_email1 + ", user_email2=" + user_email2 + ", user_time=" + user_time + ", store_id=" + store_id
-				+ ", seat_id=" + seat_id + "]";
+				+ user_phone + ", user_birth=" + user_birth + ", user_year=" + user_year + ", user_month=" + user_month
+				+ ", user_day=" + user_day + ", user_email=" + user_email + ", user_time=" + user_time + ", store_id="
+				+ store_id + ", seat_id=" + seat_id + "]";
 	}
+	
 }

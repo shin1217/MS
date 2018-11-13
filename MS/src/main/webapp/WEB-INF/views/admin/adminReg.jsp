@@ -92,27 +92,12 @@ body {
 					placeholder="Name">
 				<div class="check_font">confirm message</div>
 			</div>
-			<!-- 생년월일 -->
-			<div class="form-group">
-				<label for="admin_birth">생년월일</label> <input type="text"
-					class="form-control" id="admin_birth" name="admin_birth"
-					placeholder="Birth">
-				<div class="check_font">confirm message</div>
-			</div>
 			<!-- 휴대전화 -->
 			<div class="form-group">
 				<label for="admin_phone">휴대전화</label> <input type="text"
 					class="form-control" id="admin_phone" name="admin_phone"
 					placeholder="Phone Number">
 				<div class="check_font">confirm message</div>
-			</div>
-
-			<div>
-				<span>가입하실 매장을 선택해주세요.</span> <select name="store_id">
-					<option value="1">MS 스터디카페</option>
-					<option value="2">MS PC방</option>
-					<option value="3">MS 코인노래방</option>
-				</select>
 			</div>
 			<div class="reg_button">
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/admin">
