@@ -30,6 +30,21 @@ public class AdminSalesCalenderService {
 		return list;
 		
 		
+	}
+
+	public List<SalesVO> salesViewList(int day) {
+		// TODO Auto-generated method stub
+
+		salesDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		
+		List<SalesVO> viewList = null;
+		
+		try {
+			viewList = salesDao.listSales(day);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return viewList;
 	};
 	
 }

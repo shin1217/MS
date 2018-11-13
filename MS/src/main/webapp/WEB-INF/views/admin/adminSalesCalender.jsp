@@ -79,13 +79,20 @@
 
 <style type="text/css">
 
+.sales_ModalTable {
+	border: 1px !important;
+	border-color: black !important;
+	border-style: solid !important;
+	width: 110px !important;
+}
+
 </style>
 
 </head>
 <body>
 <div class="container" style="width:712px;">
 	
-	<table width="100%" border="1" cellspacing="1" cellpadding="1" bgcolor="#FFFFFF">
+	<table>
 		<thead>
 			<tr bgcolor="#CECECE">
 				<td width="100px" height="40px">
@@ -130,7 +137,7 @@
 									<td width="100px" height="80px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: RED;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: GRAY;">
-									<a data-target="#layerpop" data-toggle="modal">
+									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
 									
 									<c:set var="total" value="0"></c:set>
 									
@@ -143,13 +150,13 @@
 										</c:if>
 									</c:forEach>
 										총 매출 : <c:out value="${total }"></c:out>
-									</a></font></p>
+									</a></font></p></td>
 							</c:when> 
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 0}"> 
 									<td width="100px" height="80px" valign="top" align="left" nowrap>
-									<p><font style="font-weight: bold; color: #529DBC;" >${ index }</font></p>
+									<p><font style="font-weight: bold; color: #529DBC;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: GRAY;">
-									<a data-target="#layerpop" data-toggle="modal">
+									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
 									
 									<c:set var="total" value="0"></c:set>
 									
@@ -162,13 +169,13 @@
 										</c:if>
 									</c:forEach>
 										총 매출 : <c:out value="${total }"></c:out>
-									</a></font></p>
+									</a></font></p></td>
 							</c:when> 
 							<c:otherwise> 
 									<td width="100px" height="80px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: BLACK;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: GRAY;">
-									<a data-target="#layerpop" data-toggle="modal">
+									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
 									
 									<c:set var="total" value="0"></c:set>
 									
@@ -181,7 +188,7 @@
 										</c:if>
 									</c:forEach>
 										총 매출 : <c:out value="${total }"></c:out>
-									</a></font></p>
+									</a></font></p></td>
 							</c:otherwise> 
 						</c:choose>
 						
@@ -189,8 +196,6 @@
 							${ sales.sales_total }
 							</c:if> --%>
 							
-						</td>
-						
 						<c:if test="${((i-(8-firstDayOfWeek)) % 7) == 0}">
 							<tr>
 							</tr>
@@ -221,6 +226,7 @@
 	
 </div>
 
+
 <!-- 모달 창 -->
 
 <div class="modal fade" id="layerpop" >
@@ -230,14 +236,47 @@
 			<!-- header -->
 			<div class="modal-header">
 				<!-- header title -->
-				<h4 class="modal-title"></h4>
+				<h4 class="modal-title">세부 매출 기록</h4>
 				<!-- 닫기(x) 버튼 -->
 				<button type="button" class="close" data-dismiss="modal">×</button>
 			</div>
 			
 			<!-- body -->
-			<div class="modal-body">
-			
+			<div id="salesViewText" class="modal-body">
+			<input id="getText"></input>
+			<table>
+				<thead>
+					<tr>
+						<th class="sales_ModalTable" style="text-align: center;">판매 번호</th>
+						<th class="sales_ModalTable" style="text-align: center;">총 매출</th>
+						<th class="sales_ModalTable" style="text-align: center;">음식 매출</th>
+						<th class="sales_ModalTable" style="text-align: center;">좌석 매출</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:set var="Sales">
+						<script>document.write(getText);</script>
+					</c:set>
+					<c:out value="${ pageScope.Sales }" ></c:out>
+					<c:forEach items="${salesList}" var="sales" varStatus="status">
+					
+					<c:if test=""></c:if>
+						<tr>
+							<td class="sales_ModalTable" id = "sales_id" style="text-align: center; vertical-align: middle;"></td>
+							<td class="sales_ModalTable" style="text-align: center; vertical-align: middle;">${sales.sales_total}</td>
+							<td class="sales_ModalTable" style="text-align: center; vertical-align: middle;">${sales.sales_food}</td>
+							<td class="sales_ModalTable" style="text-align: center; vertical-align: middle;">${sales.sales_seat}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+	
+			<%-- <c:forEach items="${ salesList }" var="sales">
+					총 매출 : ${ sales.sales_total }
+					음식 매출 : ${ sales.sales_food }
+					좌석 매출 : ${ sales.sales_seat }
+					<br>
+			</c:forEach> --%>
 			</div>
 			
 			<!-- Footer -->
@@ -248,33 +287,54 @@
 	</div>
 </div>
 
-
 <script>
-
 	$(document).ready(function() {
-		getListAll();
-	});
-	
-	var sales_id = ${}
-	
-	function getListAll() {
-		$.ajax({
-			type : 'get',
-			url : '${pageContext.request.contextPath}/admin/salesInfo',
-			dataType : 'text',
-			data : { 
-				sales_id : sales_id,
-				sales_day : sales_day,
-				sales_total : sales_total,
-				sales_food : sales_food,
-				sales_seat : sales_seat,
-				store_id : store_id
-			}
+		
+		var getText = '';
+		
+		 /* $(document).on("click",".salesText",function(){ */
+		$('.salesText').click(function() {
 			
-		})
-	}
+			var getText = $(this).attr('value');
+			alert(getText);
+			
+			$("#getText").val(getText);
+			
+		});
 	
-
+		$('.salesText').click(function() {
+			var salesText = '';
+			var indexId = $(this).attr('value');
+			//console.log(getText);
+			$.ajax({
+				type : 'get',
+				url : '${pageContext.request.contextPath}/admin/salesInfo/' + indexId,
+				success : function(data) {
+					console.log(data);
+					$('#sales_id').html(data[0].sales_id);
+					/* // $('#indexId').html(data.length + ' comments');
+					$('#salesViewText').html('');
+					$(data).each(function(index, item) {
+						// $('#indexId').html(data.length + ' comments');
+						salesText += '<c:forEach items="${ salesList }" var="sales">';
+						salesText += '<c:if test="${ indexId eq sales.sales_day }">';
+						salesText += '총 매출 : ${ sales.sales_total }';
+						salesText += '음식 매출 : ${ sales.sales_food }';
+						salesText += '좌석 매출 : ${ sales.sales_seat }';
+						salesText += '</c:if>';
+						salesText += '</c:forEach>';
+					$('#salesViewText').html(salesText);
+					
+					});
+					
+					salesText = ''; */
+					
+					$('#indexId').val('');
+				
+				}
+			});
+		});
+	});
 </script>
 
 </body>

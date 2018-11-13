@@ -49,6 +49,7 @@ public interface AdminDaoInterface {
 	
 	/* 매출기록 관련 */
 	public List<SalesVO> listAll() throws Exception; // 매출기록 리스트 출력
+	List<SalesVO> listSales(int day) throws Exception;
 	
 	/* 좌석관리 */
 	public List<SeatVO> getSeatListI();

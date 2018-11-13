@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.admin.model.SalesVO;
 import com.bit.ms.admin.service.AdminSalesCalenderService;
+import com.bit.ms.member.model.ReplyVO;
 
 @Controller
 public class AdminSalesCalenderController {
@@ -29,17 +33,12 @@ public class AdminSalesCalenderController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("admin/salesInfo")
-	public ModelAndView adminSalesInfo() {
+	@RequestMapping(value = "admin/salesInfo/{indexId}", method = RequestMethod.GET)
+	public @ResponseBody List<SalesVO> salesViewList(@PathVariable("indexId") int day) {
 		
-		ModelAndView modelAndView = new ModelAndView();
+		List<SalesVO> viewList = salesService.salesViewList(day);
 		
-		List<SalesVO> list = salesService.salesList();
-		
-		modelAndView.addObject("salesList", list);
-		modelAndView.setViewName("admin/adminSalesCalender");
-		
-		return modelAndView;
+		return viewList;
 	}
 	
 }
