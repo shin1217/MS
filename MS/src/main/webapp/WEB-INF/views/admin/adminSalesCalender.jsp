@@ -86,34 +86,96 @@
 	width: 110px !important;
 }
 
+.sales_month {
+	border: 1px !important;
+	border-color: #CECECE !important;
+	border-style: solid !important;
+}
+
+.sales_Table {
+	border: 1px !important;
+	border-color: #CECECE !important;
+	border-style: solid !important;
+	padding: 5px !important;
+}
+
+.sales_date {
+	vertical-align: middle;
+	font-size: 27px;
+    color: #282828;
+    font-weight: bold;
+}
+
 </style>
 
 </head>
 <body>
+
+<br><br><br>
+
 <div class="container" style="width:712px;">
+	
+	<!--날짜 네비게이션  -->
+<table width="701px" cellspacing="1" cellpadding="1" bgcolor="#CECECE" style="border:1px solid #CECECE">
+	<tr>
+		<td height="60px">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td align="center" >
+						<a href="<c:url value='/admin/salesCalender' />?year=<%=year-1%>&amp;month=<%=month%>" target="_self">
+							<!-- 이전해 -->
+							<b><img src="${pageContext.request.contextPath}/images/ArrowDouble_Left.png" style="width: 30px; height: 30px;"/></b>
+						</a>
+						<%if(month > 0 ){ %>
+						<a href="<c:url value='/admin/salesCalender' />?year=<%=year%>&amp;month=<%=month-1%>" target="_self">
+							<!-- 이전달 -->
+							<b><img src="${pageContext.request.contextPath}/images/Arrow_Left.png" style="width: 28px; height: 28px;"/></b>
+	                    </a>
+	                    <%} else {%>
+							<b><img src="${pageContext.request.contextPath}/images/Arrow_Left.png" style="width: 28px; height: 28px;"/></b>
+	                    <%} %>
+	                    	<span class="sales_date">&nbsp;&nbsp; <%=year%>년 <%=month+1%>월 &nbsp;&nbsp;</span>
+	                    <%if(month < 11 ){ %>
+						<a href="<c:url value='/admin/salesCalender' />?year=<%=year%>&amp;month=<%=month+1%>" target="_self">
+	                    	<!-- 다음달 -->
+	                    	<b><img src="${pageContext.request.contextPath}/images/Arrow_Right.png" style="width: 28px; height: 28px;"/></b>
+						</a>
+						<%}else{%>
+							<b><img src="${pageContext.request.contextPath}/images/Arrow_Right.png" style="width: 28px; height: 28px;"/></b>
+						<%} %>
+						<a href="<c:url value='/admin/salesCalender' />?year=<%=year+1%>&amp;month=<%=month%>" target="_self">
+							<!-- 다음해 -->
+							<b><img src="${pageContext.request.contextPath}/images/ArrowDouble_Right.png" style="width: 30px; height: 30px;"/></b>
+	                    </a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
 	
 	<table>
 		<thead>
 			<tr bgcolor="#CECECE">
-				<td width="100px" height="40px">
+				<td class="sales_Table" width="100px" height="40px">
 					<div align="center" style="font-weight: bold;"><font color="red">일</font></div>
 				</td>
-				<td width="100px" height="40px">
+				<td class="sales_Table" width="100px" height="40px">
 					<div align="center" style="font-weight: bold;">월</div>
 				</td>
-				<td width="100px" height="40px">
+				<td class="sales_Table" width="100px" height="40px">
 					<div align="center" style="font-weight: bold;">화</div>
 				</td>
-				<td width="100px" height="40px">
+				<td class="sales_Table" width="100px" height="40px">
 					<div align="center" style="font-weight: bold;">수</div>
 				</td>
-				<td width="100px" height="40px">
+				<td class="sales_Table" width="100px" height="40px">
 					<div align="center" style="font-weight: bold;">목</div>
 				</td>
-				<td width="100px" height="40px">
+				<td class="sales_Table" width="100px" height="40px">
 					<div align="center" style="font-weight: bold;">금</div>
 				</td>
-				<td width="100px" height="40px">
+				<td class="sales_Table" width="100px" height="40px">
 					<div align="center" style="font-weight: bold;"><font color="#529DBC">토</font></div>
 				</td>
 			</tr>
@@ -125,7 +187,7 @@
 			
 				<tr>
 					<c:forEach var="i" begin="1" end="${ start }">
-						<td width="100px" height="80px" valign="top" align="left" nowrap></td>
+						<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap></td>
 						<c:set var="newLine" value="${newLine + 1}" />
 					</c:forEach>
 					
@@ -134,7 +196,7 @@
 						
 						<c:choose> 
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 1}"> 
-									<td width="100px" height="80px" valign="top" align="left" nowrap>
+									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: RED;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: GRAY;">
 									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
@@ -149,11 +211,13 @@
 											<c:set var="total" value="${total + sales.sales_total}"></c:set>
 										</c:if>
 									</c:forEach>
-										총 매출 : <c:out value="${total }"></c:out>
+										<c:if test="${total != 0 }">
+										[총 매출] <br> <c:out value="${total }"></c:out>
+										</c:if>
 									</a></font></p></td>
 							</c:when> 
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 0}"> 
-									<td width="100px" height="80px" valign="top" align="left" nowrap>
+									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: #529DBC;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: GRAY;">
 									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
@@ -168,11 +232,13 @@
 											<c:set var="total" value="${total + sales.sales_total}"></c:set>
 										</c:if>
 									</c:forEach>
-										총 매출 : <c:out value="${total }"></c:out>
+										<c:if test="${total != 0 }">
+										[총 매출] <br> <c:out value="${total }"></c:out>
+										</c:if>
 									</a></font></p></td>
 							</c:when> 
 							<c:otherwise> 
-									<td width="100px" height="80px" valign="top" align="left" nowrap>
+									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: BLACK;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: GRAY;">
 									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
@@ -187,7 +253,9 @@
 											<c:set var="total" value="${total + sales.sales_total}"></c:set>
 										</c:if>
 									</c:forEach>
-										총 매출 : <c:out value="${total }"></c:out>
+										<c:if test="${total != 0 }">
+										[총 매출] <br> <c:out value="${total }"></c:out>
+										</c:if>
 									</a></font></p></td>
 							</c:otherwise> 
 						</c:choose>
@@ -205,7 +273,7 @@
 					
 					<c:if test="${ lastDayOfLastWeek != '7' }">
 						<c:forEach var="i" begin="1" end="${ 7-lastDayOfLastWeek }">
-							<td width="100px" height="80px" valign="top" align="right" nowrap>
+							<td class="sales_Table" width="100px" height="80px" valign="top" align="right" nowrap>
 							</td>
 						</c:forEach>
 					</c:if>
@@ -243,7 +311,6 @@
 			
 			<!-- body -->
 			<div id="salesViewText" class="modal-body">
-			<input id="getText"></input>
 			<table>
 				<thead>
 					<tr>
@@ -253,21 +320,8 @@
 						<th class="sales_ModalTable" style="text-align: center;">좌석 매출</th>
 					</tr>
 				</thead>
-				<tbody>
-					<c:set var="Sales">
-						<script>document.write(getText);</script>
-					</c:set>
-					<c:out value="${ pageScope.Sales }" ></c:out>
-					<c:forEach items="${salesList}" var="sales" varStatus="status">
+				<tbody id="sales_text">
 					
-					<c:if test=""></c:if>
-						<tr>
-							<td class="sales_ModalTable" id = "sales_id" style="text-align: center; vertical-align: middle;"></td>
-							<td class="sales_ModalTable" style="text-align: center; vertical-align: middle;">${sales.sales_total}</td>
-							<td class="sales_ModalTable" style="text-align: center; vertical-align: middle;">${sales.sales_food}</td>
-							<td class="sales_ModalTable" style="text-align: center; vertical-align: middle;">${sales.sales_seat}</td>
-						</tr>
-					</c:forEach>
 				</tbody>
 			</table>
 	
@@ -296,7 +350,6 @@
 		$('.salesText').click(function() {
 			
 			var getText = $(this).attr('value');
-			alert(getText);
 			
 			$("#getText").val(getText);
 			
@@ -310,8 +363,22 @@
 				type : 'get',
 				url : '${pageContext.request.contextPath}/admin/salesInfo/' + indexId,
 				success : function(data) {
-					console.log(data);
-					$('#sales_id').html(data[0].sales_id);
+					// console.log(data);
+					// console.log(data.length);
+					str = '';
+					for( var i=0; i < data.length ; i++) {
+						str += '<tr>';
+						str += '<td class="sales_ModalTable" id ="sales_id" style="text-align: center; vertical-align: middle;">' + data[i].sales_id + '</td>';
+						str += '<td class="sales_ModalTable" id ="sales_id" style="text-align: center; vertical-align: middle;">' + data[i].sales_total + '</td>';
+						str += '<td class="sales_ModalTable" id ="sales_id" style="text-align: center; vertical-align: middle;">' + data[i].sales_food + '</td>';
+						str += '<td class="sales_ModalTable" id ="sales_id" style="text-align: center; vertical-align: middle;">' + data[i].sales_seat + '</td>';
+						str += '</tr>';
+					}
+					$('#sales_text').html(str);
+					
+					
+					// $('#sales_id').html(data[0].sales_id);
+					
 					/* // $('#indexId').html(data.length + ' comments');
 					$('#salesViewText').html('');
 					$(data).each(function(index, item) {
@@ -329,7 +396,7 @@
 					
 					salesText = ''; */
 					
-					$('#indexId').val('');
+					// $('#indexId').val('');
 				
 				}
 			});
