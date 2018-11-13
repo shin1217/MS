@@ -52,7 +52,9 @@ public interface AdminDaoInterface {
 	List<SalesVO> listSales(int day) throws Exception;
 	
 	/* 좌석관리 */
-	public List<SeatVO> getSeatListI();
+	List<SeatVO> getSeatListI();
+	int addSeatI(SeatVO seatVO);
+	int deleteSeatI(int seat_id);
 	
 	/* 사용자 시간 관리 */
 	int updateAddTime(long addTime, int seatId);

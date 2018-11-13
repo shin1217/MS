@@ -11,4 +11,20 @@
 
 	</select>
 
+	<insert id="addSeatI" parameterType="SeatVO">
+
+		insert into seat(seat_id,
+		seat_pay,
+		seat_qr, store_id) values(#{seat_id},#{seat_pay}, #{seat_qr},
+		#{store_id})
+
+	</insert>
+
+	<delete id="deleteSeatI" parameterType="int">
+
+		delete from seat where
+		seat_id = #{seat_id}
+
+	</delete>
+
 </mapper>

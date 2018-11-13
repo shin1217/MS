@@ -19,12 +19,45 @@ public class AdminSeatService {
 
 	public List<SeatVO> getSeatListS() {
 
+		adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+
+		List<SeatVO> list = null;
+
 		try {
-			adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+			list = adminDaoInterface.getSeatListI();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return adminDaoInterface.getSeatListI();
+		return list;
 	}
 
+	public int addSeatS(SeatVO seatVO) {
+
+		adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+
+		int resultCnt = 0;
+
+		try {
+			resultCnt = adminDaoInterface.addSeatI(seatVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resultCnt;
+	}
+
+	public int deleteSeatS(int seat_id) {
+		
+		adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+
+		int resultCnt = 0;
+
+		try {
+			resultCnt = adminDaoInterface.deleteSeatI(seat_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resultCnt;
+	}
 }

@@ -190,7 +190,6 @@
 				$('#UserBoardCommentsNum').html(data.length + ' comments');
 				$('#UserBoardReplyAllBody').html('');
 				$(data).each(function(index, item) {
-				$('#UserBoardCommentsNum').html(data.length + ' comments');
 						uboard_reply += '<div class="media d-block d-md-flex mt-4">';
 						// uboard_reply += '<img class="card-img-64 rounded-circle z-depth-1 d-flex mx-auto mb-3" src="https://post-phinf.pstatic.net/MjAxODAzMjJfMjY4/MDAxNTIxNzAxODU2MTQy.V91kaps6gaHaHS6JhzoHGT98PuoEv8kSz3zjgWT4kOAg.ffqd0efJQR_23lCWLTjDfjS3Hd-jfqEjSxNLCilQMScg.JPEG/%EC%88%98%EB%A7%8C%EA%B0%80%EC%A7%80%ED%91%9C%EC%A0%95%EC%9D%98%EB%A0%89%EC%8B%9C%EA%B3%A0%EC%96%91%EC%9D%B4_02.jpg?type=w1200">';
 						uboard_reply += '<div class="media-body text-center text-md-left ml-md-3 ml-0">';
@@ -233,15 +232,14 @@
 					store_id : store_id
 				},
 				success : function(data) {
-				console.log('댓글작성완료');
-				getUserBoardReplyList();
-				$('#UserBoardReplyFormComment').val('');
+					console.log('댓글작성완료');
+					getUserBoardReplyList();
+					$('#UserBoardReplyFormComment').val('');
 				}
 			});	
 		} else {
-			alert("댓글을 입력하세요 XD")
-		}		
-		
+			alert("댓글을 입력하세요 XD");
+		}
 	});
 	
 	function UserBoardReplyDelete(uboard_reply_id) {
