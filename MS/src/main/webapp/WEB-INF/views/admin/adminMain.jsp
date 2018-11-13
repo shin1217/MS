@@ -133,8 +133,9 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-
-	<div class="userMain_container">
+	<%@ include file="/WEB-INF/views/modal/addTimeModal.jsp"%>
+	
+	<div class="adminMain_container">
 		<div class="left_area">
 			<div class="left_content">
 				
@@ -149,22 +150,7 @@
 
 			</table>
 		</div>
-
-		<!-- 시간 추가 modal -->
-		<div id="add_time_modal" class="add_time_modal">
-			<div class="modal_contents">
-				<h3>
-					<b>※ 충전하실 시간을 선택하세요.</b><span class="close">&times;</span>
-				</h3>
-
-				<select id="select_add_time">
-					<option value="0">select Time</option>
-				</select>	
-				
-				<br>
-				<button id="add_time_btn" class="add_time_btn">충전하기</button>
-			</div>
-		</div>
+	
 	</div>
 </body>
 
@@ -197,7 +183,7 @@
 			
 			// 처음 충전할 경우 사용 시간 1으로 만들고 파라미터 전송
 			if(firstAddTime){
-				useTime = 1; // n분 59초로 시작하기 위해서...
+				useTime = 0; // n분 59초로 시작하기 위해서...
 			}
 			
 			$.ajax({
@@ -276,7 +262,6 @@
 				type: 'get',
 				
 				success:function(){
-					seatArr[seatId-1] = true; // 선택 좌석 사용 중으로 변경
 					location.reload();
 					
 				} // end success 
@@ -361,9 +346,20 @@
 			$('#countTimeMinute'+seatId).html(min); // 분 텍스트
 			$('#countTimeSecond'+seatId).html(sec); // 초 텍스트				
 			
-			if(sec == 1 && min == 0){
+			if(sec == 1 && min == 0){ // 사용 시간 종료
 				$('#countTimeSecond'+seatId).html('00'); 
 				clearInterval(timer);
+				
+				$.ajax({
+					// 좌석 삭제(좌석 번호)
+					url: '<%=request.getContextPath()%>/admin/deleteSeat?seatId=' + seatId, 
+					type: 'get',
+					
+					success:function(){
+						location.reload();
+						
+					} // end success 
+				}); // end ajax
 
 			}else{
 				sec--;

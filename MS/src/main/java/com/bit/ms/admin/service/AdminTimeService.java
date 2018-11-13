@@ -34,6 +34,12 @@ public class AdminTimeService {
 		return userDao.getUserInfoAll();
 	}
 	
+	// 사용 종료된 좌석 지우기
+	public int deleteSeat(int seatId) {
+		userDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		return userDao.deleteSeat(seatId);
+	}
+	
 	// 로그인한 유저의 좌석 사용 상태 검사
 	/*public UserVO isUsingSeat(String userId) {
 		userDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);

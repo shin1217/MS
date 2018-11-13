@@ -21,6 +21,12 @@
 		where seat_id is not null
 	</select>
 	
+	<!-- 사용 종료 좌석 지우기 -->
+	<update id="deleteSeat">
+		update userinfo set seat_id=null
+		where seat_id=#{seat_id}
+	</update>
+	
 	<!-- 로그인한 유저의 좌석 사용 상태 검사 -->
 	<!-- <select id="isUsingSeat" resultType="userVO">
 		select * from userinfo 

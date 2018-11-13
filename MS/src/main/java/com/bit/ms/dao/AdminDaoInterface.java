@@ -56,6 +56,7 @@ public interface AdminDaoInterface {
 	/* 사용자 시간 관리 */
 	int updateAddTime(long addTime, int seatId);
 	int updateSaveTimeAll(long useTime);
-	List<UserVO> getUserInfoAll(); 
+	List<UserVO> getUserInfoAll();
+	int deleteSeat(int seatId);
 	// UserVO isUsingSeat(String userId);
 }
