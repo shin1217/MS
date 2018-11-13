@@ -51,6 +51,7 @@ body {
 		<div class="container">
 			<div class="area_inputs">
 				<div class="input-group">	
+					<c:if test="${!empty store}">
 					<select class="custom-select">
 						<option selected>매장을 선택해주세요.</option>
 					<c:forEach items="${store}" var="store">
@@ -60,6 +61,7 @@ body {
 					<div class="input-group-append">
 						<a class="btn btn-secondary" href="${pageContext.request.contextPath}/admin/main">접속하기</a>
 					</div>
+					</c:if>
 				</div>
 				<div class="form-group">
 					<div>
