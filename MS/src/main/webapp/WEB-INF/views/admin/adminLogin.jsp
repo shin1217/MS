@@ -118,15 +118,14 @@ body {
 	//애니메이션 메서드
 	new WOW().init();
 
-	$('#loginBtn')
-			.click(
+	
+	$('#loginBtn').click(
 					function() {
 						var id = $('#inputId').val();
 						var pw = $('#inputPassword').val();
 						var remember_ad = $('#remember_ad').is(':checked');
 						console.log(remember_ad);
-						$
-								.ajax({
+						$.ajax({
 									type : 'post',
 									url : '${pageContext.request.contextPath}/admin',
 									data : {
@@ -140,7 +139,7 @@ body {
 											$('#spanLoginCheck').text(
 													'로그인 정보를 정확히 입력해주세요.');
 										} else {
-											location.href = '${pageContext.request.contextPath}/admin/main';
+											location.href = '${pageContext.request.contextPath}/admin/storeChoice?id=' + id;
 										}
 									}
 								});

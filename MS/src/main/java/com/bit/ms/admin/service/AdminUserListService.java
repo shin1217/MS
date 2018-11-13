@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.admin.model.UserListVO;
 import com.bit.ms.dao.AdminDaoInterface;
 import com.bit.ms.user.model.UserVO;
@@ -32,7 +33,7 @@ public class AdminUserListService {
 		return adminDao.sortingUserList(userListVO);		
 	}
 
-	public String getStoreName(int id) {
+	public List<StoreVO> getStoreName(String id) {
 
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		

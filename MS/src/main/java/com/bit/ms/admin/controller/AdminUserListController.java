@@ -24,7 +24,7 @@ public class AdminUserListController {
 
 	//회원목록 페이지 이동
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String userList(Model model, @Param("id") int id) {
+	public String userList(Model model, @Param("id") String id) {
 		
 		model.addAttribute("store_name", listService.getStoreName(id));
 		
