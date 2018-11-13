@@ -69,7 +69,7 @@ body {
 			<!-- 아이디 -->
 			<div class="form-group">
 				<label for="user_id">아이디</label> <input type="text"
-					class="form-control" id="user_id" name="user_id" placeholder="ID"
+					class="form-control" id="user_id" name="user_id" placeholder="숫자 or 문자로 4~8자리"
 					required>
 				<div class="check_font" id="id_check"></div>
 			</div>
@@ -77,7 +77,7 @@ body {
 			<div class="form-group">
 				<label for="user_pw">비밀번호</label> <input type="password"
 					class="form-control" id="user_pw" name="user_pw"
-					placeholder="PASSWORD" required>
+					placeholder="숫자 or 문자로 6~12자리" required>
 				<div class="check_font" id="pw_check"></div>
 			</div>
 			<!-- 비밀번호 재확인 -->
@@ -99,7 +99,7 @@ body {
 				<label for="user_birth">생년월일</label> <input type="text"
 					class="form-control" id="user_birth" name="user_birth"
 					placeholder="Birth" required>
-				<div class="check_font" id="birth_check"></div>
+				<div class="check_font"></div>
 			</div>
 			<!-- 본인확인 이메일 -->
 			<label for="user_email1">이메일</label>
@@ -153,10 +153,13 @@ body {
 	var pwJ = /^[A-Za-z0-9]{6,12}$/;
 	// 이름 정규식
 	var nameJ = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
-	//sadtear.tistory.com/106 [[ Be Happy...]]
 	// 이메일 검사 정규식
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	// 특수문자 정규식
+	
+	
+	// 휴대폰 번호 정규식
+	var phoneJ = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/g;
 
 	// 회원가입 유효성 검사(1 = 중복 / 0 != 중복)
 	var idChk = 0;
@@ -200,18 +203,13 @@ body {
 		if(idJ.test($('#user_id').val())) {
 			console.log(idJ.test($('#user_id').val()));
 			$('#id_check').text('');
-			$("#reg_submit").click(function() {
-				// 1+n번째 실행했을 때 경고문이 너무 많이 뜸
-				alert("다른 아이디를 사용해주세요 :)");
-				$('#user_id').focus();
-				return false;
-			});
 		} else {
 			$('#id_check').text('문자 or 숫자 4~8자리');
 			$('#id_check').css('color', 'red');
 		}
 	});
 	
+	// 비밀번호 유효성 검사
 	// 1-1 정규식 체크
 	$('#user_pw').blur(function() {
 		if (pwJ.test($('#user_pw').val())) {
@@ -252,6 +250,7 @@ body {
 	$('#reg_submit').click(function() {
 		// 아이디 정규식
 		if (idJ.test($('#user_id').val())) {
+			console.log(idJ.test($('#user_id').val()));
 			return true;
 		}else {
 			alert('아이디를 확인해주세요 :)');
@@ -275,6 +274,16 @@ body {
 			alert('이름을 확인해주세요 :)');
 			return false;
 		}
+		
+		// 휴대폰번호 정규식
+		if (phoneJ.test($('#user_phone').val())) {
+			console.log(phoneJ.test($('#').val()));
+			return true;
+		} else{
+			alert('휴대폰번호를 확인해주세요 :)');
+			return false;
+		}
+		
 	});
 	
 </script>
