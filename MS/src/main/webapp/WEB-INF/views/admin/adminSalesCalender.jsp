@@ -30,6 +30,8 @@
 	int year = cal.get(Calendar.YEAR);
 	int month = cal.get(Calendar.MONTH);
 	int date = cal.get(Calendar.DATE);
+	
+	String dateToday = "year" + "month" + "date";
 
 	if(strYear != null) {
 		year = Integer.parseInt(strYear);
@@ -62,6 +64,9 @@
 	request.setAttribute("year", year);
 	request.setAttribute("month", month);
 	request.setAttribute("date", date);
+	
+	request.setAttribute("dateToday", dateToday);
+	
 	request.setAttribute("startDay", startDay);
 	request.setAttribute("endDay", endDay);
 	request.setAttribute("start", start);
@@ -195,6 +200,28 @@
 						<c:set var="index" value="${index + 1}"></c:set>
 						
 						<c:choose> 
+							<c:when test="${ dateToday eq 'intToday'}"> 
+									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap bgcolor="#C8C8C8">
+									<p><font style="font-weight: bold; color: PURPLE;">${ index }</font></p>
+									<p><font style="font-weight: bold; color: #282828;">
+									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
+									
+									<c:set var="total" value="0"></c:set>
+									
+									<c:forEach items="${ salesList }" var="sales">
+										<c:if test="${ index eq sales.sales_day }">
+											<%-- 총 매출 : ${ sales.sales_total }
+											음식 매출 : ${ sales.sales_food }
+											좌석 매출 : ${ sales.sales_seat } --%>
+											<c:set var="total" value="${total + sales.sales_total}"></c:set>
+										</c:if>
+									</c:forEach>
+										<c:if test="${total != 0 }">
+										[총 매출] <br> <c:out value="${total }"></c:out>
+										</c:if>
+									</a></font></p></td>
+							</c:when> 
+						
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 1}"> 
 									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: RED;">${ index }</font></p>
@@ -216,6 +243,7 @@
 										</c:if>
 									</a></font></p></td>
 							</c:when> 
+							
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 0}"> 
 									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: #529DBC;">${ index }</font></p>
@@ -237,6 +265,7 @@
 										</c:if>
 									</a></font></p></td>
 							</c:when> 
+							
 							<c:otherwise> 
 									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: BLACK;">${ index }</font></p>
@@ -287,6 +316,7 @@
 	<h1>${month }</h1>
 	<h1>${date }</h1>
 	<h1>${ intToday }</h1>
+	<h1>${dateToday }</h1>
 	<h1>${sales.sales_day}</h1>
 	<h1>${lastDayOfLastWeek}</h1>
 	<h1>${firstDayOfWeek}</h1>
