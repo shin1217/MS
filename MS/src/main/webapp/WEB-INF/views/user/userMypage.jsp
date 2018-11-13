@@ -108,7 +108,7 @@
    background-color : #eee;
    border : 2px solid darkgray;
 }
-.userMyPage_editUserId{
+#userMyPage_editUserId{
 	background-color : #eee !important;
 }
 
@@ -208,6 +208,7 @@
       <hr>
       <div class ="userMyPage_userInfo">
          <form action="" id = "userMyPage_myForm">
+         <div name = "store_id" value = "${user.store_id}" style = "display : none;"></div>
             <table class ="userMyPage_userTable">
                <tr id = "userMyPage_userIdTr">
                   <th>회원아이디</th>
@@ -227,7 +228,11 @@
                </tr>
                <tr>
                   <th>생년월일</th>
-                  <td><input type = "text" name = "user_birth" id = "userMyPage_birth" value = "${user.user_birth }" readonly></td>
+                  <td><input type = "text" name = "user_birth" id = "userMyPage_birth" value = "${user.user_birth }"></td>
+               </tr>
+               <tr>
+                  <th>회원이메일</th>
+                  <td><input type = "text" name = "user_email" id = "userMyPage_email" value = "${user.user_email }" readonly></td>
                </tr>
                <tr>
                   <th>회원정보관리</th>
@@ -274,6 +279,10 @@
                   <td><input type = "text" name = "user_birth" id = "userMyPage_editBirth" value = "${user.user_birth }" ></td>
                </tr>
                <tr>
+                  <th>회원이메일</th>
+                  <td><input type = "text" name = "user_email" id = "userMyPage_editemail" value = "${user.user_email }" ></td>
+               </tr>
+               <tr>
                   <th>회원정보관리</th>
                   <td class = "userMyPage_editBtnTd"><input type="button" id="userMyPage_editOkBtn" class = "userMyPage_editOkBtn" value='수정완료' onclick=""></td>
                </tr>
@@ -300,7 +309,7 @@
             if($('#userMyPage_editName').val() != "" 
             	&& $('#userMyPage_editPw').val() != ""
             	&& $('#userMyPage_editPhone').val() != ""
-            	&& $('#userMyPage_editBirth').val() != ""){
+            	&& $('#userMyPage_editemail').val() != ""){
         	 $.ajax({
                url : '${pageContext.request.contextPath}' + '/user/userEdit',
                type : 'post',

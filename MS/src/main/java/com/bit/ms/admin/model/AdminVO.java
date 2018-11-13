@@ -8,7 +8,6 @@ public class AdminVO {
 	private String admin_pw;
 	private String admin_name;
 	private String admin_phone;
-	private String admin_birth;
 	private int store_id;
 
 	public String getAdmin_id() {
@@ -43,14 +42,6 @@ public class AdminVO {
 		this.admin_phone = admin_phone;
 	}
 
-	public String getAdmin_birth() {
-		return admin_birth;
-	}
-
-	public void setAdmin_birth(String admin_birth) {
-		this.admin_birth = admin_birth;
-	}
-
 	public int getStore_id() {
 		return store_id;
 	}
@@ -62,7 +53,8 @@ public class AdminVO {
 	@Override
 	public String toString() {
 		return "AdminVO [admin_id=" + admin_id + ", admin_pw=" + admin_pw + ", admin_name=" + admin_name
-				+ ", admin_phone=" + admin_phone + ", admin_birth=" + admin_birth + ", store_id=" + store_id + "]";
+				+ ", admin_phone=" + admin_phone + "]";
 	}
+
 
 }

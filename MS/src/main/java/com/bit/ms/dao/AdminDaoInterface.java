@@ -20,13 +20,13 @@ public interface AdminDaoInterface {
 	int regAdmin(AdminVO adminVO);// admin 회원가입
 	int checkOverId(String admin_id);// admin 아이디 중복 검사
 	AdminVO loginAdmin(@Param("admin_id")String admin_id);// admin 로그인
-	List<AdminVO> getAdminMyage(String admin_id);// 관리자 마이페이지(매장은 다르나 동일한관리자를 배열로 다 받아옴)
+	AdminVO getAdminMyage(String admin_id);// 관리자 마이페이지
 	List<StoreVO> getStore(String admin_id);	// 관리자의 해당 매장정보를 가져오는
 	int editAdmin(AdminVO adminVo);	// 관리자 수정
 	int deleteAdmin(String admin_id);// 관리자 삭제
-	StoreVO getStoreDetail(String store_name); //매장 상세정보
-	List<StoreVO> getStoreList(); //매장 불러옴
-	void deleteStore(HashMap<String,String> map); //소유한 매장삭제하기
+	StoreVO getStoreDetail(int store_id); //매장 상세정보
+	int addStore(StoreVO storeVo); //매장 추가
+	void deleteStore(int store_id); //소유한 매장삭제하기
 	
 	/*공지사항 게시글*/
 	void insertNotice(NoticeVO noticeVO) throws Exception;

@@ -38,14 +38,10 @@ public class MemberMessageService {
 		
 	}
 	//메시지 삭제하는 메서드
-	public void messageDelete(MessageVO messageVo) {
-		
-		HashMap<String,Integer> map = new HashMap<String,Integer>(); //메세지 번호와 매장번호를 맵에 담음
-		map.put("message_id", messageVo.getMessage_id()); 
-		map.put("store_id", messageVo.getStore_id());
+	public void messageDelete(int message_id) {
 		
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
-		memberDao.deleteMessage(map);
+		memberDao.deleteMessage(message_id);
 		
 	}
 	//메시지 읽은것을 확인하는 메서드

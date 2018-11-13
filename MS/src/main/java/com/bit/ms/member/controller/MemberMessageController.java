@@ -6,18 +6,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.model.StoreVO;
-import com.bit.ms.admin.service.AdminMypageService;
-import com.bit.ms.admin.service.AdminUserListService;
 import com.bit.ms.member.model.MessageVO;
 import com.bit.ms.member.service.MemberMessageService;
 import com.bit.ms.user.model.UserVO;
@@ -63,10 +59,12 @@ public class MemberMessageController {
 		return "admin/adminMain";
 	}
 	//메시지 삭제
-	@RequestMapping(value = "member/deleteMessage", method = RequestMethod.POST)
-	public void deleteMessage(MessageVO messageVo) {
+	@RequestMapping(value = "member/deleteMessage/{id}")
+	public String deleteMessage(@PathVariable("id") int message_id) {
 	
-		service.messageDelete(messageVo);
+		service.messageDelete(message_id);
+		
+		return "admin/adminMain";
 	}
 	
 	//메시지를 읽었을경우

@@ -420,17 +420,12 @@
                   <td><input type = "text" name = "admin_phone" id = "adminMypage_phone" value = "${admin.admin_phone }" readonly></td>
                </tr>
                <tr>
-                  <th>생년월일</th>
-                  <td><input type = "text" name = "admin_birth" id = "adminMypage_birth" value = "${admin.admin_birth }" readonly></td>
-               </tr>
-               <tr>
                	  <th>나의매장정보</th>
                	  <td class = "adminMypage_management">
                   	<c:forEach var = "store" items = "${store}" varStatus = "status">
-                  		<p class = "deleteStoreWrap"><input type = "button" class = "adminMypage_storeName" id = "adminMypage_storeName${status.count}" value = "${store.store_name}">
+                  		<p class = "deleteStoreWrap"><input type = "button" class = "adminMypage_storeName" id = "${store.store_id }" value = "${store.store_name}">
                   		<img src="${pageContext.request.contextPath}/images/minus.PNG" id = "${store.store_id}" class = "deleteStore"></p>
                   	</c:forEach>
-                  	
                   </td>
                </tr>
                <tr>
@@ -443,10 +438,18 @@
 
 
       </div>
-      <!-- 매장 추가 모달창 -->
+   <!-- 매장 추가 모달창 -->
       <div class = "addStoreModal" id = "addStoreModal">
      	 <div class = 'addStoreWrap' id = "addStoreWrap">
-     	 <span class = 'storeClose' id = 'storeClose'>×</span>
+     		<div id = 'newAddStore'><p>매장을 선택하세요</p>
+     	 	<span class = 'storeClose' id = 'storeClose'>×</span>
+     	 	<div class = "store_nameWrap"><label for = "store_name">매장 이름</label>
+     	 	<input type = "text" class = "store_name" id = "store_name"></div>
+     	 	<div class = "store_nameWrap"><label for = "store_address">매장 주소</label>
+     	 	<input type = "text" class = "store_address" id = "store_address"></div>
+     	 	<div class = "store_nameWrap"><label for = "store_num">매장 번호</label>
+     	 	<input type = "text" class = "store_num" id = "store_num"></div>
+     	 	<input type = 'button' class = 'addBtn' id = 'addBtn' value = '매장등록'></div>
      	 </div>
       </div>
       
@@ -487,10 +490,6 @@
                </tr>
                   <th>핸드폰번호</th>
                   <td><input type = "text" name = "admin_phone" id = "adminMypage_editPhone" value = "${admin.admin_phone }" required></td>
-               <tr>
-                  <th>생년월일</th>
-                  <td><input type = "text" name = "admin_birth" id = "adminMypage_editBirth" value = "${admin.admin_birth }" ></td>
-               </tr>
                <tr>
                   <th>회원정보관리</th>
                   <td class = "adminMypage_editBtnTd"><input type="button" id="adminMypage_editOkBtn" class = "adminMypage_editOkBtn" value='수정완료' onclick=""></td>
@@ -544,18 +543,22 @@
          //매장정보에 마우스오버시 매장에 대한 정보가 뜸
 			$('.adminMypage_storeName').mouseover(function(){ //반복문으로 만들어진것의 선택자를 id 로 입력하면 중복이되어 각각 이벤트를 줄 수 없으므로 class로 선택자를 준다.
 				//console.log($(this).val());
-				var store_name = $(this).val();
+				var store_id = $(this).attr("id");
 				$.ajax({
-					url : '${pageContext.request.contextPath}' + '/admin/adminMypage/' + store_name,
+					url : '${pageContext.request.contextPath}' + '/admin/adminMypage/' + store_id,
 					type : 'get',
 					success : function(data){
+						var store_name = data.store_name; //매장 이름
+						var name = store_name.substr(store_name.length-2,2);
 						
-						if(data.store_id == "1"){
-							var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_study'>" //매장아이디가 1번이면 
-						} else if (data.store_id == "2"){
-							var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_pc'>" //매장아이디가 2번이면
+						if(name == "카페"){
+							var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_study'>"; //매장아이디가 1번이면 
+						} else if (name == "c방"){
+							var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_pc'>"; //매장아이디가 2번이면
+						} else if (name == "래방"){
+							var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_sing'>"; //매장아이디가 3번이면
 						} else {
-							var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_sing'>" //매장아이디가 3번이면
+							var str = "<div class = 'adminMypage_storeDetail' style = 'background-color : darkgrey;'>";
 						}
 							//조건필요없이 무조건 상세테이블 생성
 							str += "<table><tr><th colspan = '2' class = 'adminMypage_storeTitle'>매장 상세정보</th></tr>"
@@ -630,61 +633,27 @@
          if(list.length < 3){ // 모든매장을 다 갖고있으면 매장추가 버튼이 사라진다
         	 $('.adminMypage_management').append('<input type = "button" id = "adminMypage_addStore" class = "adminMypage_addStore" value = "+">');
          }
-         //매장 추가 클릭시 select뜸
+         //매장 추가 클릭시 이벤트
          $('.adminMypage_addStore').click(function(){
 			$('#addStoreModal').show();
-        	 var store_name = $('.adminMypage_storeName').val();
-        	 $.ajax({
-        		 url : '${pageContext.request.contextPath}' + '/admin/adminStoreAdd',
-        		 type : 'get',
-        		 success : function(data){
-        			 //console.log(data[0].store_name);
-        			 
-        			 str = "<div id = 'newAddStore'><p>매장을 선택하세요</p>";
-        			 str += "<select id = 'adminMypage_select' class = 'adminMypage_select'><option>매장선택</option>";
-        			 for(var i = 0; i < data.length; i++){
-	        			 str += "<option name = 'store_id' id = " + data[i].store_id + ">" + data[i].store_name + "</option>"; 
-        			 }
-        			 str += "<input type = 'button' class = 'addBtn' id = 'addBtn' value = '매장등록'></div>";
-        			 
-        			 $('#addStoreWrap').append(str);
-        			 
-        			 //셀렉트박스에서 선택했을때 이벤트
-        			 $('#adminMypage_select').change(function(){
-        				var selected = "";
-        				var selectedId = "";
-        				
-        				//셀렉트박스에서 매장 선택후 등록버튼을 눌렀을때
-        				$('#addBtn').click(function(){
-        			 		selected = $('#adminMypage_select option:selected').val(); //선택된 값의 value 가져오기
-        			 		selectedId = $('#adminMypage_select option:selected').attr("id"); //선택된 값의 아이디값 가져오기
-        					//console.log(selectedId);
-        			 		
-        			 			if(list[0] == selected || list[1] == selected){ //내가 소유한 매장리스트의 값과 추가할 매장이 같다면
-        			 				alert("이미 소유하신 매장입니다.")
-        			 			} else {
-        					 $.ajax({
-        						url : '${pageContext.request.contextPath}' + '/admin/adminStoreAdd',
-        						type : 'post',
-        						data : { //기존 회원정보와 추가할 매장번호를 넘김
-        							admin_id : $('#adminMypage_id').val(),
-        							store_id : selectedId,
-        							admin_name : $('#adminMypage_name').val(),
-        							admin_pw : $('#adminMypage_pw').val(),
-        							admin_phone : $('#adminMypage_phone').val(),
-        							admin_birth : $('#adminMypage_birth').val()
-        						},
-        						success : function(data){
-        							alert("매장추가에 성공했습니다.")
-        							location.reload();
-        						} //매장추가 끝
-        					}); //등록버튼 ajax끝 	
-        					 } //else문 끝
-        				}); //등록버튼 끝
-        			 }); //셀렉트박스 change이벤트 끝
-        		 } 
-        	 }); //매장추가 ajax끝
-         }); //매장추가 끝
+			//console.log($('#adminMypage_id').val());
+			$('#addBtn').click(function(){ //모달창에서 매장등록 눌렀을때 이벤트
+				$.ajax({
+					url : '${pageContext.request.contextPath}' + '/admin/adminStoreAdd',
+					type : 'post',
+					data : {
+						store_name : $('#store_name').val(),
+						store_address : $('#store_address').val(),
+						store_num : $('#store_num').val(),
+						admin_id : $('#adminMypage_id').val()
+					},
+					success : function(data){
+						alert("매장등록에 성공하셨습니다.");
+						location.reload();
+					} //매장추가 성공 끝
+				}); // 매장추가 ajax 끝 
+			}); // 모달창 이벤트 끝
+         }); // 매장추가 이벤트 끝
          
        //닫기버튼을 누르면 매장추가모달창 닫음
          $('#storeClose').click(function(){
@@ -694,6 +663,7 @@
          //매장 삭제클릭시 이벤트
          $('.deleteStore').click(function(){
 	        	 var store_id = $(this).attr("id"); // delete버튼의 아이디값
+	        	 console.log(store_id);
         	 $('#storeDeleteModal').show();
         	 
         	 $('#storeDeleteBtn').click(function(){
@@ -701,7 +671,6 @@
         			 url : '${pageContext.request.contextPath}' + '/admin/adminStoreDelete',
         			 type : 'post',
         			 data : {
-        				 admin_id : $('#adminMypage_id').val(),
         				 store_id : store_id
         		 	},
         		 	success : function(data){

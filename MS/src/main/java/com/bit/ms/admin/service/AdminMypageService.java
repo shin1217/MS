@@ -19,12 +19,11 @@ public class AdminMypageService {
 	private AdminDaoInterface adminDao;
 	
 	//관리자 정보 가져오는 메서드
-	public List<AdminVO> getAdmin(String admin_id) {
+	public AdminVO getAdmin(String admin_id) {
 		
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		List<AdminVO> adminVo = adminDao.getAdminMyage(admin_id);
+		return adminDao.getAdminMyage(admin_id);
 		
-		return adminVo;
 	}
 	
 	//해당 관리자의 매장정보를 가져오는 메서드
@@ -36,11 +35,11 @@ public class AdminMypageService {
 		return list;
 	}
 	//매장상세정보 불러오는 매서드
-	public StoreVO getStoreDetail(String store_name) {
+	public StoreVO getStoreDetail(int store_id) {
 		
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		
-		return adminDao.getStoreDetail(store_name);
+		return adminDao.getStoreDetail(store_id);
 	}
 	//관리자 삭제 메서드
 	public int deleteAdmin(String admin_id) {
@@ -56,34 +55,24 @@ public class AdminMypageService {
 		
 		return adminDao.editAdmin(adminVo);
 	}
-	//매장리스트 메서드
+	/*//매장리스트 메서드
 	public List<StoreVO> storeListGet(){
 		
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		
 		return adminDao.getStoreList();
-	}
+	}*/
 	//매장 추가메서드
-	public int storeAdd(AdminVO adminVo) {
+	public int storeAdd(StoreVO storeVo) {
 		
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		
-		return adminDao.regAdmin(adminVo);
+		return adminDao.addStore(storeVo);
 	}
 	//매장 삭제메서드
-	public void storeDelete(AdminVO adminVo) {
-		
-		String admin_id = adminVo.getAdmin_id();
-		String store_id = Integer.toString(adminVo.getStore_id()); // int를 String으로 형변환
-		
-		HashMap<String,String> map = new HashMap<String,String>();
-		
-		map.put("admin_id", admin_id);
-		map.put("store_id", store_id);
-		System.out.println(map);
+	public void storeDelete(int store_id) {
 		
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		adminDao.deleteStore(map);
-
+		adminDao.deleteStore(store_id);
 	}
 }

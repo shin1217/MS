@@ -7,6 +7,9 @@
 <title>MS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+.container{
+	overflow: hidden;
+}
 .messageModal, .writeMessageModal{
 	position : fixed;
 	width : 100%;
@@ -113,6 +116,7 @@ hr{
 	list-style: none;
 	margin-bottom: 30px;
 	border-radius: 10px;
+	position : relative;
 }
 .messageUlWrap{
 	float: left;
@@ -134,6 +138,14 @@ hr{
 	border-radius: 5px;
 	width : 70px;
 }
+.deleteMessage{
+	position : absolute;
+	right : 10px;
+	top : 10px;
+}
+.deleteMessage:hover {
+	cursor : pointer;
+}
 </style>
 </head>
 <body>
@@ -149,10 +161,6 @@ hr{
 				<h1 class="messageListTitle">메시지 리스트</h1>
 				<input type = "button" class = "btn btn-outline-elegant waves-effect" id = "writeMessage" value = "쪽지쓰기">
 				<hr>
-				<%-- <c:if test="${empty list}">
-					<!-- jstl 에서 null값인지 확인할때는 empty를 넣어줘야함 -->
-					<div id="noMessage">※ 메세지가 없습니다.</div>
-				</c:if> --%>
 				<div id = "messageList"></div>
 			</div>
 		</div>
@@ -209,15 +217,21 @@ hr{
 	
 		$('#messageBtn').click(function(){
 			$('#messageModal').show(); //쪽지함을 클릭하면 모달창 뜸
+			setInterval(function(){ // 데이터베이스에서 실시간으로 초단위로 데이터를 가져옴
+				
 			$.ajax({
 				url : '${pageContext.request.contextPath}' + '/admin/message',
 				type : 'get',
 				success : function(data){
+					//console.log(data);
+					if(data.length > 0){
+						
 					//console.log(data[1].message_con);
 					$('#messageList').html("");
 					for(var i = 0; i < data.length; i++){
 						str = '<div id="messageUlWrap" class = "messageUlWrap">';
 						str += '<ul id="messageUl" class = "messageUl">';
+						str += '<img src = ${pageContext.request.contextPath}/images/delete2.png style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
 						str += '	<li id = "li_message_id">메시지 번호 : ' + data[i].message_id + '</li>';
 						str += '	<li id = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
 						str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
@@ -226,9 +240,31 @@ hr{
 						str += '</ul></div>';
 					$('#messageList').append(str);
 					} str = '';
+					} else{
+						$('#messageList').html("※ 도착한 메시지가 없습니다.");
+					}
+					
+					/////////////쪽지 삭제 이벤트/////////////
+					$('.deleteMessage').click(function(){
+						var message_id = $(this).attr("id");
+						$.ajax({
+							url : '${pageContext.request.contextPath}' + '/member/deleteMessage/' + message_id,
+							success : function(data){
+								alert("메시지 삭제 성공");
+							}
+						});//삭제 ajax 끝
+					}); //삭제 클릭 이벤트 끝
+					
+					/////////////쪽지 답장 이벤트//////////////
+					$('#messageReply').click(function(){
+						$('#writeMessageModal').show();
+						$('#send_id').val($'#sendList');
+					});
 				}
 			}); //쪽지함클릭 ajax끝
+			},500); // interval끝
 		});
+		
 		///////////// 쪽지쓰기버튼 이벤트///////////////
 		$('#writeMessage').click(function(){
 			$('#messageModal').hide(); //쪽지쓰기 클릭하면 리스트창 끔
@@ -263,6 +299,7 @@ hr{
 				} //성공 끝
 			}); //ajax 끝
 		}); //쪽지쓰기 이벤트 끝
+		
 		///////////////// 보내기버튼 이벤트//////////////////
 		$('#sendBtn').click(function(){
 			console.log($('#sendList option:selected').attr("id"));
@@ -278,7 +315,8 @@ hr{
 				},
 				success : function(data){
 					alert("메시지를 성공적으로 보냈습니다.");
-					location.reload();
+					$('#writeMessageModal').hide(); //쪽지쓰기 모달창 끔
+					$('#messageModal').show(); // 리스트 모달창 뜸
 				}// 성공 끝
 				
 			}); // ajax 끝
@@ -293,6 +331,7 @@ hr{
         	   $('#writeMessageModal').hide();
            }
         });
+		
 	});
 </script>
 </html>

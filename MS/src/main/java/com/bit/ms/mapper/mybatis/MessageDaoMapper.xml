@@ -14,8 +14,8 @@
 		values (#{message_title}, #{message_con}, #{send_id}, #{receive_id}, #{store_id})
 	</insert>
 	<!--메시지 삭제  -->	
-	<delete id="deleteMessage" parameterType="hashmap">
-		delete from message where message_id = #{message_id} and store_id = #{store_id}
+	<delete id="deleteMessage">
+		delete from message where message_id = #{message_id}
 	</delete>
 	<!-- 읽은 메시지 수정 -->	
 	<update id="readMessage" parameterType="hashmap">

@@ -30,16 +30,16 @@ public class AdminMypageController {
 
 		//매장이 다르나 아이디는 같은 관리자가 있으므로
 		//리스트로 받아서 0번째를 불러옴
-		model.addAttribute("admin",service.getAdmin(admin_id).get(0));
+		model.addAttribute("admin",service.getAdmin(admin_id));
 		model.addAttribute("store",service.getStore(admin_id));
 		
 		return "admin/adminMypage";
 	}
 	
-	@RequestMapping(value = "/admin/adminMypage/{store_name}", method = RequestMethod.GET)
-	public @ResponseBody StoreVO store(@PathVariable("store_name") String store_name) {
+	@RequestMapping(value = "/admin/adminMypage/{store_id}", method = RequestMethod.GET)
+	public @ResponseBody StoreVO store(@PathVariable("store_id") int store_id) {
 		
-		StoreVO store = service.getStoreDetail(store_name);
+		StoreVO store = service.getStoreDetail(store_id);
 		
 		return store;
 	}
@@ -60,19 +60,20 @@ public class AdminMypageController {
 		
 		return "admin/adminMypage";
 	}
-	//관리자 매장 추가
+	/*//관리자 매장 추가
 	@RequestMapping(value = "/admin/adminStoreAdd", method = RequestMethod.GET)
 	public @ResponseBody List<StoreVO> getStoreList(){
 		
 		// 스토어리스트를 받아옴
 		return service.storeListGet();
-	}
+	}*/
+	//관리자 매장 추가
 	@RequestMapping(value = "/admin/adminStoreAdd", method = RequestMethod.POST)
-	public String addStore(AdminVO adminVo) {
+	public String addStore(StoreVO storeVo) {
 		
-		//System.out.println("매장등록시 정보 : " + adminVo);
+		System.out.println("매장등록시 정보 : " + storeVo);
 		//선택된 매장아이디를 포함해 새로 회원가입
-		service.storeAdd(adminVo);
+		service.storeAdd(storeVo);
 		
 		return "admin/adminMypage";
 	}
@@ -80,7 +81,8 @@ public class AdminMypageController {
 	@RequestMapping(value = "/admin/adminStoreDelete", method = RequestMethod.POST)
 	public String deleteStore(AdminVO adminVo) {
 		//System.out.println("삭제 : " + adminVo);
-		service.storeDelete(adminVo);
+		int store_id = adminVo.getStore_id();
+		service.storeDelete(store_id);
 		
 		return "admin/adminMypage";
 	}
