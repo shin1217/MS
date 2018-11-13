@@ -74,13 +74,6 @@ body {
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn" data-wow-delay="0.3s">
-				<div>
-					<select id="store_id" name="store_id">
-						<option value="1">MS 스터디카페</option>
-						<option value="2">MS PC방</option>
-						<option value="3">MS 코인노래방</option>
-					</select>
-				</div>
 				<div class="form-group">
 					<label class="font-weight-bold text-white" for="inputId">아이디</label>
 					<div>
@@ -130,7 +123,6 @@ body {
 					function() {
 						var id = $('#inputId').val();
 						var pw = $('#inputPassword').val();
-						var store = $('#store_id').val();
 						var remember_ad = $('#remember_ad').is(':checked');
 						console.log(remember_ad);
 						$
@@ -141,7 +133,6 @@ body {
 										// name : id
 										admin_id : id,
 										admin_pw : pw,
-										store_id : store,
 										remember_adminId : remember_ad
 									},
 									success : function(data) {

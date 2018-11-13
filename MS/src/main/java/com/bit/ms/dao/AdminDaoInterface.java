@@ -19,7 +19,7 @@ public interface AdminDaoInterface {
 	/*관리자정보관련*/
 	int regAdmin(AdminVO adminVO);// admin 회원가입
 	int checkOverId(String admin_id);// admin 아이디 중복 검사
-	AdminVO loginAdmin(@Param("admin_id")String admin_id, @Param("store_id")int store_id);// admin 로그인
+	AdminVO loginAdmin(@Param("admin_id")String admin_id);// admin 로그인
 	List<AdminVO> getAdminMyage(String admin_id);// 관리자 마이페이지(매장은 다르나 동일한관리자를 배열로 다 받아옴)
 	List<StoreVO> getStore(String admin_id);	// 관리자의 해당 매장정보를 가져오는
 	int editAdmin(AdminVO adminVo);	// 관리자 수정

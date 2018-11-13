@@ -19,7 +19,7 @@
 	<!-- Admin 로그인 -->
 	<select id="loginAdmin" resultType="adminVO">
 		select * from admininfo 
-		where admin_id = #{admin_id} and store_id = #{store_id}
+		where admin_id = #{admin_id}
 	</select>
 
 	<!--관리자 정보가져오기 -->

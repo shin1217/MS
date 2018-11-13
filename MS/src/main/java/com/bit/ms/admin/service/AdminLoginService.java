@@ -19,17 +19,17 @@ public class AdminLoginService {
 	
 	private AdminDaoInterface adminDao;
 	
-	public int adminLogin_service(String admin_id, String admin_pw, int store_id, String admin_check, HttpServletResponse response, HttpSession httpSession) {
+	public int adminLogin_service(String admin_id, String admin_pw, String admin_check, HttpServletResponse response, HttpSession httpSession) {
 		
 		int result = 0;
 		
 		adminDao = adminSqlSession.getMapper(AdminDaoInterface.class);
 		
-		AdminVO vo = adminDao.loginAdmin(admin_id, store_id);
+		AdminVO vo = adminDao.loginAdmin(admin_id);
 		System.out.println("service" + admin_id);
 		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
 		if(vo != null) {
-			if(vo.getAdmin_id().equals(admin_id) && vo.getAdmin_pw().equals(admin_pw) && vo.getStore_id() == store_id) {
+			if(vo.getAdmin_id().equals(admin_id) && vo.getAdmin_pw().equals(admin_pw)) {
 
 				if(admin_check.equals("true")) {
 					Cookie cookie = new Cookie("admin_check", admin_id);
