@@ -16,7 +16,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 	<div class="container">
-		<h1>회원목록</h1>
+		<h1>${store_name} 회원목록</h1>
 		<table id="userListTable" class="table table-striped table-bordered">
 			<thead>
 				<tr>
@@ -27,27 +27,19 @@
 				</tr>
 			</thead>
 			<tbody id="userListBody">
-<%-- 				<c:forEach var="list" items="${userlist}">
-					<tr>
-						<td>${list.user_id}</td>
-						<td>${list.user_name}</td>
-						<td>${list.user_phone}</td>
-						<td>${list.user_birth}</td>
-					</tr>
-				</c:forEach> --%>
 			</tbody>
 		</table>
 	</div>
 </body>
 <script>
 	$(document).ready(function(){
-		getAllList();
+		getAllUserList();
 	});
 	
 	var list = '';
 	var store_id = ${adminSession.store_id};
 		
-	function getAllList(){
+	function getAllUserList(){
 		$.ajax({
 			type : 'get',
 			url : '${pageContext.request.contextPath}/admin/userList/all/' + store_id,

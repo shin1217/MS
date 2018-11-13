@@ -29,7 +29,7 @@
   	<c:if test="${!empty adminSession}">
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/adminMypage"><i	class="fa fa-address-card-o" aria-hidden="true"></i>내정보</a></li>
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice?page=1"><i class="fa fa-bullhorn" aria-hidden="true"></i>공지사항</a></li>
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/userList"><i class="fa fa-users" aria-hidden="true"></i>회원목록</a></li>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/userList?id=${adminSession.store_id}"><i class="fa fa-users" aria-hidden="true"></i>회원목록</a></li>
 			<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 관리하기 </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

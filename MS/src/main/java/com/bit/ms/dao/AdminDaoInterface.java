@@ -45,6 +45,7 @@ public interface AdminDaoInterface {
 	/*회원리스트 관련*/
 	List<UserVO> getUserList(int store_id);//회원리스트 전체 출력
 	List<UserVO> sortingUserList(UserListVO userListVO); //클릭한 열로 정렬
+	String getStoreName(int id); //스토어id로 이름출력
 	
 	/* 매출기록 관련 */
 	public List<SalesVO> listAll() throws Exception; // 매출기록 리스트 출력
@@ -57,4 +58,5 @@ public interface AdminDaoInterface {
 	int updateUserAddTimeAll(long useTime);
 	List<UserVO> getUserInfoAll(); 
 	UserVO isUsingSeat(String userId);
+
 }

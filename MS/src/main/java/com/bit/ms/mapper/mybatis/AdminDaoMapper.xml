@@ -72,4 +72,10 @@
 	<select id="sortingUserList" parameterType="userListVO" resultType="userVO">
 		select * from userinfo where store_id = #{store_id} order by ${sortName} ${orderBy}
 	</select>
+		
+	<!-- 스토어id로 스토어이름 검색 -->
+	<select id="getStoreName" parameterType="int" resultType="String">
+		select store_name from store where store_id = #{store_id}
+	</select>
+	
 </mapper>

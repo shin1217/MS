@@ -2,8 +2,10 @@ package com.bit.ms.admin.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +24,9 @@ public class AdminUserListController {
 
 	//회원목록 페이지 이동
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String userList() {
+	public String userList(Model model, @Param("id") int id) {
+		
+		model.addAttribute("store_name", listService.getStoreName(id));
 		
 		return "admin/adminUserList";
 	}

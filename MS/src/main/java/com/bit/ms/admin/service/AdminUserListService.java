@@ -31,5 +31,12 @@ public class AdminUserListService {
 		
 		return adminDao.sortingUserList(userListVO);		
 	}
+
+	public String getStoreName(int id) {
+
+		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		
+		return adminDao.getStoreName(id);
+	}
 	
 }
