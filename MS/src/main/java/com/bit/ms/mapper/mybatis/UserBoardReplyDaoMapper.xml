@@ -13,4 +13,14 @@
 
 	</select>
 
+	<insert id="UserBoardReplyInsertI"
+		parameterType="UserBoardReplyVO" useGeneratedKeys="true"
+		keyProperty="uboard_reply_id">
+
+		insert into userreply
+		(uboard_reply_con,uboard_id,user_id,store_id)
+		values(#{uboard_reply_con},#{uboard_id},#{user_id},#{store_id})
+
+	</insert>
+
 </mapper>

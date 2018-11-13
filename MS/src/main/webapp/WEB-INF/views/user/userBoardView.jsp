@@ -52,10 +52,12 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="userBoard_header">
 		<br> <a class="nav-link"
-			href="${pageContext.request.contextPath}/user/userBoard?page=1">
-			<h1 class="userBoard_hypertext_none">유저게시판</h1>
-		</a> <a id="write" class="btn btn-outline-elegant waves-effect"
-			href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
+			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1
+				class="hypertext_none">유저게시판</h1></a>
+		<c:if test="${sessionScope.userSession != NULL}">
+			<a id="write" class="btn btn-outline-elegant waves-effect"
+				href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
+		</c:if>
 	</div>
 
 	<!-- 게시글  -->
@@ -116,11 +118,9 @@
 				<button type="button" class="btn btn-dark"
 					onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${userboardvo.uboard_id}?page=${param.page}'">수정</button>
 			</c:if>
-
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='${pageContext.request.contextPath}/user/userBoard?page=${param.page}'">
-				<i class="fa fa-th-list pr-2" aria-hidden="true"></i>목록
-			</button>
+				목록</button>
 		</div>
 		<!-- 게시글  -->
 
@@ -131,17 +131,20 @@
 		</section>
 
 		<!-- 댓글 입력란 -->
-		<div class="md-form mt-4">
-			<label for="UserBoardReplyFormComment">댓글 입력</label>
-			<textarea class="form-control md-textarea"
-				id="UserBoardReplyFormComment" rows="1"></textarea>
-			<div class="text-center my-4">
-				<button id="UserBoardCommentSubmit"
-					class="btn btn-default btn-sm btn-rounded">댓글 입력</button>
-				<input id="user_id" type="hidden"
-					value="${sessionScope.userSession.user_id}" />
+		<c:if test="${sessionScope.userSession != NULL}">
+			<div class="md-form mt-4">
+				<label for="UserBoardReplyFormComment">댓글 입력</label>
+				<textarea class="form-control md-textarea"
+					id="UserBoardReplyFormComment" rows="1"></textarea>
+				<div class="text-center my-4">
+					<button id="UserBoardCommentSubmit"
+						class="btn btn-default btn-sm btn-rounded">댓글 입력</button>
+					<input id="user_id" type="hidden"
+						value="${sessionScope.userSession.user_id}" />
+				</div>
 			</div>
-		</div>
+		</c:if>
+		<!-- 댓글 입력란 -->
 		<!-- 댓글  -->
 	</div>
 </body>
@@ -180,30 +183,68 @@
 
 	function getUserBoardReplyList() {
 		$.ajax({
-					type : 'get',
-					url : '${pageContext.request.contextPath}/user/userBoard/reply/all/' + uboard_id,
-					dataType : 'json',
-					success : function(data) {
-	 				$('#UserBoardCommentsNum').html(
-								data.length + ' comments');
-						$('#UserBoardReplyAllBody').html(''); 
-						$(data).each(function(index,item){
-							$('#UserBoardCommentsNum').html(
-									data.length + ' comments');
-							uboard_reply += '<div class="media d-block d-md-flex mt-4">';
-							uboard_reply += '<img class="card-img-64 rounded-circle z-depth-1 d-flex mx-auto mb-3" src="https://post-phinf.pstatic.net/MjAxODAzMjJfMjY4/MDAxNTIxNzAxODU2MTQy.V91kaps6gaHaHS6JhzoHGT98PuoEv8kSz3zjgWT4kOAg.ffqd0efJQR_23lCWLTjDfjS3Hd-jfqEjSxNLCilQMScg.JPEG/%EC%88%98%EB%A7%8C%EA%B0%80%EC%A7%80%ED%91%9C%EC%A0%95%EC%9D%98%EB%A0%89%EC%8B%9C%EA%B3%A0%EC%96%91%EC%9D%B4_02.jpg?type=w1200">';
-							uboard_reply += '<div class="media-body text-center text-md-left ml-md-3 ml-0">';
-							uboard_reply += '<h5 class="font-weight-bold mt-0">';
-							uboard_reply += '<button id="UserBoardReplyDeleteBtn' + item.uboard_reply_id + '" onclick="UserBoardReplyDelete(' + item.uboard_reply_id + ')" type="button" class="btn btn-danger px-3 float-right"><i class="fa fa-trash" aria-hidden="true"></i></button>';
-							uboard_reply += '<button id="UserBoardReplyEditBtn' + item.uboard_reply_id+ '" onclick="UserBoardReplyEdit(' + item.uboard_reply_id + ')" type="button" class="btn btn-primary px-3 float-right"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>';
-							uboard_reply += '<a class="text-default">' + item.user_id + '</a></h5>';
-							uboard_reply += '<input id="replyInput' + item.uboard_reply_id +'" class="form-control w-75" value="'+ item.uboard_reply_con +'" style="border: 0px; background: white;" readonly="true"></input><hr /></div></div>';
-						$('#UserBoardReplyAllBody').html(uboard_reply);
-					});
-					uboard_reply = '';
+			type : 'get',
+			url : '${pageContext.request.contextPath}/user/userBoard/reply/all/'+ uboard_id,
+			dataType : 'json',
+			success : function(data) {
+				$('#UserBoardCommentsNum').html(data.length + ' comments');
+				$('#UserBoardReplyAllBody').html('');
+				$(data).each(function(index, item) {
+				$('#UserBoardCommentsNum').html(data.length + ' comments');
+						uboard_reply += '<div class="media d-block d-md-flex mt-4">';
+						// uboard_reply += '<img class="card-img-64 rounded-circle z-depth-1 d-flex mx-auto mb-3" src="https://post-phinf.pstatic.net/MjAxODAzMjJfMjY4/MDAxNTIxNzAxODU2MTQy.V91kaps6gaHaHS6JhzoHGT98PuoEv8kSz3zjgWT4kOAg.ffqd0efJQR_23lCWLTjDfjS3Hd-jfqEjSxNLCilQMScg.JPEG/%EC%88%98%EB%A7%8C%EA%B0%80%EC%A7%80%ED%91%9C%EC%A0%95%EC%9D%98%EB%A0%89%EC%8B%9C%EA%B3%A0%EC%96%91%EC%9D%B4_02.jpg?type=w1200">';
+						uboard_reply += '<div class="media-body text-center text-md-left ml-md-3 ml-0">';
+						uboard_reply += '<h5 class="font-weight-bold mt-0">';
+
+						//수정삭제버튼
+						if (  ("${sessionScope.adminSession}" != "") || ("${sessionScope.userSession.user_id}" == item.user_id)  ) {
+							uboard_reply += '<button id="UserBoardReplyDeleteBtn'
+										+ item.uboard_reply_id
+										+ '" onclick="UserBoardReplyDelete('
+										+ item.uboard_reply_id
+										+ ')" type="button" class="btn btn-danger px-3 float-right"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+							uboard_reply += '<button id="UserBoardReplyEditBtn'
+										+ item.uboard_reply_id
+										+ '" onclick="UserBoardReplyEdit('
+										+ item.uboard_reply_id
+										+ ')" type="button" class="btn btn-primary px-3 float-right"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>';
+						}
+
+						uboard_reply += '<a class="text-default">'
+						+ item.user_id
+						+ '</a></h5>';
+						uboard_reply += '<input id="UserBoardReplyInput' + item.uboard_reply_id +'" class="form-control w-75" value="'+ item.uboard_reply_con +'" style="border: 0px; background: white;" readonly="true"></input><hr /></div></div>';
+				$('#UserBoardReplyAllBody').html(uboard_reply);
+										});
+						uboard_reply = '';
 			}
 		});
 	}
+	
+	
+	$('#UserBoardCommentSubmit').click(function() {
+		var uboard_reply_con = $('#UserBoardReplyFormComment').val(); //댓글내용을 가져옴
+		var user_id = "${sessionScope.userSession.user_id}"; //세션에서 user_id를 가져옴
+		//자동정렬 주의
+		var store_id = "${sessionScope.userSession.store_id}"; //세션에서 store_id를 가져옴	
+		//자동정렬 주의
+		$.ajax({
+			type : 'post',
+			url : '${pageContext.request.contextPath}/user/userBoard/reply',
+			dataType : 'text',
+			data : {
+				uboard_id : uboard_id,
+				user_id : user_id,
+				uboard_reply_con : uboard_reply_con,
+				store_id : store_id
+			},
+			success : function(data) {
+			console.log('댓글작성완료');
+			getUserBoardReplyList();
+			$('#UserBoardReplyFormComment').val('');
+			}
+		});
+	});
 </script>
 
 </html>

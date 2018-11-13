@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.UserDaoInterface;
@@ -33,4 +34,16 @@ public class UserBoardReplyService {
 
 	}
 
+	public int UserBoardReplyInsertS(UserBoardReplyVO userBoardReplyVO) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int resultCnt = 0;
+		try {
+			resultCnt = userDaoInterface.UserBoardReplyInsertI(userBoardReplyVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultCnt;
+	}
 }

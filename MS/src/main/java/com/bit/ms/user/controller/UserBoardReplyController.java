@@ -26,4 +26,12 @@ public class UserBoardReplyController {
 		return userboard_reply_list;
 
 	}
+
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public int UserBoardReply(UserBoardReplyVO userBoardReplyVO) {
+
+		int resultCnt = userBoardReplyService.UserBoardReplyInsertS(userBoardReplyVO);
+
+		return resultCnt;
+	}
 }
