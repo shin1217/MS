@@ -51,4 +51,10 @@ public interface AdminDaoInterface {
 	
 	/* 좌석관리 */
 	public List<SeatVO> getSeatListI();
+	
+	/*시간충전*/
+	int updateUserAddTime(long addTime, int seatId, String userId);
+	int updateUserAddTimeAll(long useTime);
+	List<UserVO> getUserInfoAll(); 
+	UserVO isUsingSeat(String userId);
 }

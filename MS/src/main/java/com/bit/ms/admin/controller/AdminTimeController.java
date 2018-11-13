@@ -1,4 +1,4 @@
-package com.bit.ms.user.controller;
+package com.bit.ms.admin.controller;
 
 import java.util.List;
 
@@ -9,25 +9,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.ms.admin.service.AdminTimeService;
 import com.bit.ms.user.model.UserVO;
-import com.bit.ms.user.service.UserTimeService;
 
 @Controller
-public class UserTimeController {
+public class AdminTimeController {
 	
 	@Autowired
-	UserTimeService service;
+	AdminTimeService service;
 	
 	// 충전하기 버튼 눌렀을 시 유저 시간 변경
 	@RequestMapping(value="/user/addTime", method=RequestMethod.GET)
 	@ResponseBody
 	public void addTime(@RequestParam("userId") String userId,
 						@RequestParam("seatId") int seatId,
-						@RequestParam("addTime") long addTime,
-						@RequestParam("useTime") long useTime){
+						@RequestParam("addTime") long addTime){
 		
-		int resultCnt = service.updateUserAddTime(useTime, addTime, seatId, userId); // 유저 시간 업데이트 
-		// resultCnt += service.updateSeatUser(seatId); // 좌석 사용자 아이디 업데이트
+		int resultCnt = service.updateUserAddTime(addTime, seatId, userId); // 유저 시간 업데이트 
 						
 		if(resultCnt > 0) {
 			System.out.println("유저 시간 업데이트 성공");
@@ -38,7 +36,7 @@ public class UserTimeController {
 	@RequestMapping(value="/user/resetSeat", method=RequestMethod.GET)
 	@ResponseBody 
 	public List<UserVO> resetSeat() {
-		return service.getUserInfo();
+		return service.getUserInfoAll();
 	}
 	
 	// 로그인한 유저의 좌석 사용 상태 검사

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.bit.ms.dao.UserDaoInterface">
+<mapper namespace="com.bit.ms.dao.AdminDaoInterface">
 	
-	<!-- 선택한 좌석의 유저 시간 업데이트(사용시간, 충전시간, 좌석번호) -->
+	<!-- 선택한 좌석의 유저 시간 업데이트(충전시간, 좌석번호, 유저 아이디) -->
 	<update id="updateUserAddTime" parameterType="map">
-		update userinfo set user_time=((user_time-#{param1})+#{param2}), seat_id=#{param3} 
-		where user_id=#{param4}
+		update userinfo set user_time=(user_time+#{param1}), seat_id=#{param2} 
+		where user_id=#{param3}
 	</update>
 	
 	<!-- 사용 중인 모든 좌석의 유저 시간 업데이트(사용시간) -->
@@ -16,7 +16,7 @@
 	</update>
 	
 	<!-- 현재 좌석 사용 중인 사용자 정보 모두 가져오기 -->
-	<select id="getUserInfo" resultType="userVO">
+	<select id="getUserInfoAll" resultType="userVO">
 		select * from userinfo
 		where seat_id is not null
 	</select>
