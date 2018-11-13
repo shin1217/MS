@@ -134,7 +134,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<%@ include file="/WEB-INF/views/modal/addTimeModal.jsp"%>
-	
+	<%@ include file="/WEB-INF/views/admin/adminMessage.jsp" %>
 	<div class="adminMain_container">
 		<div class="left_area">
 			<div class="left_content">

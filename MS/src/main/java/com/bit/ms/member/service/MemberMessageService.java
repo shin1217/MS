@@ -18,13 +18,18 @@ public class MemberMessageService {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	private MemberDaoInterface memberDao;
+	
+	//관리자가 갖고있는 매장리스트 뽑는 메서드
+	public List<StoreVO> adminStoreListGet(String admin_id){
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.adminStoreList(admin_id);
+	}
 	//메시지리스트를 가져오는 메서드
-	public List<MessageVO> getMessageList(String receive_id, String store_id){
+	public List<MessageVO> getMessageList(String store_name, String receive_id){
 		
-		HashMap<String,String> map = new HashMap<String,String>(); //받는이와 매장아이디를 맵에 담음
+		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("receive_id", receive_id);
-		map.put("store_id", store_id);
-		
+		map.put("store_name", store_name);
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		List<MessageVO> list = memberDao.getMessageList(map); //받아온 메시지를 리스트에 담음
 		

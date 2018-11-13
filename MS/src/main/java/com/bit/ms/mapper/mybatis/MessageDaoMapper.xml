@@ -4,9 +4,12 @@
 <!-- namespace - 인터페이스에 있는 패키지 명 + 인터페이스 명 -->
 <mapper namespace="com.bit.ms.dao.MemberDaoInterface">
 
+	<select id="adminStoreList" resultType="storeVo">
+		select * from store where admin_id = #{admin_id}
+	</select>
 <!-- 메시지 리스트 불러오기 -->
 	<select id="getMessageList" parameterType="hashmap" resultType="messageVO">
-		select * from message where receive_id = #{receive_id} and store_id = #{store_id}
+		select * from message where receive_id = #{receive_id} and store_id = (select store_id from store where store_name = #{store_name})
 	</select>
 	<!-- 메시지 쓰기 -->
 	<insert id="writeMessage" parameterType="messageVo">

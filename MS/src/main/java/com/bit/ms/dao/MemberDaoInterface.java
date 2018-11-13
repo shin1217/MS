@@ -10,6 +10,7 @@ import com.bit.ms.user.model.UserVO;
 public interface MemberDaoInterface {
 
 	//관리자 메시지, 사용자 메시지
+		public List<StoreVO> adminStoreList(String admin_id); //관리자가 소유한 매장목록
 		public List<MessageVO> getMessageList(HashMap<String,String> map); //메시지 리스트 받아오기
 		public int writeMessage(MessageVO messageVo); // 메시지 쓰기
 		public void deleteMessage(int message_id); //메시지 삭제하기

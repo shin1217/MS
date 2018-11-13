@@ -159,6 +159,7 @@ hr{
 		<div class = "messageModal" id = "messageModal">
 			<div class="messageWrap">
 				<h1 class="messageListTitle">메시지 리스트</h1>
+				<div id = "adminStoreList" class = "adminStoreList"></div>
 				<input type = "button" class = "btn btn-outline-elegant waves-effect" id = "writeMessage" value = "쪽지쓰기">
 				<hr>
 				<div id = "messageList"></div>
@@ -178,7 +179,7 @@ hr{
 						<div class="col-md-12 form-group">
 							<label class="name">보내는 사람</label> <input type="text"
 								class="form-control" name="send_id"
-								value = "${adminSession.admin_id }" id = "send_id" style = "background-color : darkgrey;" readonly/>
+								value = "관리자" id = "send_id" style = "background-color : darkgrey;" readonly/>
 						</div>
 						<div class="col-md-12 form-group">
 							<label class="name">받는 사람</label>
@@ -217,52 +218,73 @@ hr{
 	
 		$('#messageBtn').click(function(){
 			$('#messageModal').show(); //쪽지함을 클릭하면 모달창 뜸
-			setInterval(function(){ // 데이터베이스에서 실시간으로 초단위로 데이터를 가져옴
-				
-			$.ajax({
-				url : '${pageContext.request.contextPath}' + '/admin/message',
+			$.ajax({ //사용자가 갖고있는 매장목록 select
+				url : '${pageContext.request.contextPath}' + '/admin/storeList',
 				type : 'get',
 				success : function(data){
-					//console.log(data);
-					if(data.length > 0){
+					storeList = '<select id = "storeList" class = "storeList"><option>매장을 선택하세요</option>';
+					for(var j = 0; j < data.length; j++){
+						storeList += '<option>' + data[j].store_name + '</option>';
+					} //리스트 반복문 끝
+					storeList += '</select>';
+					$('#adminStoreList').html(storeList);
+					
+					$('#adminStoreList').change(function(){
+						var selectedStore = $('#adminStoreList option:selected').val();
+						//console.log(selectedStore);
+						console.log($('#send_id').val());
 						
-					//console.log(data[1].message_con);
-					$('#messageList').html("");
-					for(var i = 0; i < data.length; i++){
-						str = '<div id="messageUlWrap" class = "messageUlWrap">';
-						str += '<ul id="messageUl" class = "messageUl">';
-						str += '<img src = ${pageContext.request.contextPath}/images/delete2.png style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
-						str += '	<li id = "li_message_id">메시지 번호 : ' + data[i].message_id + '</li>';
-						str += '	<li id = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
-						str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
-						str += '	<input type = "button" id = "messageReply" class = "messageReply" value = "답장">';
-						str += '	<input type = "button" id = "messageDetail" class = "messageDetail" value = "상세">';
-						str += '</ul></div>';
-					$('#messageList').append(str);
-					} str = '';
-					} else{
-						$('#messageList').html("※ 도착한 메시지가 없습니다.");
-					}
-					
-					/////////////쪽지 삭제 이벤트/////////////
-					$('.deleteMessage').click(function(){
-						var message_id = $(this).attr("id");
+						setInterval(function(){ // 데이터베이스에서 실시간으로 초단위로 데이터를 가져옴
 						$.ajax({
-							url : '${pageContext.request.contextPath}' + '/member/deleteMessage/' + message_id,
+							url : '${pageContext.request.contextPath}' + '/admin/message',
+							type : 'post',
+							data : {
+								receive_id : $('#send_id').val(),
+								store_name : selectedStore
+							},
 							success : function(data){
-								alert("메시지 삭제 성공");
+							//console.log(data);
+							if(data.length > 0){
+							//console.log(data[1].message_con);
+							$('#messageList').html("");
+							for(var i = 0; i < data.length; i++){
+								str = '<div id="messageUlWrap" class = "messageUlWrap">';
+								str += '<ul id="messageUl" class = "messageUl">';
+								str += '<img src = ${pageContext.request.contextPath}/images/delete2.png style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
+								str += '	<li id = "li_message_id">메시지 번호 : ' + data[i].message_id + '</li>';
+								str += '	<li id = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
+								str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+								str += '	<input type = "button" id = "messageReply" class = "messageReply" value = "답장">';
+								str += '	<input type = "button" id = "messageDetail" class = "messageDetail" value = "상세">';
+								str += '</ul></div>';
+								$('#messageList').append(str);
+							} str = '';
+							} else{
+							$('#messageList').html("※ 도착한 메시지가 없습니다.");
 							}
-						});//삭제 ajax 끝
-					}); //삭제 클릭 이벤트 끝
+	
+						/////////////쪽지 삭제 이벤트/////////////
+							$('.deleteMessage').click(function(){
+								var message_id = $(this).attr("id");
+								$.ajax({
+									url : '${pageContext.request.contextPath}' + '/member/deleteMessage/' + message_id,
+									success : function(data){
+										alert("메시지 삭제 성공");
+									}
+								});//삭제 ajax 끝
+							}); //삭제 클릭 이벤트 끝
 					
-					/////////////쪽지 답장 이벤트//////////////
-					$('#messageReply').click(function(){
-						$('#writeMessageModal').show();
-						$('#send_id').val($'#sendList');
-					});
-				}
-			}); //쪽지함클릭 ajax끝
-			},500); // interval끝
+					/* /////////////쪽지 답장 이벤트//////////////
+							$('#messageReply').click(function(){
+								$('#writeMessageModal').show();
+								$('#send_id').val($'#sendList');
+							}); */
+						}
+					}); //쪽지함클릭 ajax끝
+					},500); // interval끝
+					}); //관리자 매장변경 이벤트 끝
+				} //성공 끝
+			}); //매장목록 가져오기 ajax 끝
 		});
 		
 		///////////// 쪽지쓰기버튼 이벤트///////////////

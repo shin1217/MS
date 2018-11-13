@@ -24,19 +24,22 @@ public class MemberMessageController {
 	@Autowired
 	private MemberMessageService service;
 	
-	//관리자와 매장아이디를 조건으로 메시지 리스트를 뽑음
-	@RequestMapping(value = "admin/message")
-	public @ResponseBody List<MessageVO> getAdminMessageList(HttpSession session){
-		
-		//세션에서 받는사람 아이디와 매장아이디를 불러옴
+	//사용자가 갖고있는 매장목록 가져옴
+	@RequestMapping(value = "/admin/storeList", method = RequestMethod.GET)
+	public @ResponseBody List<StoreVO> getAdminStoreList(HttpSession session){
 		AdminVO adminVo = (AdminVO) session.getAttribute("adminSession");
-		String receive_id = adminVo.getAdmin_id(); //받는사람 아이디
-		String store_id = Integer.toString(adminVo.getStore_id()); //매장 아이디(string타입으로 형변환)
+		String admin_id = adminVo.getAdmin_id();
 		
-		return service.getMessageList(receive_id, store_id);
+		return service.adminStoreListGet(admin_id);
+	}
+	//관리자와 매장아이디를 조건으로 메시지 리스트를 뽑음
+	@RequestMapping(value = "admin/message", method = RequestMethod.POST)
+	public @ResponseBody List<MessageVO> getAdminMessageList(String store_name, String receive_id){
+		//System.out.println(store_name + ":" + receive_id); 
+		return service.getMessageList(store_name, receive_id);
 	}
 	//사용자의 매장아이디를 조건으로 메시지 리스트를 뽑음
-	@RequestMapping(value = "user/message")
+	/*@RequestMapping(value = "user/message")
 	public ModelAndView getUserMessageList(HttpSession session) {
 		
 		//세션에서 받는사람 아이디와 매장아이디를 불러옴
@@ -49,7 +52,7 @@ public class MemberMessageController {
 		mv.setViewName("user/userMain");
 				
 		return mv;
-	}
+	}*/
 	// 메시지 쓰기
 	@RequestMapping(value = "member/writeMessage", method = RequestMethod.POST)
 	public String writeMessage(MessageVO messageVo) {
