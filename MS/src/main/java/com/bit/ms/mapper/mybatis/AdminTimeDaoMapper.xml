@@ -3,14 +3,14 @@
   
 <mapper namespace="com.bit.ms.dao.AdminDaoInterface">
 	
-	<!-- 선택한 좌석의 유저 시간 업데이트(충전시간, 좌석번호, 유저 아이디) -->
-	<update id="updateUserAddTime" parameterType="map">
-		update userinfo set user_time=(user_time+#{param1}), seat_id=#{param2} 
-		where user_id=#{param3}
+	<!-- 선택한 좌석의 유저 시간 업데이트(충전시간, 좌석번호) -->
+	<update id="updateAddTime" parameterType="map">
+		update userinfo set user_time=(user_time+#{param1}) 
+		where seat_id=#{param2}
 	</update>
 	
 	<!-- 사용 중인 모든 좌석의 유저 시간 업데이트(사용시간) -->
-	<update id="updateUserAddTimeAll">
+	<update id="updateSaveTimeAll">
 		update userinfo set user_time=user_time-#{use_time}
 		where seat_id is not null
 	</update>
@@ -22,8 +22,8 @@
 	</select>
 	
 	<!-- 로그인한 유저의 좌석 사용 상태 검사 -->
-	<select id="isUsingSeat" resultType="userVO">
+	<!-- <select id="isUsingSeat" resultType="userVO">
 		select * from userinfo 
 		where user_id=#{user_id} and seat_id is not null
-	</select>
+	</select> -->
 </mapper>

@@ -15,18 +15,18 @@ public class AdminTimeService {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	private AdminDaoInterface userDao;
-
+		
 	// 선택한 좌석의 유저 시간 업데이트( 충전시간, 좌석 번호, 유저 아이디)
-	public int updateUserAddTime(long addTime, int seatId, String userId) {
+	public int updateAddTime(long addTime, int seatId) {
 		userDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		return userDao.updateUserAddTime(addTime, seatId, userId);
+		return userDao.updateAddTime(addTime, seatId);
 	}
 	
 	// 사용 중인 모든 좌석의 유저 시간 업데이트(사용시간, 충전시간)
-	public int updateUserAddTimeAll(long useTime) {
+	public int updateSaveTimeAll(long useTime) {
 		userDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		return userDao.updateUserAddTimeAll(useTime);
-	}
+		return userDao.updateSaveTimeAll(useTime);
+	}	
 	
 	// 현재 좌석 사용 중인 사용자 정보 모두 가져오기
 	public List<UserVO> getUserInfoAll(){
@@ -35,8 +35,8 @@ public class AdminTimeService {
 	}
 	
 	// 로그인한 유저의 좌석 사용 상태 검사
-	public UserVO isUsingSeat(String userId) {
+	/*public UserVO isUsingSeat(String userId) {
 		userDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		return userDao.isUsingSeat(userId);
-	}
+	}*/
 }
