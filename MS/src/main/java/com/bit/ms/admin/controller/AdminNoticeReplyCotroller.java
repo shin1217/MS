@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,15 +34,17 @@ public class AdminNoticeReplyCotroller {
 
 	}
 
-	@RequestMapping(value = "/delete/{reply_id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{reply_id}", method = RequestMethod.DELETE)
 	public void replyDelete(@PathVariable("reply_id") int id) {
 
 		service.deleteReply(id);
 	}
 
-	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public void replyModify(ReplyVO vo) {
-		
+	@RequestMapping(value = "/{reply_id}", method = RequestMethod.PUT)
+	public void replyModify(@PathVariable("reply_id") int id, @RequestBody ReplyVO vo) {
+
+		vo.setReply_id(id);
+
 		service.updateReply(vo);
 	}
 }

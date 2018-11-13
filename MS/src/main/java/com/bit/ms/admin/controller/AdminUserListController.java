@@ -20,13 +20,14 @@ public class AdminUserListController {
 	@Autowired
 	AdminUserListService listService;
 
+	//회원목록 페이지 이동
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String userList() {
 		
 		return "admin/adminUserList";
 	}
 	
-	// 회원목록을 뿌려줌
+	// 회원목록을 테이블로 뿌려줌
 	@RequestMapping(value = "/all/{store_id}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<UserVO> getUserList(@PathVariable("store_id") int store_id) {
@@ -36,12 +37,10 @@ public class AdminUserListController {
 		return result;
 	}
 	
-	// 회원목록에서 각 해당 열을 클릭시 정렬
+	// 회원목록에서 각 컬럼들을 클릭시 정렬
 	@RequestMapping(value = "/sort", method = RequestMethod.GET)
 	@ResponseBody
 	public List<UserVO> sortingUserList(UserListVO userListVO) {
-		
-		System.out.println(userListVO);
 		
 		List<UserVO> result = listService.sortingUserList(userListVO);
 		

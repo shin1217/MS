@@ -184,7 +184,7 @@
 	function replyDelete(reply_id) {
 		$.ajax({
 			type : 'delete',
-			url : '${pageContext.request.contextPath}/reply/delete/' + reply_id,
+			url : '${pageContext.request.contextPath}/reply/' + reply_id,
 			success : function(data) {
 				console.log('삭제확인');
 				getAllList();
@@ -192,17 +192,19 @@
 		});
 	};
 
-	function replyModify(reid) { //댓글 수정확인 누를시
-		var reply_con = $('#replyInput' + reid).val();
+	function replyModify(reply_id) { //댓글 수정확인 누를시
+		var reply_con = $('#replyInput' + reply_id).val();
 
 		$.ajax({
-			type : 'get',
-			url : '${pageContext.request.contextPath}/reply/modify',
-			dataType : 'text',
-			data : {
-				reply_id : reid,
-				reply_con : reply_con
+			type : 'put',
+			url : '${pageContext.request.contextPath}/reply/' + reply_id,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "put"
 			},
+			data : JSON.stringify({
+				reply_con : reply_con
+			}),
 			success : function(data) {
 				console.log('수정확인');
 				getAllList();
