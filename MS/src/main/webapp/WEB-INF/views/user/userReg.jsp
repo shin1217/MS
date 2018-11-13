@@ -206,9 +206,9 @@ body {
 	// 아이디 유효성 검사(1 = 중복 / 0 != 중복)
 	$("#user_id").blur(function() {
 		// id = "id_reg" / name = "userId"
-		var id = $('#user_id').val();
+		var user_id = $('#user_id').val();
 		$.ajax({
-			url : '${pageContext.request.contextPath}/user/idCheck?userId='+ id,
+			url : '${pageContext.request.contextPath}/user/idCheck?userId='+ user_id,
 			type : 'get',
 			success : function(data) {
 				console.log("1 = 중복o / 0 = 중복x : "+ data);							
@@ -220,16 +220,17 @@ body {
 						$("#reg_submit").attr("disabled", true);
 					} else {
 						
-						if(idJ.test(id)){
+						if(idJ.test(user_id)){
 							// 0 : 아이디 길이 / 문자열 검사
 							$("#id_check").text("멋진 아이디네요!");
 							$("#id_check").css("color", "blue");
 							$("#reg_submit").attr("disabled", false);
 				
-						} else if(id == ""){
+						} else if(user_id == ""){
 							
 							$('#id_check').text('아이디를 입력해주세요 :)');
-							$("#reg_submit").attr("disabled", false);				
+							$('#id_check').css('color', 'red');
+							$("#reg_submit").attr("disabled", true);				
 							
 						} else {
 							

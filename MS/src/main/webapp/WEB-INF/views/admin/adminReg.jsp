@@ -112,29 +112,53 @@ body {
 	</div>
 </body>
 <script>
-	// <회원가입> 중복 유효성 검사(1 = 중복 / 0 != 중복)
-	var idChk = 0;
 
+	//아이디 정규식
+	var idJ = /^[a-z0-9]{4,12}$/;
+	// 비밀번호 정규식
+	var pwJ = /^[A-Za-z0-9]{6,12}$/;
+	// 이름 정규식
+	var nameJ = /^[가-힣]{1,6}$/;;
+	// 휴대폰 번호 정규식
+	var phoneJ = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/g;
+	
+	// <회원가입> 중복 유효성 검사(1 = 중복 / 0 != 중복)
 	$("#admin_id").blur(function() {
 		// id = "id_reg" / name = "admin_id"
+		var amdin_id = $('#admin_id').val();
 		$.ajax({
-			url : '${pageContext.request.contextPath}/admin/idCheck?adminId='+$("#admin_id").val(),
+			url : '${pageContext.request.contextPath}/admin/idCheck?adminId='+amdin_id,
 			type : 'get',
 			success : function(data) {
 			console.log("1 = 중복o / 0 = 중복x : "+ data);
-				if (data == 1) {// 1 : 아이디가 중복되는 경우
-					$("#id_check").text("아이디가 존재하니다 :(");
-					$("#id_check").css("color", "red");
-					$("#admin_id").focus();
-					$("#reg_submit").attr("disabled", true);
+					if (data == 1) {
+						// 1 : 아이디가 중복되는 문구
+						$("#id_check").text("아이디가 존재하니 다른 아이디를 사용해주세요 :p");
+						$("#id_check").css("color", "red");
+						$("#reg_submit").attr("disabled", true);
+					} else {	
+
+						if(idJ.test(amdin_id)){
+							// 0 : 아이디 길이 / 문자열 검사
+							$("#id_check").text("멋진 아이디네요!");
+							$("#id_check").css("color", "blue");
+							$("#reg_submit").attr("disabled", false);
+	
+					} else if(amdin_id == ""){
 					
-				} else {// 0 : 아이디 길이, 문자열 검사
-					$("#id_check").text("성공을 부르는 아이디네요 :p");
-					$("#id_check").css("color", "blue");
-					$("#reg_submit").attr("disabled", false);
+						$('#id_check').text('아이디를 입력해주세요 :)');
+						$('#id_check').css('color', 'red');
+						$("#reg_submit").attr("disabled", true);				
+				
+					} else {
+				
+						$('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다 :) :)");
+						$('#id_check').css('color', 'red');
+						$("#reg_submit").attr("disabled", false);
+					}
 				}
-			},
-			error : function() {console.log("실패");
+			},error : function() {
+					console.log("실패");
 			}
 		});
 	});
@@ -145,7 +169,6 @@ body {
 		if($("#admin_pw").val() != $(this).val()){
 			$("#pw_check").text("비밀번호가 일치하지 않습니다 :(");
 			$("#pw_check").css("color", "red");
-			$(this).focus();
 			$("#reg_submit").attr("disabled", true);
 			
 		} else {
