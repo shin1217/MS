@@ -12,31 +12,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.ms.user.service.UserLoginService;
 
-
 @Controller
 public class UserLoginController {
 
 	@Autowired
 	private UserLoginService login_service;
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String userLogin() {
-		
+	public String userLogin(HttpSession session) {
+		session.invalidate();
 		return "user/userLogin";
 	}
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	@ResponseBody 			 /*String으로 받으면 자동으로 map형태로 받음 그러나 객체형태로 받는게 관리하기 편함*/
-	public int userLoingPass(String user_id, String user_pw, int store_id, HttpSession httpSession, HttpServletRequest request, HttpServletResponse response) {
-		
+	@ResponseBody /* String으로 받으면 자동으로 map형태로 받음 그러나 객체형태로 받는게 관리하기 편함 */
+	public int userLoingPass(String user_id, String user_pw, int store_id, HttpSession httpSession,
+			HttpServletRequest request, HttpServletResponse response) {
+
 		// userLogin.jsp에서 아이디기억하기 name값(remember) 가져오기
 		String user_check = request.getParameter("remember_userId");
 		System.err.println(user_check);
 		int result = login_service.userLogin_service(user_id, user_pw, store_id, httpSession, user_check, response);
-		
-		
-		
+
 		return result;
 	}
-	
+
 }
