@@ -35,6 +35,8 @@ public interface UserDaoInterface {
 	/* 유저게시판 */
 	List<UserBoardReplyVO> getUserBoardReplyListI(int uboard_id);
 	int UserBoardReplyInsertI(UserBoardReplyVO userBoardReplyVO);
+	int UserBoardReplyDeleteI(int uboard_reply_id);
+	int UserBoardReplyModifyI(UserBoardReplyVO userBoardReplyVO);
 	
 	/*시간충전*/
 	int updateUserAddTime(long useTime, long addTime, int seatId, String userId);

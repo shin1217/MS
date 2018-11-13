@@ -23,4 +23,18 @@
 
 	</insert>
 
+	<delete id="UserBoardReplyDeleteI" parameterType="int">
+
+		delete from
+		userreply where uboard_reply_id=#{uboard_reply_id}
+
+	</delete>
+
+	<update id="UserBoardReplyModifyI" parameterType="UserBoardReplyVO" >
+
+		update userreply
+		set uboard_reply_con = #{uboard_reply_con}
+		where uboard_reply_id = #{uboard_reply_id}
+
+	</update>
 </mapper>

@@ -46,4 +46,30 @@ public class UserBoardReplyService {
 		}
 		return resultCnt;
 	}
+
+	public int UserBoardReplyDeleteS(int uboard_reply_id) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int resultCnt = 0;
+		try {
+			resultCnt = userDaoInterface.UserBoardReplyDeleteI(uboard_reply_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultCnt;
+	}
+
+	public int UserBoardReplyModifyS(UserBoardReplyVO userBoardReplyVO) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int resultCnt = 0;
+		try {
+			resultCnt = userDaoInterface.UserBoardReplyModifyI(userBoardReplyVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultCnt;
+	}
 }

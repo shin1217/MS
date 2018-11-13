@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +29,29 @@ public class UserBoardReplyController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public int UserBoardReply(UserBoardReplyVO userBoardReplyVO) {
+	public int UserBoardReplyWrite(UserBoardReplyVO userBoardReplyVO) {
 
 		int resultCnt = userBoardReplyService.UserBoardReplyInsertS(userBoardReplyVO);
 
+		return resultCnt;
+	}
+
+	@RequestMapping(value = "/{uboard_reply_id}", method = RequestMethod.DELETE)
+	public int UserBoardReplyDelete(@PathVariable("uboard_reply_id") int uboard_reply_id) {
+
+		int resultCnt = userBoardReplyService.UserBoardReplyDeleteS(uboard_reply_id);
+
+		return resultCnt;
+	}
+
+	@RequestMapping(value = "/{uboard_reply_id}", method = RequestMethod.PUT)
+	public int UserBoardReplyModify(@PathVariable("uboard_reply_id") int uboard_reply_id,
+			@RequestBody UserBoardReplyVO userBoardReplyVO) {
+
+		userBoardReplyVO.setUboard_reply_id(uboard_reply_id);
+
+		int resultCnt = userBoardReplyService.UserBoardReplyModifyS(userBoardReplyVO);
+		System.out.println(userBoardReplyVO);
 		return resultCnt;
 	}
 }

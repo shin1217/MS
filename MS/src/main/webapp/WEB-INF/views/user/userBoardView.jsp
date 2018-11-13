@@ -134,8 +134,8 @@
 		<c:if test="${sessionScope.userSession != NULL}">
 			<div class="md-form mt-4">
 				<label for="UserBoardReplyFormComment">댓글 입력</label>
-				<textarea class="form-control md-textarea"
-					id="UserBoardReplyFormComment" rows="1"></textarea>
+				<textarea  class="form-control md-textarea"
+					id="UserBoardReplyFormComment" rows="1" ></textarea>
 				<div class="text-center my-4">
 					<button id="UserBoardCommentSubmit"
 						class="btn btn-default btn-sm btn-rounded">댓글 입력</button>
@@ -198,16 +198,8 @@
 
 						//수정삭제버튼
 						if (  ("${sessionScope.adminSession}" != "") || ("${sessionScope.userSession.user_id}" == item.user_id)  ) {
-							uboard_reply += '<button id="UserBoardReplyDeleteBtn'
-										+ item.uboard_reply_id
-										+ '" onclick="UserBoardReplyDelete('
-										+ item.uboard_reply_id
-										+ ')" type="button" class="btn btn-danger px-3 float-right"><i class="fa fa-trash" aria-hidden="true"></i></button>';
-							uboard_reply += '<button id="UserBoardReplyEditBtn'
-										+ item.uboard_reply_id
-										+ '" onclick="UserBoardReplyEdit('
-										+ item.uboard_reply_id
-										+ ')" type="button" class="btn btn-primary px-3 float-right"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>';
+							uboard_reply += '<button id="UserBoardReplyDeleteBtn' + item.uboard_reply_id + '" onclick="UserBoardReplyDelete('+ item.uboard_reply_id + ')" type="button" class="btn btn-danger px-3 float-right"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+							uboard_reply += '<button id="UserBoardReplyEditBtn'	+ item.uboard_reply_id + '" onclick="UserBoardReplyEdit(' + item.uboard_reply_id + ')" type="button" class="btn btn-primary px-3 float-right"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>';
 						}
 
 						uboard_reply += '<a class="text-default">'
@@ -228,23 +220,69 @@
 		//자동정렬 주의
 		var store_id = "${sessionScope.userSession.store_id}"; //세션에서 store_id를 가져옴	
 		//자동정렬 주의
+		
+		if(uboard_reply_con){
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/user/userBoard/reply',
+				dataType : 'text',
+				data : {
+					uboard_id : uboard_id,
+					user_id : user_id,
+					uboard_reply_con : uboard_reply_con,
+					store_id : store_id
+				},
+				success : function(data) {
+				console.log('댓글작성완료');
+				getUserBoardReplyList();
+				$('#UserBoardReplyFormComment').val('');
+				}
+			});	
+		} else {
+			alert("댓글을 입력하세요 XD")
+		}		
+		
+	});
+	
+	function UserBoardReplyDelete(uboard_reply_id) {
 		$.ajax({
-			type : 'post',
-			url : '${pageContext.request.contextPath}/user/userBoard/reply',
-			dataType : 'text',
-			data : {
-				uboard_id : uboard_id,
-				user_id : user_id,
-				uboard_reply_con : uboard_reply_con,
-				store_id : store_id
-			},
+			type : 'delete',
+			url : '${pageContext.request.contextPath}/user/userBoard/reply/' + uboard_reply_id,
 			success : function(data) {
-			console.log('댓글작성완료');
-			getUserBoardReplyList();
-			$('#UserBoardReplyFormComment').val('');
+				console.log('삭제확인');
+				getUserBoardReplyList();
 			}
 		});
-	});
+	};
+	
+
+	function UserBoardReplyModify(uboard_reply_id) { //댓글 수정확인 누를시
+		var uboard_reply_con = $('#UserBoardReplyInput' + uboard_reply_id).val();
+		console.log(uboard_reply_con);
+		$.ajax({
+			type : 'put',
+			url : '${pageContext.request.contextPath}/user/userBoard/reply/' + uboard_reply_id,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "put"
+			},
+			data : JSON.stringify({
+				uboard_reply_con : uboard_reply_con
+			}),
+			success : function(data) {
+				console.log('수정확인');
+				getUserBoardReplyList();
+			}
+		});
+	};
+
+	function UserBoardReplyEdit(urid) { //댓글수정 클릭시
+		$('#UserBoardReplyInput' + urid).attr("readonly", false);
+		$('#UserBoardReplyInput' + urid).focus();
+		$('#UserBoardReplyEditBtn' + urid).find('i').attr("class", "fa fa-check"); //댓글 수정클릭시 모양바뀜
+		$('#UserBoardReplyEditBtn' + urid).attr("onclick", "UserBoardReplyModify(" + urid + ")");
+	};
+	
 </script>
 
 </html>
