@@ -116,13 +116,13 @@ body {
 			<div class="form-group">
 				<label for="user_birth">생년월일</label>
 					<div>
-						<select id="year" name="year" required>
+						<select id="year" name="user_year" required>
 							<option>년</option>
 						</select>
-						<select id="month" name="month" required>
+						<select id="month" name="user_month" required>
 							<option>월</option>
 						</select>
-						<select id="day" name="day" required>
+						<select id="day" name="user_day" required>
 							<option>일</option>
 						</select>
 					</div>
@@ -189,7 +189,7 @@ body {
 	// 비밀번호 정규식
 	var pwJ = /^[A-Za-z0-9]{6,12}$/;
 	// 이름 정규식
-	var nameJ = /^[가-힣a-zA-Z]+$/;;
+	var nameJ = /^[가-힣]{1,6}$/;;
 	// 이메일 검사 정규식
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	// 휴대폰 번호 정규식
@@ -225,44 +225,25 @@ body {
 							$("#id_check").text("멋진 아이디네요!");
 							$("#id_check").css("color", "blue");
 							$("#reg_submit").attr("disabled", false);
-					/* 		$("#reg_submit").click(function() {
-							
-								return true;
-							}); */
+				
 						} else if(id == ""){
 							
 							$('#id_check').text('아이디를 입력해주세요 :)');
-							// 아이디 유효성 검사 메서드(반복 문제 해결)
-							/* $("#reg_submit").unbind("click").bind("click",function() {
-									alert("아이디는 소문자와 숫자 4~12자리만 가능합니다 :)");
-									$('#user_id').focus();
-									
-									return false;
-								}); */
+							$("#reg_submit").attr("disabled", false);				
 							
 						} else {
 							
 							$('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다 :) :)");
 							$('#id_check').css('color', 'red');
-/* 							$("#reg_submit").unbind("click").bind("click",function() {
-								alert("아이디는 소문자와 숫자 4~12자리만 가능합니다 :)");
-								$('#user_id').focus();
-								
-								return false;
-							}); */
-							
+							$("#reg_submit").attr("disabled", false);
 						}
 						
 					}
-					}, error : function() {
-						
+				}, error : function() {
 						console.log("실패");
-					
-					}
-
-				});
-
+				}
 			});
+		});
 	// 비밀번호 유효성 검사
 	// 1-1 정규식 체크
 	$('#user_pw').blur(function() {
@@ -274,8 +255,8 @@ body {
 			$('#pw_check').text('숫자 or 문자로 6~12자리 입력');
 			$('#pw_check').css('color', 'red');
 		}
-
 	});
+	
 	// 1-2 패스워드 일치 확인
 	$('#user_pw2').blur(function() {
 		if ($('#user_pw').val() != $(this).val()) {
@@ -288,20 +269,19 @@ body {
 
 	// 이름에 특수문자 들어가지 않도록 설정
 	$("#user_name").blur(function() {
-		if (nameJ.test($('#user_name').val())) {
-				console.log(nameJ.test($('#user_name').val()));
+		if (nameJ.test($(this).val())) {
+				console.log(nameJ.test($(this).val()));
 				$("#name_check").text('');
 		} else {
 			$('#name_check').text('이름을 확인해주세요');
 			$('#name_check').css('color', 'red');
 		}
-
 	});
 	
 	// 이메일
 	$('#user_email').blur(function(){
-		if(mailJ.test($('#user_email').val())){
-			console.log(nameJ.test($('#user_email').val()));
+		if(mailJ.test($(this).val())){
+			console.log(nameJ.test($(this).val()));
 			$("#email_check").text('');
 		} else {
 			$('#email_check').text('이메일을 확인해주세요 :)');
@@ -311,15 +291,13 @@ body {
 		
 	// 휴대전화
 	$('#user_phone').blur(function(){
-		if(mailJ.test($('#user_phone').val())){
-			console.log(nameJ.test($('#user_phone').val()));
+		if(mailJ.test($(this).val())){
+			console.log(nameJ.test($(this).val()));
 			$("#phone_check").text('');
 		} else {
 			$('#phone_check').text('번호를 확인해주세요 :)');
 			$('#phone_check').css('color', 'red');
 		}
-		
-		
 	});
 
 	// 가입하기 실행 버튼 유효성 검사!
@@ -361,7 +339,6 @@ body {
 			}
 			
 		});
-		
 		
 </script>
 

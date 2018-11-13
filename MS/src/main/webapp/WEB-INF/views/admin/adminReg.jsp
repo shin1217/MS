@@ -125,20 +125,13 @@ body {
 				if (data == 1) {// 1 : 아이디가 중복되는 경우
 					$("#id_check").text("아이디가 존재하니다 :(");
 					$("#id_check").css("color", "red");
-					$("#reg_submit").click(function(){
-						alert("아이디를 변경해주세요 :(");
-						$("#admin_id").focus();
-						
-						return false;
-					});
+					$("#admin_id").focus();
+					$("#reg_submit").attr("disabled", true);
 					
 				} else {// 0 : 아이디 길이, 문자열 검사
 					$("#id_check").text("성공을 부르는 아이디네요 :p");
 					$("#id_check").css("color", "blue");
-					$("#reg_submit").click(function(){
-						
-						return true;
-					});
+					$("#reg_submit").attr("disabled", false);
 				}
 			},
 			error : function() {console.log("실패");
@@ -152,21 +145,13 @@ body {
 		if($("#admin_pw").val() != $(this).val()){
 			$("#pw_check").text("비밀번호가 일치하지 않습니다 :(");
 			$("#pw_check").css("color", "red");
-			$("#reg_submit").click(function(){
-				
-				alert("비밀번호를 일치시켜주세요 :(");
-				$("#admin_pw").focus();
-				
-				return false;
-			});
+			$(this).focus();
+			$("#reg_submit").attr("disabled", true);
 			
 		} else {
 			$("#pw_check").text("양식에 맞게 잘 기입하고 계십니다 :p");
 			$("#pw_check").css("color", "blue");
-			$("#reg_submit").click(function(){
-			
-				return true;
-			});
+			$("#reg_submit").attr("disabled", false);
 		}
 	});
 	

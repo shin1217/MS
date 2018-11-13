@@ -6,8 +6,8 @@
 
 	<!-- Admin 회원가입 -->
 	<insert id="regAdmin" parameterType="AdminVO">
-		insert into admininfo(admin_id, admin_pw, admin_name, admin_phone, admin_birth, store_id)
-		values (#{admin_id}, #{admin_pw}, #{admin_name}, #{admin_phone}, #{admin_birth}, #{store_id})
+		insert into admininfo(admin_id, admin_pw, admin_name, admin_phone)
+		values (#{admin_id}, #{admin_pw}, #{admin_name}, #{admin_phone})
 	</insert>
 
 	<!-- Admin 아이디 중복 검사 -->
