@@ -11,11 +11,13 @@ public class SalesVO {
 	private int sales_seat;
 	private int sales_id;
 	private int store_id;
+	private int salesDate;
 	
 	@Override
 	public String toString() {
 		return "SalesVO [sales_day=" + sales_day + ", sales_total=" + sales_total + ", sales_food=" + sales_food
-				+ ", sales_seat=" + sales_seat + ", sales_id=" + sales_id + ", store_id=" + store_id + "]";
+				+ ", sales_seat=" + sales_seat + ", sales_id=" + sales_id + ", store_id=" + store_id + ", salesDate="
+				+ salesDate + "]";
 	}
 
 	public String getSales_day() {
@@ -64,6 +66,14 @@ public class SalesVO {
 
 	public void setStore_id(int store_id) {
 		this.store_id = store_id;
+	}
+
+	public int getSalesDate() {
+		return salesDate;
+	}
+
+	public void setSalesDate(int salesDate) {
+		this.salesDate = salesDate;
 	}
 	
 }

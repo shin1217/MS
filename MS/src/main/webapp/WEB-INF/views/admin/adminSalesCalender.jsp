@@ -31,7 +31,7 @@
 	int month = cal.get(Calendar.MONTH);
 	int date = cal.get(Calendar.DATE);
 	
-	String dateToday = "year" + "month" + "date";
+	String dateToday = Integer.toString(year) + Integer.toString(month+1) + "01";
 
 	if(strYear != null) {
 		year = Integer.parseInt(strYear);
@@ -127,31 +127,44 @@
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td align="center" >
+					
+						<!-- 이전해 -->
 						<a href="<c:url value='/admin/salesCalender' />?year=<%=year-1%>&amp;month=<%=month%>" target="_self">
-							<!-- 이전해 -->
 							<b><img src="${pageContext.request.contextPath}/images/ArrowDouble_Left.png" style="width: 30px; height: 30px;"/></b>
 						</a>
+						
+						<!-- 이전달 -->
 						<%if(month > 0 ){ %>
 						<a href="<c:url value='/admin/salesCalender' />?year=<%=year%>&amp;month=<%=month-1%>" target="_self">
-							<!-- 이전달 -->
 							<b><img src="${pageContext.request.contextPath}/images/Arrow_Left.png" style="width: 28px; height: 28px;"/></b>
 	                    </a>
+	                    
+	                    <!-- 1월에서의 이전달 -->
 	                    <%} else {%>
+	                    	<a href="<c:url value='/admin/salesCalender' />?year=<%=year-1%>&amp;month=<%=month+11%>" target="_self">							
 							<b><img src="${pageContext.request.contextPath}/images/Arrow_Left.png" style="width: 28px; height: 28px;"/></b>
+							</a>
 	                    <%} %>
 	                    	<span class="sales_date">&nbsp;&nbsp; <%=year%>년 <%=month+1%>월 &nbsp;&nbsp;</span>
+	                    
+	                    <!-- 다음달 -->
 	                    <%if(month < 11 ){ %>
 						<a href="<c:url value='/admin/salesCalender' />?year=<%=year%>&amp;month=<%=month+1%>" target="_self">
-	                    	<!-- 다음달 -->
 	                    	<b><img src="${pageContext.request.contextPath}/images/Arrow_Right.png" style="width: 28px; height: 28px;"/></b>
 						</a>
+						
+						<!-- 12월에서의 다음달 -->
 						<%}else{%>
+							<a href="<c:url value='/admin/salesCalender' />?year=<%=year+1%>&amp;month=<%=month-11%>" target="_self">	
 							<b><img src="${pageContext.request.contextPath}/images/Arrow_Right.png" style="width: 28px; height: 28px;"/></b>
+							</a>
+							
+						<!-- 다음해 -->
 						<%} %>
 						<a href="<c:url value='/admin/salesCalender' />?year=<%=year+1%>&amp;month=<%=month%>" target="_self">
-							<!-- 다음해 -->
 							<b><img src="${pageContext.request.contextPath}/images/ArrowDouble_Right.png" style="width: 30px; height: 30px;"/></b>
 	                    </a>
+	                    
 					</td>
 				</tr>
 			</table>
@@ -161,6 +174,7 @@
 	
 	<table>
 		<thead>
+			<!-- 달력 머리부분 -->
 			<tr bgcolor="#CECECE">
 				<td class="sales_Table" width="100px" height="40px">
 					<div align="center" style="font-weight: bold;"><font color="red">일</font></div>
@@ -190,7 +204,9 @@
 		
 				<%-- <fmt:formatDate value="${sales.sales_day}" type pattern="yyyyMMdd" /> --%>
 			
+			<!-- 달력 몸통부분 -->
 				<tr>
+				<!-- 날짜 시작전 공백 만들기 -->
 					<c:forEach var="i" begin="1" end="${ start }">
 						<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap></td>
 						<c:set var="newLine" value="${newLine + 1}" />
@@ -198,9 +214,12 @@
 					
 					<c:forEach var="i" begin="1" end="${ endDay }">
 						<c:set var="index" value="${index + 1}"></c:set>
+						<c:set var="dateToday" value="${dateToday + 1}"></c:set>
 						
 						<c:choose> 
-							<c:when test="${ dateToday eq 'intToday'}"> 
+						
+							<%-- 오늘 날짜 칸 만들기 --%>
+							<c:when test="${ date eq index}"> 
 									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap bgcolor="#C8C8C8">
 									<p><font style="font-weight: bold; color: PURPLE;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: #282828;">
@@ -209,7 +228,7 @@
 									<c:set var="total" value="0"></c:set>
 									
 									<c:forEach items="${ salesList }" var="sales">
-										<c:if test="${ index eq sales.sales_day }">
+										<c:if test="${ dateToday eq salesDate }">
 											<%-- 총 매출 : ${ sales.sales_total }
 											음식 매출 : ${ sales.sales_food }
 											좌석 매출 : ${ sales.sales_seat } --%>
@@ -222,6 +241,7 @@
 									</a></font></p></td>
 							</c:when> 
 						
+							<%-- 일요일 날짜 칸 만들기 --%>
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 1}"> 
 									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: RED;">${ index }</font></p>
@@ -231,7 +251,7 @@
 									<c:set var="total" value="0"></c:set>
 									
 									<c:forEach items="${ salesList }" var="sales">
-										<c:if test="${ index eq sales.sales_day }">
+										<c:if test="${ dateToday eq salesDate }">
 											<%-- 총 매출 : ${ sales.sales_total }
 											음식 매출 : ${ sales.sales_food }
 											좌석 매출 : ${ sales.sales_seat } --%>
@@ -244,6 +264,7 @@
 									</a></font></p></td>
 							</c:when> 
 							
+							<%-- 토요일 날짜 칸 만들기 --%>
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 0}"> 
 									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: #529DBC;">${ index }</font></p>
@@ -253,7 +274,7 @@
 									<c:set var="total" value="0"></c:set>
 									
 									<c:forEach items="${ salesList }" var="sales">
-										<c:if test="${ index eq sales.sales_day }">
+										<c:if test="${ dateToday eq salesDate }">
 											<%-- 총 매출 : ${ sales.sales_total }
 											음식 매출 : ${ sales.sales_food }
 											좌석 매출 : ${ sales.sales_seat } --%>
@@ -266,6 +287,7 @@
 									</a></font></p></td>
 							</c:when> 
 							
+							<%-- 평일 날짜 칸 만들기 --%>
 							<c:otherwise> 
 									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: BLACK;">${ index }</font></p>
@@ -275,11 +297,13 @@
 									<c:set var="total" value="0"></c:set>
 									
 									<c:forEach items="${ salesList }" var="sales">
+									<h1>${sales.salesDate }</h1>
 										<c:if test="${ index eq sales.sales_day }">
 											<%-- 총 매출 : ${ total }
 											음식 매출 : ${ sales.sales_food }
 											좌석 매출 : ${ sales.sales_seat } --%>
 											<c:set var="total" value="${total + sales.sales_total}"></c:set>
+											
 										</c:if>
 									</c:forEach>
 										<c:if test="${total != 0 }">
@@ -293,6 +317,7 @@
 							${ sales.sales_total }
 							</c:if> --%>
 							
+						<!-- 칸이 7개 만들어지면 아랫줄로 넘기기 -->
 						<c:if test="${((i-(8-firstDayOfWeek)) % 7) == 0}">
 							<tr>
 							</tr>
@@ -300,6 +325,7 @@
 						
 					</c:forEach>
 					
+					<!-- 날짜 채운후 공백 만들기 -->
 					<c:if test="${ lastDayOfLastWeek != '7' }">
 						<c:forEach var="i" begin="1" end="${ 7-lastDayOfLastWeek }">
 							<td class="sales_Table" width="100px" height="80px" valign="top" align="right" nowrap>
@@ -321,6 +347,8 @@
 	<h1>${lastDayOfLastWeek}</h1>
 	<h1>${firstDayOfWeek}</h1>
 	<h1>${date }</h1>
+	<h1>${admin.store_Id }</h1>
+	salesDate
 	
 </div>
 
@@ -388,10 +416,14 @@
 		$('.salesText').click(function() {
 			var salesText = '';
 			var indexId = $(this).attr('value');
+			var storeId = ${storeSelectSession.store_id};
 			//console.log(getText);
 			$.ajax({
 				type : 'get',
 				url : '${pageContext.request.contextPath}/admin/salesInfo/' + indexId,
+				data : {
+					storeId : storeId
+				},
 				success : function(data) {
 					// console.log(data);
 					// console.log(data.length);
