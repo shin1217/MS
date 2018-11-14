@@ -21,8 +21,6 @@ public class AdminStoreChoiceController {
 	@RequestMapping(value = "/admin/storeChoice", method = RequestMethod.GET)
 	public String storeChoiceForm(@Param("id") String id, Model model) {
 
-		System.out.println(id);
-		
 		List<StoreVO> result = adminUserListService.getStoreName(id);
 		
 		model.addAttribute("store", result);

@@ -50,22 +50,22 @@ body {
 	<div class="full">
 		<div class="container">
 			<div class="area_inputs">
-				<div class="input-group">	
+				<div class="input-group">
 					<c:if test="${!empty store}">
-					<select class="custom-select">
-						<option selected>매장을 선택해주세요.</option>
+					<select id="storeList" class="custom-select">
+						<option value="0" selected>매장을 선택해주세요.</option>
 					<c:forEach items="${store}" var="store">
 						<option value="${store.store_id}">${store.store_name}</option>
 					</c:forEach>
 					</select>
 					<div class="input-group-append">
-						<a class="btn btn-secondary" href="${pageContext.request.contextPath}/admin/main">접속하기</a>
+						<button id="connectionBtn" type="button" class="btn btn-secondary">접속하기</button>
 					</div>
 					</c:if>
 				</div>
 				<div class="form-group">
 					<div>
-						<button id="storeBtn" type="submit"	class="btn btn-danger btn-block">+매장등록</button>
+						<button id="storeBtn" type="button"	class="btn btn-danger btn-block">+매장등록</button>
 					</div>
 				</div>
 			</div>
@@ -73,6 +73,12 @@ body {
 	</div>
 </body>
 <script>
-
+	$('#connectionBtn').click(function (){
+		if($('#storeList').val() == 0){ //매장을 선택해야만 메인페이지로 이동
+			$('#spanStoreCheck').text('매장을 선택해주세요.');
+		} else {
+			location.href="${pageContext.request.contextPath}/admin/main";
+		} 
+	});
 </script>
 </html>
