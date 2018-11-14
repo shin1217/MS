@@ -41,9 +41,12 @@
 				<li class="nav-item" style="font-size: 0.7em">
 					<select id="storeList" class="custom-select">
 						<c:forEach items="${storeSession}" var="store" varStatus="status">
-							<option value="${status.index}">${store.store_name}</option>
+							<option value="${status.index}"
+								<c:if test="${store.store_name eq storeSelectSession.store_name}"> 전체스토어세션 이름 중에 선택한 스토어세션 매장이름을 비교하여 selected
+							selected
+							</c:if>>${store.store_name}</option>
 						</c:forEach>
-					</select>
+				</select>
 				</li>
 			</c:if>
 			<c:if test="${!empty userSession}">
