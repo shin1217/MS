@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.model.StoreVO;
@@ -39,35 +38,30 @@ public class MemberMessageController {
 		return service.getMessageList(store_name, receive_id);
 	}
 	//사용자의 매장아이디를 조건으로 메시지 리스트를 뽑음
-	/*@RequestMapping(value = "user/message")
-	public ModelAndView getUserMessageList(HttpSession session) {
+	@RequestMapping(value = "user/message", method = RequestMethod.GET)
+	public @ResponseBody List<MessageVO> getUserMessageList(HttpSession session) {
 		
 		//세션에서 받는사람 아이디와 매장아이디를 불러옴
 		UserVO userVo = (UserVO) session.getAttribute("userSession");
 		String receive_id = userVo.getUser_id(); //받는사람 아이디
-		String store_id = Integer.toString(userVo.getStore_id()); //매장 아이디(string타입으로 형변환)
 				
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("list", service.getMessageList(receive_id, store_id));
-		mv.setViewName("user/userMain");
+		return service.getUserMessageList(receive_id);
 				
-		return mv;
-	}*/
+	}
 	// 메시지 쓰기
-	@RequestMapping(value = "member/writeMessage", method = RequestMethod.POST)
-	public String writeMessage(MessageVO messageVo) {
+	@RequestMapping(value = "member/writeMessage")
+	public @ResponseBody int writeMessage(MessageVO messageVo) {
 		System.out.println("메시지 작성 성공 : " + messageVo);
-		service.messageWrite(messageVo);
+
+		return service.messageWrite(messageVo);
 		
-		return "admin/adminMain";
 	}
 	//메시지 삭제
 	@RequestMapping(value = "member/deleteMessage/{id}")
-	public String deleteMessage(@PathVariable("id") int message_id) {
+	public @ResponseBody int deleteMessage(@PathVariable("id") int message_id) {
 	
-		service.messageDelete(message_id);
+		return service.messageDelete(message_id);
 		
-		return "admin/adminMain";
 	}
 	
 	//메시지를 읽었을경우

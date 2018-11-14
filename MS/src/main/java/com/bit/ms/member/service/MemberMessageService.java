@@ -35,6 +35,14 @@ public class MemberMessageService {
 		
 		return list;
 	}
+	//사용자의 메시지리스트 가져오는 메서드
+	public List<MessageVO> getUserMessageList(String receive_id){
+		
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		List<MessageVO> list = memberDao.userMessageList(receive_id); //받아온 메시지를 리스트에 담음
+		
+		return list;
+	}
 	//메시지를 쓰는 메서드
 	public int messageWrite(MessageVO messageVo) {
 		
@@ -43,10 +51,10 @@ public class MemberMessageService {
 		
 	}
 	//메시지 삭제하는 메서드
-	public void messageDelete(int message_id) {
+	public int messageDelete(int message_id) {
 		
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
-		memberDao.deleteMessage(message_id);
+		return memberDao.deleteMessage(message_id);
 		
 	}
 	//메시지 읽은것을 확인하는 메서드

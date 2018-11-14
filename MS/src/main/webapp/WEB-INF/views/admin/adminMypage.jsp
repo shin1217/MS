@@ -478,7 +478,7 @@
                </tr>
                <tr id = "">
                   <th>회원아이디</th>
-                  <td><input type = "text" name = "admin_id" id = "adminMypage_editUserId" value = "${admin.admin_id }" readonly></td>
+                  <td><input type = "text" style = "background-color : darkgrey;" name = "admin_id" id = "adminMypage_editUserId" value = "${admin.admin_id }" readonly></td>
                </tr>
                <tr>
                   <th>이름</th>
@@ -517,8 +517,7 @@
          $('#adminMypage_editOkBtn').click(function(){
             if($('#adminMypage_editName').val() != "" 
             	&& $('#adminMypage_editPw').val() != ""
-            	&& $('#adminMypage_editPhone').val() != ""
-            	&& $('#adminMypage_editBirth').val() != ""){
+            	&& $('#adminMypage_editPhone').val() != ""){
         	 $.ajax({
                url : '${pageContext.request.contextPath}' + '/admin/adminEdit',
                type : 'post',

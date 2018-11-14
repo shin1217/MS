@@ -22,13 +22,14 @@
 }
 .messageWrap, .messageWriteWrap{
 	position : absolute;
-	top : 10%;
+	top : 5%;
 	left : 50%;
 	width : 700px;
 	background-color : white;
 	text-align : center;
 	border-radius: 10px;
 	margin-left : -350px;
+	overflow : overlay;
 }
 .messageListTitle{
 	margin-top : 30px;
@@ -59,12 +60,12 @@
 	margin-bottom: 40px !important;
 }
 .messageTitle {
-	margin-top: 20%;
+	margin-top: 10%;
 	font-size : 35px;
 	font-weight : bold;
 }
 hr{
-	margin-bottom : 50px !important;
+	margin-bottom : 60px !important;
 }
 #userId {
 	background-color : darkgray;
@@ -150,7 +151,7 @@ hr{
 	position : absolute;
 	left : 25px;
 	top : 100px;
-	height : 30px;
+	height : 35px;
 }
 </style>
 </head>
@@ -307,7 +308,6 @@ hr{
 								$('#replyBtn').click(function(){
 								$.ajax({
 									url : '${pageContext.request.contextPath}' + '/member/writeMessage',
-									type : 'post',
 									data : {
 										send_id : $('#send_id').val(),
 										receive_id :receive_id,
@@ -373,7 +373,6 @@ hr{
 			console.log($('#sendList option:selected').attr("id"));
 			$.ajax({
 				url : '${pageContext.request.contextPath}' + '/member/writeMessage',
-				type : 'post',
 				data : { //보내는사람, 받는사람, 받는사람의 매장아이디, 제목, 내용
 					send_id : $('#send_id').val(),
 					receive_id : send_id,
