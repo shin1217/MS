@@ -6,7 +6,7 @@
  <mapper namespace="com.bit.ms.dao.AdminDaoInterface">
  
  	<select id="listAll" resultType="salesVO">
- 		select sales_id, DATE_FORMAT(sales_day,'%d') sales_day, sales_total, sales_food, sales_seat, store_id from sales;
+ 		select sales_id, DATE_FORMAT(sales_day,'%Y%m%d') salesDate, DATE_FORMAT(sales_day,'%d') sales_day, sales_total, sales_food, sales_seat, store_id from sales;
  	</select>
  	
  	<select id="listSales" resultType="salesVO">
