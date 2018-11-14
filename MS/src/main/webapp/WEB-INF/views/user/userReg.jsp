@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,13 +130,15 @@ body {
 				<div class="check_font"></div>
 			</div>
 			<!-- 본인확인 이메일 -->
-			<label for="user_email">이메일</label>
-			<div class="form-inline">
-				<input type="text" class="email_form" name="user_email" id="user_email" placeholder="E-mail" required>
-					<button type="button" class="btn btn-outline-info waves-effect px-3 inI">
-						<i class="fa fa-envelope"></i>&nbsp;인증
-					</button>
-				<div class="check_font" id="email_check"></div>
+			<div class="form-group">
+				<label for="user_email">이메일</label>
+				<div class="form-inline">
+					<input type="text" class="email_form" name="user_email" id="user_email" placeholder="E-mail" required>
+						<button type="button" class="btn btn-outline-info waves-effect px-3 inI">
+							<i class="fa fa-envelope"></i>&nbsp;인증
+						</button>
+					<div class="check_font" id="email_check"></div>
+				</div>
 			</div>
 			<!-- 휴대전화 -->
 			<div class="form-group">
@@ -145,21 +148,25 @@ body {
 				<div class="check_font" id="phone_check"></div>
 			</div>
 
-			<div>
-				<span>가입하실 매장을 선택해주세요.</span> <select name="store_id">
-					<option value="1">MS 스터디카페</option>
-					<option value="2">MS PC방</option>
-					<option value="3">MS 코인노래방</option>
-				</select>
+			<div class="form-group">
+				<span>방문한 매장은 어디신가요?</span>&emsp;
+					<c:if test="${!empty store_list }">
+						<select name="store_id">
+							<option value="-1" disabled selected>매장을 선택해주세요</option>
+						<c:forEach var="storelist" items="${store_list }">
+							<option value="${storelist.store_id }">${storelist.store_name }</option>
+						</c:forEach>
+					</select>
+				</c:if>
 			</div>
 			<div class="reg_button">
-				<button type="submit" class="btn btn-primary px-3" id="reg_submit">
-					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
-				</button>&emsp;&emsp;
 				<a class="btn btn-danger px-3"
 					href="${pageContext.request.contextPath}"> <i
 					class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
-				</a>
+				</a>&emsp;&emsp;
+				<button type="submit" class="btn btn-primary px-3" id="reg_submit">
+					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
+				</button>
 			</div>
 		</form>
 	</div>

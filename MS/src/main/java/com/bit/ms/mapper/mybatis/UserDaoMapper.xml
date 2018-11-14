@@ -65,7 +65,6 @@
    
    		select userphone from user where userphone = #{userPhone}
    		
-   </select>
-   
+   </select>  
    
 </mapper>

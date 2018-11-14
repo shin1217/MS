@@ -73,6 +73,7 @@
 			<exclude-mapping path="/user/login" />
 			<exclude-mapping path="/admin/reg" />
 			<exclude-mapping path="/user/reg" />
+			<exclude-mapping path="/user/userSearch" />
 			<exclude-mapping path="/admin/idCheck" />
 			<exclude-mapping path="/user/idCheck" />
 			<exclude-mapping path="/admin/storeChoice" />

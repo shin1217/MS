@@ -21,7 +21,7 @@ public interface UserDaoInterface {
 	int deleteUser(String user_id);// 유저 삭제
 	int checkOverId(String user_id);// 아이디 중복 체크
 	String checkOverPhoneNum(String userPhone);// 유저 전화번호 중복 체크
-
+	
 	/* 유저게시판 */
 	List<UserBoardVO> UserBoardSelectList(int firstRow);
 	int UserBoardTotalCount();

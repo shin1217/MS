@@ -26,6 +26,7 @@ public interface AdminDaoInterface {
 	StoreVO getStoreDetail(int store_id); //매장 상세정보
 	int addStore(StoreVO storeVo); //매장 추가
 	void deleteStore(int store_id); //소유한 매장삭제하기
+	List<StoreVO> getStoreList();// 매장 정보 가져오기
 	
 	/*공지사항 게시글*/
 	void insertNotice(NoticeVO noticeVO) throws Exception;

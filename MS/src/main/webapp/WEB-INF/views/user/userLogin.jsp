@@ -45,6 +45,14 @@ body {
 	background-size: cover;
 	height: 100%;
 }
+.a_none{
+	font-size: 16px;
+	font-weight: bolder;
+}
+
+.interval_height{
+	margin-bottom: 5px;
+}
 
 .area_inputs {
 	position: absolute;
@@ -74,12 +82,12 @@ body {
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn">
-				<div>
-					<select id="store_id" name="store_id">
-						<option value="1">MS 스터디카페</option>
-						<option value="2">MS PC방</option>
-						<option value="3">MS 코인노래방</option>
-					</select>
+				<div class="">
+					<%-- <select id="store_id" name="store_id">
+						<c:forEach var="list" items="${store}">
+							<option value="#{store.store_id}">${store.store_name}</option>
+						</c:forEach>
+					</select> --%>
 				</div>
 				<div class="form-group">
 					<label class="font-weight-bold text-white" for="inputId">아이디</label>
@@ -96,17 +104,11 @@ body {
 					</div>
 				</div>
 				<div class="form-group">
-					<span class="font-weight-bold text-white bg-dark"
-						id="spanLoginCheck"></span>
-				</div>
-				<div class="form-group">
 					<label class="font-weight-bold text-white"> 
-					
 						<input type="checkbox" id="remember_us" name="remember_userId" ${checked}> 아이디 기억하기
-																				
 					</label>
-					<div class="font-weight-bold text-white">
-						<a href="<%=request.getContextPath()%>/user/userSearch.jsp" target="-blank">&nbsp; 아이디 / 비밀번호 찾기</a>
+					<div class="interval_height a_none">
+						<a href="${pageContext.request.contextPath}/user/userSearch">&nbsp; 아이디 / 비밀번호 찾기</a>
 					</div>
 					<div>
 						<button id="loginBtn" type="button"
@@ -114,7 +116,7 @@ body {
 					</div>
 				</div>
 				<div>
-					<a class="btn btn-primary btn-block"
+					<a class="btn btn-deep-orange btn-block"
 						href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
 			</div>
