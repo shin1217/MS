@@ -40,13 +40,13 @@
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout"><i class="fa fa-unlock-alt" aria-hidden="true"></i>로그아웃</a></li>
 				<li class="nav-item" style="font-size: 0.7em">
 					<select id="storeList" class="custom-select">
+						<!-- 전체스토어세션 매장이름 중에 선택한 스토어세션 매장이름을 비교하여 selected로 만듬 -->
 						<c:forEach items="${storeSession}" var="store" varStatus="status">
-							<option value="${status.index}"
-								<c:if test="${store.store_name eq storeSelectSession.store_name}"> 전체스토어세션 이름 중에 선택한 스토어세션 매장이름을 비교하여 selected
+							<option value="${status.index}" <c:if test="${store.store_name eq storeSelectSession.store_name}"> 
 							selected
 							</c:if>>${store.store_name}</option>
 						</c:forEach>
-				</select>
+					</select>
 				</li>
 			</c:if>
 			<c:if test="${!empty userSession}">
@@ -61,8 +61,13 @@
 </nav>
 <script>
 	$(document).ready(function() {
-		$('#adminBrand').click(function() {
+		//헤더 브랜드이미지 클릭시 메인페이지로 이동
+		$('#adminBrand').click(function() { 
 			location.href="${pageContext.request.contextPath}/admin/main?store=" + $('#storeList').val();
 		});
-	});
+		
+		//셀렉트를 선택하고 다른 옵션을 눌러 상태값이 바뀔때 이벤트 발생(change) -> 메인페이지로 이동
+		$('#storeList').change(function(){
+			location.href="${pageContext.request.contextPath}/admin/main?store=" + $('#storeList').val();		});
+		});
 </script>
