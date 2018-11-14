@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,8 +40,14 @@ public class AdminSeatController {
 	}
 
 	@RequestMapping(value = "/admin/seat/{seat_id}", method = RequestMethod.DELETE)
-	public void deleteSeat(@PathVariable("seat_id") int seat_id) { //좌석 삭제
+	public void deleteSeat(@PathVariable("seat_id") int seat_id) { // 좌석 삭제
 		adminSeatService.deleteSeatS(seat_id);
+	}
+
+	@RequestMapping(value = "/admin/seat/{seat_id}", method = RequestMethod.PUT)
+	public void modifySeat(@RequestBody SeatVO seatVO) { // 좌석 수정
+
+		adminSeatService.modifySeatS(seatVO);
 	}
 
 }

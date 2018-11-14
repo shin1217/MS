@@ -31,14 +31,10 @@
 			<tbody>
 				<form action="">
 					<tr>
-						<td style="text-align: center;"><input type="hidden" id="store_id" name="store_id" value="1">
-						<input type="text" id="seat_id" name="seat_id"></td>
-						<td style="text-align: center;"><input type="text" id="seat_pay"
-							name="seat_pay" style="width: 50%;" /> 원 / 시간</td>
+						<td style="text-align: center;"><input type="hidden" id="store_id" name="store_id" value="1"></td>
+						<td style="text-align: center;"><input type="text" id="seat_pay" name="seat_pay" style="width: 70%;" /> 원 / 시간</td>
 						<td><input type="file" name="seat_qr" id="seat_qr"/></td>
-						<td style="text-align: center;"><button id="addseat_btn"
-								type="button" >등록</button>
-							<button id="reset" type="reset">취소</button></td>							
+						<td style="text-align: center;"><button id="addseat_btn" type="button" >등록</button><button id="reset" type="reset">취소</button></td>							
 					</tr>
 				</form>
 				<tr>
@@ -104,7 +100,6 @@
     }
     
     $('#addseat_btn').click(function() {//좌석 추가
-    	var seat_id = $('#seat_id').val();
     	var seat_pay = $('#seat_pay').val();
     	var seat_qr = $('#seat_qr').val();
     	var store_id = $('#store_id').val();
@@ -114,8 +109,7 @@
     			type :'post',
     			url: '${pageContext.request.contextPath}/admin/seat',
     	        dataType : 'text',
-    	        data : {
-    	        	seat_id : seat_id,
+    	        data : {    	        	
     	        	seat_pay : seat_pay,
     	        	seat_qr : seat_qr,
     	        	store_id : store_id
@@ -124,7 +118,6 @@
     	        success : function(data){
     	        	console.log('좌석등록완료');
     	        	getSeatList();
-    	        	$('#seat_id').val('');
     	        	$('#seat_pay').val('');
     	        	$('#seat_qr').val('');
     	        }    			

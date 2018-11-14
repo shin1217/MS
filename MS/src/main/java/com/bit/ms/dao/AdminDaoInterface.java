@@ -53,8 +53,12 @@ public interface AdminDaoInterface {
 	
 	/* 좌석관리 */
 	List<SeatVO> getSeatListI();
+	int first();
+	int second();
+	int third();
 	int addSeatI(SeatVO seatVO);
 	int deleteSeatI(int seat_id);
+	int modifySeatI(SeatVO seatVO);
 	
 	/* 사용자 시간 관리 */
 	int updateAddTime(long addTime, int seatId);
