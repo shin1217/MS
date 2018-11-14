@@ -52,10 +52,7 @@ public interface AdminDaoInterface {
 	List<SalesVO> getStoreId(int storeId) throws Exception;
 	
 	/* 좌석관리 */
-	List<SeatVO> getSeatListI();
-	int first();
-	int second();
-	int third();
+	List<SeatVO> getSeatListI(int store_id);
 	int addSeatI(SeatVO seatVO);
 	int deleteSeatI(int seat_id);
 	int modifySeatI(SeatVO seatVO);

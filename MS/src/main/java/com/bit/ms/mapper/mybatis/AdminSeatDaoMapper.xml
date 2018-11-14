@@ -5,39 +5,18 @@
 <mapper namespace="com.bit.ms.dao.AdminDaoInterface">
 
 	<!-- 좌석리스트 불러오기 -->
-	<update id="first">
-
-		ALTER table seat <![CDATA[ AUTO_INCREMENT=1 ]]>
-
-	</update>
-
-	<update id="second">
-
-		SET <![CDATA[@CNT= 0]]>
-
-	</update>
-
-	<update id="third">
-
-		UPDATE seat SET seat_id = <![CDATA[@CNT:=@CNT+1]]>
-
-	</update>
-
 	<select id="getSeatListI" resultType="seatVO">
 
-		select * from seat
+		select * from seat where store_id = #{store_id}
 
 	</select>
 	<!-- 좌석리스트 불러오기 -->
 
-
 	<insert id="addSeatI" parameterType="SeatVO"
 		useGeneratedKeys="true" keyProperty="seat_id">
 
-		insert into seat(
-		seat_pay,
-		seat_qr, store_id) values(#{seat_pay}, #{seat_qr},
-		#{store_id})
+		insert into seat(seat_name,	seat_pay, seat_qr, store_id)
+		values(#{seat_name}, #{seat_pay}, #{seat_qr}, #{store_id})
 
 	</insert>
 
