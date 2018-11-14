@@ -113,8 +113,8 @@ body {
 							class="btn btn-primary btn-block">로그인</button>
 					</div>
 				</div>
-				<div class="col-sm-10">
-					<a class="btn btn-primary"
+				<div>
+					<a class="btn btn-primary btn-block"
 						href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
 			</div>

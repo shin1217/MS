@@ -115,7 +115,7 @@ body {
 			<!-- 생년월일 -->
 			<div class="form-group">
 				<label for="user_birth">생년월일</label>
-					<div>
+					<div class="">
 						<select id="year" name="user_year" required>
 							<option>년</option>
 						</select>
@@ -132,14 +132,14 @@ body {
 			<label for="user_email">이메일</label>
 			<div class="form-inline">
 				<input type="text" class="email_form" name="user_email" id="user_email" placeholder="E-mail" required>
-					<button type="button" class="btn btn-outline-info waves-effect px-1">
+					<button type="button" class="btn btn-outline-info waves-effect px-3 inI">
 						<i class="fa fa-envelope"></i>&nbsp;인증
 					</button>
 				<div class="check_font" id="email_check"></div>
 			</div>
 			<!-- 휴대전화 -->
 			<div class="form-group">
-				<label for="user_phone">휴대전화 (ex. 010-1111-2222)</label> <input
+				<label for="user_phone">휴대전화 (ex.01033334444)</label> <input
 					type="text" class="form-control" id="user_phone" name="user_phone"
 					placeholder="Phone Number" required>
 				<div class="check_font" id="phone_check"></div>
@@ -153,13 +153,13 @@ body {
 				</select>
 			</div>
 			<div class="reg_button">
+				<button type="submit" class="btn btn-primary px-3" id="reg_submit">
+					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
+				</button>&emsp;&emsp;
 				<a class="btn btn-danger px-3"
 					href="${pageContext.request.contextPath}"> <i
 					class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
-				</a> &emsp;&emsp;
-				<button type="submit" class="btn btn-primary px-3" id="reg_submit">
-					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
-				</button>
+				</a>
 			</div>
 		</form>
 	</div>
@@ -169,40 +169,33 @@ body {
 	// 날짜 스크립트
 	// 1900년 ~ 현재 연도까지 추가
 	for(var i = 1900; i<2018; i++){
-		option='<option value='+i+'>'+i+'년<option>';
+		var option='<option value='+i+'>'+i+'년</option>';
 		$('#year').append(option)
 	}
 	// 1월부터 12월까지 추가
 	for(var i = 1; i <= 12; i++){
-		option='<option value='+i+'>'+i+'월<option>';
+		var option='<option value='+i+'>'+i+'월</option>';
 		$('#month').append(option);
 	}
 	// 1일부터 조건에 따른 말일까지
 	for(var i = 1; i <= 31; i++){
-		option='<option value='+i+'>'+i+'일<option>';
+		var option='<option value='+i+'>'+i+'일</option>';
 		$('#day').append(option);
 	}
 	
-
+	//모든 공백 체크 정규식
+	var empJ = /\s/g;
 	//아이디 정규식
 	var idJ = /^[a-z0-9]{4,12}$/;
 	// 비밀번호 정규식
-	var pwJ = /^[A-Za-z0-9]{6,12}$/;
+	var pwJ = /^[A-Za-z0-9]{4,12}$/;
 	// 이름 정규식
 	var nameJ = /^[가-힣]{1,6}$/;;
 	// 이메일 검사 정규식
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	// 휴대폰 번호 정규식
-	var phoneJ = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/g;
-	
-	function a(){
-	$("#reg_submit").unbind("click").bind("click",function() {
-		// 1+n번	째 실행했을 때 경고문이 너무 많이 뜸
-		alert("다른 아이디를 사용해주세요 :)");
-		$('#user_id').focus();
-			return false;
-	});
-	}
+	var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+
 	// 아이디 유효성 검사(1 = 중복 / 0 != 중복)
 	$("#user_id").blur(function() {
 		// id = "id_reg" / name = "userId"
@@ -222,8 +215,7 @@ body {
 						
 						if(idJ.test(user_id)){
 							// 0 : 아이디 길이 / 문자열 검사
-							$("#id_check").text("멋진 아이디네요!");
-							$("#id_check").css("color", "blue");
+							$("#id_check").text("");
 							$("#reg_submit").attr("disabled", false);
 				
 						} else if(user_id == ""){
@@ -236,7 +228,7 @@ body {
 							
 							$('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다 :) :)");
 							$('#id_check').css('color', 'red');
-							$("#reg_submit").attr("disabled", false);
+							$("#reg_submit").attr("disabled", true);
 						}
 						
 					}
@@ -253,7 +245,7 @@ body {
 			$('#pw_check').text('');
 		} else {
 			console.log('false');
-			$('#pw_check').text('숫자 or 문자로 6~12자리 입력');
+			$('#pw_check').text('숫자 or 문자로 4~12자리 입력');
 			$('#pw_check').css('color', 'red');
 		}
 	});
@@ -292,7 +284,7 @@ body {
 		
 	// 휴대전화
 	$('#user_phone').blur(function(){
-		if(mailJ.test($(this).val())){
+		if(phoneJ.test($(this).val())){
 			console.log(nameJ.test($(this).val()));
 			$("#phone_check").text('');
 		} else {
@@ -302,44 +294,56 @@ body {
 	});
 
 	// 가입하기 실행 버튼 유효성 검사!
+	var inval_Arr = new Array(4).fill(false);
 	$('#reg_submit').click(function(){
-
-			// 비밀번호가 같은 경우 && 비밀번호 정규식
-			if (($('#user_pw').val() == ($('#user_pw2').val()))
-					&& pwJ.test($('#user_pw').val())) {
-				return true;
-			} else {
-				alert('비밀번호를 확인해주세요 :)');
-				return false;
-			}
+		// 비밀번호가 같은 경우 && 비밀번호 정규식
+		if (($('#user_pw').val() == ($('#user_pw2').val()))
+				&& pwJ.test($('#user_pw').val())) {
+			inval_Arr[0] = true;
+		} else {
+			console.log('비밀번호를 확인해주세요 :)');
+			inval_Arr[0] = false;
+		}
+		// 이름 정규식
+		if (nameJ.test($('#user_name').val())) {
+			inval_Arr[1] = true;	
+		} else {
+			console.log('이름을 확인해주세요 :)');
+			inval_Arr[1] = false;
+		}
+		// 이메일 정규식
+		if (mailJ.test($('#user_email').val())){
+			console.log(phoneJ.test($('#user_email').val()));
+			inval_Arr[2] = true;
+		} else {
+			alert('이메일을 확인해주세요 :)');
+			inval_Arr[2] = false;
+		}
+		// 휴대폰번호 정규식
+		if (phoneJ.test($('#user_phone').val())) {
+			console.log(phoneJ.test($('#user_phone').val()));
+			inval_Arr[3] = true;
+		} else {
+			alert('휴대폰번호를 확인해주세요 :)');
+			inval_Arr[3] = false;
+		}
+		
+		var validAll = true;
+		for(var i = 0; i<inval_Arr.length; i++){
 			
-			// 이름 정규식
-			if (nameJ.test($('#user_name').val())) {
-					return true;
-			} else {
-				alert('이름을 확인해주세요 :)');
-				return false;
+			if(inval_Arr[i] == false){
+				validAll = false;
 			}
-			
-			// 이메일 정규식
-			if (mailJ.test($('#user_email').val())){
-				console.log(phoneJ.test($('#user_email').val()));
-				return true;
-			} else {
-				alert('이메일을 확인해주세요 :)');
-				return false;
-			}
-			
-			// 휴대폰번호 정규식
-			if (phoneJ.test($('#user_phone').val())) {
-				console.log(phoneJ.test($('#user_phone').val()));
-				return true;
-			} else {
-				alert('휴대폰번호를 확인해주세요 :)');
-				return false;
-			}
-			
-		});
+		}
+		
+		if(validAll){ // 유효성 모두 통과
+			alert('갓민수 월드에 오신 걸 환영합니다 :p');
+			return true;
+		} else{
+			return false;
+		}
+		
+	});
 		
 </script>
 
