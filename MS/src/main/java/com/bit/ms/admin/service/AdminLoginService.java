@@ -26,7 +26,6 @@ public class AdminLoginService {
 		adminDao = adminSqlSession.getMapper(AdminDaoInterface.class);
 		
 		AdminVO vo = adminDao.loginAdmin(admin_id);
-		System.out.println("service" + admin_id);
 		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
 		if(vo != null) {
 			if(vo.getAdmin_id().equals(admin_id) && vo.getAdmin_pw().equals(admin_pw)) {
