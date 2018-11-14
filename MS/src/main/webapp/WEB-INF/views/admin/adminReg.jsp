@@ -90,14 +90,14 @@ body {
 				<label for="admin_name">이름</label> <input type="text"
 					class="form-control" id="admin_name" name="admin_name"
 					placeholder="Name">
-				<div class="check_font">confirm message</div>
+				<div class="check_font" id="name_check">confirm message</div>
 			</div>
 			<!-- 휴대전화 -->
 			<div class="form-group">
-				<label for="admin_phone">휴대전화</label> <input type="text"
+				<label for="admin_phone">휴대전화 (ex.01033334444)</label> <input type="text"
 					class="form-control" id="admin_phone" name="admin_phone"
 					placeholder="Phone Number">
-				<div class="check_font">confirm message</div>
+				<div class="check_font" id="phone_check"></div>
 			</div>
 			<div class="reg_button">
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/admin">
@@ -116,11 +116,11 @@ body {
 	//아이디 정규식
 	var idJ = /^[a-z0-9]{4,12}$/;
 	// 비밀번호 정규식
-	var pwJ = /^[A-Za-z0-9]{6,12}$/;
+	var pwJ = /^[A-Za-z0-9]{4,12}$/;
 	// 이름 정규식
-	var nameJ = /^[가-힣]{1,6}$/;;
+	var nameJ = /^[가-힣]{2,6}$/;;
 	// 휴대폰 번호 정규식
-	var phoneJ = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/g;
+	var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 	
 	// <회원가입> 중복 유효성 검사(1 = 중복 / 0 != 중복)
 	$("#admin_id").blur(function() {
@@ -133,15 +133,14 @@ body {
 			console.log("1 = 중복o / 0 = 중복x : "+ data);
 					if (data == 1) {
 						// 1 : 아이디가 중복되는 문구
-						$("#id_check").text("아이디가 존재하니 다른 아이디를 사용해주세요 :p");
+						$("#id_check").text("사용중인 아이디입니다 :p");
 						$("#id_check").css("color", "red");
 						$("#reg_submit").attr("disabled", true);
 					} else {	
 
 						if(idJ.test(amdin_id)){
 							// 0 : 아이디 길이 / 문자열 검사
-							$("#id_check").text("멋진 아이디네요!");
-							$("#id_check").css("color", "blue");
+							$("#id_check").text("");
 							$("#reg_submit").attr("disabled", false);
 	
 					} else if(amdin_id == ""){
@@ -154,7 +153,7 @@ body {
 				
 						$('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다 :) :)");
 						$('#id_check').css('color', 'red');
-						$("#reg_submit").attr("disabled", false);
+						$("#reg_submit").attr("disabled", true);
 					}
 				}
 			},error : function() {
@@ -164,20 +163,104 @@ body {
 	});
 	
 	// <비밀번호> 일치 검사
-	$("#admin_pw2").blur(function(){
+	$('#admin_pw2').blur(function(){
 		// pw1 & pw2 일치하지 않는다면,
 		if($("#admin_pw").val() != $(this).val()){
 			$("#pw_check").text("비밀번호가 일치하지 않습니다 :(");
 			$("#pw_check").css("color", "red");
-			$("#reg_submit").attr("disabled", true);
 			
 		} else {
-			$("#pw_check").text("양식에 맞게 잘 기입하고 계십니다 :p");
-			$("#pw_check").css("color", "blue");
+			$("#pw_check").text("");
 			$("#reg_submit").attr("disabled", false);
 		}
 	});
+			
+	// 1-1 정규식 체크
+	$('#admin_pw').blur(function() {
+		if (pwJ.test($(this).val())) {
+			console.log(pwJ.test($(this).val()));
+			$('#pw_check').text('');
+		} else {
+			console.log('false');
+			$('#pw_check').text('숫자 or 문자로만 4~12자리 입력');
+			$('#pw_check').css('color', 'red');
+		}
+	});
 	
+	// 이름에 특수문자 들어가지 않도록 설정
+	$("#admin_name").blur(function() {
+		if (nameJ.test($(this).val())) {
+				console.log(nameJ.test($(this).val()));
+				$("#name_check").text('');
+		} else {
+			$('#name_check').text('이름을 확인해주세요');
+			$('#name_check').css('color', 'red');
+		}
+	});
+	
+	// 휴대전화
+	$('#admin_phone').blur(function(){
+		if(phoneJ.test($(this).val())){
+			console.log(phoneJ.test($(this).val()));
+			$("#phone_check").text('');
+		} else {
+			$('#phone_check').text('번호를 확인해주세요 :p');
+			$('#phone_check').css('color', 'red');
+		}
+	});
+	
+	// 가입하기 버튼 눌렀을 때 이벤트!
+	$('#reg_submit').click(function(){
+		// 각 조건식 값
+		var total_pass = new Array().fill(false);
+		
+		// 비밀번호 일치
+		if($("#admin_pw").val() != $("#admin_pw2").val()){
+			$("#admin_pw2").focus();
+			total_pass[0] = false;
+		} else{
+			total_pass[0] = true;
+		}
+		// 비밀번호 정규식
+		if (pwJ.test($('#admin_pw').val())) {
+			total_pass[1] = true;
+		} else {
+			$("#admin_pw").focus();
+			total_pass[1] = false;
+		}
+		// 이름 정규식
+		if (nameJ.test($('#admin_name').val())) {
+			total_pass[2] = true;
+		} else {
+			$("#admin_name").focus();
+			total_pass[2] = false;
+		}
+		// 폰번호 정규식
+		if(phoneJ.test($('#admin_phone').val())){
+			total_pass[3] = true;
+		} else {
+			$('#admin_phone').focus();
+			total_pass[3] = false;
+		}
+		
+		
+		var pass = true;
+		// 조건식 에 true false 대입
+		for(var i=0; i<total_pass.length; i++){
+			if(total_pass[i] == false){
+				
+				return pass = false;
+			}
+		}
+		// pass(모든 값)가 true라면 submit 버튼 활성화
+		if(pass){
+			alert('MS와 함께라면 성공합니다 :p');
+			return true;
+		}else{
+			return false;
+		}
+		
+	});
 	
 </script>
 

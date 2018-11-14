@@ -139,7 +139,7 @@ body {
 			</div>
 			<!-- 휴대전화 -->
 			<div class="form-group">
-				<label for="user_phone">휴대전화 (ex.01033334444)</label> <input
+				<label for="user_phone">휴대전화 ('-' 없이 번호만 입력해주세요)</label> <input
 					type="text" class="form-control" id="user_phone" name="user_phone"
 					placeholder="Phone Number" required>
 				<div class="check_font" id="phone_check"></div>
@@ -190,7 +190,7 @@ body {
 	// 비밀번호 정규식
 	var pwJ = /^[A-Za-z0-9]{4,12}$/;
 	// 이름 정규식
-	var nameJ = /^[가-힣]{1,6}$/;;
+	var nameJ = /^[가-힣]{2,6}$/;;
 	// 이메일 검사 정규식
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	// 휴대폰 번호 정규식
@@ -208,7 +208,7 @@ body {
 				
 				if (data == 1) {
 						// 1 : 아이디가 중복되는 문구
-						$("#id_check").text("아이디가 존재하니 다른 아이디를 사용해주세요 :p");
+						$("#id_check").text("사용중인 아이디입니다 :p");
 						$("#id_check").css("color", "red");
 						$("#reg_submit").attr("disabled", true);
 					} else {
@@ -241,11 +241,11 @@ body {
 	// 1-1 정규식 체크
 	$('#user_pw').blur(function() {
 		if (pwJ.test($('#user_pw').val())) {
-			console.log('ture');
+			console.log('true');
 			$('#pw_check').text('');
 		} else {
 			console.log('false');
-			$('#pw_check').text('숫자 or 문자로 4~12자리 입력');
+			$('#pw_check').text('숫자 or 문자로만 4~12자리 입력');
 			$('#pw_check').css('color', 'red');
 		}
 	});
@@ -288,7 +288,7 @@ body {
 			console.log(nameJ.test($(this).val()));
 			$("#phone_check").text('');
 		} else {
-			$('#phone_check').text('- 없이 번호로만 입력해주세요 :)');
+			$('#phone_check').text('휴대폰번호를 확인해주세요 :)');
 			$('#phone_check').css('color', 'red');
 		}
 	});

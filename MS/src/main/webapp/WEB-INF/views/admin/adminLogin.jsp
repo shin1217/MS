@@ -106,8 +106,8 @@ body {
 							class="btn btn-danger btn-block">로그인</button>
 					</div>
 				</div>
-				<div class="col-sm-10">
-					<a class="btn btn-danger"
+				<div>
+					<a class="btn btn-danger btn-block"
 						href="${pageContext.request.contextPath}/admin/reg">회원가입</a>
 				</div>
 			</div>
