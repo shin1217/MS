@@ -53,7 +53,7 @@ body {
 				<div class="input-group">
 					<c:if test="${!empty store}">
 					<select id="storeList" class="custom-select">
-						<option value="0" selected>매장을 선택해주세요.</option>
+						<option id="storePlease" value="0" selected>매장을 선택해주세요.</option>
 					<c:forEach items="${store}" var="store">
 						<option value="${store.store_id}">${store.store_name}</option>
 					</c:forEach>
@@ -63,6 +63,7 @@ body {
 					</div>
 					</c:if>
 				</div>
+				<span class="font-weight-bold text-white bg-dark" id="spanStoreError"></span>
 				<div class="form-group">
 					<div>
 						<button id="storeBtn" type="button"	class="btn btn-danger btn-block">+매장등록</button>
@@ -73,12 +74,16 @@ body {
 	</div>
 </body>
 <script>
-	$('#connectionBtn').click(function (){
-		if($('#storeList').val() == 0){ //매장을 선택해야만 메인페이지로 이동
-			$('#spanStoreCheck').text('매장을 선택해주세요.');
+	$('#connectionBtn').click(function() {
+		if ($('#storeList').val() != 0) { //매장을 선택해야만 메인페이지로 이동
+			location.href = "${pageContext.request.contextPath}/admin/main";
 		} else {
-			location.href="${pageContext.request.contextPath}/admin/main";
-		} 
+			$('#spanStoreError').text('매장 선택 후 접속바랍니다.');
+		}
+	});
+	
+	$('#storeList').click(function(){
+		$('#spanStoreError').text('');
 	});
 </script>
 </html>
