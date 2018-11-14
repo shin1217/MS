@@ -48,9 +48,9 @@
 		</h3>
 		
 		<div id="selectedInfo" class="selectedInfo">
-			<span></span> <!-- 사용자 이름 -->
-			<span></span> <!-- 좌석 번호  -->
-			<span></span> <!-- 충전 시간(가격) -->
+			<span style="font-weight: bold"></span>님, <!-- 사용자 이름 -->
+			<span style="color: red; font-weight: bold"></span>자리에 <!-- 좌석 번호  -->
+			<span style="color: red; font-weight: bold"></span>을 충전하시겠습니까? <!-- 충전 시간(가격) -->
 		</div>
 		
 		<button id="add_time_btn" class="add_time_btn">충전하기</button>

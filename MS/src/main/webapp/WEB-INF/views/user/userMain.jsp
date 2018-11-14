@@ -304,9 +304,9 @@ html, body {
 			
 			/* 좌석과 시간 모두 선택되었을 경우 */
 			if(selectedST.seat != null && selectedST.time != null){
-				$('#selectedInfo').children().eq(0).text('${userSession.user_name}님');
-				$('#selectedInfo').children().eq(1).text(selectedST.seat + '번 자리에');
-				$('#selectedInfo').children().eq(2).text(selectedST.time + '시간(' + (selectedST.time*1000) + '원)을 충전하시겠습니까?');
+				$('#selectedInfo').children().eq(0).text('${userSession.user_name}');
+				$('#selectedInfo').children().eq(1).text(selectedST.seat + '번');
+				$('#selectedInfo').children().eq(2).text(selectedST.time + '시간(' + (selectedST.time*1000) + '원)');
 				$('#add_time_modal').show(); // 시간 충전 modal창 띄우기
 			}
 		}
