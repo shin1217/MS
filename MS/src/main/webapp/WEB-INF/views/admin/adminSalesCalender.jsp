@@ -1,4 +1,4 @@
-<%@page import="com.bit.ms.admin.model.StoreVO"%>
+<%@page import="com.bit.ms.member.model.StoreVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 

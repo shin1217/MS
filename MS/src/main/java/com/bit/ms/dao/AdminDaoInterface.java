@@ -7,10 +7,10 @@ import org.apache.ibatis.annotations.Param;
 import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.model.NoticeVO;
 import com.bit.ms.admin.model.SalesVO;
-import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.admin.model.UserListVO;
 import com.bit.ms.member.model.ReplyVO;
 import com.bit.ms.member.model.SeatVO;
+import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
 
 public interface AdminDaoInterface {

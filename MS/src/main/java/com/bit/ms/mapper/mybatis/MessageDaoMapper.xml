@@ -26,7 +26,7 @@
 	</delete>
 	<!-- 읽은 메시지 수정 -->	
 	<update id="readMessage" parameterType="hashmap">
-		update message set message_read = #{message_read} where message_id = #{message_id} and store_id = #{store_id}
+		update message set message_read = #{message_read} where message_id = #{message_id}
 	</update>
 	<!-- 안읽은 메시지 카운트 -->	
 	<select id="adminMessageCnt" parameterType="hashmap">

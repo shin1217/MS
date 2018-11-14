@@ -7,13 +7,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.ms.admin.model.AdminVO;
-import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.member.model.MessageVO;
+import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.member.service.MemberMessageService;
 import com.bit.ms.user.model.UserVO;
 
@@ -65,10 +66,10 @@ public class MemberMessageController {
 	}
 	
 	//메시지를 읽었을경우
-	@RequestMapping(value = "member/readMessage", method = RequestMethod.GET)
-	public int readMessage(MessageVO messageVo) {
-		
-		return service.messageRead(messageVo);
+	@RequestMapping(value = "member/readMessage", method = RequestMethod.POST)
+	public @ResponseBody int readMessage(String message_read,  int message_id) {
+		System.out.println(message_read);
+		return service.messageRead(message_id,message_read);
 		
 	}
 	//관리자 안읽은 메시지 카운트

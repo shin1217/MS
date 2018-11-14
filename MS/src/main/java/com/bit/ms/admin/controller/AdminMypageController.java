@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.ms.admin.model.AdminVO;
-import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.admin.service.AdminMypageService;
+import com.bit.ms.member.model.StoreVO;
 
 @Controller
 public class AdminMypageController {

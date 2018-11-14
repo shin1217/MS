@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.bit.ms.admin.model.StoreVO;
+import com.bit.ms.member.model.StoreVO;
 
 @Controller
 @RequestMapping(value="/admin/main")

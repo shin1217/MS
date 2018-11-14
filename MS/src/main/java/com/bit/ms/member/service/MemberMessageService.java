@@ -7,9 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.dao.MemberDaoInterface;
 import com.bit.ms.member.model.MessageVO;
+import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
 
 @Service
@@ -58,12 +58,11 @@ public class MemberMessageService {
 		
 	}
 	//메시지 읽은것을 확인하는 메서드
-	public int messageRead(MessageVO messageVo) {
+	public int messageRead(int message_id, String message_read) {
 		
 		HashMap<String,String> map = new HashMap<String,String>();
-		map.put("message_read", messageVo.getMessage_read());
-		map.put("message_id", Integer.toString(messageVo.getMessage_id()));
-		map.put("store_id", Integer.toString(messageVo.getStore_id()));
+		map.put("message_read", message_read);
+		map.put("message_id", Integer.toString(message_id));
 		
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		return memberDao.readMessage(map);

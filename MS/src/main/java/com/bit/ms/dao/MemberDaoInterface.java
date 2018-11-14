@@ -3,8 +3,8 @@ package com.bit.ms.dao;
 import java.util.HashMap;
 import java.util.List;
 
-import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.member.model.MessageVO;
+import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
 
 public interface MemberDaoInterface {

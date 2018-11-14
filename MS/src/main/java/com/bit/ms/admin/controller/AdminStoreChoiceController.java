@@ -11,8 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bit.ms.admin.model.StoreVO;
 import com.bit.ms.admin.service.AdminUserListService;
+import com.bit.ms.member.model.StoreVO;
 
 @Controller
 public class AdminStoreChoiceController {

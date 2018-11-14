@@ -105,7 +105,6 @@ hr{
 	width : 100%;
 }
 .messageUl{
-	background-color: #eee;
 	padding: 15px 10px;
 	text-align: center;
 	width: 250px;
@@ -224,8 +223,12 @@ function getMessageList(){
 				$('#messageList').html("");
 				for(var i = 0; i < data.length; i++){
 					str = '<div id="messageUlWrap" class = "messageUlWrap">';
-					str += '<ul id="messageUl" class = "messageUl">';
-					str += '<img src = ${pageContext.request.contextPath}/images/delete2.png onclick = "deleteMessage(' + data[i].message_id + ')" style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
+					if(data[i].message_read != "Y"){
+						str += '<ul id="' + data[i].message_id + '" class = "messageUl"style = "background-color : #eee;>';
+					} else {
+						str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #2bbbad; color : white; font-weight : bold">';
+						str += '<img src = ${pageContext.request.contextPath}/images/delete2.png onclick = "deleteMessage(' + data[i].message_id + ')" style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
+					}
 					str += '	<li id = "li_message_id">메시지 번호 : ' + data[i].message_id + '</li>';
 					str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
 					str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
@@ -284,6 +287,27 @@ $('#writeMessage').click(function(){
 			sendMessage();
 		});
 });
+
+$(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그들은 이런식으로 이벤트를 줘야함
+	//var str = "onclick = "readChk(' + data[i].message_id + ')"";
+	$(this).css("background-color","#2bbbad").css("font-weight","bold").css("color","white");
+	var message_id = $(this).attr("id");
+	var read_message = "Y";
+	
+	$.ajax({
+		url : '${pageContext.request.contextPath}' + '/member/readMessage',
+		type : 'post',
+		data : {
+			message_id : message_id,
+			message_read : read_message
+		},
+		success : function(data){
+			alert("메시지를 읽었습니다.");
+			getMessageList();
+		}
+	});
+});
+
  //모달창 밖의 영역을 누르면 띄워져 있는 모달창을 닫음
 $(window).on('click', function() {
    //jquery는 dom 객체를 jquery 객체로 한 번 감싸 리턴하므로 dom 객체를 얻어와야 비교 가능

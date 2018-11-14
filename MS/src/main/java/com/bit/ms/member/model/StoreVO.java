@@ -1,4 +1,4 @@
-package com.bit.ms.admin.model;
+package com.bit.ms.member.model;
 
 import java.sql.Timestamp;
 
