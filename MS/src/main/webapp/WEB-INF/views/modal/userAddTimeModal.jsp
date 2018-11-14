@@ -12,6 +12,32 @@
 	text-align: center;
 }
 
+/* modal창 감싸고 있는 배경 Div */
+.add_time_modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* 시간충전 modal창 내용 */
+.modal_contents {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 15px;
+	border: 1px solid #888;
+	border-radius: 20px;
+	width: 50%;
+	text-align: center;
+}
+
 /* 충전하기 버튼 */
 .add_time_btn {
 	width: 150px;
@@ -34,6 +60,7 @@
 	font-weight: bold;
 	font-size: 28px;
 }
+
 
 .selectedInfo {
 	font-size: 24px;
