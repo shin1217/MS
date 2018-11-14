@@ -96,44 +96,12 @@
 	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-/* 시간충전 modal창 내용 */
-.modal_contents {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 15px;
-	border: 1px solid #888;
-	border-radius: 20px;
-	width: 50%;
-	text-align: center;
-}
 
-/* 충전하기 버튼 */
-.add_time_btn {
-	width: 150px;
-	background-color: #f8585b;
-	border: none;
-	border-radius: 10px;
-	color: #fff;
-	padding: 15px 0;
-	margin-top: 10px;
-	text-align: center;
-	font-size: 18px;
-	cursor: pointer;
-}
-
-/* close 버튼 */
-.close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-	font-size: 28px;
-}
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<%@ include file="/WEB-INF/views/modal/addTimeModal.jsp"%>
+	<%@ include file="/WEB-INF/views/modal/adminAddTimeModal.jsp"%>
 	<%@ include file="/WEB-INF/views/admin/adminMessage.jsp" %>
 	<div class="adminMain_container">
 		<div class="left_area">
