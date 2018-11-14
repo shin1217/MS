@@ -156,6 +156,22 @@ html, body {
 			 seletedProcess($(this), 't', tBefore, tArr); // 시간 선택 처리 
 		});
 		
+		/* 충전 하기 */
+		$('#add_time_btn').click(function() {
+			var seatId = selectedST.seat;
+			
+			$.ajax({
+				// 로그인한 아이디와 선택한 좌석 번호 넘겨 줌.
+				url: '<%=request.getContextPath()%>/user/updateAddTime?userId=${userSession.user_id}&seatId=' + seatId, 
+				type: 'get',
+				
+				success:function(){
+					location.reload();
+					
+				} // end success  
+			});
+		});
+		
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		
 		/* 시간 충전 modal 창 닫기 버튼 클릭 시 처리 */
