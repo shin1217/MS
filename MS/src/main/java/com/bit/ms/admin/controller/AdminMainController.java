@@ -23,7 +23,7 @@ public class AdminMainController {
 		
 		session.setAttribute("storeSelectSession", list.get(store));
 		
-		System.out.println("본인 선택 스토어세션: " + session.getAttribute("storeSelectSession"));
+		System.out.println("선택한 스토어세션 storeSelectSession : " + session.getAttribute("storeSelectSession"));
 		
 		return "admin/adminMain";
 	}

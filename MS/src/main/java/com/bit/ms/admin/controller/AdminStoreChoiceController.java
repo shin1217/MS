@@ -27,7 +27,7 @@ public class AdminStoreChoiceController {
 		
 		session.setAttribute("storeSession", result);
 		
-		System.out.println("본인 전체 스토어세션: " + session.getAttribute("storeSession"));
+		System.out.println("전체 스토어세션 storeSession : " + session.getAttribute("storeSession"));
 		
 		model.addAttribute("store", result);
 		

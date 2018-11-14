@@ -30,7 +30,7 @@ public class AdminLoginController {
 	public int adminLoginPass(String admin_id, String admin_pw, HttpSession httpSession, HttpServletRequest request, HttpServletResponse response) {
 		
 		String admin_check = request.getParameter("remember_adminId");
-		System.out.println("controller" + admin_id);
+
 		int result = adminLog_service.adminLogin_service(admin_id, admin_pw, admin_check, response, httpSession);
 		
 		return result;

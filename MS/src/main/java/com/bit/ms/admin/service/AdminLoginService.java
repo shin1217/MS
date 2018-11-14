@@ -44,7 +44,7 @@ public class AdminLoginService {
 				
 				// 세션에 vo 객체 저장
 				httpSession.setAttribute("adminSession", vo);
-				System.out.println("세션확인 " + httpSession.getAttribute("adminSession"));
+				System.out.println("관리자아이디 세션 adminSession : " + httpSession.getAttribute("adminSession"));
 				result = 1;
 			}
 		}

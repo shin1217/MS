@@ -47,7 +47,7 @@ public class UserLoginService {
 				
 				// 세션에 vo 객체 저장
 				httpSession.setAttribute("userSession", vo);
-				System.out.println("세션확인 " + httpSession.getAttribute("userSession"));
+				System.out.println("회원아이디 세션  userSession : " + httpSession.getAttribute("userSession"));
 				result = 1;
 			}
 		}
