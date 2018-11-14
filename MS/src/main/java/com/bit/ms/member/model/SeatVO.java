@@ -6,6 +6,7 @@ import org.apache.ibatis.type.Alias;
 public class SeatVO {
 
 	private int seat_id; // 좌석 번호
+	private String seat_name; // 좌석이름
 	private int seat_pay; // 좌석 비용
 	private int seat_update_time; // 좌석 수정시간
 	private int seat_add_time; // 좌석 충전시간
@@ -23,12 +24,12 @@ public class SeatVO {
 		this.seat_id = seat_id;
 	}
 
-	public String getSeat_qr() {
-		return seat_qr;
+	public String getSeat_name() {
+		return seat_name;
 	}
 
-	public void setSeat_qr(String seat_qr) {
-		this.seat_qr = seat_qr;
+	public void setSeat_name(String seat_name) {
+		this.seat_name = seat_name;
 	}
 
 	public int getSeat_pay() {
@@ -71,10 +72,37 @@ public class SeatVO {
 		this.store_id = store_id;
 	}
 
+	public String getSeat_qr() {
+		return seat_qr;
+	}
+
+	public void setSeat_qr(String seat_qr) {
+		this.seat_qr = seat_qr;
+	}
+
 	@Override
 	public String toString() {
-		return "SeatVO [seat_id=" + seat_id + ", seat_qr=" + seat_qr + ", seat_pay=" + seat_pay + ", seat_update_time="
-				+ seat_update_time + ", seat_add_time=" + seat_add_time + ", user_id=" + user_id + ", store_id="
-				+ store_id + "]";
+		return "SeatVO [seat_id=" + seat_id + ", seat_name=" + seat_name + ", seat_pay=" + seat_pay
+				+ ", seat_update_time=" + seat_update_time + ", seat_add_time=" + seat_add_time + ", user_id=" + user_id
+				+ ", store_id=" + store_id + ", seat_qr=" + seat_qr + "]";
 	}
+
+	public SeatVO(int seat_id, String seat_name, int seat_pay, int seat_update_time, int seat_add_time, String user_id,
+			int store_id, String seat_qr) {
+		super();
+		this.seat_id = seat_id;
+		this.seat_name = seat_name;
+		this.seat_pay = seat_pay;
+		this.seat_update_time = seat_update_time;
+		this.seat_add_time = seat_add_time;
+		this.user_id = user_id;
+		this.store_id = store_id;
+		this.seat_qr = seat_qr;
+	}
+
+	public SeatVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }

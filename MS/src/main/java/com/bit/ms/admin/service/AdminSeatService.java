@@ -17,21 +17,15 @@ public class AdminSeatService {
 
 	private AdminDaoInterface adminDaoInterface;
 
-	public List<SeatVO> getSeatListS() {
+	public List<SeatVO> getSeatListS(int store_id) {
 
 		adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-
-		int first = 0;
-		int second = 0;
-		int third = 0;
 
 		List<SeatVO> list = null;
 
 		try {
-			first = adminDaoInterface.first();
-			second = adminDaoInterface.second();
-			third = adminDaoInterface.third();
-			list = adminDaoInterface.getSeatListI();
+			list = adminDaoInterface.getSeatListI(store_id);
+			System.out.println("좌석 리스트 출력 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,6 +40,7 @@ public class AdminSeatService {
 
 		try {
 			resultCnt = adminDaoInterface.addSeatI(seatVO);
+			System.out.println("좌석 리스트 추가 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -61,6 +56,7 @@ public class AdminSeatService {
 
 		try {
 			resultCnt = adminDaoInterface.deleteSeatI(seat_id);
+			System.out.println("좌석 리스트 삭제 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,6 +70,7 @@ public class AdminSeatService {
 
 		try {
 			resultCnt = adminDaoInterface.modifySeatI(seatVO);
+			System.out.println("좌석 리스트 수정 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
