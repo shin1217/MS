@@ -105,6 +105,9 @@
 	border-style: solid !important;
 	padding: 5px !important;
 }
+td.sales_Table:hover {
+	background-color: #F8E0F7;
+}
 
 .sales_date {
 	vertical-align: middle;
@@ -118,7 +121,9 @@
 </head>
 <body>
 
-<br><br><br>
+<br><br>
+<h1 style="text-align: center;"><font color="#D358F7"> ${storeSelectSession.store_name } </font> 매출 현황</h1>
+<br><br>
 
 <div class="container" style="width:712px;">
 	
@@ -227,7 +232,7 @@
 						<c:choose> 
 						
 							<%-- 오늘 날짜 칸 만들기 --%>
-							<c:when test="${ date eq index}"> 
+							<c:when test="${ dateToday eq intToday}"> 
 									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap bgcolor="#C8C8C8">
 									<p><font style="font-weight: bold; color: PURPLE;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: #282828;">
