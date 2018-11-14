@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.bit.ms.admin.model.SalesVO;
 import com.bit.ms.dao.AdminDaoInterface;
-import com.bit.ms.dao.UserDaoInterface;
 
 @Service
 public class AdminSalesCalenderService {
@@ -33,6 +32,7 @@ public class AdminSalesCalenderService {
 		
 	}
 
+	
 	public List<SalesVO> salesViewList(int day, int storeId) {
 		// TODO Auto-generated method stub
 
@@ -47,6 +47,7 @@ public class AdminSalesCalenderService {
 		}
 		return viewList;
 	}
+	
 
 	public Object getStoreId(int storeId) throws Exception {
 		// TODO Auto-generated method stub
@@ -55,5 +56,6 @@ public class AdminSalesCalenderService {
 		
 		return salesDao.getStoreId(storeId).get(0);
 	};
+	
 	
 }

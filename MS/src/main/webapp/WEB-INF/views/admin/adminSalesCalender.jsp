@@ -41,6 +41,8 @@
 	} else {
 	}
 	
+	int nowMonth = month + 1;
+	
 	// 현재 시간 지정
 	
 	// 년도/월 셋팅
@@ -68,6 +70,7 @@
 	request.setAttribute("date", date);
 	
 	request.setAttribute("dateToday", dateToday);
+	request.setAttribute("nowMonth", nowMonth);
 	
 	request.setAttribute("startDay", startDay);
 	request.setAttribute("endDay", endDay);
@@ -114,6 +117,14 @@ td.sales_Table:hover {
 	font-size: 27px;
     color: #282828;
     font-weight: bold;
+}
+
+.sales_hidden {
+	border: 1px;
+	border-color: #CECECE;
+	border-style: solid;
+	padding: 15px;
+	font-size: 15px;
 }
 
 </style>
@@ -369,6 +380,16 @@ td.sales_Table:hover {
 	<h1>${admin.store_id }</h1>
 	<h1>${sessionScope.store_id }</h1>
 	<h1>${storeSelectSession.store_id }</h1>
+	<h1>${nowMonth }</h1>
+	
+	<button id="exportToExcel" onclick="exportToExcel()" style="z-index: 1110; background: rgb(142, 31, 31); 
+		float: right; margin-bottom: 16px;
+		margin-top: 16px; margin-right: 16px;
+		display: block;"
+	    class="mdl-button mdl-js-button mdl-button--fab"
+	    data-toggle="modal" data-target="#myModal">
+	    <i class="material-icons">save</i>
+	</button>
 	
 </div>
 
@@ -418,6 +439,39 @@ td.sales_Table:hover {
 		</div>
 	</div>
 </div>
+
+
+<!-- 숨겨진 테이블 ( 엑셀에 출력될것 ) -->
+<table style="text-align: center;">
+	<thead>
+		<tr>
+			<th class="sales_hidden">판매시간</th>
+			<th class="sales_hidden">판매번호</th>
+			<th class="sales_hidden">종합매출</th>
+			<th class="sales_hidden">음식매출</th>
+			<th class="sales_hidden">좌석매출</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach items="${ salesList }" var="sales">
+			<c:if test="${ storeSelectSession.store_id eq sales.store_id }">
+				<c:if test="${ nowMonth eq sales.salesMonth }">
+					<tr>
+						<td class="sales_hidden">${ sales.salesTime }</td>
+						<td class="sales_hidden">${ sales.sales_id }</td>
+						<td class="sales_hidden">${ sales.sales_total }</td>
+						<td class="sales_hidden">${ sales.sales_food }</td>
+						<td class="sales_hidden">${ sales.sales_seat }</td>
+					</tr>
+				</c:if>
+			</c:if>
+		</c:forEach>
+	</tbody>
+</table>
+
+<input type="button" name="excelConvertBtn" id="excelConvertBtn" value="엑셀로 출력" style="cursor:hand;" />
+
+
 
 <script>
 	$(document).ready(function() {
@@ -484,6 +538,17 @@ td.sales_Table:hover {
 			});
 		});
 	});
+		 
+</script>
+
+<script>
+
+	$(document).ready(function() {
+		$("#excelConvertBtn").on('click', function() {
+			location.href = "../admin/adminSalestoExcel"
+		})
+	})
+    
 </script>
 
 </body>

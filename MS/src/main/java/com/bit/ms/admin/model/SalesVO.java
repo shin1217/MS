@@ -1,5 +1,7 @@
 package com.bit.ms.admin.model;
 
+import java.util.Date;
+
 import org.apache.ibatis.type.Alias;
 
 @Alias("salesVO")
@@ -12,12 +14,14 @@ public class SalesVO {
 	private int sales_id;
 	private int store_id;
 	private int salesDate;
+	private int salesMonth;
+	private String salesTime;
 	
 	@Override
 	public String toString() {
 		return "SalesVO [sales_day=" + sales_day + ", sales_total=" + sales_total + ", sales_food=" + sales_food
 				+ ", sales_seat=" + sales_seat + ", sales_id=" + sales_id + ", store_id=" + store_id + ", salesDate="
-				+ salesDate + "]";
+				+ salesDate + ", salesMonth=" + salesMonth + ", salesTime=" + salesTime + "]";
 	}
 
 	public String getSales_day() {
@@ -74,6 +78,22 @@ public class SalesVO {
 
 	public void setSalesDate(int salesDate) {
 		this.salesDate = salesDate;
+	}
+
+	public int getSalesMonth() {
+		return salesMonth;
+	}
+
+	public void setSalesMonth(int salesMonth) {
+		this.salesMonth = salesMonth;
+	}
+
+	public String getSalesTime() {
+		return salesTime;
+	}
+
+	public void setSalesTime(String salesTime) {
+		this.salesTime = salesTime;
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.bit.ms.admin.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.model.SalesVO;
 import com.bit.ms.admin.service.AdminSalesCalenderService;
 
@@ -56,6 +56,20 @@ public class AdminSalesCalenderController {
 		System.out.println("확인용 : " + viewList);
 		
 		return viewList;
+	}
+	
+	@RequestMapping(value="/admin/adminSalestoExcel", method = RequestMethod.GET)
+	public ModelAndView excelConvert(Locale locale, Model model) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		List<SalesVO> list = salesService.salesList();
+		
+		modelAndView.addObject("salesList", list);
+		modelAndView.setViewName("admin/adminSalestoExcel");
+		
+		return modelAndView;
+		
 	}
 	
 	
