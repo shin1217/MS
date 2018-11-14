@@ -74,7 +74,7 @@
 		select * from userinfo where store_id = #{store_id} order by ${sortName} ${orderBy}
 	</select>
 		
-	<!-- 스토어id로 스토어전체 검색 -->
+	<!-- 관리자 아이디로 자신의 스토어전체 검색 -->
 	<select id="getStoreName" parameterType="String" resultType="storeVO">
 		select * from store where admin_id = #{admin_id}
 	</select>

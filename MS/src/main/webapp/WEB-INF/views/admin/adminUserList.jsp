@@ -37,7 +37,7 @@
 	});
 	
 	var list = '';
-	var store_id = ${adminSession.store_id};
+	var store_id = ${storeSelectSession.store_id};
 		
 	function getAllUserList(){
 		$.ajax({

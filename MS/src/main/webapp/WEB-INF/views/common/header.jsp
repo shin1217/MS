@@ -29,7 +29,7 @@
 			<c:if test="${!empty adminSession}">
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/adminMypage"><i	class="fa fa-address-card-o" aria-hidden="true"></i>내정보</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice?page=1"><i class="fa fa-bullhorn" aria-hidden="true"></i>공지사항</a></li>
-				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/userList?id=${adminSession.store_id}"><i class="fa fa-users" aria-hidden="true"></i>회원목록</a></li>
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/userList"><i class="fa fa-users" aria-hidden="true"></i>회원목록</a></li>
 				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"	aria-haspopup="true" aria-expanded="false"> 관리하기 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/salesCalender"><i class="fa fa-pie-chart" aria-hidden="true"></i> 매출기록</a> 
@@ -66,7 +66,7 @@
 			location.href="${pageContext.request.contextPath}/admin/main?store=" + $('#storeList').val();
 		});
 		
-		//셀렉트를 선택하고 다른 옵션을 눌러 상태값이 바뀔때 이벤트 발생(change) -> 메인페이지로 이동
+		//셀렉트를 선택하고 다른 옵션을 눌러 상태값이 바뀔때 이벤트 발생(change) -> 선택한 메인페이지로 이동
 		$('#storeList').change(function(){
 			location.href="${pageContext.request.contextPath}/admin/main?store=" + $('#storeList').val();		});
 		});

@@ -24,9 +24,7 @@ public class AdminUserListController {
 
 	//회원목록 페이지 이동
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String userList(Model model, @Param("id") String id) {
-		
-		model.addAttribute("store_name", listService.getStoreName(id));
+	public String userList() {
 		
 		return "admin/adminUserList";
 	}
@@ -36,6 +34,8 @@ public class AdminUserListController {
 	@ResponseBody
 	public List<UserVO> getUserList(@PathVariable("store_id") int store_id) {
 
+		System.out.println(store_id);		
+		
 		List<UserVO> result = listService.getUserList(store_id);
 
 		return result;
