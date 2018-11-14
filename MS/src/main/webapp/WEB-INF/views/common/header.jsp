@@ -49,4 +49,11 @@
 	</c:if>
 		</ul>
 	</div>
+	<div>
+		<select id="storeList" class="custom-select">
+			<c:forEach items="${storeSession}" var="store" varStatus="status">
+				<option value="${status.index}">${store.store_name}</option>
+			</c:forEach>
+		</select>
+	</div>
 </nav>

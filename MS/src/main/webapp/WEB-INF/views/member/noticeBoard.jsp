@@ -8,9 +8,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+.container {
+	margin-top: 20px;
+}
 #write {
 	float: right;
-	margin: 20px;
+	margin: 10px;
 }
 /* 공지사항 게시판 제목 오버 */
 .notice-title:hover {
@@ -24,7 +27,9 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	
 	<div class="container">
+		<h1>${storeSelectSession.store_name} 공지사항</h1>
 		<c:if test="${!empty adminSession}">
 			<a id="write" class="btn btn-outline-elegant waves-effect"
 				href="${pageContext.request.contextPath}/admin/noticeWrite">글쓰기</a>

@@ -16,7 +16,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 	<div class="container">
-		<h1>${store_name} 회원목록</h1>
+		<h1>${storeSelectSession.store_name} 회원목록</h1>
 		<table id="userListTable" class="table table-striped table-bordered">
 			<thead>
 				<tr>

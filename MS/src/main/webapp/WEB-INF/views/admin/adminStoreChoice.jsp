@@ -52,15 +52,15 @@ body {
 			<div class="area_inputs">
 				<div class="input-group">
 					<c:if test="${!empty store}">
-					<select id="storeList" class="custom-select">
-						<option id="storePlease" value="0" selected>매장을 선택해주세요.</option>
-					<c:forEach items="${store}" var="store">
-						<option value="${store.store_id}">${store.store_name}</option>
-					</c:forEach>
-					</select>
-					<div class="input-group-append">
-						<button id="connectionBtn" type="button" class="btn btn-secondary">접속하기</button>
-					</div>
+						<select id="storeList" class="custom-select">
+							<option value="-1" selected>매장을 선택해주세요.</option>
+							<c:forEach items="${store}" var="store" varStatus="status">
+								<option value="${status.index}">${store.store_name}</option>
+							</c:forEach>
+						</select>
+						<div class="input-group-append">
+							<button id="connectionBtn" type="button" class="btn btn-secondary">접속하기</button>
+						</div>
 					</c:if>
 				</div>
 				<span class="font-weight-bold text-white bg-dark" id="spanStoreError"></span>
@@ -75,8 +75,10 @@ body {
 </body>
 <script>
 	$('#connectionBtn').click(function() {
-		if ($('#storeList').val() != 0) { //매장을 선택해야만 메인페이지로 이동
-			location.href = "${pageContext.request.contextPath}/admin/main";
+		var storeIndex = $('#storeList').val();
+		
+		if (storeIndex != "-1") { //매장을 선택해야만 메인페이지로 이동
+			location.href = "${pageContext.request.contextPath}/admin/main?store=" + storeIndex;
 		} else {
 			$('#spanStoreError').text('매장 선택 후 접속바랍니다.');
 		}
