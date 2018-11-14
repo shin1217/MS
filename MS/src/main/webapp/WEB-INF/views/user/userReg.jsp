@@ -288,7 +288,7 @@ body {
 			console.log(nameJ.test($(this).val()));
 			$("#phone_check").text('');
 		} else {
-			$('#phone_check').text('번호를 확인해주세요 :)');
+			$('#phone_check').text('- 없이 번호로만 입력해주세요 :)');
 			$('#phone_check').css('color', 'red');
 		}
 	});
