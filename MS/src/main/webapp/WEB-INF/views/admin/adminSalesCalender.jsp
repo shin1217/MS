@@ -1,3 +1,4 @@
+<%@page import="com.bit.ms.admin.model.StoreVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -5,6 +6,7 @@
 
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
+<%@page import="javax.servlet.http.HttpSession"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -31,7 +33,7 @@
 	int month = cal.get(Calendar.MONTH);
 	int date = cal.get(Calendar.DATE);
 	
-	String dateToday = Integer.toString(year) + Integer.toString(month+1) + "01";
+	String dateToday = Integer.toString(year-1) + Integer.toString(month+2) + "00";
 
 	if(strYear != null) {
 		year = Integer.parseInt(strYear);
@@ -131,18 +133,21 @@
 						<!-- 이전해 -->
 						<a href="<c:url value='/admin/salesCalender' />?year=<%=year-1%>&amp;month=<%=month%>" target="_self">
 							<b><img src="${pageContext.request.contextPath}/images/ArrowDouble_Left.png" style="width: 30px; height: 30px;"/></b>
+							<c:set var="dateToday" value="${year-2}${month+1}${'00'}" />
 						</a>
 						
 						<!-- 이전달 -->
 						<%if(month > 0 ){ %>
 						<a href="<c:url value='/admin/salesCalender' />?year=<%=year%>&amp;month=<%=month-1%>" target="_self">
 							<b><img src="${pageContext.request.contextPath}/images/Arrow_Left.png" style="width: 28px; height: 28px;"/></b>
+	                    	<c:set var="dateToday" value="${year-1}${month}${'00'}" />
 	                    </a>
 	                    
 	                    <!-- 1월에서의 이전달 -->
 	                    <%} else {%>
 	                    	<a href="<c:url value='/admin/salesCalender' />?year=<%=year-1%>&amp;month=<%=month+11%>" target="_self">							
 							<b><img src="${pageContext.request.contextPath}/images/Arrow_Left.png" style="width: 28px; height: 28px;"/></b>
+							<c:set var="dateToday" value="${year-2}${month+12}${'00'}" />
 							</a>
 	                    <%} %>
 	                    	<span class="sales_date">&nbsp;&nbsp; <%=year%>년 <%=month+1%>월 &nbsp;&nbsp;</span>
@@ -151,18 +156,21 @@
 	                    <%if(month < 11 ){ %>
 						<a href="<c:url value='/admin/salesCalender' />?year=<%=year%>&amp;month=<%=month+1%>" target="_self">
 	                    	<b><img src="${pageContext.request.contextPath}/images/Arrow_Right.png" style="width: 28px; height: 28px;"/></b>
+							<c:set var="dateToday" value="${year-1}${month+2}${'00'}" />
 						</a>
 						
 						<!-- 12월에서의 다음달 -->
 						<%}else{%>
 							<a href="<c:url value='/admin/salesCalender' />?year=<%=year+1%>&amp;month=<%=month-11%>" target="_self">	
 							<b><img src="${pageContext.request.contextPath}/images/Arrow_Right.png" style="width: 28px; height: 28px;"/></b>
+							<c:set var="dateToday" value="${year}${month-10}${'00'}" />
 							</a>
 							
 						<!-- 다음해 -->
 						<%} %>
 						<a href="<c:url value='/admin/salesCalender' />?year=<%=year+1%>&amp;month=<%=month%>" target="_self">
 							<b><img src="${pageContext.request.contextPath}/images/ArrowDouble_Right.png" style="width: 30px; height: 30px;"/></b>
+	                    	<c:set var="dateToday" value="${year}${month+1}${'00'}" />
 	                    </a>
 	                    
 					</td>
@@ -228,11 +236,13 @@
 									<c:set var="total" value="0"></c:set>
 									
 									<c:forEach items="${ salesList }" var="sales">
-										<c:if test="${ dateToday eq salesDate }">
+										<c:if test="${ storeSelectSession.store_id eq sales.store_id }">
+										<c:if test="${ dateToday eq sales.salesDate }">
 											<%-- 총 매출 : ${ sales.sales_total }
 											음식 매출 : ${ sales.sales_food }
 											좌석 매출 : ${ sales.sales_seat } --%>
 											<c:set var="total" value="${total + sales.sales_total}"></c:set>
+										</c:if>
 										</c:if>
 									</c:forEach>
 										<c:if test="${total != 0 }">
@@ -251,11 +261,13 @@
 									<c:set var="total" value="0"></c:set>
 									
 									<c:forEach items="${ salesList }" var="sales">
-										<c:if test="${ dateToday eq salesDate }">
+										<c:if test="${ storeSelectSession.store_id eq sales.store_id }">
+										<c:if test="${ dateToday eq sales.salesDate }">
 											<%-- 총 매출 : ${ sales.sales_total }
 											음식 매출 : ${ sales.sales_food }
 											좌석 매출 : ${ sales.sales_seat } --%>
 											<c:set var="total" value="${total + sales.sales_total}"></c:set>
+										</c:if>
 										</c:if>
 									</c:forEach>
 										<c:if test="${total != 0 }">
@@ -274,11 +286,13 @@
 									<c:set var="total" value="0"></c:set>
 									
 									<c:forEach items="${ salesList }" var="sales">
-										<c:if test="${ dateToday eq salesDate }">
+										<c:if test="${ storeSelectSession.store_id eq sales.store_id }">
+										<c:if test="${ dateToday eq sales.salesDate }">
 											<%-- 총 매출 : ${ sales.sales_total }
 											음식 매출 : ${ sales.sales_food }
 											좌석 매출 : ${ sales.sales_seat } --%>
 											<c:set var="total" value="${total + sales.sales_total}"></c:set>
+										</c:if>
 										</c:if>
 									</c:forEach>
 										<c:if test="${total != 0 }">
@@ -297,13 +311,13 @@
 									<c:set var="total" value="0"></c:set>
 									
 									<c:forEach items="${ salesList }" var="sales">
-									<h1>${sales.salesDate }</h1>
-										<c:if test="${ index eq sales.sales_day }">
+										<c:if test="${ storeSelectSession.store_id eq sales.store_id }">
+										<c:if test="${ dateToday eq sales.salesDate }">
 											<%-- 총 매출 : ${ total }
 											음식 매출 : ${ sales.sales_food }
 											좌석 매출 : ${ sales.sales_seat } --%>
 											<c:set var="total" value="${total + sales.sales_total}"></c:set>
-											
+										</c:if>
 										</c:if>
 									</c:forEach>
 										<c:if test="${total != 0 }">
@@ -347,8 +361,9 @@
 	<h1>${lastDayOfLastWeek}</h1>
 	<h1>${firstDayOfWeek}</h1>
 	<h1>${date }</h1>
-	<h1>${admin.store_Id }</h1>
-	salesDate
+	<h1>${admin.store_id }</h1>
+	<h1>${sessionScope.store_id }</h1>
+	<h1>${storeSelectSession.store_id }</h1>
 	
 </div>
 
