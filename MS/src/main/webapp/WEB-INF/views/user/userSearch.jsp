@@ -23,7 +23,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Righteous&amp;subset=latin-ext"
+<link
+	href="https://fonts.googleapis.com/css?family=Righteous&amp;subset=latin-ext"
 	rel="stylesheet">
 <style>
 html, body {
@@ -59,11 +60,11 @@ body {
 	height: 30%;
 }
 
-.sub_title{
+.sub_title {
 	padding-bottom: 2px;
-    margin-bottom: 15px;
-    font-size: 23px;
-    border-bottom: 1px solid #cecece;
+	margin-bottom: 15px;
+	font-size: 23px;
+	border-bottom: 1px solid #cecece;
 }
 </style>
 </head>
@@ -74,44 +75,86 @@ body {
 				<div class="sub_title font-weight-bold text-white">
 					<h3>아이디/비밀번호 찾기</h3>
 				</div>
-				<div style="margin-bottom: 10px;" class="custom-control custom-radio custom-control-inline">
-  					<input type="radio" class="custom-control-input" id="search_1" name="search_total" value="이메일"checked>
-					<label class="custom-control-label font-weight-bold text-white" for="search_1">아이디 찾기</label>
+				<div style="margin-bottom: 10px;"
+					class="custom-control custom-radio custom-control-inline">
+					<input type="radio" class="custom-control-input" id="search_1"
+						name="search_total" onclick="search_check(1)" checked>
+					<label class="custom-control-label font-weight-bold text-white"
+						for="search_1"	>아이디 찾기</label>
 				</div>
 				<div class="custom-control custom-radio custom-control-inline">
-  					<input type="radio" class="custom-control-input" id="search_2" name="search_total">
-					<label class="custom-control-label font-weight-bold text-white" for="search_2">비밀번호 찾기</label>
+					<input type="radio" class="custom-control-input" id="search_2"
+						name="search_total" onclick="search_check(2)"> <label
+						class="custom-control-label font-weight-bold text-white"
+						for="search_2">비밀번호 찾기</label>
 				</div>
-			<div class="form-group">
-				<label class="font-weight-bold text-white" for="inputId">아이디</label>
-				<div>
-					<input type="text" class="form-control" id="inputId"
-						name="user_id" placeholder="아이디">
+				<div id="searchI">
+					<div class="form-group">
+						<label class="font-weight-bold text-white" for="inputEmail">이메일</label>
+						<div>
+							<input type="text" class="form-control" id="inputEmail"
+								name="user_id" placeholder="아이디">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="font-weight-bold text-white" for="inputPhone">전화번호</label>
+						<div>
+							<input type="password" class="form-control" id="inputPhone"
+								name="user_pw" placeholder="비밀번호">
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
-				<div>
-					<input type="password" class="form-control" id="inputPassword"
-						name="user_pw" placeholder="비밀번호">
+				<div id="searchP">
+					<div class="form-group">
+						<label class="font-weight-bold text-white" for="inputId">아이디</label>
+						<div>
+							<input type="text" class="form-control" id="inputId"
+								name="user_id" placeholder="아이디">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="font-weight-bold text-white" for="inputEmail">이메일</label>
+						<div>
+							<input type="password" class="form-control" id="inputEmail"
+								name="user_pw" placeholder="비밀번호">
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<button id="loginBtn" type="button" class="btn btn-primary btn-block">확인</button>
-				<a class="btn btn-danger btn-block" href="${pageContext.request.contextPath}">취소</a>
+				<div class="form-group">
+					<button id="loginBtn" type="button"
+						class="btn btn-primary btn-block">확인</button>
+					<a class="btn btn-danger btn-block"
+						href="${pageContext.request.contextPath}">취소</a>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </body>
 <script>
-	$(document).ready(function(){
-		$('#search_1').click(function(){
-			
-			
-			
-		});
-	});
+	
+	// 체크 버튼에 따라 값이 달라진다
+	function search_check(num){
+		if(num=='1'){
+			document.getElementById("searchP").style.display="none";
+			document.getElementById("searchI").style.display="";
+		} else {
+			document.getElementById("searchI").style.display="none";
+			document.getElementById("searchP").style.display="";
+		}
+	}
+	
+	// 바꾸는 기능
+	function find_PWcheck(){
+		document.getElementById("findPop find form").style.display="";
+		document.getElementById("findPop IDfind").style.display="none";
+		document.getElementById("findPop PWfind").style.display="";
+		document.getElementById("findPop IDok").style.display="none";
+		$("#radioFindPW").attr("checked", true);
+		$("#mbName").val("");
+		$("#mbIDPhone1").val("");
+		$("#mbIDPhone2").val("");
+		$("#mbIDPhone3").val("");
+	}
 	
 </script>
 </html>

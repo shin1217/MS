@@ -67,7 +67,7 @@ public class UserLoginService {
 				
 				// storeSelectSession 저장
 				httpSession.setAttribute("storeSelectSession", storeVO);
-				System.out.println("회원아이디 세션 storeSelectSession : " + httpSession.getAttribute("storeSelectSession"));
+				System.out.println("매장정보 세션 storeSelectSession : " + httpSession.getAttribute("storeSelectSession"));
 			}
 		}
 		return result;
