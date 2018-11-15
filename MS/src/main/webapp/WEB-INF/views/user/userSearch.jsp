@@ -69,6 +69,7 @@ body {
 </style>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/modal/userIdSearchModal.jsp" %>
 	<div class="full">
 		<div class="container">
 			<div class="area_inputs wow fadeIn">
@@ -77,54 +78,45 @@ body {
 				</div>
 				<div style="margin-bottom: 10px;"
 					class="custom-control custom-radio custom-control-inline">
-					<input type="radio" class="custom-control-input" id="search_1"
-						name="search_total" onclick="search_check(1)" checked>
-					<label class="custom-control-label font-weight-bold text-white"
-						for="search_1"	>아이디 찾기</label>
+					<input type="radio" class="custom-control-input" id="search_1" name="search_total" onclick="search_check(1)" checked="checked">
+					<label class="custom-control-label font-weight-bold text-white"	for="search_1">아이디 찾기</label>
 				</div>
 				<div class="custom-control custom-radio custom-control-inline">
-					<input type="radio" class="custom-control-input" id="search_2"
-						name="search_total" onclick="search_check(2)"> <label
-						class="custom-control-label font-weight-bold text-white"
-						for="search_2">비밀번호 찾기</label>
+					<input type="radio" class="custom-control-input" id="search_2" name="search_total" onclick="search_check(2)"> 
+					<label class="custom-control-label font-weight-bold text-white" for="search_2">비밀번호 찾기</label>
 				</div>
 				<div id="searchI">
 					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputEmail">이메일</label>
+						<label class="font-weight-bold text-white" for="inputEmail_1">이메일</label>
 						<div>
-							<input type="text" class="form-control" id="inputEmail"
-								name="user_id" placeholder="아이디">
+							<input type="text" class="form-control" id="inputEmail_1" name="inputEmail_1" placeholder="E-mail@gamil.com">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="font-weight-bold text-white" for="inputPhone">전화번호</label>
 						<div>
-							<input type="password" class="form-control" id="inputPhone"
-								name="user_pw" placeholder="비밀번호">
+							<input type="text" class="form-control" id="inputPhone"	name="inputPhone_1" placeholder="ex) 010-7777-9999">
 						</div>
 					</div>
 				</div>
-				<div id="searchP">
+				<div id="searchP" style="display: none;">
 					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputId">아이디</label>
+						<label class="font-weight-bold text-white" for="inputId_2">아이디</label>
 						<div>
-							<input type="text" class="form-control" id="inputId"
-								name="user_id" placeholder="아이디">
+							<input type="text" class="form-control" id="inputId_2"
+								name="inputId_2" placeholder="아이디">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputEmail">이메일</label>
+						<label class="font-weight-bold text-white" for="inputEmail_2">이메일</label>
 						<div>
-							<input type="password" class="form-control" id="inputEmail"
-								name="user_pw" placeholder="비밀번호">
+							<input type="email" class="form-control" id="inputEmail_2"	name="inputEmail_2" placeholder="E-mail@gmail.com">
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<button id="loginBtn" type="button"
-						class="btn btn-primary btn-block">확인</button>
-					<a class="btn btn-danger btn-block"
-						href="${pageContext.request.contextPath}">취소</a>
+					<button id="searchBtn" type="button" class="btn btn-primary btn-block">확인</button>
+					<a class="btn btn-danger btn-block"	href="${pageContext.request.contextPath}">취소</a>
 				</div>
 			</div>
 		</div>
@@ -132,18 +124,39 @@ body {
 </body>
 <script>
 	
-	// 체크 버튼에 따라 값이 달라진다
-	function search_check(num){
-		if(num=='1'){
-			document.getElementById("searchP").style.display="none";
-			document.getElementById("searchI").style.display="";
+	//체크 버튼에 따라 아이디/비밀번호 기능이 달라진다
+	function search_check(num) {
+		if (num == '1') {
+			document.getElementById("searchP").style.display = "none";
+			document.getElementById("searchI").style.display = "";
 		} else {
-			document.getElementById("searchI").style.display="none";
-			document.getElementById("searchP").style.display="";
+			document.getElementById("searchI").style.display = "none";
+			document.getElementById("searchP").style.display = "";
 		}
 	}
-	
-	// 바꾸는 기능
+
+	$(document).ready(function() {
+		/////////모///달///기///능///////////
+		// 1. 모달창 히든 불러오기
+		$('#searchBtn').click(function() {
+			console.log("modal1");
+			$('#background_modal').show();
+		});
+		// 2. 모달창 닫기 버튼
+		$('.close').on('click', function() {
+			console.log("modal2");
+			$('#background_modal').hide();
+		});
+		// 3. 모달창 위도우 클릭 시 닫기
+		$(window).on('click', function() {
+			console.log("modal3");
+			if (event.target == $('#background_modal').get(0)) {
+	            $('#background_modal').hide();
+	         }
+		});
+	});
+
+	/* // 바꾸는 기능
 	function find_PWcheck(){
 		document.getElementById("findPop find form").style.display="";
 		document.getElementById("findPop IDfind").style.display="none";
@@ -154,7 +167,6 @@ body {
 		$("#mbIDPhone1").val("");
 		$("#mbIDPhone2").val("");
 		$("#mbIDPhone3").val("");
-	}
-	
+	} */
 </script>
 </html>
