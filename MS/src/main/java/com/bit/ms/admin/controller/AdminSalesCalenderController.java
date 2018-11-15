@@ -58,12 +58,12 @@ public class AdminSalesCalenderController {
 		return viewList;
 	}
 	
-	@RequestMapping(value="/admin/adminSalestoExcel", method = RequestMethod.GET)
-	public ModelAndView excelConvert(Locale locale, Model model) {
+	@RequestMapping(value="/admin/adminSalestoExcel/{nowMonth}", method = RequestMethod.GET)
+	public ModelAndView excelConvert(@PathVariable("nowMonth") int nowMonth) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		List<SalesVO> list = salesService.salesList();
+		List<SalesVO> list = salesService.salesLists(nowMonth);
 		
 		modelAndView.addObject("salesList", list);
 		modelAndView.setViewName("admin/adminSalestoExcel");

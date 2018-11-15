@@ -367,6 +367,8 @@ td.sales_Table:hover {
 		</tbody>
 		
 	</table>
+	<br>
+	<input type="button" name="excelConvertBtn" id="excelConvertBtn" value="${nowMonth}월 매출 엑셀로 다운로드" style="cursor:hand;" />
 
 	<h1>${year }</h1>
 	<h1>${month }</h1>
@@ -382,14 +384,6 @@ td.sales_Table:hover {
 	<h1>${storeSelectSession.store_id }</h1>
 	<h1>${nowMonth }</h1>
 	
-	<button id="exportToExcel" onclick="exportToExcel()" style="z-index: 1110; background: rgb(142, 31, 31); 
-		float: right; margin-bottom: 16px;
-		margin-top: 16px; margin-right: 16px;
-		display: block;"
-	    class="mdl-button mdl-js-button mdl-button--fab"
-	    data-toggle="modal" data-target="#myModal">
-	    <i class="material-icons">save</i>
-	</button>
 	
 </div>
 
@@ -414,7 +408,7 @@ td.sales_Table:hover {
 				<thead>
 					<tr>
 						<th class="sales_ModalTable" style="text-align: center;">판매 번호</th>
-						<th class="sales_ModalTable" style="text-align: center;">총 매출</th>
+						<th class="sales_ModalTable" style="text-align: center;">종합 매출</th>
 						<th class="sales_ModalTable" style="text-align: center;">음식 매출</th>
 						<th class="sales_ModalTable" style="text-align: center;">좌석 매출</th>
 					</tr>
@@ -442,14 +436,14 @@ td.sales_Table:hover {
 
 
 <!-- 숨겨진 테이블 ( 엑셀에 출력될것 ) -->
-<table style="text-align: center;">
+<table style="text-align: center; display: none;">
 	<thead>
 		<tr>
-			<th class="sales_hidden">판매시간</th>
-			<th class="sales_hidden">판매번호</th>
-			<th class="sales_hidden">종합매출</th>
-			<th class="sales_hidden">음식매출</th>
-			<th class="sales_hidden">좌석매출</th>
+			<th class="sales_hidden">판매 시간</th>
+			<th class="sales_hidden">판매 번호</th>
+			<th class="sales_hidden">종합 매출</th>
+			<th class="sales_hidden">음식 매출</th>
+			<th class="sales_hidden">좌석 매출</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -468,10 +462,6 @@ td.sales_Table:hover {
 		</c:forEach>
 	</tbody>
 </table>
-
-<input type="button" name="excelConvertBtn" id="excelConvertBtn" value="엑셀로 출력" style="cursor:hand;" />
-
-
 
 <script>
 	$(document).ready(function() {
@@ -545,7 +535,7 @@ td.sales_Table:hover {
 
 	$(document).ready(function() {
 		$("#excelConvertBtn").on('click', function() {
-			location.href = "../admin/adminSalestoExcel"
+			location.href = "../admin/adminSalestoExcel/" + ${nowMonth};
 		})
 	})
     

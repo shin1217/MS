@@ -17,6 +17,10 @@
 	<select id="getStoreId" resultType="salesVO">
 		select sales_id, DATE_FORMAT(sales_day,'%Y%m%d') salesDate, DATE_FORMAT(sales_day,'%d') sales_day, sales_total, sales_food, sales_seat, store_id from sales where DATE_FORMAT(sales_day,'%d') = #{day} and store_id = #{storeId};
 	</select>
+	
+	<select id="listAlls" resultType="salesVO">
+ 		select sales_id, DATE_FORMAT(sales_day,'%Y-%m-%d %h:%i:%S %p') salesTime, DATE_FORMAT(sales_day,'%m') salesMonth, DATE_FORMAT(sales_day,'%Y%m%d') salesDate, DATE_FORMAT(sales_day,'%d') sales_day, sales_total, sales_food, sales_seat, store_id from sales where DATE_FORMAT(sales_day,'%m') = #{nowMonth};
+ 	</select>
  	
  </mapper>
  

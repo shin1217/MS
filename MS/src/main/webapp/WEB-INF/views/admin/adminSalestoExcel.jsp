@@ -1,15 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*"%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="javax.servlet.http.HttpSession"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 
 <%
+	/* Calendar cal = Calendar.getInstance();
+	
+	String strYear = request.getParameter("year");
+	String strMonth = request.getParameter("month");
+	
+	int year = cal.get(Calendar.YEAR);
+	int month = cal.get(Calendar.MONTH);
+	int date = cal.get(Calendar.DATE);
+	
+	String dateToday = Integer.toString(year-1) + Integer.toString(month+2) + "00";
+	
+	if(strYear != null) {
+		year = Integer.parseInt(strYear);
+		month = Integer.parseInt(strMonth);
+	} else {
+	}
+	
+	int nowMonth = month + 1;	
+	
+	request.setAttribute("nowMonth", nowMonth); */
+
+
     SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
     String today = format.format(new Date());
     String days = request.getParameter("days");
-    String fileName = "매출현황" + today + "." + days;
+    String fileName = "매출현황_" + today + "." + days;
       response.setHeader("Content-Type", "application/vnd.ms-xls");
     response.setHeader("Content-Disposition",
             "attachment; filename=" + new String((fileName).getBytes("KSC5601"), "8859_1") + ".xls");
@@ -24,17 +49,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>엑셀 다운로드</title>
+
+<style type="text/css">
+
+.sales_hidden {
+	border: thin black solid;
+	mso-number-format: \@;
+	padding: 15px;
+	font-size: 15px;
+	width: 500px;
+	background:#f2f4f4;
+}
+
+</style>
+
 </head>
 <body>
 	
-<table style="text-align: center;">
+<table width="500" style="text-align: center; width: 500;">
 	<thead>
 		<tr>
-			<th class="sales_hidden">판매시간</th>
-			<th class="sales_hidden">판매번호</th>
-			<th class="sales_hidden">종합매출</th>
-			<th class="sales_hidden">음식매출</th>
-			<th class="sales_hidden">좌석매출</th>
+			<th class="sales_hidden">  판매 시간  </th>
+			<th class="sales_hidden">  판매 번호  </th>
+			<th class="sales_hidden">  종합 매출  </th>
+			<th class="sales_hidden">  음식 매출  </th>
+			<th class="sales_hidden">  좌석 매출  </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -53,16 +92,6 @@
 		</c:forEach>
 	</tbody>
 </table>
-
-<button id="exportToExcel" onclick="exportToExcel()"
-    style="z-index: 1110; background: rgb(142, 31, 31); 
-float: right; margin-bottom: 16px; 
-margin-top: 16px; margin-right: 16px; 
-display: block;"
-    class="mdl-button mdl-js-button mdl-button--fab"
-    data-toggle="modal" data-target="#myModal">
-    <i class="material-icons">save</i>
-</button>
 
 </body>
 

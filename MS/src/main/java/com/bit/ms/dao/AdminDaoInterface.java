@@ -51,6 +51,7 @@ public interface AdminDaoInterface {
 	public List<SalesVO> listAll() throws Exception; // 매출기록 리스트 출력
 	List<SalesVO> listSales(@Param("day")int day, @Param("storeId")int storeId) throws Exception;
 	List<SalesVO> getStoreId(int storeId) throws Exception;
+	List<SalesVO> listAlls(int nowMonth) throws Exception;
 	
 	/* 좌석관리 */
 	List<SeatVO> getSeatListI(int store_id);
