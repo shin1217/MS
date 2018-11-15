@@ -74,17 +74,19 @@ public class MemberMessageController {
 	}
 	//관리자 안읽은 메시지 카운트
 	@RequestMapping(value = "admin/messageCnt")
-	public int cntAdminMessage(HttpSession session) {
+	public @ResponseBody int cntAdminMessage(HttpSession session) {
 		
 		AdminVO adminVo = (AdminVO) session.getAttribute("adminSession");
+		StoreVO storeVo = (StoreVO) session.getAttribute("storeSelectSession");
 		String receive_id = adminVo.getAdmin_id();
-		String store_id = Integer.toString(adminVo.getStore_id()); 
+		String store_id = Integer.toString(storeVo.getStore_id()); 
+		System.out.println(store_id + " : " + receive_id);
 		
 		return service.messageCnt(receive_id, store_id);
 	}
 	//사용자 안읽은 메시지 카운트
 	@RequestMapping(value = "user/messageCnt")
-	public int cntUserMessage(HttpSession session) {
+	public @ResponseBody int cntUserMessage(HttpSession session) {
 			
 		UserVO userVo = (UserVO) session.getAttribute("adminSession");
 		String receive_id = userVo.getUser_id();

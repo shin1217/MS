@@ -26,12 +26,12 @@
 	text-align : center;
 	border-radius: 10px;
 	margin-left : -350px;
-	height : 700px;
+	height : 720px;
 	overflow : overlay;
-	scrollbar-face-color : black;
 }
 .messageListTitle{
 	margin-top : 30px;
+	font-weight : bold;
 }
 #writeMessage{
 	position : absolute;
@@ -117,13 +117,17 @@ hr{
 	border-radius: 10px;
 	position : relative;
 }
+.messageUl:hover{
+	-webkit-transform:scale(1.1); 
+	transition: all 0.3s ease-in-out;
+}
 .messageUlWrap{
 	float: left;
 }
 .messageUl textarea {
 	padding: 10px;
 	margin-top: 10px;
-	margin-bottom: 2px;
+	margin-bottom: 4px;
 	height: 120px;
 	border-radius: 5px;
 }
@@ -131,18 +135,19 @@ hr{
 	margin: 0px 6px;
 	font-size: 15px;
 	color: white;
-	background-color: black;
+	background-color:#3f51b5;
 	text-decoration: none;
-	padding: 4px;
+	padding: 6px;
 	border-radius: 5px;
 	width : 70px;
+	border : none;
 }
 .deleteMessage{
 	position : absolute;
 	right : 10px;
 	top : 10px;
 }
-.deleteMessage:hover {
+.deleteMessage:hover, .messageReply:hover, .messageDetail:hover {
 	cursor : pointer;
 }
 
@@ -210,7 +215,7 @@ $(document).ready(function(){
 	$('#writeMessageModal').hide();
 });
 var store_id = ${userSession.store_id};
-var user_id = ${userSession.user_id};
+//var user_id = ${userSession.user_id};
 
 ///////////// 메시지리스트 //////////////
 function getMessageList(){
@@ -224,21 +229,25 @@ function getMessageList(){
 				for(var i = 0; i < data.length; i++){
 					str = '<div id="messageUlWrap" class = "messageUlWrap">';
 					if(data[i].message_read != "Y"){
-						str += '<ul id="' + data[i].message_id + '" class = "messageUl"style = "background-color : #eee;>';
+						str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #eee;">';
 					} else {
-						str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #2bbbad; color : white; font-weight : bold">';
+						str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #4285f4; color : white; font-weight : bold">';
 						str += '<img src = ${pageContext.request.contextPath}/images/delete2.png onclick = "deleteMessage(' + data[i].message_id + ')" style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
 					}
 					str += '	<li id = "li_message_id">메시지 번호 : ' + data[i].message_id + '</li>';
 					str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
-					str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+					if(data[i].message_read != "Y"){
+						str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+					} else {
+						str += '	<li><textarea readonly style = "background-color : #eee;" cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+					}
 					str += '	<input type = "button" onclick = "replyMessage(' + data[i].message_id + ')" id = "messageReply" class = "messageReply" value = "답장">';
 					str += '	<input type = "button" id = "messageDetail" class = "messageDetail" value = "상세">';
 					str += '</ul></div>';
 					$('#messageList').append(str);
 				} str = '';
 			} else{
-				$('#messageList').html("<p style = 'color : red; margin-bottom : 20px; font-size : 15px;'>※ 도착한 메시지가 없습니다.</p>");
+				$('#messageList').html("<p style = 'color : red; margin-bottom : 20px; font-size : 30px;'>※ 도착한 메시지가 없습니다.</p>");
 			}
 		}
 	});
@@ -256,6 +265,9 @@ function sendMessage(){
 		},
 		success : function(data){
 			alert("메시지 작성에 성공하셨습니다.");
+			$('#writeMessageModal').hide();
+			$('#message_title').val("");
+			$('#message_con').val("");
 		}
 	});
 }
@@ -272,6 +284,9 @@ function deleteMessage(message_id){
 ///////////// 답장버튼 메서드 ///////////
 function replyMessage(message_id){
 	$('#writeMessageModal').show();
+	$('#sendBtn').click(function(){
+		sendMessage();
+	});
 }
 ///////// 쪽지함 버튼 클릭시 ///////////
 $('#messageBtn').click(function(){
@@ -287,13 +302,12 @@ $('#writeMessage').click(function(){
 			sendMessage();
 		});
 });
-
+//////////// 메시지를 읽은것 처리 /////////////////
 $(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그들은 이런식으로 이벤트를 줘야함
 	//var str = "onclick = "readChk(' + data[i].message_id + ')"";
-	$(this).css("background-color","#2bbbad").css("font-weight","bold").css("color","white");
+	$(this).css("background-color","#4285f4").css("font-weight","bold").css("color","white");
 	var message_id = $(this).attr("id");
 	var read_message = "Y";
-	
 	$.ajax({
 		url : '${pageContext.request.contextPath}' + '/member/readMessage',
 		type : 'post',
@@ -302,7 +316,6 @@ $(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그
 			message_read : read_message
 		},
 		success : function(data){
-			alert("메시지를 읽었습니다.");
 			getMessageList();
 		}
 	});

@@ -228,7 +228,7 @@
                </tr>
                <tr>
                   <th>생년월일</th>
-                  <td><input type = "text" name = "user_birth" id = "userMyPage_birth" value = "${user.user_birth }"></td>
+                  <td><input type = "text" name = "user_birth" id = "userMyPage_birth" value = "${user.user_birth }" readonly></td>
                </tr>
                <tr>
                   <th>회원이메일</th>

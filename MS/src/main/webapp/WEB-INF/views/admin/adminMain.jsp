@@ -86,13 +86,12 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<%@ include file="/WEB-INF/views/modal/adminAddTimeModal.jsp"%>
-	<%@ include file="/WEB-INF/views/admin/adminMessage.jsp" %>
 	<div class="adminMain_container">
 		<div class="left_area">
 			<div class="left_content">
 				
 				<div class="left_btn_wrap">
-					<button type="button" class="btn btn-mdb-color">쪽지함</button>
+					<button type="button" id = "messageBtn"class="btn btn-mdb-color">쪽지함</button>
 					<button type="button" class="btn btn-deep-orange">자리 변경</button>
 				</div>
 			</div>
@@ -103,6 +102,7 @@
 			</table>
 		</div>
 	
+	<%@ include file="/WEB-INF/views/admin/adminMessage.jsp" %>
 	</div>
 </body>
 
