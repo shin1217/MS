@@ -213,7 +213,26 @@ hr{
 $(document).ready(function(){
 	$('#messageModal').hide(); //페이지 시작시 메세지 모달창 가림
 	$('#writeMessageModal').hide();
+	setInterval(function () { 
+		alarm();
+	}, 1000);
 });
+
+/////////////// 안읽은메시지 알림 //////////////
+function alarm(){
+	$.ajax({
+		url : '${pageContext.request.contextPath}' + '/admin/messageCnt',
+		success : function(data){
+			console.log(data);
+			var readCnt = data;
+			if(readCnt > 0){
+				$('#readCnt').css("display", "block");
+				$('#readCnt').text(readCnt);
+			} else {
+			}
+		}
+	});
+}
 var store_id = ${userSession.store_id};
 //var user_id = ${userSession.user_id};
 

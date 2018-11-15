@@ -76,11 +76,10 @@ public class MemberMessageController {
 	@RequestMapping(value = "admin/messageCnt")
 	public @ResponseBody int cntAdminMessage(HttpSession session) {
 		
-		AdminVO adminVo = (AdminVO) session.getAttribute("adminSession");
 		StoreVO storeVo = (StoreVO) session.getAttribute("storeSelectSession");
-		String receive_id = adminVo.getAdmin_id();
+		String receive_id = "관리자";
 		String store_id = Integer.toString(storeVo.getStore_id()); 
-		System.out.println(store_id + " : " + receive_id);
+		//System.out.println(store_id + " : " + receive_id);
 		
 		return service.messageCnt(receive_id, store_id);
 	}

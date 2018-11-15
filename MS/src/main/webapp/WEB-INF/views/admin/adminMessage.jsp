@@ -29,7 +29,7 @@
 	text-align : center;
 	border-radius: 10px;
 	margin-left : -350px;
-	height : 720px;
+	height : 90%;
 	overflow : overlay;
 }
 .messageListTitle{
@@ -159,10 +159,23 @@ hr{
 	-webkit-transform:scale(1.1); 
 	transition: all 0.3s ease-in-out;
 }
+.readCnt{
+	position : absolute;
+	background-color : red;
+	margin-left : 30px;
+	font-size : 15px;
+	padding : 1px 7px;
+	color : white;
+	display : none;
+	border-radius : 10em;
+	z-index : 1;
+	left : 140px;
+	top : 140px;
+}
 </style>
 </head>
 <body>
-	
+	<span id = "readCnt" class = "readCnt"></span>
 <!-- ///////////메시지 모달창/////////// -->
 		<div class = "messageModal" id = "messageModal">
 			<div class="messageWrap">
@@ -224,15 +237,22 @@ hr{
 	$(document).ready(function(){
 		$('#messageModal').hide(); //페이지 시작시 메세지 모달창 가림
 		$('#writeMessageModal').hide(); // 페이지 시작시 쪽지쓰기 모달창 가림
-		$('#sendBtn').css("display","block"); //윈도우 시작하면 보내기버튼이 나옴
-		$('#replyBtn').css("display","none"); //윈도우 시작하면 답장에서 보내기버튼이 사라짐
-		//alarm();
+		setInterval(function () { 
+			alarm();
+		}, 1000);
 	});
+	///////////////// 안읽은 메시지 알림/////////////////
 	function alarm(){
 		$.ajax({
 			url : '${pageContext.request.contextPath}' + '/admin/messageCnt',
 			success : function(data){
 				console.log(data);
+				var readCnt = data;
+				if(readCnt > 0){
+					$('#readCnt').css("display", "block");
+					$('#readCnt').text(readCnt);
+				} else {
+				}
 			}
 		});
 	}

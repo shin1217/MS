@@ -29,7 +29,7 @@
 		update message set message_read = #{message_read} where message_id = #{message_id}
 	</update>
 	<!-- 안읽은 메시지 카운트 -->	
-	<select id="adminMessageCnt" parameterType="hashmap">
+	<select id="messageCnt" parameterType="hashmap" resultType="int">
 		select count(*) from message where receive_id = #{receive_id} and store_id = #{store_id} and message_read = "N"
 	</select>
 	<!--사용자의 매장리스트 -->
