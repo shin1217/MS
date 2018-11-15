@@ -31,7 +31,6 @@ public class UserLoginController {
 		// 매장 리스트
 		List<StoreVO> result = login_service.getStoreOption();		
 		model.addAttribute("store_list2", result);
-		System.out.println("로그인 컨트롤러 확인"+result);
 		
 		return "user/userLogin";
 	}
@@ -43,13 +42,11 @@ public class UserLoginController {
 
 		// userLogin.jsp에서 아이디기억하기 name값(remember) 가져오기
 		String user_check = request.getParameter("remember_userId");
-		System.err.println(user_check);
 		int result = login_service.userLogin_service(user_id, user_pw, store_id, httpSession, user_check, response);
 
 		// 매장 리스트
 		login_service.getStoreOption();		
 		model.addAttribute("store_list2", login_service.getStoreOption());
-		System.out.println("로그인 컨트롤러 확인"+result);
 		
 		return result;
 	}

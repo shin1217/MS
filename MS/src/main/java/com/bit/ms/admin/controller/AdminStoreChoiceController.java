@@ -23,14 +23,9 @@ public class AdminStoreChoiceController {
 	@RequestMapping(value = "/admin/storeChoice", method = RequestMethod.GET)
 	public String storeChoiceForm(@Param("id") String id, Model model, HttpSession session) {
 
-		List<StoreVO> result = adminUserListService.getStoreName(id);
-		
-		session.setAttribute("storeSession", result);
-		
-		System.out.println("전체 스토어세션 storeSession : " + session.getAttribute("storeSession"));
-		
+		List<StoreVO> result = adminUserListService.getStoreName(id, session);
+			
 		model.addAttribute("store", result);
-		
 		
 		return "admin/adminStoreChoice";
 	}

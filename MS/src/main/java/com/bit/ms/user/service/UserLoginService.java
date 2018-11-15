@@ -41,7 +41,7 @@ public class UserLoginService {
 					response.addCookie(cookie);
 					
 					// 쿠키 확인
-					System.out.println("Service check" + cookie);
+					//System.out.println("Service check" + cookie);
 				} else{
 					cookie.setMaxAge(0);				
 					response.addCookie(cookie);
@@ -63,7 +63,8 @@ public class UserLoginService {
 	public List<StoreVO> getStoreOption(){
 		
 		adminDao = userSqlSession.getMapper(AdminDaoInterface.class);
-		System.out.println("로그인 서비스 확인");
+
+		
 		
 		return adminDao.getStoreList();
 	}
