@@ -7,22 +7,13 @@
 <meta charset="UTF-8">
 <title>MS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css"
-	rel="stylesheet">
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 <style>
 html, body {
 	height: 100%;
@@ -73,11 +64,9 @@ body {
 	</c:if>
 	
 	<div class="full">
-		<div class="wow flipInY"
-			style="float: right; margin-top: 30px; margin-right: 30px;">
-			<a href="admin"> <img
-				src="${pageContext.request.contextPath}/images/adminLogin-move.png"
-				style="height: 50px;" />
+		<div class="wow flipInY" style="float: right; margin-top: 30px; margin-right: 30px;">
+			<a href="admin"> 
+				<img src="${pageContext.request.contextPath}/images/adminLogin-move.png" style="height: 50px;" />
 			</a>
 		</div>
 		<div class="container">
@@ -95,15 +84,13 @@ body {
 				<div class="form-group">
 					<label class="font-weight-bold text-white" for="inputId">아이디</label>
 					<div>
-						<input type="text" class="form-control" id="inputId"
-							name="user_id" value="${cookie.user_check.value}" placeholder="아이디">
+						<input type="text" class="form-control" id="inputId" name="user_id" value="${cookie.user_check.value}" placeholder="아이디">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
 					<div>
-						<input type="password" class="form-control" id="inputPassword"
-							name="user_pw" placeholder="비밀번호">
+						<input type="password" class="form-control" id="inputPassword" name="user_pw" placeholder="비밀번호">
 					</div>
 				</div>
 				<div class="form-group">
@@ -114,13 +101,11 @@ body {
 						<a href="${pageContext.request.contextPath}/user/userSearch">&nbsp; 아이디 / 비밀번호 찾기</a>
 					</div>
 					<div>
-						<button id="loginBtn" type="button"
-							class="btn btn-primary btn-block">로그인</button>
+						<button id="loginBtn" type="button"	class="btn btn-primary btn-block">로그인</button>
 					</div>
 				</div>
 				<div>
-					<a class="btn btn-deep-orange btn-block"
-						href="${pageContext.request.contextPath}/user/reg">회원가입</a>
+					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
 			</div>
 		</div>
@@ -131,34 +116,30 @@ body {
 	new WOW().init();
 
 	// 로그인 id / pw 유효성 검사
-	$('#loginBtn')
-			.click(
-					function() {
-						var id = $('#inputId').val();
-						var pw = $('#inputPassword').val();
-						var store = $('#store_id').val();
-						var remember_us = $('#remember_us').is(':checked');
-						console.log(remember_us);
-								$.ajax({
-									type : 'post',
-									url : '${pageContext.request.contextPath}/',
-									data : {
-										// name 값 : id 값
-										user_id : id,
-										user_pw : pw,
-										store_id : store,
-										remember_userId : remember_us
-									},
-									success : function(data) {
-										if (data == 0) { //로그인 실패시
-											$('#spanLoginCheck').text(
-													'로그인 정보를 정확히 입력해주세요.');
-										} else { //로그인 성공시
-											location.href = '${pageContext.request.contextPath}/user/main';
-										}
-									}
-								});
-					});
+	$('#loginBtn').click(function() {
+		var id = $('#inputId').val();
+		var pw = $('#inputPassword').val();
+		var store = $('#store_id').val();
+		var remember_us = $('#remember_us').is(':checked');
+			$.ajax({
+			type : 'post',
+			url : '${pageContext.request.contextPath}/',
+			data : {
+				// name 값 : id 값
+				user_id : id,
+				user_pw : pw,
+				store_id : store,
+				remember_userId : remember_us
+				},
+				success : function(data) {
+					if (data == 0) { //로그인 실패시
+						$('#spanLoginCheck').text('로그인 정보를 정확히 입력해주세요.');
+					} else { //로그인 성공시
+						location.href = '${pageContext.request.contextPath}/user/main';
+					}
+				}
+			});
+		});
 	
 </script>
 </html>

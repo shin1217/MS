@@ -135,7 +135,7 @@
 
 	function getAllList() {
 		$.ajax({
-			type : 'get',
+				type : 'get',
 				url : '${pageContext.request.contextPath}/reply/all/' + notice_id,
 				dataType : 'json',
 				success : function(data) {
