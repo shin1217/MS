@@ -29,4 +29,10 @@ public class AdminStoreChoiceController {
 		
 		return "admin/adminStoreChoice";
 	}
+	
+	@RequestMapping(value = "/admin/storeReg", method = RequestMethod.GET)
+	public String storeRegForm() {
+
+		return "admin/adminStoreReg";
+	}
 }
