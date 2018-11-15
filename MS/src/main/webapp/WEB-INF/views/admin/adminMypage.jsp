@@ -352,9 +352,8 @@
    top : 20%;
    left : 35%;
    width : 500px;
-   height : 150px;
+   height : 500px;
    background-color : white;
-   text-align : center;
    border-radius: 10px;
 }
 .addStoreWrap p{
@@ -363,6 +362,7 @@
    margin-top : 20px;
    margin-bottom : 15px;
    font-weight : bold;
+   text-align : center;
 }
 .adminMypage_select{
    width : 220px;
@@ -377,9 +377,11 @@
    border : none;
    background-color : black;
    color : white;
-   width : 100px;
+   width : 300px;
    height : 50px;
    border-radius: 10px;
+   margin-left : 20%;
+   margin-top : 15px;
 }
 .storeClose{
    position : absolute;
@@ -391,6 +393,14 @@
 .storeClose:hover{
    color : grey;
    cursor : pointer;
+}
+.store_nameWrap{
+	margin : 0px 60px ;
+}
+.store_nameWrap input[type="text"]{
+	width : 100%;
+	height : 35px;
+	margin-bottom : 10px;
 }
 </style>
 </head>
@@ -441,14 +451,14 @@
    <!-- 매장 추가 모달창 -->
       <div class = "addStoreModal" id = "addStoreModal">
          <div class = 'addStoreWrap' id = "addStoreWrap">
-           <div id = 'newAddStore'><p>매장을 선택하세요</p>
+           <div id = 'newAddStore'><p>매장을 추가하세요</p> <hr>
             <span class = 'storeClose' id = 'storeClose'>×</span>
-            <div class = "store_nameWrap"><label for = "store_name">매장 이름</label>
-            <input type = "text" class = "store_name" id = "store_name"></div>
-            <div class = "store_nameWrap"><label for = "store_address">매장 주소</label>
-            <input type = "text" class = "store_address" id = "store_address"></div>
-            <div class = "store_nameWrap"><label for = "store_num">매장 번호</label>
-            <input type = "text" class = "store_num" id = "store_num"></div>
+            <div class = "store_nameWrap"><label for = "Store_name" style = "font-size : 20px; font-weight : bold;">매장 이름</label><br>
+            <input type = "text" class = "addStore_name" id = "store_name"></div>
+            <div class = "store_nameWrap"><label for = "store_address" style = "font-size : 20px; font-weight : bold;">매장 주소</label><br>
+            <input type = "text" class = "addStore_address" id = "store_address"></div>
+            <div class = "store_nameWrap"><label for = "store_num" style = "font-size : 20px; font-weight : bold;">매장 번호</label><br>
+            <input type = "text" class = "addStore_num" id = "store_num"></div><br><hr>
             <input type = 'button' class = 'addBtn' id = 'addBtn' value = '매장등록'></div>
          </div>
       </div>
