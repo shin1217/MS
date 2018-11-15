@@ -302,6 +302,7 @@
 				$('#countTimeSecond'+seatId).html('00'); 
 				clearInterval(timer);
 				
+				<%-- 
 				$.ajax({
 					// 좌석 삭제(좌석 번호)
 					url: '<%=request.getContextPath()%>/admin/deleteSeat?seatId=' + seatId, 
@@ -312,6 +313,7 @@
 						
 					} // end success 
 				}); // end ajax
+				 --%>
 
 			}else{
 				sec--;
