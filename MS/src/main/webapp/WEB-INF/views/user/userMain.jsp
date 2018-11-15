@@ -172,7 +172,7 @@ html, body {
 		/* 충전 하기 */
 		$('#add_time_btn').click(function() {
 			var seatId = selectedST.seat;
-			var addTime = selectedST.time; 
+			var addTime = selectedST.time*60*60; // 초 단위 저장
 			
 			$.ajax({
 				// 로그인한 아이디와 충전시간, 선택한 좌석 번호 넘겨 줌.

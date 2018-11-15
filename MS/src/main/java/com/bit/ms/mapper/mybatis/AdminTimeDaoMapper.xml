@@ -23,7 +23,7 @@
 	
 	<!-- 사용 종료 좌석 지우기 -->
 	<update id="deleteSeat">
-		update userinfo set seat_id=null
+		update userinfo set seat_id=null, user_time=0
 		where seat_id=#{seat_id}
 	</update>
 	
