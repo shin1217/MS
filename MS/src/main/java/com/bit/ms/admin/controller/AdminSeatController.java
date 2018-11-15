@@ -51,8 +51,9 @@ public class AdminSeatController {
 
 	@RequestMapping(value = "/admin/seat/{seat_id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public void modifySeat(@RequestBody SeatVO seatVO) { // 좌석 수정
-
+	public void modifySeat(@PathVariable("seat_id") int seat_id, @RequestBody SeatVO seatVO) { // 좌석 수정
+		System.out.println("수정객체 확인" + seatVO);
+		seatVO.setSeat_id(seat_id);
 		adminSeatService.modifySeatS(seatVO);
 	}
 

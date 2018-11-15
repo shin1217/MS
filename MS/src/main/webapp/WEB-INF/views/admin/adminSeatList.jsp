@@ -1,12 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%><!-- 시간형식  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <style>
 .container {
 	margin-top: 20px;
 }
+
+.adminSeatList_td{
+	text-align: center;
+	background-color: white;
+}
+
+.adminSeatList_input{	
+	width: 100%;
+	text-align: center;
+	border : 0px;	
+}
+
+.adminSeatList_edit{
+	padding : 5px;
+	border : 2px solid red;
+}
+
 </style>
 <title>MS</title>
 <meta charset="utf-8">
@@ -27,7 +46,7 @@
 				</tr>
 				<tr>
 					<th class="th-sm">좌석이름</th>
-					<th class="th-sm">비용</th>
+					<th class="th-sm">비용(원)</th>
 					<th class="th-sm">QR코드</th>
 					<th class="th-sm">관리</th>
 				</tr>
@@ -41,8 +60,8 @@
 							id="seat_name" name="seat_name"></td>
 						<td style="text-align: center;"><input type="text"
 							id="seat_pay" name="seat_pay" style="width: 70%;" /> 원 / 시간</td>
-						<td><input type="file" name="seat_qr" id="seat_qr" /></td>
-						<td style="text-align: center;"><button id="addseat_btn" type="button">등록</button><button id="reset" type="reset">취소</button></td>
+						<td style="text-align: center;"><input type="file" name="seat_qr" id="seat_qr" /></td>
+						<td style="text-align: center;"><button id="addseat_btn" type="button">등록</button><button id="reset" type="reset">초기화</button></td>
 					</tr>
 				</form>
 				<tr>
@@ -56,7 +75,7 @@
 					<th class="th-sm"><i class="fa fa-sort float-right"
 						aria-hidden="true"></i>좌석이름</th>
 					<th class="th-sm"><i class="fa fa-sort float-right"
-						aria-hidden="true"></i>비용</th>
+						aria-hidden="true"></i>비용(원)</th>
 					<th class="th-sm"><i class="fa fa-sort float-right"
 						aria-hidden="true"></i>QR코드</th>
 					<th class="th-sm"><i class="fa fa-sort float-right"
@@ -101,21 +120,12 @@
 				$('#seatlist_tbody').html('<tr><td colspan="4" style="text-align: center;">좌석이 존재하지 않습니다</td></tr>');
 				$(data).each(
 						function(index, item) {
-							seat_t += '<tr><td style="text-align: right;">'
-									+ item.seat_name
-									+ '</td><td style="text-align: right;">'
-									+ item.seat_pay + '</td>'
-									+ '<td style="text-align: center;">'
-									+ item.seat_qr
-									+ '</td><td style="text-align: center;">'
-									+ '<button id="seat_modify_btn'
-									+ item.seat_id + '" onclick="seat_modify('
-									+ item.seat_id
-									+ ')" type="button">수정</button>'
-									+ '<button id="seat_delete_btn'
-									+ item.seat_id + '" onclick="seat_delete('
-									+ item.seat_id
-									+ ')" type="button">삭제</button></td></tr>';
+							seat_t += '<tr><td class="adminSeatList_td">'
+									+ '<input id="AdminSeatNameInput' + item.seat_id + '" value="' + item.seat_name	+ '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">'
+									+ '<input id="AdminSeatPayInput' + item.seat_id + '" value="' + item.seat_pay + '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">'
+									+ '<input type="" id="AdminSeatQRInput' + item.seat_id + '" value="' + item.seat_qr+ '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">'
+									+ '<input type="button" id="seat_modify_btn' + item.seat_id + '" onclick="seat_modify_mode(' + item.seat_id + ')" type="button" value="수정"></button>'
+									+ '<input type="button" id="seat_delete_btn' + item.seat_id + '" onclick="seat_delete(' + item.seat_id + ')" type="button" value="삭제"></button></td></tr>';
 							$('#seatlist_tbody').html(seat_t);
 						});
 				seat_t = '';
@@ -164,5 +174,54 @@
 			}
 		});
 	};
+	
+	function seat_modify(seat_id) { // 댓글 수정 작업
+		var seat_name = $('#AdminSeatNameInput' + seat_id ).val();
+		var seat_pay = $('#AdminSeatPayInput' + seat_id ).val();
+		var seat_qr = $('#AdminSeatQRInput' + seat_id ).val();
+		console.log(seat_name);
+		console.log(seat_pay);
+		console.log(seat_qr);
+		
+		$.ajax({
+			type : 'put',
+			url : '${pageContext.request.contextPath}/admin/seat/' + seat_id,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "put"
+			},
+			
+			data : JSON.stringify({
+				seat_name : seat_name,
+				seat_pay : seat_pay,
+				seat_qr : seat_qr
+			}),			
+			
+			success : function(data) {
+				console.log('수정확인');
+				getSeatList();
+			}
+		});
+		
+	};
+	
+	function seat_modify_mode(seat_id) { // 댓글수정 클릭시
+		$('#AdminSeatNameInput' + seat_id ).attr("readonly", false);		
+		$('#AdminSeatPayInput' + seat_id ).attr("readonly", false);
+		$('#AdminSeatQRInput' + seat_id ).attr("readonly", false);
+		$('#AdminSeatQRInput' + seat_id ).attr("type","file");
+		$('#AdminSeatNameInput' + seat_id ).focus();
+		
+		$('#AdminSeatNameInput' + seat_id ).attr("class","adminSeatList_edit");//댓글 수정클릭시 모양바뀜
+		$('#AdminSeatPayInput' + seat_id ).attr("class","adminSeatList_edit");//댓글 수정클릭시 모양바뀜
+		$('#AdminSeatQRInput' + seat_id ).attr("class","adminSeatList_edit");//댓글 수정클릭시 모양바뀜
+		
+		$('#seat_modify_btn' + seat_id ).attr("value","입력")//댓글 수정클릭시 모양바뀜
+		$('#seat_modify_btn' + seat_id ).attr("class","adminSeatList_edit")//댓글 수정클릭시 모양바뀜
+		$('#seat_modify_btn' + seat_id ).attr("onclick","seat_modify(" + seat_id + ")");
+		
+		$('#seat_delete_btn' + seat_id ).attr("value","취소");//댓글 수정클릭시 모양바뀜
+		$('#seat_delete_btn' + seat_id ).attr("onclick","getSeatList()");//댓글 수정클릭시 모양바뀜
+	}
 </script>
 </html>
