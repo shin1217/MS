@@ -4,6 +4,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="javax.servlet.http.HttpSession"%>
+<%@page import="com.bit.ms.member.model.StoreVO"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.text.SimpleDateFormat"%>
@@ -34,8 +35,9 @@
     SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
     String today = format.format(new Date());
     String days = request.getParameter("days");
-    String fileName = "매출현황_" + today + "." + days;
-      response.setHeader("Content-Type", "application/vnd.ms-xls");
+    StoreVO storeVo = (StoreVO)session.getAttribute("storeSelectSession");
+    String fileName = storeVo.getStore_name() + "_월간매출현황_" + today;
+    response.setHeader("Content-Type", "application/vnd.ms-xls");
     response.setHeader("Content-Disposition",
             "attachment; filename=" + new String((fileName).getBytes("KSC5601"), "8859_1") + ".xls");
 %>
