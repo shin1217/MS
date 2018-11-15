@@ -101,16 +101,27 @@ html, body {
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<%@ include file="/WEB-INF/views/modal/userAddTimeModal.jsp"%>
-	<%@ include file="/WEB-INF/views/user/userMessage.jsp"%>
+	<%-- <%@ include file="/WEB-INF/views/user/userMessage.jsp"%> --%>
 
 	<div class="userMain_container">
 		<div class="title_text">안녕하세요. ${userSession.user_name}님!</div>
-		<div class="title_text">MS PC방에 오신 것을 환영합니다:p</div>
+		
+		<c:choose>
+			<c:when test="${userSession.store_id == 1}">
+				<div class="title_text">MS 스터디카페에 오신 것을 환영합니다:p</div>
+			</c:when>
+			<c:when test="${userSession.store_id == 2}">
+				<div class="title_text">MS PC카페에 오신 것을 환영합니다:p</div>
+			</c:when>
+			<c:when test="${userSession.store_id == 3}">
+				<div class="title_text">MS 좋아 코인노래방에 오신 것을 환영합니다:p</div>
+			</c:when>
+		</c:choose>
 		
 		<div class="left_area">
 			<div class="content_text">자리선택</div>
 			<hr>
-			<div class="content_text">5/20</div>
+			<div class="content_text"><span id="use_cnt">0</span>/20</div>
 			<table id="seatTable" class="seatTable">
 			</table>
 		</div>
@@ -144,6 +155,7 @@ html, body {
 		var sBefore  = null;
 		
 		$('#seatTable td').on('click', function() {
+			
 			seletedProcess($(this), 's', sBefore, sArr); // 좌석 선택 처리 
 		});
 		
@@ -160,10 +172,11 @@ html, body {
 		/* 충전 하기 */
 		$('#add_time_btn').click(function() {
 			var seatId = selectedST.seat;
+			var addTime = selectedST.time; 
 			
 			$.ajax({
-				// 로그인한 아이디와 선택한 좌석 번호 넘겨 줌.
-				url: '<%=request.getContextPath()%>/user/updateAddTime?userId=${userSession.user_id}&seatId=' + seatId, 
+				// 로그인한 아이디와 충전시간, 선택한 좌석 번호 넘겨 줌.
+				url: '<%=request.getContextPath()%>/user/updateAddTime?userId=${userSession.user_id}&addTime=' + addTime + '&seatId=' + seatId + '&storeId=${userSession.store_id}', 
 				type: 'get',
 				
 				success:function(){
@@ -171,6 +184,31 @@ html, body {
 					
 				} // end success  
 			});
+		});
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		
+		/* 페이지 로드 시 좌석 정보 초기화 */
+		$.ajax({
+			url: '<%=request.getContextPath()%>/user/getUserInfoAll?storeId=${userSession.store_id}', 
+			type: 'get',
+			success:function(data){ // 좌석을 사용 중인 사용자 모두 가져오기
+				$('#use_cnt').text(data.length); // 사용 좌석 갯수 변경
+			
+				for(var i=0; i<data.length; i++){
+					var seatId = data[i].seat_id // 사용 중인 좌석 아이디 
+					sArr[seatId-1] = true; // 선택된 좌석 모두 사용 중으로 변경
+					
+					$('#s'+seatId).off(); // 좌석 모든 이벤트 제거
+					$('#s'+seatId).text('X');
+					$('#s'+seatId).css({
+						'font-size': 50,
+						'color' : 'red'
+					});
+					
+					// resetSeat($('#seatTable td').eq(data[i].seat_id-1), data[i].seat_id, data[i].user_id);
+				}
+			}
 		});
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////

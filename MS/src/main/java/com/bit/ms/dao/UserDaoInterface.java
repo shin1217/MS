@@ -39,5 +39,6 @@ public interface UserDaoInterface {
 	int UserBoardReplyModifyI(UserBoardReplyVO userBoardReplyVO);
 	
 	/*시간 충전*/
-	int updatAddTime(long addTime, int seatId, String userId);
+	int updateAddTime(long addTime, int seatId, String userId, int storeId);
+	List<UserVO> getUserInfoAll(int storeId);
 }
