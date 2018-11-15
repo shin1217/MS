@@ -20,52 +20,64 @@ public class UserLoginService {
 
 	@Autowired
 	private SqlSessionTemplate userSqlSession;
-	
+
 	private UserDaoInterface userDao;
 	private AdminDaoInterface adminDao;
-	
-	public int userLogin_service(String user_id, String user_pw, int store_id, HttpSession httpSession, String user_check, HttpServletResponse response) {
-		
+
+	public int userLogin_service(String user_id, String user_pw, int store_id, HttpSession httpSession,
+			String user_check, HttpServletResponse response) {
+
 		int result = 0;
-		
+
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
-		UserVO vo = userDao.loginUser(user_id, store_id);
-		
+
+		UserVO vo = null;
+		StoreVO storeVO = null;
+
+		try {
+			vo = userDao.loginUser(user_id, store_id);
+			storeVO = userDao.getUserStoreVO(store_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
-		if(vo != null) {
+		if (vo != null) {
 			// 아이디,비번,스토어id가 모두 같은경우
-			if(vo.getUser_id().equals(user_id) && vo.getUser_pw().equals(user_pw) && vo.getStore_id() == store_id) {
+			if (vo.getUser_id().equals(user_id) && vo.getUser_pw().equals(user_pw) && vo.getStore_id() == store_id) {
 				// 쿠키 체크 검사
 				Cookie cookie = new Cookie("user_check", user_id);
-				if(user_check.equals("true")) {
+				if (user_check.equals("true")) {
 					response.addCookie(cookie);
-					
+
 					// 쿠키 확인
-					//System.out.println("Service check" + cookie);
-				} else{
-					cookie.setMaxAge(0);				
+					// System.out.println("Service check" + cookie);
+				} else {
+					cookie.setMaxAge(0);
 					response.addCookie(cookie);
 				}
-				
+
 				// 세션 저장하기 전에 비밀번호 가리기
 				vo.setUser_pw("");
-				
-				// 세션에 vo 객체 저장
+
+				// 세션에 vo 객체 저장				
 				httpSession.setAttribute("userSession", vo);
-				System.out.println("회원아이디 세션  userSession : " + httpSession.getAttribute("userSession"));
+				System.out.println("회원아이디 세션 userSession : " + httpSession.getAttribute("userSession"));
 				result = 1;
+				
+				// storeSelectSession 저장
+				httpSession.setAttribute("storeSelectSession", storeVO);
+				System.out.println("회원아이디 세션 storeSelectSession : " + httpSession.getAttribute("storeSelectSession"));
 			}
-		}		
+		}
 		return result;
 	}
-	
+
 	// 매장 리스트
-	public List<StoreVO> getStoreOption(){
-		
+	public List<StoreVO> getStoreOption() {
+
 		adminDao = userSqlSession.getMapper(AdminDaoInterface.class);
 
-		
-		
 		return adminDao.getStoreList();
 	}
 }

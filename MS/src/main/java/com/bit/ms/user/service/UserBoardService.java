@@ -37,28 +37,37 @@ public class UserBoardService {
 
 		int currentPageNum = pageNum;
 
-		// 전체 게시글 구하기
-		int userBoardTotalCount = userDaoInterface.UserBoardTotalCount();
+		int userBoardTotalCount = 0;
 
 		List<UserBoardVO> userBoardList = null;
+
 		int firstRow = 0;
 
 		// HashMap<String, Object> map = new HashMap<String, Object>();
 
-		if (userBoardTotalCount > 0) {
+		try {
 
-			firstRow = (pageNum - 1) * USERBOARD_COUNT_PER_PAGE;
+			// 전체 게시글 구하기
+			userBoardTotalCount = userDaoInterface.UserBoardTotalCount();
 
-			// map.put("firstRow", firstRow);
-			// map.put("store_id", store_id);
+			if (userBoardTotalCount > 0) {
 
-			// System.out.println("서비스 map = " + map);
+				firstRow = (pageNum - 1) * USERBOARD_COUNT_PER_PAGE;
 
-			userBoardList = userDaoInterface.UserBoardSelectList(store_id, firstRow); // mysql은 0열부터 시작 -1을 해줌
+				// map.put("firstRow", firstRow);
+				// map.put("store_id", store_id);
 
-		} else {
-			currentPageNum = 0;
-			userBoardList = Collections.emptyList();
+				// System.out.println("서비스 map = " + map);
+
+				userBoardList = userDaoInterface.UserBoardSelectList(store_id, firstRow); // mysql은 0열부터 시작 -1을 해줌
+
+			} else {
+				currentPageNum = 0;
+				userBoardList = Collections.emptyList();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		int userBoardPageTotalCount = ((userBoardTotalCount - 1) / USERBOARD_COUNT_PER_PAGE) + 1;// 페이지 수
@@ -76,7 +85,6 @@ public class UserBoardService {
 
 		try {
 			resultCnt = userDaoInterface.insertUserBoard(userBoardVO);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

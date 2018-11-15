@@ -3,68 +3,89 @@
 
 <!-- namespace - 인터페이스에 있는 패키지 명 + 인터페이스 명 -->
 <mapper namespace="com.bit.ms.dao.UserDaoInterface">
-   <!-- 회원가입 -->
-   <insert id="regUser" parameterType="userVO">
-  
-      insert into userinfo (user_id, store_id, user_pw, user_name, user_phone, user_birth, user_email)
-      values (#{user_id}, #{store_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_birth}, #{user_email})
+	<!-- 회원가입 -->
+	<insert id="regUser" parameterType="userVO">
 
-   </insert>
+		insert into userinfo
+		(user_id, store_id, user_pw, user_name, user_phone,
+		user_birth,
+		user_email)
+		values (#{user_id}, #{store_id}, #{user_pw}, #{user_name},
+		#{user_phone},
+		#{user_birth}, #{user_email})
 
-   <!-- 로그인 / 아이디와 스토어id로 찾음-->
-   <select id="loginUser" resultType="userVO">
+	</insert>
 
-      select * from userinfo where user_id = #{user_id} and store_id = #{store_id}
+	<!-- 로그인 / 아이디와 스토어id로 찾음 -->
+	<select id="loginUser" resultType="userVO">
 
-   </select>
+		select * from userinfo where
+		user_id = #{user_id} and store_id = #{store_id}
 
-   <!-- 아이디 찾기 -->
-   <select id="searchId" parameterType="userVO" resultType="userVO">
+	</select>
 
-      select * from user where userphone = #{userPhone}
+	<!-- 아이디 찾기 -->
+	<select id="searchId" parameterType="userVO" resultType="userVO">
 
-   </select>
+		select *
+		from user where userphone = #{userPhone}
 
-   <!-- 비밀번호 찾기 -->
-   <select id="searchPw" parameterType="userVO" resultType="userVO">
+	</select>
 
-      select * from user where userid = #{userId}
+	<!-- 비밀번호 찾기 -->
+	<select id="searchPw" parameterType="userVO" resultType="userVO">
 
-   </select>
+		select *
+		from user where userid = #{userId}
 
-   <!-- 내 정보 얻어오기 -->
-   <select id="getMyPage" resultType="userVO">
+	</select>
 
-      select * from userinfo where user_id = #{user_id}
-   </select>
+	<!-- 내 정보 얻어오기 -->
+	<select id="getMyPage" resultType="userVO">
 
-   <!-- 내 정보 수정 -->
-   <update id="editUser" parameterType="userVO">
+		select * from userinfo where
+		user_id = #{user_id}
+	</select>
 
-      update userinfo set user_pw = #{user_pw}, user_name = #{user_name}, user_phone =
-      #{user_phone}, user_birth = #{user_birth}
-      where user_id = #{user_id}
+	<!-- 내 정보 수정 -->
+	<update id="editUser" parameterType="userVO">
 
-   </update>
+		update userinfo set user_pw
+		= #{user_pw}, user_name = #{user_name},
+		user_phone =
+		#{user_phone},
+		user_birth = #{user_birth}
+		where user_id = #{user_id}
 
-   <!-- 유저 삭제 -->
-   <delete id="deleteUser">
-      delete from userinfo where user_id = #{user_id}
+	</update>
 
-   </delete>
-   
-   <!-- 아이디 중복 검사 -->
-   <select id="checkOverId" parameterType="String" resultType="int">
-   
-      select count(*) from userinfo where user_id = #{user_id}
-   
-   </select>
-   
-   <!-- 전화번호 중복 검사 -->
-   <select id="checkOverPhoneNum" resultType="String">
-   
-   		select userphone from user where userphone = #{userPhone}
-   		
-   </select>  
-   
+	<!-- 유저 삭제 -->
+	<delete id="deleteUser">
+		delete from userinfo where user_id = #{user_id}
+
+	</delete>
+
+	<!-- 아이디 중복 검사 -->
+	<select id="checkOverId" parameterType="String" resultType="int">
+
+		select count(*) from userinfo where user_id = #{user_id}
+
+	</select>
+
+	<!-- 전화번호 중복 검사 -->
+	<select id="checkOverPhoneNum" resultType="String">
+
+		select userphone from
+		user where userphone = #{userPhone}
+
+	</select>
+
+	<!-- 스토어 정보 가져오기 -->
+	<select id="getUserStoreVO" parameterType="int"
+		resultType="storeVO">
+
+		select * from store where store_id = #{store_id}
+
+	</select>
+
 </mapper>

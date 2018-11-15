@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
 import com.bit.ms.user.model.UserVO;
@@ -21,6 +22,7 @@ public interface UserDaoInterface {
 	int deleteUser(String user_id);// 유저 삭제
 	int checkOverId(String user_id);// 아이디 중복 체크
 	String checkOverPhoneNum(String userPhone);// 유저 전화번호 중복 체크
+	StoreVO getUserStoreVO(int store_id); // 유저로그인한 스토어id로 스토어VO가져옴
 	
 	/* 유저게시판 */
 	List<UserBoardVO> UserBoardSelectList(@Param("store_id") int store_id, @Param("firstRow") int firstRow);
