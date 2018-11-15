@@ -82,12 +82,15 @@ body {
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn">
-				<div class="">
-					<%-- <select id="store_id" name="store_id">
-						<c:forEach var="list" items="${store}">
-							<option value="#{store.store_id}">${store.store_name}</option>
-						</c:forEach>
-					</select> --%>
+				<div class="form-group">
+					<c:if test="${!empty store_list2 }">
+						<select id="store_id" name="store_id" required>
+								<option disabled selected>매장을 선택해주세요</option>
+							<c:forEach var="store_list2" items="${store_list2}">
+								<option value="${store_list2.store_id}">${store_list2.store_name}</option>
+							</c:forEach>
+						</select>
+					</c:if>
 				</div>
 				<div class="form-group">
 					<label class="font-weight-bold text-white" for="inputId">아이디</label>

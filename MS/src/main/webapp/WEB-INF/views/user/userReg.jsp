@@ -151,8 +151,8 @@ body {
 			<div class="form-group">
 				<span>방문한 매장은 어디신가요?</span>&emsp;
 					<c:if test="${!empty store_list }">
-						<select name="store_id">
-							<option value="-1" disabled selected>매장을 선택해주세요</option>
+						<select name="store_id" required>
+							<option disabled selected>매장을 선택해주세요</option>
 						<c:forEach var="storelist" items="${store_list }">
 							<option value="${storelist.store_id }">${storelist.store_name }</option>
 						</c:forEach>

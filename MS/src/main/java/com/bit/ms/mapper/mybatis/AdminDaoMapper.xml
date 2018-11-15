@@ -35,7 +35,7 @@
 	</select>
 	
 	<!-- 매장 정보 가져오기(option값 필요) -->
-   <select id="getStoreList" resultType="storeVO">
+   <select id="getStoreList" resultType="StoreVO">
 		select * from store
    </select>
 	

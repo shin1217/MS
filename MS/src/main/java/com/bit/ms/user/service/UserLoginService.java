@@ -1,5 +1,7 @@
 package com.bit.ms.user.service;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,7 +10,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bit.ms.dao.AdminDaoInterface;
 import com.bit.ms.dao.UserDaoInterface;
+import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
 
 @Service
@@ -18,13 +22,13 @@ public class UserLoginService {
 	private SqlSessionTemplate userSqlSession;
 	
 	private UserDaoInterface userDao;
+	private AdminDaoInterface adminDao;
 	
 	public int userLogin_service(String user_id, String user_pw, int store_id, HttpSession httpSession, String user_check, HttpServletResponse response) {
 		
 		int result = 0;
 		
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
-		
 		UserVO vo = userDao.loginUser(user_id, store_id);
 		
 		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
@@ -51,7 +55,16 @@ public class UserLoginService {
 				System.out.println("회원아이디 세션  userSession : " + httpSession.getAttribute("userSession"));
 				result = 1;
 			}
-		}
+		}		
 		return result;
+	}
+	
+	// 매장 리스트
+	public List<StoreVO> getStoreOption(){
+		
+		adminDao = userSqlSession.getMapper(AdminDaoInterface.class);
+		System.out.println("로그인 서비스 확인");
+		
+		return adminDao.getStoreList();
 	}
 }
