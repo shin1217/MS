@@ -1,5 +1,7 @@
 package com.bit.ms.user.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.user.model.UserBoardListVO;
+import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
 import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserBoardService;
@@ -149,4 +154,46 @@ public class UserBoardController {
 	}
 
 	// View
+
+	// 댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글
+
+	@RequestMapping(value = "/user/userBoard/reply/all/{uboard_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<UserBoardReplyVO> UserBoardReplyList(@PathVariable("uboard_id") int uboard_id) {// 댓글 목록 불러오기
+
+		List<UserBoardReplyVO> userboard_reply_list = userBoardService.getUserBoardReplyListS(uboard_id);
+
+		return userboard_reply_list;
+
+	}
+
+	@RequestMapping(value = "/user/userBoard/reply", method = RequestMethod.POST)
+	@ResponseBody
+	public int UserBoardReplyWrite(UserBoardReplyVO userBoardReplyVO) {
+
+		int resultCnt = userBoardService.UserBoardReplyInsertS(userBoardReplyVO);
+
+		return resultCnt;
+	}
+
+	@RequestMapping(value = "/user/userBoard/reply/{uboard_reply_id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public int UserBoardReplyDelete(@PathVariable("uboard_reply_id") int uboard_reply_id) {
+
+		int resultCnt = userBoardService.UserBoardReplyDeleteS(uboard_reply_id);
+
+		return resultCnt;
+	}
+
+	@RequestMapping(value = "/user/userBoard/reply/{uboard_reply_id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public int UserBoardReplyModify(@PathVariable("uboard_reply_id") int uboard_reply_id,
+			@RequestBody UserBoardReplyVO userBoardReplyVO) {
+
+		userBoardReplyVO.setUboard_reply_id(uboard_reply_id);
+
+		int resultCnt = userBoardService.UserBoardReplyModifyS(userBoardReplyVO);
+		System.out.println(userBoardReplyVO);
+		return resultCnt;
+	}
 }

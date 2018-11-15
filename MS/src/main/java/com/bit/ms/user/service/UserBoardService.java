@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.bit.ms.dao.UserDaoInterface;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserBoardListVO;
+import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
 
 @Service
@@ -156,6 +157,62 @@ public class UserBoardService {
 		int num = userDaoInterface.UserBoardTotalCount();
 
 		return num;
+	}
+
+	// 댓글
+	public List<UserBoardReplyVO> getUserBoardReplyListS(int uboard_id) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		List<UserBoardReplyVO> UserBoardList = null;
+
+		try {
+			UserBoardList = userDaoInterface.getUserBoardReplyListI(uboard_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return UserBoardList;
+
+	}
+
+	public int UserBoardReplyInsertS(UserBoardReplyVO userBoardReplyVO) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int resultCnt = 0;
+		try {
+			resultCnt = userDaoInterface.UserBoardReplyInsertI(userBoardReplyVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultCnt;
+	}
+
+	public int UserBoardReplyDeleteS(int uboard_reply_id) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int resultCnt = 0;
+		try {
+			resultCnt = userDaoInterface.UserBoardReplyDeleteI(uboard_reply_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultCnt;
+	}
+
+	public int UserBoardReplyModifyS(UserBoardReplyVO userBoardReplyVO) {
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		int resultCnt = 0;
+		try {
+			resultCnt = userDaoInterface.UserBoardReplyModifyI(userBoardReplyVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultCnt;
 	}
 
 }

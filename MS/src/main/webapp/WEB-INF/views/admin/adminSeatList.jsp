@@ -98,7 +98,7 @@
 
 			success : function(data) {
 				console.log(data);
-				$('#seatlist_tbody').html('');
+				$('#seatlist_tbody').html('<tr><td colspan="4" style="text-align: center;">좌석이 존재하지 않습니다</td></tr>');
 				$(data).each(
 						function(index, item) {
 							seat_t += '<tr><td style="text-align: right;">'
