@@ -25,7 +25,7 @@ public class UserBoardController {
 
 	// List
 	@RequestMapping("/user/userBoard")
-	public ModelAndView userBoard(HttpServletRequest request) {
+	public ModelAndView userBoard(HttpServletRequest request, HttpSession session) {
 
 		String pageParam = request.getParameter("page");
 
@@ -37,13 +37,9 @@ public class UserBoardController {
 
 		UserBoardListVO ViewData = null;
 
-		try {
+		ViewData = userBoardService.getUserBoardList(session, pageNum);
 
-			ViewData = userBoardService.getUserBoardList(pageNum);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		System.out.println("컨트롤러 ViewData = " + ViewData);
 
 		ModelAndView modelAndView = new ModelAndView();
 

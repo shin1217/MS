@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.ms.dao.UserDaoInterface">
 
-	<select id="UserBoardSelectList" resultType="UserBoardVO">
+	<select id="UserBoardSelectList" 
+		resultType="UserBoardVO">
 
-		select * from
-		userboard order
-		by uboard_id desc limit #{firstRow}, 10;
+		select * from userboard where store_id = #{store_id}
+		order by uboard_id desc limit #{firstRow}, 10;
 
 	</select>
 

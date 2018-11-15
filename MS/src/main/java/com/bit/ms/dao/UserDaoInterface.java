@@ -23,7 +23,7 @@ public interface UserDaoInterface {
 	String checkOverPhoneNum(String userPhone);// 유저 전화번호 중복 체크
 	
 	/* 유저게시판 */
-	List<UserBoardVO> UserBoardSelectList(int firstRow);
+	List<UserBoardVO> UserBoardSelectList(@Param("store_id") int store_id, @Param("firstRow") int firstRow);
 	int UserBoardTotalCount();
 	int insertUserBoard(UserBoardVO userBoardVO);
 	UserBoardVO getUserBoardViewI(int uboard_id);
@@ -32,7 +32,7 @@ public interface UserDaoInterface {
 	int getPreviousNUM(int uboard_id);
 	int getNextNUM(int uboard_id);
 	
-	/* 유저게시판 */
+	/* 유저게시판 댓글 */
 	List<UserBoardReplyVO> getUserBoardReplyListI(int uboard_id);
 	int UserBoardReplyInsertI(UserBoardReplyVO userBoardReplyVO);
 	int UserBoardReplyDeleteI(int uboard_reply_id);

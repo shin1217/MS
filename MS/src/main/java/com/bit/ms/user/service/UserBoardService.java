@@ -3,11 +3,14 @@ package com.bit.ms.user.service;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.UserDaoInterface;
+import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserBoardListVO;
 import com.bit.ms.user.model.UserBoardVO;
 
@@ -23,9 +26,14 @@ public class UserBoardService {
 	// 페이지마다 보여줄 게시글의 수
 	private static final int USERBOARD_COUNT_PER_PAGE = 10;
 
-	public UserBoardListVO getUserBoardList(int pageNum) {
+	public UserBoardListVO getUserBoardList(HttpSession session, int pageNum) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		StoreVO storevo = (StoreVO) session.getAttribute("storeSelectSession");
+
+		int store_id = storevo.getStore_id();
+		System.out.println("서비스 store_id = " + store_id);
 
 		int currentPageNum = pageNum;
 
@@ -35,9 +43,19 @@ public class UserBoardService {
 		List<UserBoardVO> userBoardList = null;
 		int firstRow = 0;
 
+		// HashMap<String, Object> map = new HashMap<String, Object>();
+
 		if (userBoardTotalCount > 0) {
-			firstRow = (pageNum - 1) * USERBOARD_COUNT_PER_PAGE + 1;
-			userBoardList = userDaoInterface.UserBoardSelectList(firstRow - 1); // mysql은 0열부터 시작 -1을 해줌
+
+			firstRow = (pageNum - 1) * USERBOARD_COUNT_PER_PAGE;
+
+			// map.put("firstRow", firstRow);
+			// map.put("store_id", store_id);
+
+			// System.out.println("서비스 map = " + map);
+
+			userBoardList = userDaoInterface.UserBoardSelectList(store_id, firstRow); // mysql은 0열부터 시작 -1을 해줌
+
 		} else {
 			currentPageNum = 0;
 			userBoardList = Collections.emptyList();
