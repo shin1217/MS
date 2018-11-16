@@ -9,16 +9,20 @@
 <title>MS</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <style>
 .userBoard_header {
 	overflow: hidden;
 	width: 1140px;
 	margin: 0 auto;
 }
-
+* {	
+	font-family: 'BMJUA_ttf';
+}
 .hypertext_none {
-	color: black;
+	color: #181818;
 	text-decoration: none;
+	font-family: 'BMHANNAPro';
 }
 </style>
 </head>

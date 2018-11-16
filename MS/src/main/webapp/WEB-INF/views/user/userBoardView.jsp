@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <title>MS</title>
 <style>
 .row {
@@ -41,15 +42,13 @@
 	width: 1140px;
 	margin: 0 auto;
 }
-
-.userBoard_hypertext_none {
-	color: black;
-	text-decoration: none;
+* {	
+	font-family: 'BMJUA_ttf';
 }
-
 .hypertext_none {
 	color: #181818;
 	text-decoration: none;
+	font-family: 'BMHANNAPro';
 }
 </style>
 </head>
