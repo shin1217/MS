@@ -98,7 +98,7 @@ body {
 							<input type="text" class="form-control" id="inputPhone_1" name="inputPhone_1" placeholder="ex) 010-7777-9999">
 						</div>
 					</div>
-					<div class="form-group">
+					<%-- <div class="form-group">
 						<c:if test="${!empty search_store }">
 							<select name="store_id" required>
 								<option disabled selected>매장을 선택해주세요</option>
@@ -107,7 +107,7 @@ body {
 								</c:forEach>
 							</select>
 						<</c:if>
-					</div>
+					</div> --%>
 					<div class="form-group">
 						<button id="searchBtn" type="button" onclick="idSearch_click()" class="btn btn-primary btn-block">확인</button>
 					<a class="btn btn-danger btn-block"	href="${pageContext.request.contextPath}">취소</a>
@@ -118,16 +118,16 @@ body {
 						<label class="font-weight-bold text-white" for="inputId_2">아이디</label>
 						<div>
 							<input type="text" class="form-control" id="inputId_2"
-								name="inputId_2" placeholder="아이디">
+								name="inputId_2" placeholder="ex) godmisu">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="font-weight-bold text-white" for="inputEmail_2">이메일</label>
 						<div>
-							<input type="email" class="form-control" id="inputEmail_2"	name="inputEmail_2" placeholder="E-mail@gmail.com">
+							<input type="email" class="form-control" id="inputEmail_2"	name="inputEmail_2" placeholder="ex) E-mail@gmail.com">
 						</div>
 					</div>
-					<div class="form-group">
+					<%-- <div class="form-group">
 						<c:if test="${!empty search_store }">
 							<select name="store_id" required>
 								<option disabled selected>매장을 선택해주세요</option>
@@ -136,7 +136,7 @@ body {
 								</c:forEach>
 							</select>
 						</c:if>
-					</div>
+					</div> --%>
 					<div class="form-group">
 						<button id="searchBtn" type="button" class="btn btn-primary btn-block">확인</button>
 					<a class="btn btn-danger btn-block"	href="${pageContext.request.contextPath}">취소</a>

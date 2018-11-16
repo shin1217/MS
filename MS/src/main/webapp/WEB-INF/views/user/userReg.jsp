@@ -76,6 +76,20 @@ body {
     border-radius: 4px;
 }
 
+.select_pick{
+	display:inline;
+    width: 30%;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.0;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
 </style>
 </head>
 <body>
@@ -116,18 +130,10 @@ body {
 			<!-- 생년월일 -->
 			<div class="form-group">
 				<label for="user_birth">생년월일</label>
-					<div class="">
-						<select id="year" name="user_year" required>
-							<option>년</option>
-						</select>
-						<select id="month" name="user_month" required>
-							<option>월</option>
-						</select>
-						<select id="day" name="user_day" required>
-							<option>일</option>
-						</select>
-					</div>
-				<div class="check_font"></div>
+					<input type="text"
+					class="form-control" id="user_birth" name="user_birth"
+					placeholder="ex) 19990415" required>
+				<div class="check_font" id="birth_check"></div>
 			</div>
 			<!-- 본인확인 이메일 -->
 			<div class="form-group">
@@ -147,14 +153,14 @@ body {
 					placeholder="Phone Number" required>
 				<div class="check_font" id="phone_check"></div>
 			</div>
-
+			<!-- 매장선택 -->
 			<div class="form-group">
 				<span>방문한 매장은 어디신가요?</span>&emsp;
 					<c:if test="${!empty store_list }">
-						<select name="store_id" required>
-							<option disabled selected>매장을 선택해주세요</option>
+						<select class="select_pick" name="store_id" required>
+							<option class="select_pick" disabled>매장을 선택해주세요</option>
 						<c:forEach var="storelist" items="${store_list }">
-							<option value="${storelist.store_id }">${storelist.store_name }</option>
+							<option class="select_pick" value="${storelist.store_id }">${storelist.store_name }</option>
 						</c:forEach>
 					</select>
 				</c:if>
@@ -172,24 +178,7 @@ body {
 	</div>
 </body>
 <script>
-
-	// 날짜 스크립트
-	// 1900년 ~ 현재 연도까지 추가
-	for(var i = 1900; i<2018; i++){
-		var option='<option value='+i+'>'+i+'년</option>';
-		$('#year').append(option)
-	}
-	// 1월부터 12월까지 추가
-	for(var i = 1; i <= 12; i++){
-		var option='<option value='+i+'>'+i+'월</option>';
-		$('#month').append(option);
-	}
-	// 1일부터 조건에 따른 말일까지
-	for(var i = 1; i <= 31; i++){
-		var option='<option value='+i+'>'+i+'일</option>';
-		$('#day').append(option);
-	}
-	
+		
 	//모든 공백 체크 정규식
 	var empJ = /\s/g;
 	//아이디 정규식
@@ -198,6 +187,8 @@ body {
 	var pwJ = /^[A-Za-z0-9]{4,12}$/;
 	// 이름 정규식
 	var nameJ = /^[가-힣]{2,6}$/;;
+	// 생일 정규식
+	var birthJ = /^[1-2]{1}[0-9]{3}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}$/;
 	// 이메일 검사 정규식
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	// 휴대폰 번호 정규식
@@ -299,9 +290,20 @@ body {
 			$('#phone_check').css('color', 'red');
 		}
 	});
-
+	
+	// 생년월일	birthJ
+	$('#user_birth').blur(function(){
+		if(birthJ.test($(this).val())){
+			console.log(birthJ.test($(this).val()));
+			$("#birth_check").text('');
+		} else {
+			$('#birth_check').text('생년월일을 확인해주세요 :)');
+			$('#birth_check').css('color', 'red');
+		}
+	});
+	
 	// 가입하기 실행 버튼 유효성 검사!
-	var inval_Arr = new Array(4).fill(false);
+	var inval_Arr = new Array(5).fill(false);
 	$('#reg_submit').click(function(){
 		// 비밀번호가 같은 경우 && 비밀번호 정규식
 		if (($('#user_pw').val() == ($('#user_pw2').val()))
@@ -333,6 +335,14 @@ body {
 		} else {
 			alert('휴대폰번호를 확인해주세요 :)');
 			inval_Arr[3] = false;
+		}
+		// 생년월일 정규식
+		if (birthJ.test($('#user_birth').val())) {
+			console.log(birthJ.test($('#user_birth').val()));
+			inval_Arr[4] = true;
+		} else {
+			alert('생년월일을 확인해주세요 :)');
+			inval_Arr[4] = false;
 		}
 		
 		var validAll = true;
