@@ -87,9 +87,9 @@ body {
 				</div>
 				<div id="searchI">
 					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputEmail_1">이메일</label>
+						<label class="font-weight-bold text-white" for="inputName_1">이름</label>
 						<div>
-							<input type="text" class="form-control" id="inputEmail_1" name="inputEmail_1" placeholder="E-mail@gmail.com">
+							<input type="text" class="form-control" id="inputName_1" name="inputEmail_1" placeholder="ex) 갓민수">
 						</div>
 					</div>
 					<div class="form-group">
@@ -97,6 +97,16 @@ body {
 						<div>
 							<input type="text" class="form-control" id="inputPhone_1" name="inputPhone_1" placeholder="ex) 010-7777-9999">
 						</div>
+					</div>
+					<div class="form-group">
+						<c:if test="${!empty search_store }">
+							<select name="store_id" required>
+								<option disabled selected>매장을 선택해주세요</option>
+								<c:forEach var="search_store" items="${search_store }">
+									<option id="store_id" value="${search_store.store_id }">${search_store.store_name }</option>
+								</c:forEach>
+							</select>
+						<</c:if>
 					</div>
 					<div class="form-group">
 						<button id="searchBtn" type="button" onclick="idSearch_click()" class="btn btn-primary btn-block">확인</button>
@@ -116,6 +126,16 @@ body {
 						<div>
 							<input type="email" class="form-control" id="inputEmail_2"	name="inputEmail_2" placeholder="E-mail@gmail.com">
 						</div>
+					</div>
+					<div class="form-group">
+						<c:if test="${!empty search_store }">
+							<select name="store_id" required>
+								<option disabled selected>매장을 선택해주세요</option>
+								<c:forEach var="search_store" items="${search_store }">
+									<option id="store_id" value="${search_store.store_id }">${search_store.store_name }</option>
+								</c:forEach>
+							</select>
+						</c:if>
 					</div>
 					<div class="form-group">
 						<button id="searchBtn" type="button" class="btn btn-primary btn-block">확인</button>
@@ -170,7 +190,7 @@ body {
 		
 		$.ajax({
 			type:"POST",
-			url:"${pageContext.request.contextPath}/user/userSearch?inputEmail_1="+$('#inputEmail_1').val()+"&inputPhone_1="+$('#inputPhone_1').val(),
+			url:"${pageContext.request.contextPath}/user/userSearch?inputName_1="+$('#inputName_1').val()+"&inputPhone_1="+$('#inputPhone_1').val(),
 			
 			success:function(data){
 				console.log(data);
