@@ -89,14 +89,18 @@ body {
 					<div class="form-group">
 						<label class="font-weight-bold text-white" for="inputEmail_1">이메일</label>
 						<div>
-							<input type="text" class="form-control" id="inputEmail_1" name="inputEmail_1" placeholder="E-mail@gamil.com">
+							<input type="text" class="form-control" id="inputEmail_1" name="inputEmail_1" placeholder="E-mail@gmail.com">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="font-weight-bold text-white" for="inputPhone">전화번호</label>
+						<label class="font-weight-bold text-white" for="inputPhone_1">휴대폰번호</label>
 						<div>
-							<input type="text" class="form-control" id="inputPhone"	name="inputPhone_1" placeholder="ex) 010-7777-9999">
+							<input type="text" class="form-control" id="inputPhone_1" name="inputPhone_1" placeholder="ex) 010-7777-9999">
 						</div>
+					</div>
+					<div class="form-group">
+						<button id="searchBtn" type="button" onclick="idSearch_click()" class="btn btn-primary btn-block">확인</button>
+					<a class="btn btn-danger btn-block"	href="${pageContext.request.contextPath}">취소</a>
 					</div>
 				</div>
 				<div id="searchP" style="display: none;">
@@ -113,10 +117,10 @@ body {
 							<input type="email" class="form-control" id="inputEmail_2"	name="inputEmail_2" placeholder="E-mail@gmail.com">
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<button id="searchBtn" type="button" class="btn btn-primary btn-block">확인</button>
+					<div class="form-group">
+						<button id="searchBtn" type="button" class="btn btn-primary btn-block">확인</button>
 					<a class="btn btn-danger btn-block"	href="${pageContext.request.contextPath}">취소</a>
+				</div>
 				</div>
 			</div>
 		</div>
@@ -129,9 +133,13 @@ body {
 		if (num == '1') {
 			document.getElementById("searchP").style.display = "none";
 			document.getElementById("searchI").style.display = "";
+			
+			
 		} else {
 			document.getElementById("searchI").style.display = "none";
 			document.getElementById("searchP").style.display = "";
+			
+			
 		}
 	}
 
@@ -156,6 +164,27 @@ body {
 		});
 	});
 
+	// 아이디 값 받고 출력하는 ajax
+	var idSearch_click = function(){
+		console.log($('#inputEmail_1').val());
+		
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/user/userSearch?inputEmail_1="+$('#inputEmail_1').val()+"&inputPhone_1="+$('#inputPhone_1').val(),
+			
+			success:function(data){
+				console.log(data);
+				
+				if(data == 0){
+					$('#id_value').text("다시 확인해주세요");
+					
+				} else {
+					$('#id_value').text(data);
+				}
+			}
+		});
+	}
+	
 	/* // 바꾸는 기능
 	function find_PWcheck(){
 		document.getElementById("findPop find form").style.display="";

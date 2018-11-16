@@ -21,25 +21,12 @@
 .modal_contents {
 	background-color: #fefefe;
 	margin: auto;
+	margin-top: 5%;
 	padding: 15px;
 	border: 1px solid #888;
 	border-radius: 20px;
-	width: 50%;
+	width: 30%;
 	text-align: center;
-}
-
-/* 확인하기 버튼 */
-.confirm_btn {
-	width: 150px;
-	background-color: #f8585b;
-	border: none;
-	border-radius: 10px;
-	color: #fff;
-	padding: 15px 0;
-	margin-top: 10px;
-	text-align: center;
-	font-size: 18px;
-	cursor: pointer;
 }
 
 /* close 버튼 */
@@ -59,12 +46,12 @@
 <!-- 시간 추가 modal -->
 <div id="background_modal" class="background_modal">
 	<div class="modal_contents">
-		<h3>
-			<b>아이디 정도는 기억해라^^;;</b><span class="close">&times;</span>
-		</h3>
-
-			<h2>회원님의 아이디는 "짠짠영"입니다 :p</h2>
+		<h4>
+			<b>손님 아이디는? :p</b><span class="close">&times;</span>
+		</h4><br>
+			<h2 id="id_value"></h2>
 		<br>
-		<button id="confirm_btn" class="confirm_btn">비밀번호 찾기</button>
+		<button type="button" id="confirm_btn" class="btn peach-gradient btn-rounded waves-effect"><i class="fa fa-envelope"></i>
+		비밀번호 찾기</button>
 	</div>
 </div>

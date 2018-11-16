@@ -25,10 +25,9 @@
 	</select>
 
 	<!-- 아이디 찾기 -->
-	<select id="searchId" parameterType="userVO" resultType="userVO">
+	<select id="searchId" resultType="String">
 
-		select *
-		from user where userphone = #{userPhone}
+		select ifnull(user_id, 0) from userinfo where user_email = #{user_email} and user_phone = #{user_phone}
 
 	</select>
 
@@ -45,6 +44,7 @@
 
 		select * from userinfo where
 		user_id = #{user_id}
+		
 	</select>
 
 	<!-- 내 정보 수정 -->
@@ -61,6 +61,7 @@
 
 	<!-- 유저 삭제 -->
 	<delete id="deleteUser">
+	
 		delete from userinfo where user_id = #{user_id}
 
 	</delete>
