@@ -26,6 +26,17 @@
 	border : 2px solid red;
 }
 
+.adminSeatList_header {
+	overflow: hidden;
+	width: 1140px;
+	margin: 0 auto;
+}
+
+.hypertext_none {
+	color: #181818;
+	text-decoration: none;
+}
+
 </style>
 <title>MS</title>
 <meta charset="utf-8">
@@ -34,9 +45,14 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<div class="adminSeatList_header">
+		<br>
+		<a class="nav-link, hypertext_none" 
+		href="${pageContext.request.contextPath}/admin/seat">
+		<h1>[${storeSelectSession.store_name}] - 좌석관리</h1></a>
+	</div>
 
-	<div class="container">
-		<h1>좌석 관리</h1>
+	<div class="container">		
 		<br>
 		<table id="seatListTable" class="table table-striped table-bordered">
 			<!-- 좌석등록 폼 -->
@@ -51,35 +67,29 @@
 					<th class="th-sm">관리</th>
 				</tr>
 			</thead>
-			<tbody>
-				<form>
-					<tr>
-						<td style="text-align: center;"><input type="hidden"
-							id="store_id" name="store_id"
-							value="${storeSelectSession.store_id}" /> <input type="text"
-							id="seat_name" name="seat_name"></td>
-						<td style="text-align: center;"><input type="text"
-							id="seat_pay" name="seat_pay" style="width: 70%;" /> 원 / 시간</td>
-						<td style="text-align: center;"><input type="file" name="seat_qr" id="seat_qr" /></td>
-						<td style="text-align: center;"><button id="addseat_btn" type="button">등록</button><button id="reset" type="reset">초기화</button></td>
-					</tr>
-				</form>
+			<tbody>				
 				<tr>
-					<td style="color: white; background-color: #101010;" colspan="4"><h4>좌석 리스트</h4></td>
+					<form>
+						<td style="text-align: center;"><input type="text" id="seat_name" name="seat_name"></td>
+						<td style="text-align: center;"><input type="text" id="seat_pay" name="seat_pay" style="width: 70%;" /> 원 / 시간</td>
+						<td style="text-align: center;"><input type="file" name="seat_qr" id="seat_qr" /></td>
+						<td style="text-align: center;">
+							<input type="hidden" id="store_id" name="store_id" value="${storeSelectSession.store_id}" />
+							<button id="addseat_btn" type="button">등록</button><button id="reset" type="reset">초기화</button></td>
+					</form>
+				</tr>				
+				<tr>
+					<th style="color: white; background-color: #101010;" colspan="4"><h4>좌석 리스트</h4></th>
 				</tr>
 			</tbody>
 			<!-- 좌석등록 폼 -->
 			<!-- 좌석리스트 -->
 			<thead>
 				<tr>
-					<th class="th-sm"><i class="fa fa-sort float-right"
-						aria-hidden="true"></i>좌석이름</th>
-					<th class="th-sm"><i class="fa fa-sort float-right"
-						aria-hidden="true"></i>비용(원)</th>
-					<th class="th-sm"><i class="fa fa-sort float-right"
-						aria-hidden="true"></i>QR코드</th>
-					<th class="th-sm"><i class="fa fa-sort float-right"
-						aria-hidden="true"></i>관리</th>
+					<th class="th-sm"><i class="fa fa-sort float-right"	aria-hidden="true"></i>좌석이름</th>
+					<th class="th-sm"><i class="fa fa-sort float-right"	aria-hidden="true"></i>비용(원)</th>
+					<th class="th-sm"><i class="fa fa-sort float-right"	aria-hidden="true"></i>QR코드</th>
+					<th class="th-sm"><i class="fa fa-sort float-right"	aria-hidden="true"></i>관리</th>
 				</tr>
 			</thead>
 			<tbody id="seatlist_tbody">

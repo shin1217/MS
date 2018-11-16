@@ -27,7 +27,7 @@
 }
 
 .hypertext_none {
-	color: black;
+	color: #181818;
 	text-decoration: none;
 }
 </style>
@@ -35,12 +35,14 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="userBoard_header">
-		<br> <a class="nav-link"
-			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1
-				class="hypertext_none">유저게시판</h1></a>
-			<a id="write" class="btn btn-outline-elegant waves-effect"
-				href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
+		<br>
+		<a class="nav-link, hypertext_none" 
+		href="${pageContext.request.contextPath}/user/userBoard?page=1">
+		<h1>${storeSelectSession.store_name} - 유저게시판</h1></a>
+		<a id="write" class="btn btn-outline-elegant waves-effect"
+		href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
 	</div>
+	
 	<div class="container">
 		<table class="table">
 			<thead>
