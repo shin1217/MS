@@ -21,16 +21,18 @@ public class AdminTimeController {
 	// 관리자 메인 실행 시 사용 중인 유저 정보 모두 가져오기
 	@RequestMapping(value = "/admin/getUserInfoAll", method = RequestMethod.GET)
 	@ResponseBody
-	public List<UserVO> getUserInfoAll() {
-		return service.getUserInfoAll();
+	public List<UserVO> getUserInfoAll(@RequestParam("storeId") int storeId) {
+		return service.getUserInfoAll(storeId);
 	}
 
 	// 관리자 메인에서 충전하기 버튼 눌렀을 시 유저 시간 변경
 	@RequestMapping(value = "/admin/updateAddTime", method = RequestMethod.GET)
 	@ResponseBody
-	public void updateAddTime(@RequestParam("addTime") long addTime, @RequestParam("seatId") int seatId) {
+	public void updateAddTime(@RequestParam("addTime") long addTime, 
+								@RequestParam("seatId") int seatId,
+								@RequestParam("storeId") int storeId) {
 
-		int resultCnt = service.updateAddTime(addTime, seatId); // 유저 시간 업데이트
+		int resultCnt = service.updateAddTime(addTime, seatId, storeId); // 유저 시간 업데이트
 
 		if (resultCnt > 0) {
 			System.out.println("유저 시간 업데이트 성공");
@@ -47,11 +49,11 @@ public class AdminTimeController {
 
 	// 페이지 이동 시 시간 저장
 	@RequestMapping(value = "/admin/updateSaveTimeAll", method = RequestMethod.GET)
-	public void updateSaveTimeAll(@RequestParam("useTime") long useTime) {
+	public void updateSaveTimeAll(@RequestParam("useTime") long useTime, @RequestParam("storeId") int storeId) {
 		System.out.println("사용 시간 : " + useTime + "초");
 
 		if (useTime != 0) { // 사용 중인 좌석만 업데이트 (사용 종료 된 좌석은 제외)
-			int resultCnt = service.updateSaveTimeAll(useTime);
+			int resultCnt = service.updateSaveTimeAll(useTime, storeId);
 
 			if (resultCnt > 0) {
 				System.out.println("사용한 시간 계산 후 좌석 사용 중인 유저 시간 업데이트 성공");
@@ -62,10 +64,10 @@ public class AdminTimeController {
 	// 사용 시간 종료 시 좌석 삭제
 	@RequestMapping(value = "/admin/deleteSeat", method = RequestMethod.GET)
 	@ResponseBody
-	public void updateSaveTimeAll(@RequestParam("seatId") int seatId) {
+	public void updateSaveTimeAll(@RequestParam("seatId") int seatId, @RequestParam("storeId") int storeId) {
 		System.out.println("사용 종료된 좌석 번호 : " + seatId);
 		
-		int resultCnt = service.deleteSeat(seatId);
+		int resultCnt = service.deleteSeat(seatId, storeId);
 		
 		if (resultCnt > 0) {
 			System.out.println("사용 종료 좌석 삭제 완료");

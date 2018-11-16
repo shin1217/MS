@@ -168,13 +168,15 @@
 <script>
 	$(document).ready(function() {
 		var seatArr = new Array(20).fill(false); // 좌석 사용 여부 검사 배열
+		var storeId = '${storeSelectSession.store_id}';
+		
 		var useTime = 0; // 사용 시간(초)	
 		
 		setInterval(function () { useTime++; }, 1000); // 사용 시간 계산
 
 		/* 페이지 로드 시 좌석 초기화 */
 		$.ajax({
-			url: '<%=request.getContextPath()%>/admin/getUserInfoAll', 
+			url: '<%=request.getContextPath()%>/admin/getUserInfoAll?storeId=' + storeId, 
 			type: 'get',
 			success:function(data){ // 좌석을 사용 중인 사용자 모두 가져오기
 				$('.com_cnt').text(data.length); // 사용 중인 좌석 수 표시
@@ -194,7 +196,7 @@
 			
 			$.ajax({
 				// 사용 시간 전송
-				url: '<%=request.getContextPath()%>/admin/updateSaveTimeAll?useTime='+useTime, 
+				url: '<%=request.getContextPath()%>/admin/updateSaveTimeAll?useTime=' + useTime + '&storeId=' + storeId, 
 				type: 'get',
 				
 				success:function(){
@@ -289,7 +291,7 @@
 			
 			$.ajax({
 				// 충전 시간, 좌석번호를 파라미터로 넘겨줌.
-				url: '<%=request.getContextPath()%>/admin/updateAddTime?addTime=' + addTime + '&seatId=' + seatId, 
+				url: '<%=request.getContextPath()%>/admin/updateAddTime?addTime=' + addTime + '&seatId=' + seatId + '&storeId=' + storeId, 
 				type: 'get',
 				
 				success:function(){
@@ -382,7 +384,7 @@
 					
 					$.ajax({
 						// 좌석 삭제(좌석 번호)
-						url: '<%=request.getContextPath()%>/admin/deleteSeat?seatId=' + seatId, 
+						url: '<%=request.getContextPath()%>/admin/deleteSeat?seatId=' + seatId + '&storeId=' + storeId, 
 						type: 'get',
 						
 						success:function(){
@@ -430,7 +432,7 @@
 				selectedArr[id-1] = true;
 				
 				$.ajax({ // 선택된 좌석의 유저 정보 가져오기
-					url:'<%=request.getContextPath()%>/admin/getUserInfoAll',
+					url:'<%=request.getContextPath()%>/admin/getUserInfoAll?storeId=' + storeId,
 					type:'get',
 					
 					success:function(data){
@@ -440,7 +442,7 @@
 															'* 전화번호: ' + data[i].user_phone + '<br>' +
 															'* 생년월일: ' + data[i].user_birth);
 							}
-						}
+						} 
 					} // end success 
 				}); // end ajax
 			} 

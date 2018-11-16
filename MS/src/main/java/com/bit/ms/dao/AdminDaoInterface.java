@@ -61,10 +61,10 @@ public interface AdminDaoInterface {
 	int modifySeatI(SeatVO seatVO);
 	
 	/* 사용자 시간 관리 */
-	int updateAddTime(long addTime, int seatId);
-	int updateSaveTimeAll(long useTime);
-	List<UserVO> getUserInfoAll();
-	int deleteSeat(int seatId);
+	int updateAddTime(long addTime, int seatId, int storeId);
+	int updateSaveTimeAll(long useTime, int storeId);
+	List<UserVO> getUserInfoAll(int storeId);
+	int deleteSeat(int seatId, int storeId);
 	// UserVO isUsingSeat(String userId);
 	
 	
