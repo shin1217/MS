@@ -137,9 +137,9 @@ td.sales_Table:hover {
 </head>
 <body>
 
-<br><br>
+<br>
 <h1 style="text-align: center;"><font color="#D358F7"> ${storeSelectSession.store_name } </font> 매출 현황</h1>
-<br><br>
+<br>
 
 <div class="container" style="width:712px;">
 	
@@ -375,7 +375,7 @@ td.sales_Table:hover {
 	<br>
 	<input type="button" name="excelConvertBtn" id="excelConvertBtn" value="${nowMonth}월 매출 엑셀로 다운로드" style="cursor:hand;" />
 
-	<h1>${year }</h1>
+	<%-- <h1>${year }</h1>
 	<h1>${month }</h1>
 	<h1>${date }</h1>
 	<h1>${ intToday }</h1>
@@ -387,8 +387,9 @@ td.sales_Table:hover {
 	<h1>${admin.store_id }</h1>
 	<h1>${sessionScope.store_id }</h1>
 	<h1>${storeSelectSession.store_id }</h1>
-	<h1>${nowMonth }</h1>
+	<h1>${nowMonth }</h1> --%>
 	
+	<canvas id="myChart" style="margin-left: 5px;"></canvas>
 	
 </div>
 
@@ -548,7 +549,7 @@ td.sales_Table:hover {
 
 <script>
 
-	var ctx = document.getElementById("logChart").getContext('2d');
+	/* var ctx = document.getElementById("logChart").getContext('2d');
 	var nowMonth = $('#excelConvertBtn').attr('value');
 	var indexId = $('.salesText').attr('value');
 	var myChart = new Chart(ctx, {
@@ -582,7 +583,93 @@ td.sales_Table:hover {
 	            }]
 	        }
 	    }
+	}); */
+	
+	
+	$(document).ready(function() {
+		
+		var nowMonth = ${nowMonth};
+		var storeId = ${storeSelectSession.store_id};
+		console.log(nowMonth);
+		console.log(storeId);
+        $.ajax({
+            url: '${pageContext.request.contextPath}/admin/adminSalesChart/' + nowMonth,
+            method: "GET",
+            data : {
+				storeId : storeId
+			},
+            success: function (result) {
+            	console.log('짜증나는 데이터', result);
+                /* var num = [];
+                var sales = [];
+                
+                for (var i in day) {
+                    num.push(result[i].sales_day);
+                    sales.push(result[i].sales_total);
+                } */
+                
+                var num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+                var sales_total = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                var sales_food = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                var sales_seat = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                var day = [];
+                
+                for (var i in result) {
+                	day.push(result[i].sales_day);
+                }
+                
+                for (var i in result) {
+                	num.splice(day[i]-1, 1, result[i].sales_day);
+                	sales_total.splice(day[i]-1, 1, result[i].sales_total);
+                }
+                
+                for (var i in result) {
+                	num.splice(day[i]-1, 1, result[i].sales_day);
+                	sales_food.splice(day[i]-1, 1, result[i].sales_food);
+                }
+                
+                for (var i in result) {
+                	num.splice(day[i]-1, 1, result[i].sales_day);
+                	sales_seat.splice(day[i]-1, 1, result[i].sales_seat);
+                }
+                
+                console.log('짜증나는 데이데이~', day);
+                console.log('늘어나는 팔로우~', num);
+                console.log('겁없어 매출~', sales_total);
+                
+                var data = {
+                    labels: num,
+                    datasets: [{
+                        label: '일간 총 매출',
+                        borderColor: "#819FF7",
+                        data: sales_total
+                    },{
+                        label: '일간 음식 매출',
+                        borderColor: "#FAAC58",
+                        data: sales_food,
+                    },{
+                        label: '일간 자리 매출',
+                        borderColor: "#58FA82",
+                        data: sales_seat,
+                    }],
+                };
+                var option = {
+                  //옵션 생략
+                  scales: { yAxes: [{ ticks: { beginAtZero:true } }] }   // 데이터값 시작을 0부터시작
+                  
+                };
+                
+				var ctx = document.getElementById('myChart').getContext('2d');
+				var myLine = new Chart(ctx, {
+					type: 'line',
+					data: data,
+					scaleBeginAtZero : true,
+					options: option
+            	});
+        	}
+		});
 	});
+
 
 </script>
 

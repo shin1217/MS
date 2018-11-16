@@ -22,6 +22,10 @@
  		select sales_id, DATE_FORMAT(sales_day,'%Y-%m-%d %h:%i:%S %p') salesTime, DATE_FORMAT(sales_day,'%m') salesMonth, DATE_FORMAT(sales_day,'%Y%m%d') salesDate, DATE_FORMAT(sales_day,'%d') sales_day, sales_total, sales_food, sales_seat, store_id from sales where DATE_FORMAT(sales_day,'%m') = #{nowMonth};
  	</select>
  	
+ 	<select id="chartList" resultType="salesVO">
+ 		select date_format(sales_day, '%d') sales_day, sum(sales_total) sales_total, sum(sales_food) sales_food, sum(sales_seat) sales_seat from sales where date_format(sales_day, '%m') = #{nowMonth} and store_id = #{storeId} group by date_format(sales_day, '%d');
+ 	</select>
+ 	
  </mapper>
  
  

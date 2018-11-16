@@ -52,6 +52,7 @@ public interface AdminDaoInterface {
 	List<SalesVO> listSales(@Param("day")int day, @Param("storeId")int storeId) throws Exception;
 	List<SalesVO> getStoreId(int storeId) throws Exception;
 	List<SalesVO> listAlls(int nowMonth) throws Exception;
+	List<SalesVO> chartList(@Param("nowMonth")int nowMonth, @Param("storeId")int storeId) throws Exception;
 	
 	/* 좌석관리 */
 	List<SeatVO> getSeatListI(int store_id);
@@ -65,5 +66,6 @@ public interface AdminDaoInterface {
 	List<UserVO> getUserInfoAll();
 	int deleteSeat(int seatId);
 	// UserVO isUsingSeat(String userId);
+	
 	
 }

@@ -73,4 +73,20 @@ public class AdminSalesCalenderService {
 		
 	}
 	
+	public List<SalesVO> salesChart(int nowMonth, int storeId) {
+		
+		salesDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		List<SalesVO> list = null;
+		
+		try {
+			list = salesDao.chartList(nowMonth, storeId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+		
+		
+	}
+	
 }

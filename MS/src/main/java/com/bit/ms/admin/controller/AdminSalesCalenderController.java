@@ -72,5 +72,16 @@ public class AdminSalesCalenderController {
 		
 	}
 	
+	@RequestMapping(value="/admin/adminSalesChart/{nowMonth}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<SalesVO> viewChart(@PathVariable("nowMonth") int nowMonth, int storeId) {
+		
+		List<SalesVO> viewList = salesService.salesChart(nowMonth, storeId);
+		
+		System.out.println("확인용 : " + viewList);
+		
+		return viewList;
+	}
+	
 	
 }
