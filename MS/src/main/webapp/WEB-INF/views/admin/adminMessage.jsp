@@ -327,10 +327,10 @@ hr{
 						for(var i = 0; i < data.length; i++){
 							str = '<div id="messageUlWrap" class = "messageUlWrap">';
 							if(data[i].message_read != "Y"){
-								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #eee;">';
+								str += '<ul id="' + data[i].message_title + '" class = "messageUl" style = "background-color : #eee;">';
 							} else {
-								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #4285f4; color : white; font-weight : bold">';
-								str += '<img src = "${pageContext.request.contextPath}/images/delete2.png" onclick = "deleteMessage(' + data[i].message_id + ')"style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
+								str += '<ul id="' + data[i].message_title + '" class = "messageUl" style = "background-color : #4285f4; color : white; font-weight : bold">';
+								str += '<img src = "${pageContext.request.contextPath}/images/delete2.png" onclick = "deleteMessage(' + data[i].message_title + ')"style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
 							}
 							str += '	<li id = "li_message_id">메시지 번호 : ' + data[i].message_id + '</li>';
 							str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
@@ -362,9 +362,9 @@ hr{
 	});
 			
 	/////////////쪽지 삭제 이벤트/////////////
-	function deleteMessage(message_id){
+	function deleteMessage(message_title){
 		$.ajax({
-			url : '${pageContext.request.contextPath}' + '/member/deleteMessage/' + message_id,
+			url : '${pageContext.request.contextPath}' + '/member/deleteMessage/' + message_title,
 			success : function(data){
 				alert("메시지 삭제 성공");
 				getMessageList();
@@ -426,7 +426,7 @@ hr{
 	///////////////// 쪽지 보내기버튼 이벤트////////////////
 	$('#sendBtn').click(function(){
 		var store_id = $('#store_name option:selected').attr("id");
-		console.log(store_id);
+		
 		sendMessage(store_id);
 	});
 	
@@ -453,6 +453,8 @@ hr{
 				$('#replyBtn').css("display","none");
 				$('#writeMessageModal').hide(); //쪽지쓰기 모달창 끔
 				$('#messageModal').show(); // 리스트 모달창 뜸
+				$('#message_title').val(" ");
+				$('#message_con').val(" ");
 			}// 성공 끝
 		}); // ajax 끝
 		}

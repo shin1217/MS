@@ -51,10 +51,10 @@ public class MemberMessageService {
 		
 	}
 	//메시지 삭제하는 메서드
-	public int messageDelete(int message_id) {
+	public int messageDelete(String message_title) {
 		
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
-		return memberDao.deleteMessage(message_id);
+		return memberDao.deleteMessage(message_title);
 		
 	}
 	//메시지 읽은것을 확인하는 메서드

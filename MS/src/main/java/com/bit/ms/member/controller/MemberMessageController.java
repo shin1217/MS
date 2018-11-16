@@ -58,9 +58,9 @@ public class MemberMessageController {
 	}
 	//메시지 삭제
 	@RequestMapping(value = "member/deleteMessage/{id}")
-	public @ResponseBody int deleteMessage(@PathVariable("id") int message_id) {
+	public @ResponseBody int deleteMessage(@PathVariable("id") String message_title) {
 	
-		return service.messageDelete(message_id);
+		return service.messageDelete(message_title);
 		
 	}
 	
