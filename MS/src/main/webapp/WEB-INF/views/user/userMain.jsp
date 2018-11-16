@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Management System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 * {
 	box-sizing: border-box;
@@ -33,15 +34,6 @@ html, body {
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
 	overflow-y: scroll;
-}
-
-.left_area {
-}
-
-.center_area {
-}
-
-.right_area {
 }
 
 .title_text {

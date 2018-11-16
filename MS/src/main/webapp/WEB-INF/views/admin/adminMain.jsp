@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Management System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 * {
 	box-sizing: border-box;
@@ -137,14 +138,14 @@
 				<hr style="border: 1px dashed gray">
 				
 				<div style="margin-top: -10%; height: 62%">
-					<div><b>※ 사용자 정보</b></div>
+					<div><b>사용자 정보</b></div>
 					<div id="selected_user_info" class="user_info_wrap">
-						<div style="color: red">＊좌석을 선택하세요.</div>
+						<div style="color: red">* 좌석을 선택하세요.</div>
 					</div>
 				
-					<div><b>※ 음식 주문 목록</b></div>
+					<div><b>음식 주문 목록</b></div>
 					<div class="order_list_wrap">
-						<div style="color: red">＊주문 대기 중인 음식이 없습니다.</div>
+						<div style="color: red">* 주문 대기 중인 음식이 없습니다.</div>
 					</div>
 				</div>
 				
