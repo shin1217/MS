@@ -16,24 +16,27 @@
 	width: 1140px;
 	margin: 0 auto;
 }
-* {	
+.userBoard_header * {
+	font-family: 'BMHANNAPro';
+}
+.container * {	
 	font-family: 'BMJUA_ttf';
 }
 .hypertext_none {
 	color: #181818;
 	text-decoration: none;
-	font-family: 'BMHANNAPro';
+	
 }
 </style>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="userBoard_header">
 		<br>
 		<a class="nav-link, hypertext_none" 
 		href="${pageContext.request.contextPath}/user/userBoard?page=1">
 		<h1>[${storeSelectSession.store_name}] - 유저게시판</h1></a>
-		<%-- <a id="write" class="btn btn-outline-elegant waves-effect"
+		<%-- <a id="write" class="btn btn-outline-elegant waves-effect" style="font-family: 'BMJUA_ttf';"
 		href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a> --%>
 	</div>
 	

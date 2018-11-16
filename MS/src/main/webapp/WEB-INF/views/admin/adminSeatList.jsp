@@ -33,14 +33,16 @@
 	margin: 0 auto;
 }
 
-* {	
+.adminSeatList_header * {
+	font-family: 'BMHANNAPro';
+}
+.container * {	
 	font-family: 'BMJUA_ttf';
 }
-
 .hypertext_none {
 	color: #181818;
 	text-decoration: none;
-	font-family: 'BMHANNAPro';
+	
 }
 
 </style>

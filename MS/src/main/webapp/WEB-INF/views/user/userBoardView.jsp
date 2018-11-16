@@ -42,13 +42,16 @@
 	width: 1140px;
 	margin: 0 auto;
 }
-* {	
+.userBoard_header * {
+	font-family: 'BMHANNAPro';
+}
+.container * {	
 	font-family: 'BMJUA_ttf';
 }
 .hypertext_none {
 	color: #181818;
 	text-decoration: none;
-	font-family: 'BMHANNAPro';
+	
 }
 </style>
 </head>
@@ -59,7 +62,7 @@
 		<a class="nav-link, hypertext_none" 
 		href="${pageContext.request.contextPath}/user/userBoard?page=1">
 		<h1>[${storeSelectSession.store_name}] - 유저게시판</h1></a>
-		<a id="write" class="btn btn-outline-elegant waves-effect"
+		<a id="write" class="btn btn-outline-elegant waves-effect" style="font-family: 'BMJUA_ttf';"
 		href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
 	</div>
 
@@ -67,34 +70,33 @@
 	<table class="container">
 		<thead>
 			<tr class="row">
-				<th colspan="3" style="width: 800px;">
-					<h3 style="color: #1e1e1e; width: 80%;">
+				<th colspan="3" style="width: 600px; padding-left: 15px;">
+					<h3 style="color: #1e1e1e; width: 80%; padding-bottom : 15px">
 						<strong style="width: 100%;">${userboardvo.uboard_title}</strong>
 					</h3>
 				</th>
 			</tr>
 			<tr>
 				<th style="padding-left: 20px;">글번호 : ${userboardvo.uboard_id}</th>
-				<th style="width: 40%; text-align: center;">작성자 :
+				<th style="width: 60%; text-align: center;">작성자 :
 					${userboardvo.writer_id}
 					<c:if test='${storeSelectSession.admin_id == userboardvo.writer_id}'>
 					   [관리자]
 				 	</c:if></th>
-
-				<th style="width: 50%; text-align: right;">등록시간 : <fmt:formatDate
+				<th style="width: 100%; text-align: right; padding-right: 20px;">등록시간 : <fmt:formatDate
 						value="${userboardvo.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td colspan="3" class="col-sm-9">
+				<td colspan="3" class="col-sm-9" >
 					<hr> ${userboardvo.uboard_con}
 					<hr>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-	<div class="userBoard_header">
+	<div class="container">
 		<div class="buttonsLeft">
 			<c:choose>
 				<c:when test="${previousnum==0}">
@@ -128,7 +130,7 @@
 				목록</button>
 		</div>
 		<!-- 게시글  -->
-
+		<br>
 		<!-- 댓글  -->
 		<section class="comments my-5"> <!-- 코멘트 총개수 -->
 		<div id="UserBoardCommentsNum" class="card-header font-weight-bold"></div>
