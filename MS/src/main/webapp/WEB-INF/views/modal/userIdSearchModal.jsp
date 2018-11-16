@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <style>
+*{
+	font-size: 20px;
+	font-family: 'BMHANNAPro';
+}
+
+input{
+	font-family: sans-serif;
+}
+
 /* modal창 감싸고 있는 배경 Div */
 .background_modal {
 	display: none; /* Hidden by default */

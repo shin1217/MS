@@ -10,11 +10,22 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 <style>
+*{
+	font-size: 20px;
+	font-family: 'BMHANNAPro';
+}
+
+input{
+	font-family: sans-serif;
+}
+
 html, body {
 	height: 100%;
 }
@@ -55,6 +66,21 @@ body {
 	width: 30%;
 	height: 30%;
 }
+
+.select_pick{
+	display:inline;
+    width: 70%;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 17px;
+    line-height: 1.0;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
 </style>
 </head>
 <body>
@@ -73,10 +99,10 @@ body {
 			<div class="area_inputs wow fadeIn">
 				<div class="form-group">
 					<c:if test="${!empty store_list2 }">
-						<select id="store_id" name="store_id" required>
-								<option disabled selected>매장을 선택해주세요</option>
+						<select class="select_pick" id="store_id" name="store_id" required>
+								<option class="select_pick" disabled selected>매장을 선택해주세요</option>
 							<c:forEach var="store_list2" items="${store_list2}">
-								<option value="${store_list2.store_id}">${store_list2.store_name}</option>
+								<option class="select_pick" value="${store_list2.store_id}">${store_list2.store_name}</option>
 							</c:forEach>
 						</select>
 					</c:if>
