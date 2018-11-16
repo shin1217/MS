@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bit.ms.admin.model.AdminVO;
+import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserBoardListVO;
 import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
@@ -69,10 +71,15 @@ public class UserBoardController {
 	public String userBoardWriteReg(UserBoardVO userBoardVO, HttpSession httpsession) {
 
 		UserVO userVO = (UserVO) httpsession.getAttribute("userSession");
+		AdminVO adminVO = (AdminVO) httpsession.getAttribute("adminSession");
+		StoreVO storeVO = (StoreVO) httpsession.getAttribute("storeSelectSession");
 
-		userBoardVO.setStore_id(userVO.getStore_id());
-
-		userBoardVO.setUser_id(userVO.getUser_id());
+		if (adminVO == null) {
+			userBoardVO.setWriter_id(userVO.getUser_id());
+		} else {			
+			userBoardVO.setWriter_id(adminVO.getAdmin_id());
+		}
+		userBoardVO.setStore_id(storeVO.getStore_id());
 
 		System.out.println("userBoardVO 확인" + userBoardVO);
 
@@ -133,21 +140,18 @@ public class UserBoardController {
 	// View
 
 	@RequestMapping("user/userBoard/view/{uboard_id}")
-	public String getUserBoardViewC(@PathVariable("uboard_id") int uboard_id, Model model) throws Exception {
+	public String getUserBoardViewC(@PathVariable("uboard_id") int uboard_id, Model model, HttpSession session)
+			throws Exception {
 
 		UserBoardVO userboardVO = userBoardService.getUserBoardViewS(uboard_id);
 
-		int previousNUM = userBoardService.getViewPreviousNUM(uboard_id);
+		int previousNUM = userBoardService.getViewPreviousNUM(session, uboard_id);
 
-		int nextNUN = userBoardService.getViewNextNUM(uboard_id);
-
-		if (userboardVO == null) {
-			throw new Exception();
-		}
+		int nextNUN = userBoardService.getViewNextNUM(session, uboard_id);
 
 		model.addAttribute("userboardvo", userboardVO);
-		model.addAttribute("previousnum", previousNUM);
-		model.addAttribute("nextnum", nextNUN);
+		model.addAttribute("previousnum", previousNUM); // 이전페이지
+		model.addAttribute("nextnum", nextNUN); // 다음페이지
 
 		return "user/userBoardView";
 

@@ -38,10 +38,8 @@
 		<br> <a class="nav-link"
 			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1
 				class="hypertext_none">유저게시판</h1></a>
-		<c:if test="${sessionScope.userSession != NULL}">
 			<a id="write" class="btn btn-outline-elegant waves-effect"
 				href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
-		</c:if>
 	</div>
 	<div class="container">
 		<table class="table">
@@ -66,8 +64,11 @@
 							<td style="text-align: center;">${userBoardVO.uboard_id}</td>
 							<td><a
 								href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}">${userBoardVO.uboard_title}</a></td>
-							<td style="text-align: center;">${userBoardVO.user_id}</td>
-							<td style="text-align: center;"><fmt:formatDate
+							<td style="text-align: center;">${userBoardVO.writer_id}
+							<c:if test='${storeSelectSession.admin_id == userBoardVO.writer_id}'>
+							   [관리자]
+							 </c:if></td>
+							 <td style="text-align: center;"><fmt:formatDate
 									value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>
 					</c:forEach>

@@ -54,10 +54,8 @@
 		<br> <a class="nav-link"
 			href="${pageContext.request.contextPath}/user/userBoard?page=1"><h1
 				class="hypertext_none">유저게시판</h1></a>
-		<c:if test="${sessionScope.userSession != NULL}">
 			<a id="write" class="btn btn-outline-elegant waves-effect"
 				href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
-		</c:if>
 	</div>
 
 	<!-- 게시글  -->
@@ -73,7 +71,10 @@
 			<tr>
 				<th style="padding-left: 20px;">글번호 : ${userboardvo.uboard_id}</th>
 				<th style="width: 40%; text-align: center;">작성자 :
-					${userboardvo.user_id}</th>
+					${userboardvo.writer_id}
+					<c:if test='${storeSelectSession.admin_id == userboardvo.writer_id}'>
+					   [관리자]
+				 	</c:if></th>
 
 				<th style="width: 50%; text-align: right;">등록시간 : <fmt:formatDate
 						value="${userboardvo.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></th>
@@ -111,8 +112,7 @@
 		</div>
 
 		<div class="buttonsRight">
-			<c:if
-				test="${sessionScope.userSession.user_id == userboardvo.user_id || sessionScope.adminSession != null}">
+			<c:if test="${sessionScope.userSession.user_id == userboardvo.writer_id || sessionScope.adminSession != null}">
 				<button type="button" class="btn btn-dark" data-toggle="modal"
 					data-target="#modalUserBoardDeleteForm">삭제</button>
 				<button type="button" class="btn btn-dark"
@@ -131,7 +131,7 @@
 		</section>
 
 		<!-- 댓글 입력란 -->
-		<c:if test="${sessionScope.userSession != NULL}">
+		
 			<div class="md-form mt-4">
 				<label for="UserBoardReplyFormComment">댓글 입력</label>
 				<textarea  class="form-control md-textarea"
@@ -139,11 +139,11 @@
 				<div class="text-center my-4">
 					<button id="UserBoardCommentSubmit"
 						class="btn btn-default btn-sm btn-rounded">댓글 입력</button>
-					<input id="user_id" type="hidden"
-						value="${sessionScope.userSession.user_id}" />
+					<%-- <input id="user_id" type="hidden"
+						value="${sessionScope.userSession.user_id}" /> --%>
 				</div>
 			</div>
-		</c:if>
+		
 		<!-- 댓글 입력란 -->
 		<!-- 댓글  -->
 	</div>
@@ -196,15 +196,17 @@
 						uboard_reply += '<h5 class="font-weight-bold mt-0">';
 
 						//수정삭제버튼
-						if (  ("${sessionScope.adminSession}" != "") || ("${sessionScope.userSession.user_id}" == item.user_id)  ) {
+						if (  ("${sessionScope.adminSession}" != "") || ("${sessionScope.userSession.user_id}" == item.reply_writer_id)  ) {
 							uboard_reply += '<button id="UserBoardReplyDeleteBtn' + item.uboard_reply_id + '" onclick="UserBoardReplyDelete('+ item.uboard_reply_id + ')" type="button" class="btn btn-danger px-3 float-right"><i class="fa fa-trash" aria-hidden="true"></i></button>';
 							uboard_reply += '<button id="UserBoardReplyEditBtn'	+ item.uboard_reply_id + '" onclick="UserBoardReplyEdit(' + item.uboard_reply_id + ')" type="button" class="btn btn-primary px-3 float-right"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>';
 						}
-
-						uboard_reply += '<a class="text-default">'
-						+ item.user_id
-						+ '</a></h5>';
-						uboard_reply += '<input id="UserBoardReplyInput' + item.uboard_reply_id +'" class="form-control w-75" value="'+ item.uboard_reply_con +'" style="border: 0px; background: white;" readonly="true"></input><hr /></div></div>';
+						
+						uboard_reply += '<a class="text-default">'	+ item.reply_writer_id;
+						if("${storeSelectSession.admin_id}" == item.reply_writer_id){
+							uboard_reply +='     [관리자]';
+						}						
+						
+						uboard_reply += '</a></h5><input id="UserBoardReplyInput' + item.uboard_reply_id +'" class="form-control w-75" value="'+ item.uboard_reply_con +'" style="border: 0px; background: white;" readonly="true"></input><hr /></div></div>';
 				$('#UserBoardReplyAllBody').html(uboard_reply);
 										});
 						uboard_reply = '';
@@ -215,9 +217,16 @@
 	
 	$('#UserBoardCommentSubmit').click(function() {
 		var uboard_reply_con = $('#UserBoardReplyFormComment').val(); //댓글내용을 가져옴
-		var user_id = "${sessionScope.userSession.user_id}"; //세션에서 user_id를 가져옴
+		var reply_writer_id = ""; //세션에서 writer_id를 가져옴
+		
+		if("${userSession}"){
+			reply_writer_id = "${sessionScope.userSession.user_id}"; // 세션에서 writer_id를 가져옴
+		} else {
+			reply_writer_id = "${sessionScope.adminSession.admin_id}"; //세션에서 writer_id를 가져옴
+		}
+		
 		//자동정렬 주의
-		var store_id = "${sessionScope.userSession.store_id}"; //세션에서 store_id를 가져옴	
+		var store_id = "${storeSelectSession.store_id}"; //세션에서 store_id를 가져옴	
 		//자동정렬 주의
 		
 		if(uboard_reply_con){
@@ -227,11 +236,12 @@
 				dataType : 'text',
 				data : {
 					uboard_id : uboard_id,
-					user_id : user_id,
+					reply_writer_id : reply_writer_id,
 					uboard_reply_con : uboard_reply_con,
 					store_id : store_id
 				},
 				success : function(data) {
+					console.log(reply_writer_id);
 					console.log('댓글작성완료');
 					getUserBoardReplyList();
 					$('#UserBoardReplyFormComment').val('');

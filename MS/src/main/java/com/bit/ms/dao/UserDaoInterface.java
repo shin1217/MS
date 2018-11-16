@@ -26,13 +26,13 @@ public interface UserDaoInterface {
 	
 	/* 유저게시판 */
 	List<UserBoardVO> UserBoardSelectList(@Param("store_id") int store_id, @Param("firstRow") int firstRow);
-	int UserBoardTotalCount();
+	int UserBoardTotalCount(int store_id);
 	int insertUserBoard(UserBoardVO userBoardVO);
 	UserBoardVO getUserBoardViewI(int uboard_id);
 	int UserBoardDeleteI(int uboard_id);
 	int UserBoardModifyI(UserBoardVO userBoardVO);
-	int getPreviousNUM(int uboard_id);
-	int getNextNUM(int uboard_id);
+	int getPreviousNUM(@Param("uboard_id") int uboard_id, @Param("store_id") int store_id);
+	int getNextNUM(@Param("uboard_id") int uboard_id, @Param("store_id") int store_id);
 	
 	/* 유저게시판 댓글 */
 	List<UserBoardReplyVO> getUserBoardReplyListI(int uboard_id);

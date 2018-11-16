@@ -34,6 +34,7 @@ public class UserBoardService {
 		StoreVO storevo = (StoreVO) session.getAttribute("storeSelectSession");
 
 		int store_id = storevo.getStore_id();
+		
 		System.out.println("서비스 store_id = " + store_id);
 
 		int currentPageNum = pageNum;
@@ -49,7 +50,7 @@ public class UserBoardService {
 		try {
 
 			// 전체 게시글 구하기
-			userBoardTotalCount = userDaoInterface.UserBoardTotalCount();
+			userBoardTotalCount = userDaoInterface.UserBoardTotalCount(store_id);
 
 			if (userBoardTotalCount > 0) {
 
@@ -115,7 +116,11 @@ public class UserBoardService {
 
 		int resultCnt = 0;
 
-		resultCnt = userDaoInterface.UserBoardModifyI(userBoardVO);
+		try {
+			resultCnt = userDaoInterface.UserBoardModifyI(userBoardVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return resultCnt;
 
@@ -127,34 +132,70 @@ public class UserBoardService {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
-		UserBoardVO userBoardVO = userDaoInterface.getUserBoardViewI(uboard_id);
+		UserBoardVO userBoardVO = null;
+
+		try {
+			userBoardVO = userDaoInterface.getUserBoardViewI(uboard_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return userBoardVO;
 	}
 
-	public int getViewPreviousNUM(int uboard_id) {
+	public int getViewPreviousNUM(HttpSession session, int uboard_id) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
-		int num = userDaoInterface.getPreviousNUM(uboard_id);
+		StoreVO storevo = (StoreVO) session.getAttribute("storeSelectSession");
+
+		int store_id = storevo.getStore_id();
+
+		int num = 0;
+
+		try {
+			num = userDaoInterface.getPreviousNUM(uboard_id, store_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return num;
 	}
 
-	public int getViewNextNUM(int uboard_id) {
+	public int getViewNextNUM(HttpSession session, int uboard_id) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
-		int num = userDaoInterface.getNextNUM(uboard_id);
+		StoreVO storevo = (StoreVO) session.getAttribute("storeSelectSession");
+
+		int store_id = storevo.getStore_id();
+
+		int num = 0;
+
+		try {
+			num = userDaoInterface.getNextNUM(uboard_id, store_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return num;
 	}
 
-	public int getViewTotalCount() {
+	public int getViewTotalCount(HttpSession session) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
-		int num = userDaoInterface.UserBoardTotalCount();
+		StoreVO storevo = (StoreVO) session.getAttribute("storeSelectSession");
+
+		int store_id = storevo.getStore_id();
+		
+		int num = 0;
+
+		try {
+			num = userDaoInterface.UserBoardTotalCount(store_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return num;
 	}
