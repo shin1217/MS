@@ -31,13 +31,9 @@
 	border-radius: 15px;
 	border: 1px solid black;
 	text-align: center; /* 컨텐트 안의 모든 요소 가운데 정렬 */
+	font-size: 30px;
 	min-width: 25%;
 	height: 75%;
-}
-
-.left_btn_wrap {
-	position: relative;
-	top: 88%;
 }
 
 .seatTable {
@@ -84,6 +80,32 @@
 .end_btn:hover {
 }
 
+
+.com_cnt_text {
+	font-size: 50px;
+}
+
+.user_info_wrap {
+	text-align: left;
+	padding: 15px;
+	font-size: 20px;
+	border: 1px solid black;
+	height: 32%;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+.order_list_wrap {
+	text-align: left;
+	padding: 15px;
+	font-size: 20px;
+	border: 1px solid black;
+	height: 20%;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
 </style>
 </head>
 <body>
@@ -92,9 +114,26 @@
 	<div class="adminMain_container">
 		<div class="left_area">
 			<div class="left_content">
-				<div class="left_btn_wrap">
-					<button type="button" class="btn btn-mdb-color" id="messageBtn">쪽지함</button>
-					<button type="button" class="btn btn-deep-orange">자리 변경</button>
+				<div class="com_cnt_text"><span class="com_cnt">0</span>/20</div>
+				
+				<div>※ 사용자 정보</div>
+				<div id="selected_user_info" class="user_info_wrap">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+				
+				<div>※ 음식 주문 목록</div>
+				<div class="order_list_wrap">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+				
+				<div class="main_btn_wrap">
+					<button type="button" class="btn btn-mdb-color" id="messageBtn" style="position: relative;">쪽지함</button>
+					<button type="button" class="btn btn-deep-orange" id="addTimeBtn">충전</button>
+					<button type="button" class="btn btn-deep-orange" id="seatChangeBtn">자리 변경</button>
 				</div>
 			</div>
 		</div>
@@ -120,11 +159,12 @@
 			url: '<%=request.getContextPath()%>/admin/getUserInfoAll', 
 			type: 'get',
 			success:function(data){ // 좌석을 사용 중인 사용자 모두 가져오기
+				$('.com_cnt').text(data.length); // 사용 중인 좌석 수 표시
+			
 				for(var i=0; i<data.length; i++){
 					seatArr[data[i].seat_id-1] = true; // 선택된 좌석 모두 사용 중으로 변경
-					
-					resetSeat($('#seatTable td').eq(data[i].seat_id-1), data[i].seat_id, data[i].user_id);
-					timer(data[i].user_time, data[i].seat_id);
+					resetSeat($('#seatTable td').eq(data[i].seat_id-1), data[i].seat_id, data[i].user_id); // 좌석 표시
+					timer(data[i].user_time, data[i].seat_id); // 타이머 실행
 				}
 			}
 		});
@@ -178,26 +218,64 @@
 
 		/* 좌석 클릭 시 처리 */
 		var seatId = null;
+		var before = null;
+		var selectedArr = new Array(20).fill(false); // 선택 비교 배열
 		
 		$('#seatTable td').click(function() {
-			seatId = $(this).attr('id'); // 선택한 좌석 객체를 변수에 저장
+			seatId = $(this).attr('id'); // 선택한 좌석 번호를 변수에 저장
 			
-			if(seatArr[seatId-1]){ // 사용 중인 좌석에만 충전 가능
+			if(seatArr[seatId-1]){ // 사용 중인 좌석만 선택 가능
+				seletedProcess($(this), seatId); // 좌석 선택 처리 (오직 한번에 하나만 선택 가능)
 				
-				
-				$('#add_time_modal').show(); // 시간 충전 modal창 띄우기
+				$.ajax({ // 선택된 좌석의 유저 정보 가져오기
+					url:'<%=request.getContextPath()%>/admin/getUserInfoAll',
+					type:'get',
+					
+					success:function(data){
+						for(var i=0; i<data.length; i++){
+							if(data[i].seat_id == seatId){
+								$('#selected_user_info').children().eq(0).text("이름: "+data[i].user_name);
+								$('#selected_user_info').children().eq(1).text("전화번호: "+data[i].user_phone);
+								$('#selected_user_info').children().eq(2).text("생년월일: "+data[i].user_birth);
+							}
+						}
+					} // end success 
+				}); // end ajax
 			}
 		}); // end 좌석 선택 처리
 
 		//////////////////////////////////////////////////////////////////////////////////////////////
 
+		/* 메인 충전 버튼 */
+		$('#addTimeBtn').on('click', function () {
+			var isSelected = false;
+			var seatNum = 0;
+			
+			for(var i=0; i<selectedArr.length; i++){
+				
+				if(selectedArr[i]){ 
+					isSelected = true;
+					seatNum = i+1;
+					break;
+				}
+			}
+			if(isSelected == false) {
+				alert('좌석을 선택해주세요.');
+				return;
+			}
+			$('#seatNum').text(seatNum); // 좌석 번호 보여주기
+			$('#add_time_modal').show(); // 시간 충전 modal창 띄우기
+		});
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		
 		/* 시간 충전 select option 초기화  */
 		for (var i = 1; i <= 12; i++) {
 			var option = '<option value='+ i + '>' + i + ' 시간</option>';
 			$('#select_add_time').append(option);
 		}
 
-		/* 충전하기 클릭 시 처리 */
+		/* modal 충전하기 클릭 시 처리 */
 		$('#add_time_btn').click(function() {
 			
 			if ($('#select_add_time option:selected').val() == 0) {
@@ -249,7 +327,7 @@
 			
 			str = '<div>';
 			str += '<span style="color: black; font-weight: bold; float: left">'+ seatId +'</span>';
-			str += '<span>'+ userId +'</span>';
+			str += '<span id='+ userId + '>'+ userId +'</span>';
 			str += '</div>';
 			str += '<div><span id="countTimeMinute'+ seatId +'"></span>분';
 			str += '<span id="countTimeSecond'+ seatId +'"></span>초</div>';
@@ -331,6 +409,24 @@
 					}
 				}
 	    	}, 1000);
+		}
+		
+		/* 좌석 선택 처리 함수(좌석 번호) */
+		function seletedProcess(obj, id) {
+			if(before != null && before != id){ // 한 번에 한 좌석만 선택 가능
+				$('#'+before).css('opacity', ''); 
+				selectedArr[before-1] = false; 
+			}
+			before = id;
+			
+			if(selectedArr[id-1]){ // 좌석이 선택된 상태면...
+				$(obj).css('opacity', '');
+				selectedArr[id-1] = false;
+			}
+			else { // 좌석이 선택되지 않은 상태면...
+				$(obj).css('opacity', '0.5');
+				selectedArr[id-1] = true;
+			} 
 		}
 	}); // end $(document).ready(function())}
 	
