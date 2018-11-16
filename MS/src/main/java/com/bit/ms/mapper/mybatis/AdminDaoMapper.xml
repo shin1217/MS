@@ -48,7 +48,7 @@
 	<!--관리자 수정하기 -->
 	<update id="editAdmin" parameterType="AdminVO">
 		update admininfo 
-		set	admin_pw = #{admin_pw}, admin_name = #{admin_name}, admin_phone = #{admin_phone}, admin_birth = #{admin_birth}
+		set	admin_pw = #{admin_pw}, admin_name = #{admin_name}, admin_phone = #{admin_phone}
 		where admin_id = #{admin_id}
 	</update>
 
