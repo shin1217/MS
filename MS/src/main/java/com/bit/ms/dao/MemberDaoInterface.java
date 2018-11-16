@@ -19,4 +19,5 @@ public interface MemberDaoInterface {
 		public int messageCnt(HashMap<String,String> map); //안읽은 메시지 카운트
 		public List<StoreVO> getStoreList(String send_id); //받는사용자의 리스트
 		public List<UserVO> userListDistinct();
+		public List<MessageVO> getMessageListDetail(HashMap<String,String> map);
 }

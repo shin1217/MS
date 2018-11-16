@@ -9,7 +9,7 @@
 	</select>
 <!-- 메시지 리스트 불러오기 -->
 	<select id="getMessageList" parameterType="hashmap" resultType="messageVO">
-		select * from message where receive_id = #{receive_id} and store_id = (select store_id from store where store_name = #{store_name})
+		select * from message where receive_id = #{receive_id} and store_id = (select store_id from store where store_name = #{store_name}) group by message_title
 	</select>
 	<!-- 사용자의 메시지리스트 불러오기 -->
 	<select id="userMessageList" resultType="messageVO">
@@ -34,10 +34,13 @@
 	</select>
 	<!--사용자의 매장리스트 -->
 	<select id = "getStoreList" resultType = "storeVO">
-		select store_name from userinfo a, store b where a.user_id = #{send_id} and a.store_id = b.store_id
+		select store_name, b.store_id from userinfo a, store b where a.user_id = #{send_id} and a.store_id = b.store_id
 	</select>
 	<!-- 중복사용자 제거리스트 -->
 	<select id="userListDistinct" resultType = "userVo">
 		select distinct user_id, store_id from userinfo
+	</select>
+	<select id="getMessageListDetail" parameterType="hashmap" resultType="messageVo">
+		select * from (select * from message where message_title = #{message_title}) a where (send_id = #{send_id} or send_id = #{receive_id}) and (receive_id = #{send_id} or receive_id = #{receive_id});
 	</select>
 </mapper>

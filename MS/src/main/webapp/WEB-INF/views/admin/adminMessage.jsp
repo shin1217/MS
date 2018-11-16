@@ -172,6 +172,29 @@ hr{
 	left : 140px;
 	top : 140px;
 }
+.messageDetailWrap{
+	background-color : white;
+	width : 500px;
+	height : 300px;
+	display : none;
+	position : absolute;
+	z-index : 1;
+	left : 50%;
+	margin-left : -250px; 
+	border-radius : 10px;
+	border : 1px solid black;
+}
+.detailClose{
+   position : absolute;
+   top : 0px;
+   right : 15px;
+   font-size : 30px;
+   font-weight : bold;
+}
+.detailClose:hover{
+   color : grey;
+   cursor : pointer;
+}
 </style>
 </head>
 <body>
@@ -187,9 +210,14 @@ hr{
 				<p id = "messageText"style = "color : red; margin-bottom : 20px; font-size : 30px;">※ 매장을 먼저 선택하세요.</p></div>
 			</div>
 		</div>
-	
+<!-- ///////////////// 쪽지 상세 모달창///////// -->
+<div id = "messageDetailWrap" class = "messageDetailWrap" >
+	<div style = "text-align : center; font-weight : bold; font-size : 25px; border-bottom : 1px solid #eee; margin : 20px 0px 10px; padding-bottom : 10px; overflow : auto;"> 메시지 기록</div>
+	<span class = 'detailClose' id = 'detailClose'>×</span>
+	<div id = "messageDetailtext" class = "messageDetailtext" ></div>
+</div>
 <!--///////////////// 쪽지쓰기 모달창/////////////////// -->
-		<div class = "writeMessageModal" id = "writeMessageModal">
+	<div class = "writeMessageModal" id = "writeMessageModal">
 		<div class="post">
 			<div class="contact">
 				<div class="messageTitle">
@@ -225,12 +253,14 @@ hr{
 						<div class="col-md-12 form-group">
 							<input type="button" class="btn btn-block btn-lg btn-success"
 								value="메시지 남기기" id = "sendBtn">
+							<input type="button" class="btn btn-block btn-lg btn-success"
+								value="메시지 남기기" id = "replyBtn" style = "display : none">	
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
-		</div>
+	</div>
 </body>
 <script>
 	var send_id = "";
@@ -309,10 +339,11 @@ hr{
 							} else {
 								str += '	<li><textarea readonly style = "background-color : #eee;" cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 							}
-							str += '	<input type = "button" onclick = "messageReply(' + data[i].message_id +','+ data[i].send_id + ')" class = "messageReply" value = "답장">';
-							str += '	<input type = "button" id = "messageDetail" class = "messageDetail" value = "상세">';
+							str += '	<input type = "button" onclick = "messageReply(' + data[i].message_id +','+ data[i].send_id + ',' + data[i].message_title + ')" class = "messageReply" value = "답장">';
+							str += '	<input type = "button" id = "messageDetail" class = "messageDetail" value = "상세" onclick = "messageDetail(' + data[i].message_title + ',' + data[i].send_id + ',' + data[i].message_id + ')">';
 							str += '<div id = "userStore_id" style = "display : none;">' + data[i].store_id + '</div>';
 							str += '<div id = "messageRead" style = "display : none;">' + data[i].message_read + '</div>';
+							str += '<div id = "message_titleNone" style = "display : none;">' + data[i].message_title + '</div>';
 							str += '</ul></div>';
 							$('#messageList').append(str);
 						} str = '';
@@ -342,19 +373,23 @@ hr{
 	}
 				
 	 /////////////쪽지 답장 이벤트//////////////
-	function messageReply(message_id, send_id){
+	function messageReply(message_id, send_id, message_title){
 		$('#writeMessageModal').show();
 		$('#send_id').val("관리자");
 		$('#sendWrap, #selectStore').css("display","none");
 		$('#receiveReply').css("display","block");
 		$('#receiveReply').val(send_id);
+		$('#replyBtn').show();
+		$('#sendBtn').hide();
+		$('#message_title').val(message_title).css("background-color","darkgrey");
 	}
 		
 	///////////// 쪽지쓰기버튼 이벤트///////////////
 	$('#writeMessage').click(function(){
 		$('#writeMessageModal').show(); //쪽지쓰기를 클릭하면 모달창 뜸
 		$('#sendWrap, #selectStore').css("display","block");
-		$('#receiveReply').css("display","none");
+		$('#sendBtn').show();
+		$('#receiveReply').hide();
 		var list = "";
 		$.ajax({
 			url : '${pageContext.request.contextPath}' + '/member/sendList',
@@ -373,25 +408,37 @@ hr{
 	///////////// 사용자 매장 선택 /////////////////
 	$(document).on("change", "#sendList", function(){ //받는사람 리스트 변경 이벤트
 		send_id = $('#sendList option:selected').val(); //선택된 아이디값을 가져옴
-		console.log(send_id);
+		//console.log(send_id);
 		var store_name = "<select class = 'store_name' id = 'store_name' style = 'width : 100%; height : 40px; padding : 3px;'><option>사용자의 매장을 선택하세요</option>";
 			$.ajax({
 				url : '${pageContext.request.contextPath}' + '/member/sendStore/' + send_id,
 				success : function(data2){
 					//console.log(data);
 					for(var j = 0; j < data2.length; j++){
-						store_name += "<option>" + data2[j].store_name + "</option>";
+						store_name += "<option id = '" + data2[j].store_id + "'>" + data2[j].store_name + "</option>";
 					}
 				store_name += "</select>";
 				$('#selectStore').html(store_name);
 				} //매장이름 가져오기 성공 끝
 			}); // 보내는아이디에 해당하는 매장번호 구하는 ajax 끝
 		});
-
-	///////////////// 보내기버튼 이벤트//////////////////
+	
+	///////////////// 쪽지 보내기버튼 이벤트////////////////
 	$('#sendBtn').click(function(){
+		var store_id = $('#store_name option:selected').attr("id");
+		console.log(store_id);
+		sendMessage(store_id);
+	});
+	
+	/////////////////  답장보내기버튼 이벤트//////////////////
+	$('#replyBtn').click(function(){
 		var store_id = $('#userStore_id').text();
-		console.log($('#userStore_id').attr("id"));
+		sendMessage(store_id);
+		$('#message_title').css("background-color","#eee");
+	}); //메시지 보내기 이벤트 끝
+	
+	////////////// 메시지 보내기 함수 ///////////////
+	function sendMessage(store_id){
 		$.ajax({
 			url : '${pageContext.request.contextPath}' + '/member/writeMessage',
 			data : { //보내는사람, 받는사람, 받는사람의 매장아이디, 제목, 내용
@@ -403,12 +450,12 @@ hr{
 			},
 			success : function(data){
 				alert("메시지를 성공적으로 보냈습니다.");
-				
+				$('#replyBtn').css("display","none");
 				$('#writeMessageModal').hide(); //쪽지쓰기 모달창 끔
 				$('#messageModal').show(); // 리스트 모달창 뜸
 			}// 성공 끝
 		}); // ajax 끝
-	}); //메시지 보내기 이벤트 끝
+		}
 	
 	$(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그들은 이런식으로 이벤트를 줘야함
 		//var str = "onclick = "readChk(' + data[i].message_id + ')"";
@@ -428,14 +475,42 @@ hr{
 		});
 	});
 	
+	function messageDetail(message_title, send_id, message_id){
+		$('#messageDetailModal').show();
+		var list = "";
+		$.ajax({
+			url : '${pageContext.request.contextPath}' + '/member/messageDetail',
+			type : 'post',
+			data : {
+				message_title : message_title,
+				send_id : send_id,
+				receive_id : '관리자'
+			},
+			success : function(data){
+				$('#messageDetailWrap').show();
+				console.log(data);
+				for(var i = 0; i < data.length; i++){
+					list += "<div>" + "(" + data[i].message_date + ")"+ data[i].send_id + " : " + data[i].message_con + "</div>";
+					$('#messageDetailtext').html(list);
+				} list = "";
+			}
+			
+		});
+	}
+	 $('#detailClose').click(function(){
+         $('#messageDetailWrap').hide();
+      });
 	///////////////모달창 밖의 영역을 누르면 띄워져 있는 모달창을 닫음
     $(window).on('click', function() {
       //jquery는 dom 객체를 jquery 객체로 한 번 감싸 리턴하므로 dom 객체를 얻어와야 비교 가능
        if (event.target == $('#messageModal').get(0)) {
-    	   $('#messageModal').hide();
+    	   location.reload();
        } else if (event.target == $('#writeMessageModal').get(0)){
-      	   $('#writeMessageModal').hide();
-       }
+    	   getMessageList();
+    	   $('#replyBtn').css("display","none");
+    	   $('#message_title').css("background-color","#eee");
+    	   $('#writeMessageModal').hide();
+       } 
     });
 		
 </script>

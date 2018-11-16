@@ -1,6 +1,5 @@
 package com.bit.ms.member.model;
 
-import java.sql.Timestamp;
 
 import org.apache.ibatis.type.Alias;
 
@@ -10,7 +9,7 @@ public class MessageVO {
 	private int message_id;
 	private String message_title;
 	private String message_con;
-	private Timestamp message_date;
+	private String message_date;
 	private String send_id;
 	private String receive_id;
 	private String message_read;
@@ -34,10 +33,10 @@ public class MessageVO {
 	public void setMessage_con(String message_con) {
 		this.message_con = message_con;
 	}
-	public Timestamp getMessage_date() {
+	public String getMessage_date() {
 		return message_date;
 	}
-	public void setMessage_date(Timestamp message_date) {
+	public void setMessage_date(String message_date) {
 		this.message_date = message_date;
 	}
 	public String getSend_id() {

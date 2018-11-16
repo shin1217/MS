@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -104,5 +103,11 @@ public class MemberMessageController {
 	public @ResponseBody List<StoreVO> getReceiveStoreId(@PathVariable("id") String send_id){
 		
 		return service.getStoreName(send_id);
+	}
+	
+	//제목을 바탕으로 해당하는 메시지 기록을 받아오기
+	@RequestMapping(value = "member/messageDetail", method = RequestMethod.POST)
+	public @ResponseBody List<MessageVO> getMessageDetail(MessageVO messageVo){
+		return service.messageListDetail(messageVo);
 	}
 }

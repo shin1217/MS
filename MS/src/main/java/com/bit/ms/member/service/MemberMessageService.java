@@ -91,4 +91,15 @@ public class MemberMessageService {
 		
 	}
 	
+	public List<MessageVO> messageListDetail(MessageVO messageVo){
+		
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("message_title", messageVo.getMessage_title());
+		map.put("send_id", messageVo.getSend_id());
+		map.put("receive_id", messageVo.getReceive_id());
+		
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.getMessageListDetail(map);
+	}
+	
 }
