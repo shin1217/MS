@@ -52,9 +52,11 @@
 	</update>
 
 	<select id="getNextNUM" resultType="int">
+	
 		select
 		ifnull(min(uboard_id),0) from userboard where uboard_id>#{uboard_id}
 		and store_id=#{store_id}
+		
 	</select>
 
 	<select id="getPreviousNUM" resultType="int">
@@ -62,7 +64,6 @@
 		select ifnull( max( uboard_id ), 0 )
 		from userboard where
 		store_id=#{store_id} and <![CDATA[uboard_id < #{uboard_id}]]>
-
 
 	</select>
 

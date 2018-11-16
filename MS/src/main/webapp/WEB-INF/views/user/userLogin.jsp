@@ -35,7 +35,7 @@ body {
 }
 
 .container {
-	min-height: 100%;
+	min-height: 80%;
 	position: relative;
 }
 

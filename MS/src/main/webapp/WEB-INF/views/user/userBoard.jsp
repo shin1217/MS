@@ -93,14 +93,14 @@
 				<c:choose>
 					<c:when test="${param.page == 1}">
 						<li class="page-item"><a class="page-link"
-							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+							aria-label="Previous"> <span aria-hidden="true">Previous</span>
 								<span class="sr-only">Previous</span>
 						</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item"><a class="page-link"
 							aria-label="Previous" href="userBoard?page=${param.page-1}">
-								<span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
+								<span aria-hidden="true">Previous</span> <span class="sr-only">Previous</span>
 						</a></li>
 					</c:otherwise>
 				</c:choose>
@@ -121,13 +121,13 @@
 				<c:choose>
 					<c:when test="${userboardlist.pageTotalCount == param.page}">
 						<li class="page-item"><a class="page-link" aria-label="Next">
-								<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+								<span aria-hidden="true">Next</span> <span class="sr-only">Next</span>
 						</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item"><a class="page-link" aria-label="Next"
 							href="userBoard?page=${param.page+1}"> <span
-								aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+								aria-hidden="true">Next</span> <span class="sr-only">Next</span>
 						</a></li>
 					</c:otherwise>
 				</c:choose>
