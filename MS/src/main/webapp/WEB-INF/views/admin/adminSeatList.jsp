@@ -5,7 +5,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <style>
 .container {
 	margin-top: 20px;
@@ -33,16 +32,9 @@
 	margin: 0 auto;
 }
 
-.adminSeatList_header * {
-	font-family: 'BMHANNAPro';
-}
-.container * {	
-	font-family: 'BMJUA_ttf';
-}
 .hypertext_none {
 	color: #181818;
-	text-decoration: none;
-	
+	text-decoration: none;	
 }
 
 </style>

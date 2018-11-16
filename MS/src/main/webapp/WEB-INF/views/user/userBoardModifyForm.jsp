@@ -9,23 +9,17 @@
 <title>MS</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
+
 <style>
 .userBoard_header {
 	overflow: hidden;
 	width: 1140px;
 	margin: 0 auto;
 }
-.userBoard_header * {
-	font-family: 'BMHANNAPro';
-}
-.container * {	
-	font-family: 'BMJUA_ttf';
-}
+
 .hypertext_none {
 	color: #181818;
-	text-decoration: none;
-	
+	text-decoration: none;	
 }
 </style>
 </head>
@@ -36,7 +30,7 @@
 		<a class="nav-link, hypertext_none" 
 		href="${pageContext.request.contextPath}/user/userBoard?page=1">
 		<h1>[${storeSelectSession.store_name}] - 유저게시판</h1></a>
-		<a id="write" class="btn btn-outline-elegant waves-effect" style="font-family: 'BMJUA_ttf';"
+		<a id="write" class="btn btn-outline-elegant waves-effect" 
 		href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
 	</div>
 	

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
+
 <title>MS</title>
 <style>
 .row {
@@ -42,12 +42,7 @@
 	width: 1140px;
 	margin: 0 auto;
 }
-.userBoard_header * {
-	font-family: 'BMHANNAPro';
-}
-.container * {	
-	font-family: 'BMJUA_ttf';
-}
+
 .hypertext_none {
 	color: #181818;
 	text-decoration: none;
@@ -62,7 +57,7 @@
 		<a class="nav-link, hypertext_none" 
 		href="${pageContext.request.contextPath}/user/userBoard?page=1">
 		<h1>[${storeSelectSession.store_name}] - 유저게시판</h1></a>
-		<a id="write" class="btn btn-outline-elegant waves-effect" style="font-family: 'BMJUA_ttf';"
+		<a id="write" class="btn btn-outline-elegant waves-effect"
 		href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
 	</div>
 
