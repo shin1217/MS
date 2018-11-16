@@ -15,8 +15,6 @@
 
 .left_area {
 	width: 30%;
-	padding-top: 3%;
-	padding-left: 4%;
 	float: left;
 }
 
@@ -31,9 +29,54 @@
 	border-radius: 15px;
 	border: 1px solid black;
 	text-align: center; /* 컨텐트 안의 모든 요소 가운데 정렬 */
-	font-size: 30px;
-	min-width: 25%;
+	font-size: 27px;
+	min-width: 26%;
 	height: 75%;
+	margin-top: 4%;
+	margin-left: 4%;
+}
+
+.left_content_title {
+	position: relative;
+	top: -5%;
+	padding-top: 2%;
+	border: 1px solid black;
+	border-radius: 15px;
+	background-color: #2BBBAD;
+	font-size: 25px;
+	font-weight: bold;
+	color: white;
+	width: 60%;
+	height: 10%;
+	margin: 0 auto;
+}
+
+.com_cnt_text {
+	font-size: 50px;
+	margin-top: -5%;
+	margin-bottom: -3%;
+}
+
+.user_info_wrap {
+	text-align: left;
+	padding: 15px;
+	font-size: 20px;
+	border: 1px solid black;
+	height: 35%;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 7%;
+}
+
+.order_list_wrap {
+	text-align: left;
+	padding: 15px;
+	font-size: 20px;
+	border: 1px solid black;
+	height: 30%;
+	margin-left: 20px;
+	margin-right: 20px;
+	overflow-y: scroll;
 }
 
 .seatTable {
@@ -81,31 +124,6 @@
 }
 
 
-.com_cnt_text {
-	font-size: 50px;
-}
-
-.user_info_wrap {
-	text-align: left;
-	padding: 15px;
-	font-size: 20px;
-	border: 1px solid black;
-	height: 32%;
-	margin-left: 20px;
-	margin-right: 20px;
-	margin-bottom: 20px;
-}
-
-.order_list_wrap {
-	text-align: left;
-	padding: 15px;
-	font-size: 20px;
-	border: 1px solid black;
-	height: 20%;
-	margin-left: 20px;
-	margin-right: 20px;
-}
-
 </style>
 </head>
 <body>
@@ -114,20 +132,20 @@
 	<div class="adminMain_container">
 		<div class="left_area">
 			<div class="left_content">
+				<div class="left_content_title">2018-11-16</div>
 				<div class="com_cnt_text"><span class="com_cnt">0</span>/20</div>
+				<hr style="border: 1px dashed gray">
 				
-				<div>※ 사용자 정보</div>
-				<div id="selected_user_info" class="user_info_wrap">
-					<div></div>
-					<div></div>
-					<div></div>
-				</div>
+				<div style="margin-top: -10%; height: 62%">
+					<div><b>※ 사용자 정보</b></div>
+					<div id="selected_user_info" class="user_info_wrap">
+						<div style="color: red">＊좌석을 선택하세요.</div>
+					</div>
 				
-				<div>※ 음식 주문 목록</div>
-				<div class="order_list_wrap">
-					<div></div>
-					<div></div>
-					<div></div>
+					<div><b>※ 음식 주문 목록</b></div>
+					<div class="order_list_wrap">
+						<div style="color: red">＊주문 대기 중인 음식이 없습니다.</div>
+					</div>
 				</div>
 				
 				<div class="main_btn_wrap">
@@ -226,21 +244,6 @@
 			
 			if(seatArr[seatId-1]){ // 사용 중인 좌석만 선택 가능
 				seletedProcess($(this), seatId); // 좌석 선택 처리 (오직 한번에 하나만 선택 가능)
-				
-				$.ajax({ // 선택된 좌석의 유저 정보 가져오기
-					url:'<%=request.getContextPath()%>/admin/getUserInfoAll',
-					type:'get',
-					
-					success:function(data){
-						for(var i=0; i<data.length; i++){
-							if(data[i].seat_id == seatId){
-								$('#selected_user_info').children().eq(0).text("이름: "+data[i].user_name);
-								$('#selected_user_info').children().eq(1).text("전화번호: "+data[i].user_phone);
-								$('#selected_user_info').children().eq(2).text("생년월일: "+data[i].user_birth);
-							}
-						}
-					} // end success 
-				}); // end ajax
 			}
 		}); // end 좌석 선택 처리
 
@@ -357,9 +360,7 @@
 			}
 			
 			if(min < 5){ // 종료 5분 전
-				$('#'+seatId).css({
-					'background-color': '#CC0000',
-				});
+				$('#'+seatId).css('background-color', '#CC0000');
 				$('#'+seatId).children().eq(0).css('background-color', '#ff4444');
 			}
 			
@@ -421,11 +422,27 @@
 			
 			if(selectedArr[id-1]){ // 좌석이 선택된 상태면...
 				$(obj).css('opacity', '');
+				$('#selected_user_info').html('<span style="color: red">* 좌석을 선택하세요.</span>');
 				selectedArr[id-1] = false;
 			}
 			else { // 좌석이 선택되지 않은 상태면...
 				$(obj).css('opacity', '0.5');
 				selectedArr[id-1] = true;
+				
+				$.ajax({ // 선택된 좌석의 유저 정보 가져오기
+					url:'<%=request.getContextPath()%>/admin/getUserInfoAll',
+					type:'get',
+					
+					success:function(data){
+						for(var i=0; i<data.length; i++){
+							if(data[i].seat_id == seatId){
+								$('#selected_user_info').html('* 이름: ' + data[i].user_name + '<br>' +
+															'* 전화번호: ' + data[i].user_phone + '<br>' +
+															'* 생년월일: ' + data[i].user_birth);
+							}
+						}
+					} // end success 
+				}); // end ajax
 			} 
 		}
 	}); // end $(document).ready(function())}
