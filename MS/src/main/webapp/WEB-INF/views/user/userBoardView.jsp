@@ -59,7 +59,7 @@
 		<br>
 		<a class="nav-link, hypertext_none" 
 		href="${pageContext.request.contextPath}/user/userBoard?page=1">
-		<h1>${storeSelectSession.store_name} - 유저게시판</h1></a>
+		<h1>[${storeSelectSession.store_name}] - 유저게시판</h1></a>
 		<a id="write" class="btn btn-outline-elegant waves-effect"
 		href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
 	</div>
