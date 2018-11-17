@@ -21,7 +21,7 @@
 		where seat_id is not null and store_id=#{store_id}
 	</select>
 	
-	<!-- 사용 종료 좌석 지우기 -->
+	<!-- 사용 시간 종료 또는 강제 종료된 좌석 지우기 -->
 	<update id="deleteSeat" parameterType="map">
 		update userinfo set seat_id=null, user_time=0
 		where seat_id=#{param1} and store_id=#{param2}

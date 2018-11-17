@@ -61,16 +61,16 @@ public class AdminTimeController {
 		}
 	}
 
-	// 사용 시간 종료 시 좌석 삭제
+	// 사용 시간 종료 또는 강제 종료 시 좌석 삭제
 	@RequestMapping(value = "/admin/deleteSeat", method = RequestMethod.GET)
 	@ResponseBody
 	public void updateSaveTimeAll(@RequestParam("seatId") int seatId, @RequestParam("storeId") int storeId) {
-		System.out.println("사용 종료된 좌석 번호 : " + seatId);
+		System.out.println("사용 종료 또는 강제 종료된 좌석 번호 : " + seatId);
 		
 		int resultCnt = service.deleteSeat(seatId, storeId);
 		
 		if (resultCnt > 0) {
-			System.out.println("사용 종료 좌석 삭제 완료");
+			System.out.println("좌석 삭제 완료");
 		}
 	}
 }

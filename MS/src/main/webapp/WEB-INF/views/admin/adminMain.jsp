@@ -38,6 +38,7 @@
 	position: absolute;
 	border-radius: 15px;
 	border: 1px solid black;
+	box-shadow:3px 3px 3px 3px #999;
 	text-align: center; /* 컨텐트 안의 모든 요소 가운데 정렬 */
 	font-size: 27px;
 	min-width: 26%;
@@ -139,12 +140,17 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<%@ include file="/WEB-INF/views/modal/adminAddTimeModal.jsp"%>
+	
+	<!-- 오늘 날짜 구하기 -->
+	<c:set var="now" value="<%=new java.util.Date()%>" />
+	<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
+	
 	<div class="adminMain_container">
 		<div class="title_text">[${storeSelectSession.store_name}]</div>
 			
 		<div class="left_area">
 			<div class="left_content">
-				<div class="left_content_title">2018-11-16</div>
+				<div class="left_content_title"><c:out value="${sysYear}" /></div>
 				<div class="com_cnt_text"><span class="com_cnt">0</span>/20</div>
 				<hr style="border: 1px dashed gray">
 				
@@ -198,8 +204,25 @@
 					resetSeat($('#seatTable td').eq(data[i].seat_id-1), data[i].seat_id, data[i].user_id); // 좌석 표시
 					timer(data[i].user_time, data[i].seat_id); // 타이머 실행
 				}
+				
+				/* 사용 종료 (실행 순서 고려) AND. resetSeat 함수 안에 넣으면 for문 때문에 여러 번 실행 */
+				$('.end_btn').on('click', function(event) {
+					event.stopPropagation(); 
+					var seatId = $(this).attr('endId');
+					var confirmDel = confirm( '정말 강제 종료하시겠습니까?' );
+					
+				    if(confirmDel){
+				    	$.ajax({
+							url:'<%=request.getContextPath()%>/admin/deleteSeat?seatId=' + seatId +'&storeId=' + storeId,
+							type: 'get',
+							success:function(){
+								location.reload();
+							}
+						});
+				    }
+				}); // end 삭제 클릭
 			}
-		});
+		}); // end ajax
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -227,7 +250,7 @@
 				'top' : position + currentPosition + 'px'
 			}, 1000);
 		});
-
+	
 		//////////////////////////////////////////////////////////////////////////////////////////////
 
 		/* 좌석 테이블 동적 생성 */
@@ -348,12 +371,7 @@
 			str += '<div><span id="countTimeMinute'+ seatId +'"></span>분';
 			str += '<span id="countTimeSecond'+ seatId +'"></span>초</div>';
 			str += '<div>5000</div>';
-			str += '<button class="end_btn">사용 종료</button>';
-			
-			$('.end_btn').on('click', function(event) {
-				event.stopPropagation();
-				console.log("OK");
-			});
+			str += '<button endId="' + seatId + '" class="end_btn">사용 종료</button>'; // 속성명을 id가 아닌 endId로 작성(커스텀)
 			
 			$(obj).text(''); // 중앙에 써있던 좌석 번호 지우기
 			$(obj).append(str); // 좌석 사용 정보 보여주기

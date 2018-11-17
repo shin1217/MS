@@ -34,7 +34,7 @@ public class AdminTimeService {
 		return adminDao.getUserInfoAll(storeId);
 	}
 	
-	// 사용 종료된 좌석 지우기
+	// 사용 종료 또는 강제 종료된 좌석 지우기
 	public int deleteSeat(int seatId, int storeId) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		return adminDao.deleteSeat(seatId, storeId);
