@@ -3,10 +3,10 @@
   
 <mapper namespace="com.bit.ms.dao.UserDaoInterface">
 	
-	<!-- 로그인한 유저의 충전 시간 업데이트(충전시간, 좌석번호, 유저 아이디, 매장 아이디) -->
+	<!-- 로그인한 유저의 충전 시간 업데이트(충전시간, 좌석번호, 사용 금액, 유저 아이디, 매장 아이디) -->
 	<update id="updateAddTime" parameterType="map">
-		update userinfo set user_time=(user_time+#{param1}), seat_id=#{param2} 
-		where user_id=#{param3} and store_id=#{param4}
+		update userinfo set user_time=(user_time+#{param1}), seat_id=#{param2}, use_pay=(use_pay+#{param3}) 
+		where user_id=#{param4} and store_id=#{param5}
 	</update>
 	
 	<!-- 현재 좌석 사용 중인 사용자 정보 모두 가져오기 -->

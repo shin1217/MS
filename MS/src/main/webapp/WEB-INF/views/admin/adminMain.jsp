@@ -143,7 +143,7 @@
 	
 	<!-- 오늘 날짜 구하기 -->
 	<c:set var="now" value="<%=new java.util.Date()%>" />
-	<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
+	<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/></c:set> 
 	
 	<div class="adminMain_container">
 		<div class="title_text">[${storeSelectSession.store_name}]</div>
@@ -201,7 +201,7 @@
 			
 				for(var i=0; i<data.length; i++){
 					seatArr[data[i].seat_id-1] = true; // 선택된 좌석 모두 사용 중으로 변경
-					resetSeat($('#seatTable td').eq(data[i].seat_id-1), data[i].seat_id, data[i].user_id); // 좌석 표시
+					resetSeat($('#seatTable td').eq(data[i].seat_id-1), data[i].seat_id, data[i].user_id, data[i].use_pay); // 좌석 표시
 					timer(data[i].user_time, data[i].seat_id); // 타이머 실행
 				}
 				
@@ -353,8 +353,8 @@
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		
-		/* 좌석 생성 함수(좌석 객체, 좌석 번호, 유저 아이디) */
-		function resetSeat(obj, seatId, userId) {	
+		/* 좌석 생성 함수(좌석 객체, 좌석 번호, 유저 아이디, 결제 금액) */
+		function resetSeat(obj, seatId, userId, usePay) {	
 			$(obj).css({
 				'font-size' : 25,
 				'color' : 'white',
@@ -370,7 +370,7 @@
 			str += '</div>';
 			str += '<div><span id="countTimeMinute'+ seatId +'"></span>분';
 			str += '<span id="countTimeSecond'+ seatId +'"></span>초</div>';
-			str += '<div>5000</div>';
+			str += '<div>'+ numberWithCommas(usePay) +'</div>';
 			str += '<button endId="' + seatId + '" class="end_btn">'; // 속성명을 id가 아닌 endId로 작성(커스텀)
 			str += '<span> 강제 종료 </span>';
 			str += '</button>';
@@ -478,14 +478,12 @@
 				}); // end ajax
 			} 
 		}
+		
+		/* 가격에 콤마 표시 */
+		function numberWithCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
 	}); // end $(document).ready(function())}
-	
-	/* 사용 종료 버튼 클릭 시 처리(실행 순서로 인한 미작동으로 onclick으로 구현) */
-	/* function end(event){	
-		event.stopPropagation();
-		event.cancelBubble = true;
-		console.log("종료함");
-	} */
 	
 </script>
 </html>

@@ -16,10 +16,10 @@ public class UserTimeService {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private UserDaoInterface userDao;
 	
-	// 로그인한 유저의 충전 시간 업데이트(충전시간, 좌석번호, 유저 아이디, 매장 번호)
-	public int updateAddTime(long addTime, int seatId, String userId, int storeId) {
+	// 로그인한 유저의 충전 시간 업데이트(충전시간, 좌석번호, 사용 금액, 유저 아이디, 매장 번호)
+	public int updateAddTime(long addTime, int seatId, int usePay, String userId, int storeId) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.updateAddTime(addTime, seatId, userId, storeId);
+		return userDao.updateAddTime(addTime, seatId, usePay, userId, storeId);
 	}
 	
 	// 현재 좌석 사용 중인 사용자 정보 모두 가져오기 

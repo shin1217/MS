@@ -19,6 +19,7 @@ public class UserVO {
 	private long user_time; // 남은 시간
 	private int store_id; // 매장번호
 	private int seat_id; // 사용 중인 좌석 번호
+	private int use_pay; // 결제 금액
 	
 	public String getUser_id() {
 		return user_id;
@@ -92,13 +93,17 @@ public class UserVO {
 	public void setSeat_id(int seat_id) {
 		this.seat_id = seat_id;
 	}
-	
+	public int getUse_pay() {
+		return use_pay;
+	}
+	public void setUse_pay(int use_pay) {
+		this.use_pay = use_pay;
+	}
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
 				+ user_phone + ", user_birth=" + user_birth + ", user_year=" + user_year + ", user_month=" + user_month
 				+ ", user_day=" + user_day + ", user_email=" + user_email + ", user_time=" + user_time + ", store_id="
-				+ store_id + ", seat_id=" + seat_id + "]";
+				+ store_id + ", seat_id=" + seat_id + ", use_pay=" + use_pay + "]";
 	}
-	
 }
