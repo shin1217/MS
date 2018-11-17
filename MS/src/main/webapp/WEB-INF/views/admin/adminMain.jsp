@@ -122,18 +122,18 @@
 
 /* 사용 종료 */
 .end_btn {
-	border-bottom-left-radius: 10px;
+  	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
-	border: none;
 	margin-top: 30px;
 	font-size: 20px;
+	border: none;
 	width: 100%;
 	height: 40px;
 }
 
-.end_btn:hover {
+.end_btn:hover span{
+  	color:red;
 }
-
 
 </style>
 </head>
@@ -371,7 +371,9 @@
 			str += '<div><span id="countTimeMinute'+ seatId +'"></span>분';
 			str += '<span id="countTimeSecond'+ seatId +'"></span>초</div>';
 			str += '<div>5000</div>';
-			str += '<button endId="' + seatId + '" class="end_btn">사용 종료</button>'; // 속성명을 id가 아닌 endId로 작성(커스텀)
+			str += '<button endId="' + seatId + '" class="end_btn">'; // 속성명을 id가 아닌 endId로 작성(커스텀)
+			str += '<span> 강제 종료 </span>';
+			str += '</button>';
 			
 			$(obj).text(''); // 중앙에 써있던 좌석 번호 지우기
 			$(obj).append(str); // 좌석 사용 정보 보여주기
