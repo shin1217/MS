@@ -59,8 +59,8 @@
 	font-size: 28px;
 	font-weight: bold;
 	font-size: 28px;
+	font-family: sans-serif;
 }
-
 
 .selectedInfo {
 	font-size: 24px;
@@ -71,7 +71,7 @@
 <div id="add_time_modal" class="add_time_modal">
 	<div class="modal_contents">
 		<h3>
-			<b>※ 충전 후 바로 사용 가능합니다.</b><span class="close">&times;</span>
+			<b>충전 후 바로 사용 가능합니다.</b><span class="close">&times;</span>
 		</h3>
 		
 		<div id="selectedInfo" class="selectedInfo">

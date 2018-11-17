@@ -97,18 +97,7 @@ html, body {
 
 	<div class="userMain_container">
 		<div class="title_text">안녕하세요. ${userSession.user_name}님!</div>
-		
-		<c:choose>
-			<c:when test="${userSession.store_id == 1}">
-				<div class="title_text">MS 스터디카페에 오신 것을 환영합니다:p</div>
-			</c:when>
-			<c:when test="${userSession.store_id == 2}">
-				<div class="title_text">MS PC카페에 오신 것을 환영합니다:p</div>
-			</c:when>
-			<c:when test="${userSession.store_id == 3}">
-				<div class="title_text">MS 좋아 코인노래방에 오신 것을 환영합니다:p</div>
-			</c:when>
-		</c:choose>
+		<div id="title_store" class="title_text">${storeSelectSession.store_name} 방문을 환영합니다:p</div>
 		
 		<div class="left_area">
 			<div class="content_text">자리선택</div>
@@ -147,7 +136,6 @@ html, body {
 		var sBefore  = null;
 		
 		$('#seatTable td').on('click', function() {
-			
 			seletedProcess($(this), 's', sBefore, sArr); // 좌석 선택 처리 
 		});
 		

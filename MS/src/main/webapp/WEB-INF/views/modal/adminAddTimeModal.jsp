@@ -59,6 +59,7 @@
 	font-size: 28px;
 	font-weight: bold;
 	font-size: 28px;
+	font-family: sans-serif;
 }
 
 </style>

@@ -16,7 +16,7 @@ public class UserTimeController {
 	
 	@Autowired
 	UserTimeService service;
-
+	
 	@RequestMapping("/user/updateAddTime")
 	@ResponseBody
 	public void updateAddTime(@RequestParam("addTime") long addTime,

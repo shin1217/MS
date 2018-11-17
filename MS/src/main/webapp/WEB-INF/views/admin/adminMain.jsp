@@ -13,6 +13,15 @@
 	margin: 0;
 	padding: 0;
 }
+.adminMain_container {
+	padding: 20px;
+}
+
+.title_text {
+	font-size: 40px;
+	font-weight: bold;
+	text-align: center;
+}
 
 .left_area {
 	width: 30%;
@@ -33,8 +42,8 @@
 	font-size: 27px;
 	min-width: 26%;
 	height: 75%;
-	margin-top: 4%;
-	margin-left: 4%;
+	margin-left: 2%;
+	margin-top: -2%;
 }
 
 .left_content_title {
@@ -131,6 +140,8 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<%@ include file="/WEB-INF/views/modal/adminAddTimeModal.jsp"%>
 	<div class="adminMain_container">
+		<div class="title_text">[${storeSelectSession.store_name}]</div>
+			
 		<div class="left_area">
 			<div class="left_content">
 				<div class="left_content_title">2018-11-16</div>
@@ -194,7 +205,6 @@
 		
 		/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
 		 window.onbeforeunload = function() {
-			
 			$.ajax({
 				// 사용 시간 전송
 				url: '<%=request.getContextPath()%>/admin/updateSaveTimeAll?useTime=' + useTime + '&storeId=' + storeId, 
