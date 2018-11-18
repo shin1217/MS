@@ -41,7 +41,7 @@
 	box-shadow:3px 3px 3px 3px #999;
 	text-align: center; /* 컨텐트 안의 모든 요소 가운데 정렬 */
 	font-size: 27px;
-	min-width: 26%;
+	width: 26%;
 	height: 75%;
 	margin-left: 2%;
 	margin-top: -2%;
@@ -62,6 +62,39 @@
 	margin: 0 auto;
 }
 
+/* 웹에 접근한 기기가 screen일 때 세로 길이가 700px 미만일 때 */
+@media screen and (max-height:700px) {
+	.left_content {
+		overflow-y: scroll;
+		height: 60%;
+	}
+	
+	.left_content_title {
+		padding-top: 15px;
+		height: 55px;
+	}
+	
+	.user_info_wrap {
+		overflow-y: scroll;
+	}
+}
+
+/* 웹에 접근한 기기가 screen일 때 가로 길이가 1500px 미만일 때 */
+@media screen and (max-width:1500px){
+	.left_content {
+		overflow-y: scroll;
+	}
+	
+	.left_content_title {
+		padding-top: 25px;
+		height: 65px;
+	}
+	
+	.user_info_wrap {
+		overflow-y: scroll;
+	}
+}
+
 .com_cnt_text {
 	font-size: 50px;
 	margin-top: -5%;
@@ -70,7 +103,7 @@
 
 .user_info_wrap {
 	text-align: left;
-	padding: 15px;
+	padding: 10px;
 	font-size: 20px;
 	border: 1px solid black;
 	height: 35%;
@@ -81,13 +114,17 @@
 
 .order_list_wrap {
 	text-align: left;
-	padding: 15px;
+	padding: 10px;
 	font-size: 20px;
 	border: 1px solid black;
 	height: 30%;
 	margin-left: 20px;
 	margin-right: 20px;
 	overflow-y: scroll;
+}
+
+.main_btn_wrap {
+	margin-top: 4%;
 }
 
 .seatTable {
@@ -131,22 +168,10 @@
 	height: 40px;
 }
 
-.end_btn:hover span{
+.end_btn:hover span {
   	color:red;
 }
-.readCnt{
-	position : absolute;
-	background-color : red;
-	margin-left : 30px;
-	font-size : 15px;
-	padding : 1px 7px;
-	color : white;
-	display : none;
-	border-radius : 10em;
-	z-index : 1;
-	left : 63px;
-	top : 0px;
-}
+
 </style>
 </head>
 <body>
@@ -166,7 +191,7 @@
 				<div class="com_cnt_text"><span class="com_cnt">0</span>/20</div>
 				<hr style="border: 1px dashed gray">
 				
-				<div style="margin-top: -10%; height: 62%">
+				<div style="margin-top: -10%; height: 60%">
 					<div><b>사용자 정보</b></div>
 					<div id="selected_user_info" class="user_info_wrap">
 						<div style="color: red">* 좌석을 선택하세요.</div>
@@ -176,13 +201,11 @@
 					<div class="order_list_wrap">
 						<div style="color: red">* 주문 대기 중인 음식이 없습니다.</div>
 					</div>
-				</div>
 				
-				<div class="main_btn_wrap"  style="position: relative;">
-					<button type="button" class="btn btn-mdb-color" id="messageBtn">쪽지함</button>
-					<span id = "readCnt" class = "readCnt"></span>
-					<button type="button" class="btn btn-deep-orange" id="addTimeBtn">충전</button>
-					<button type="button" class="btn btn-deep-orange" id="seatChangeBtn">자리 변경</button>
+					<div class="main_btn_wrap">
+						<button type="button" class="btn btn-mdb-color" id="addTimeBtn">충전</button>
+						<button type="button" class="btn btn-deep-orange" id="seatChangeBtn">자리 변경</button>
+					</div>
 				</div>
 			</div>
 		</div>

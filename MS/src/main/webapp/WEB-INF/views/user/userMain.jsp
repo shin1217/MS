@@ -38,7 +38,6 @@ html, body {
 
 .title_text {
 	font-size: 40px;
-	font-weight: bold;
 	margin-bottom: 20px;
 }
 
@@ -97,7 +96,7 @@ html, body {
 
 	<div class="userMain_container">
 		<div class="title_text">안녕하세요. ${userSession.user_name}님!</div>
-		<div id="title_store" class="title_text">${storeSelectSession.store_name} 방문을 환영합니다:p</div>
+		<div class="title_text">${storeSelectSession.store_name} 방문을 환영합니다:p</div>
 		
 		<div class="left_area">
 			<div class="content_text">자리선택</div>
