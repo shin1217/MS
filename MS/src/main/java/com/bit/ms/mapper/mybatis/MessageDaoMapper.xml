@@ -22,7 +22,7 @@
 	</insert>
 	<!--메시지 삭제  -->	
 	<delete id="deleteMessage">
-		delete from message where message_title = #{message_title}
+		delete from message where message_id = #{message_id}
 	</delete>
 	<!-- 읽은 메시지 수정 -->	
 	<update id="readMessage" parameterType="hashmap">
@@ -40,7 +40,7 @@
 	<select id="userListDistinct" resultType = "userVo">
 		select distinct user_id, store_id from userinfo
 	</select>
-	<select id="getMessageListDetail" parameterType="hashmap" resultType="messageVo">
-		select * from (select * from message where message_title = #{message_title}) a where (send_id = #{send_id} or send_id = #{receive_id}) and (receive_id = #{send_id} or receive_id = #{receive_id});
+	<select id="getMessageDetail"  resultType="messageVo">
+		select * from message where message_id = #{message_id}
 	</select>
 </mapper>

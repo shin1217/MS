@@ -134,7 +134,19 @@
 .end_btn:hover span{
   	color:red;
 }
-
+.readCnt{
+	position : absolute;
+	background-color : red;
+	margin-left : 30px;
+	font-size : 15px;
+	padding : 1px 7px;
+	color : white;
+	display : none;
+	border-radius : 10em;
+	z-index : 1;
+	left : 63px;
+	top : 0px;
+}
 </style>
 </head>
 <body>
@@ -166,8 +178,9 @@
 					</div>
 				</div>
 				
-				<div class="main_btn_wrap">
-					<button type="button" class="btn btn-mdb-color" id="messageBtn" style="position: relative;">쪽지함</button>
+				<div class="main_btn_wrap"  style="position: relative;">
+					<button type="button" class="btn btn-mdb-color" id="messageBtn">쪽지함</button>
+					<span id = "readCnt" class = "readCnt"></span>
 					<button type="button" class="btn btn-deep-orange" id="addTimeBtn">충전</button>
 					<button type="button" class="btn btn-deep-orange" id="seatChangeBtn">자리 변경</button>
 				</div>

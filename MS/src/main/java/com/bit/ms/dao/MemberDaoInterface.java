@@ -14,10 +14,10 @@ public interface MemberDaoInterface {
 		List<MessageVO> getMessageList(HashMap<String,String> map); //메시지 리스트 받아오기
 		List<MessageVO> userMessageList(String receive_id); //사용자의 메시지리스트 받아오기
 		int writeMessage(MessageVO messageVo); // 메시지 쓰기
-		int deleteMessage(String message_title); //메시지 삭제하기
+		int deleteMessage(int message_id); //메시지 삭제하기
 		int readMessage(HashMap<String,String> map); //메시지 읽은것 확인
 		int messageCnt(HashMap<String,String> map); //안읽은 메시지 카운트
 		List<StoreVO> getStoreList(String send_id); //받는사용자의 리스트
 		List<UserVO> userListDistinct();
-		List<MessageVO> getMessageListDetail(HashMap<String,String> map);
+		MessageVO getMessageDetail(int message_id);
 }

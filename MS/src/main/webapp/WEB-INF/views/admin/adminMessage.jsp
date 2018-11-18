@@ -159,19 +159,6 @@ hr{
 	-webkit-transform:scale(1.1); 
 	transition: all 0.3s ease-in-out;
 }
-.readCnt{
-	position : absolute;
-	background-color : red;
-	margin-left : 30px;
-	font-size : 15px;
-	padding : 1px 7px;
-	color : white;
-	display : none;
-	border-radius : 10em;
-	z-index : 1;
-	left : 140px;
-	top : 140px;
-}
 .messageDetailWrap{
 	background-color : white;
 	width : 500px;
@@ -198,7 +185,6 @@ hr{
 </style>
 </head>
 <body>
-	<span id = "readCnt" class = "readCnt"></span>
 <!-- ///////////메시지 모달창/////////// -->
 		<div class = "messageModal" id = "messageModal">
 			<div class="messageWrap">
@@ -327,20 +313,19 @@ hr{
 						for(var i = 0; i < data.length; i++){
 							str = '<div id="messageUlWrap" class = "messageUlWrap">';
 							if(data[i].message_read != "Y"){
-								str += '<ul id="' + data[i].message_title + '" class = "messageUl" style = "background-color : #eee;">';
+								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #eee;">';
 							} else {
-								str += '<ul id="' + data[i].message_title + '" class = "messageUl" style = "background-color : #4285f4; color : white; font-weight : bold">';
-								str += '<img src = "${pageContext.request.contextPath}/images/delete2.png" onclick = "deleteMessage(' + data[i].message_title + ')"style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
+								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #4285f4; color : white; font-weight : bold">';
+								str += '<img src = "${pageContext.request.contextPath}/images/delete2.png" onclick = "deleteMessage(' + data[i].message_id + ')"style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
 							}
-							str += '	<li id = "li_message_id">메시지 번호 : ' + data[i].message_id + '</li>';
 							str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
+							str += '<li>시간 : ' + data[i].message_date + '</li>';
 							if(data[i].message_read != "Y"){
 								str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 							} else {
 								str += '	<li><textarea readonly style = "background-color : #eee;" cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 							}
-							str += '	<input type = "button" onclick = "messageReply(' + data[i].message_id +','+ data[i].send_id + ',' + data[i].message_title + ')" class = "messageReply" value = "답장">';
-							str += '	<input type = "button" id = "messageDetail" class = "messageDetail" value = "상세" onclick = "messageDetail(' + data[i].message_title + ',' + data[i].send_id + ',' + data[i].message_id + ')">';
+							str += '	<input type = "button" onclick = "messageReply(' + data[i].message_id + ')" class = "messageReply" value = "답장">';
 							str += '<div id = "userStore_id" style = "display : none;">' + data[i].store_id + '</div>';
 							str += '<div id = "messageRead" style = "display : none;">' + data[i].message_read + '</div>';
 							str += '<div id = "message_titleNone" style = "display : none;">' + data[i].message_title + '</div>';
@@ -362,9 +347,9 @@ hr{
 	});
 			
 	/////////////쪽지 삭제 이벤트/////////////
-	function deleteMessage(message_title){
+	function deleteMessage(message_id){
 		$.ajax({
-			url : '${pageContext.request.contextPath}' + '/member/deleteMessage/' + message_title,
+			url : '${pageContext.request.contextPath}' + '/member/deleteMessage/' + message_id,
 			success : function(data){
 				alert("메시지 삭제 성공");
 				getMessageList();
@@ -373,7 +358,7 @@ hr{
 	}
 				
 	 /////////////쪽지 답장 이벤트//////////////
-	function messageReply(message_id, send_id, message_title){
+	function messageReply(message_id){
 		$('#writeMessageModal').show();
 		$('#send_id').val("관리자");
 		$('#sendWrap, #selectStore').css("display","none");
@@ -426,7 +411,6 @@ hr{
 	///////////////// 쪽지 보내기버튼 이벤트////////////////
 	$('#sendBtn').click(function(){
 		var store_id = $('#store_name option:selected').attr("id");
-		
 		sendMessage(store_id);
 	});
 	
@@ -477,28 +461,7 @@ hr{
 		});
 	});
 	
-	function messageDetail(message_title, send_id, message_id){
-		$('#messageDetailModal').show();
-		var list = "";
-		$.ajax({
-			url : '${pageContext.request.contextPath}' + '/member/messageDetail',
-			type : 'post',
-			data : {
-				message_title : message_title,
-				send_id : send_id,
-				receive_id : '관리자'
-			},
-			success : function(data){
-				$('#messageDetailWrap').show();
-				console.log(data);
-				for(var i = 0; i < data.length; i++){
-					list += "<div>" + "(" + data[i].message_date + ")"+ data[i].send_id + " : " + data[i].message_con + "</div>";
-					$('#messageDetailtext').html(list);
-				} list = "";
-			}
-			
-		});
-	}
+	
 	 $('#detailClose').click(function(){
          $('#messageDetailWrap').hide();
       });

@@ -51,10 +51,10 @@ public class MemberMessageService {
 		
 	}
 	//메시지 삭제하는 메서드
-	public int messageDelete(String message_title) {
+	public int messageDelete(int message_id) {
 		
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
-		return memberDao.deleteMessage(message_title);
+		return memberDao.deleteMessage(message_id);
 		
 	}
 	//메시지 읽은것을 확인하는 메서드
@@ -91,15 +91,10 @@ public class MemberMessageService {
 		
 	}
 	
-	public List<MessageVO> messageListDetail(MessageVO messageVo){
-		
-		HashMap<String,String> map = new HashMap<String,String>();
-		map.put("message_title", messageVo.getMessage_title());
-		map.put("send_id", messageVo.getSend_id());
-		map.put("receive_id", messageVo.getReceive_id());
+	public MessageVO messageDetail(int message_id){
 		
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
-		return memberDao.getMessageListDetail(map);
+		return memberDao.getMessageDetail(message_id);
 	}
 	
 }

@@ -58,9 +58,9 @@ public class MemberMessageController {
 	}
 	//메시지 삭제
 	@RequestMapping(value = "member/deleteMessage/{id}")
-	public @ResponseBody int deleteMessage(@PathVariable("id") String message_title) {
+	public @ResponseBody int deleteMessage(@PathVariable("id") int message_id) {
 	
-		return service.messageDelete(message_title);
+		return service.messageDelete(message_id);
 		
 	}
 	
@@ -106,8 +106,8 @@ public class MemberMessageController {
 	}
 	
 	//제목을 바탕으로 해당하는 메시지 기록을 받아오기
-	@RequestMapping(value = "member/messageDetail", method = RequestMethod.POST)
-	public @ResponseBody List<MessageVO> getMessageDetail(MessageVO messageVo){
-		return service.messageListDetail(messageVo);
+	@RequestMapping(value = "member/messageDetail/{message_id}", method = RequestMethod.GET)
+	public @ResponseBody MessageVO getMessageDetail(@PathVariable("message_id") int message_id){
+		return service.messageDetail(message_id);
 	}
 }
