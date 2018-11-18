@@ -62,6 +62,7 @@
 	margin-top: 10%;
 	font-size : 35px;
 	font-weight : bold;
+	position : relative;
 }
 hr{
 	margin-bottom : 50px !important;
@@ -150,13 +151,49 @@ hr{
 .deleteMessage:hover, .messageReply:hover, .messageDetail:hover {
 	cursor : pointer;
 }
-
+.messageWriteClose{
+   position : absolute;
+   top : 0px;
+   right : 5px;
+   font-size : 30px;
+}
+.messageWriteClose:hover{
+   color : grey;
+   cursor : pointer;
+}
+.readCnt{
+	position : absolute;
+	background-color : red;
+	margin-left : 30px;
+	font-size : 15px;
+	padding : 1px 7px;
+	color : white;
+	display : none;
+	border-radius : 10em;
+	z-index : 1;
+	right : -5px;
+	top : -8px;
+}
+.messageBtn{
+	background-image : url("${pageContext.request.contextPath}/images/message1.png");
+	background-size : 100%;
+	float : right;
+	width : 70px;
+	height : 55px;
+	border-radius: 10px;
+}
+.messageIconWrap:hover{
+	cursor : pointer;
+	-webkit-transform:scale(1.3); 
+	transition: all 0.3s ease-in-out;
+}
 </style>
 </head>
 <body>
-<div class="container">
-		<input type = "button" id = "messageBtn" class = "messageBtn" value = "쪽지함">
-
+<span class = "messageIconWrap" style = "position : absolute; top : 90%; right : 5%">
+	<span id = "messageBtn" class = "messageBtn"></span>
+	<span id = "readCnt" class = "readCnt"></span>
+</span>
 <!-- ///////////메시지 모달창/////////// -->
 		<div class = "messageModal" id = "messageModal">
 			<div class="messageWrap">
@@ -169,11 +206,12 @@ hr{
 		</div>
 	
 <!--///////////////// 쪽지쓰기 모달창/////////////////// -->
-		<div class = "writeMessageModal" id = "writeMessageModal">
+	<div class = "writeMessageModal" id = "writeMessageModal">
 		<div class="post">
 			<div class="contact">
 				<div class="messageTitle">
 					<p>메시지 남기기</p>
+					<span class = "messageWriteClose" id = "messageWriteClose">x</span>
 				</div>
 				<hr>
 				<form class="comment-form" id = "sendMessageForm">
@@ -187,11 +225,6 @@ hr{
 							<label class="name">받는 사람</label>
 							<input type = "text" name = "receive_id" id = "receive_id" class = "form-control" style = "background-color : darkgrey;" value = "관리자" readonly >
 						</div>
-						<div class="col-md-12 form-group">
-							<label class="email">메시지 제목</label> <input type="text"
-								class="form-control" placeholder="message Title"
-								name="message_title" id = "message_title" required />
-						</div>
 						<div class="clearfix"></div>
 						<div class="col-md-12 form-group">
 							<label class="message">메시지 내용</label>
@@ -201,13 +234,14 @@ hr{
 						<div class="col-md-12 form-group">
 							<input type="button" class="btn btn-block btn-lg btn-success"
 								value="메시지 남기기" id = "sendBtn">
+							<input type="button" class="btn btn-block btn-lg btn-success"
+								value="메시지 남기기" id = "replyBtn" style = "display : none">	
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
-		</div>
-   	</div>
+	</div>
 </body>
 <script>
 $(document).ready(function(){
@@ -217,11 +251,19 @@ $(document).ready(function(){
 		alarm();
 	}, 1000);
 });
+/* 스크롤따라 움직이는 Div */
+var currentPosition = parseInt($('.messageIconWrap').css('top'));
 
+$(window).scroll(function() {
+	var position = $(window).scrollTop();
+	$('.messageIconWrap').stop().animate({
+		'top' : position + currentPosition + 'px'
+	}, 1000);
+});
 /////////////// 안읽은메시지 알림 //////////////
 function alarm(){
 	$.ajax({
-		url : '${pageContext.request.contextPath}' + '/admin/messageCnt',
+		url : '${pageContext.request.contextPath}' + '/user/messageCnt',
 		success : function(data){
 			console.log(data);
 			var readCnt = data;
@@ -253,15 +295,14 @@ function getMessageList(){
 						str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #4285f4; color : white; font-weight : bold">';
 						str += '<img src = ${pageContext.request.contextPath}/images/delete2.png onclick = "deleteMessage(' + data[i].message_id + ')" style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
 					}
-					str += '	<li id = "li_message_id">메시지 번호 : ' + data[i].message_id + '</li>';
 					str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
+					str += '<li>시간 : ' + data[i].message_date + '</li>';
 					if(data[i].message_read != "Y"){
 						str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 					} else {
 						str += '	<li><textarea readonly style = "background-color : #eee;" cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 					}
 					str += '	<input type = "button" onclick = "replyMessage(' + data[i].message_id + ')" id = "messageReply" class = "messageReply" value = "답장">';
-					str += '	<input type = "button" id = "messageDetail" class = "messageDetail" value = "상세">';
 					str += '</ul></div>';
 					$('#messageList').append(str);
 				} str = '';
@@ -279,14 +320,13 @@ function sendMessage(){
 			send_id : $('#send_id').val(),
 			receive_id : $('#receive_id').val(),
 			store_id : store_id,
-			message_title : $('#message_title').val(),
 			message_con : $('#message_con').val()
 		},
 		success : function(data){
 			alert("메시지 작성에 성공하셨습니다.");
 			$('#writeMessageModal').hide();
-			$('#message_title').val("");
-			$('#message_con').val("");
+			$('#replyBtn').css("display","none");
+			$('#message_con').val(" ");
 		}
 	});
 }
@@ -303,24 +343,27 @@ function deleteMessage(message_id){
 ///////////// 답장버튼 메서드 ///////////
 function replyMessage(message_id){
 	$('#writeMessageModal').show();
-	$('#sendBtn').click(function(){
+	$('#replyBtn').show();
+	$('#sendBtn').hide();
+}
+///////// 답장보내기버튼 클릭 ///////
+	$('#replyBtn').click(function(){
 		sendMessage();
 	});
-}
 ///////// 쪽지함 버튼 클릭시 ///////////
 $('#messageBtn').click(function(){
-	
 	$('#messageModal').show();
 	getMessageList();
-	
 });
 //////////// 쪽지쓰기 클릭시 ////////////
 $('#writeMessage').click(function(){
 	$('#writeMessageModal').show();
-		$('#sendBtn').click(function(){
-			sendMessage();
-		});
+	$('#sendBtn').show();
 });
+/////////// 쪽지보내기버튼 클릭///////////
+	$('#sendBtn').click(function(){
+			sendMessage();
+	});
 //////////// 메시지를 읽은것 처리 /////////////////
 $(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그들은 이런식으로 이벤트를 줘야함
 	//var str = "onclick = "readChk(' + data[i].message_id + ')"";
@@ -346,6 +389,7 @@ $(window).on('click', function() {
    if (event.target == $('#messageModal').get(0)) {
 	   $('#messageModal').hide();
    } else if (event.target == $('#writeMessageModal').get(0)){
+	   $('#replyBtn').css("display","none");
 	   $('#writeMessageModal').hide();
    }
 });

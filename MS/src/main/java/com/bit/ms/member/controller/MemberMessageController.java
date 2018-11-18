@@ -37,7 +37,7 @@ public class MemberMessageController {
 		//System.out.println(store_name + ":" + receive_id); 
 		return service.getMessageList(store_name, receive_id);
 	}
-	//사용자의 매장아이디를 조건으로 메시지 리스트를 뽑음
+	//사용자와 매장아이디를 조건으로 메시지 리스트를 뽑음
 	@RequestMapping(value = "user/message", method = RequestMethod.GET)
 	public @ResponseBody List<MessageVO> getUserMessageList(HttpSession session) {
 		
@@ -86,7 +86,7 @@ public class MemberMessageController {
 	@RequestMapping(value = "user/messageCnt")
 	public @ResponseBody int cntUserMessage(HttpSession session) {
 			
-		UserVO userVo = (UserVO) session.getAttribute("adminSession");
+		UserVO userVo = (UserVO) session.getAttribute("userSession");
 		String receive_id = userVo.getUser_id();
 		String store_id = Integer.toString(userVo.getStore_id()); 
 			
@@ -104,8 +104,7 @@ public class MemberMessageController {
 		
 		return service.getStoreName(send_id);
 	}
-	
-	//제목을 바탕으로 해당하는 메시지 기록을 받아오기
+	//메시지 세부목록 불러오기
 	@RequestMapping(value = "member/messageDetail/{message_id}", method = RequestMethod.GET)
 	public @ResponseBody MessageVO getMessageDetail(@PathVariable("message_id") int message_id){
 		return service.messageDetail(message_id);

@@ -7,9 +7,6 @@
 <title>MS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-.container{
-	overflow: hidden;
-}
 .messageModal, .writeMessageModal{
 	position : fixed;
 	width : 100%;
@@ -65,6 +62,7 @@
 	margin-top: 10%;
 	font-size : 35px;
 	font-weight : bold;
+	position : relative;
 }
 hr{
 	margin-bottom : 60px !important;
@@ -146,7 +144,7 @@ hr{
 	right : 10px;
 	top : 10px;
 }
-.deleteMessage:hover, .messageReply:hover, .messageDetail:hover {
+.deleteMessage:hover, .messageReply:hover {
 	cursor : pointer;
 }
 .storeList{
@@ -159,32 +157,49 @@ hr{
 	-webkit-transform:scale(1.1); 
 	transition: all 0.3s ease-in-out;
 }
-.messageDetailWrap{
-	background-color : white;
-	width : 500px;
-	height : 300px;
-	display : none;
-	position : absolute;
-	z-index : 1;
-	left : 50%;
-	margin-left : -250px; 
-	border-radius : 10px;
-	border : 1px solid black;
-}
-.detailClose{
+.messageWriteClose{
    position : absolute;
    top : 0px;
-   right : 15px;
+   right : 5px;
    font-size : 30px;
-   font-weight : bold;
 }
-.detailClose:hover{
+.messageWriteClose:hover{
    color : grey;
    cursor : pointer;
+}
+.readCnt{
+	position : absolute;
+	background-color : red;
+	margin-left : 30px;
+	font-size : 15px;
+	padding : 1px 7px;
+	color : white;
+	display : none;
+	border-radius : 10em;
+	z-index : 1;
+	right : -5px;
+	top : -8px;
+}
+.messageBtn{
+	background-image : url("${pageContext.request.contextPath}/images/message1.png");
+	background-size : 100%;
+	float : right;
+	width : 70px;
+	height : 55px;
+	border-radius: 10px;
+}
+.messageIconWrap:hover{
+	cursor : pointer;
+	-webkit-transform:scale(1.3); 
+	transition: all 0.3s ease-in-out;
 }
 </style>
 </head>
 <body>
+<span class = "messageIconWrap" style = "position : absolute; top : 90%; right : 5%">
+	<span id = "messageBtn" class = "messageBtn"></span>
+	<span id = "readCnt" class = "readCnt"></span>
+</span>
 <!-- ///////////메시지 모달창/////////// -->
 		<div class = "messageModal" id = "messageModal">
 			<div class="messageWrap">
@@ -196,18 +211,13 @@ hr{
 				<p id = "messageText"style = "color : red; margin-bottom : 20px; font-size : 30px;">※ 매장을 먼저 선택하세요.</p></div>
 			</div>
 		</div>
-<!-- ///////////////// 쪽지 상세 모달창///////// -->
-<div id = "messageDetailWrap" class = "messageDetailWrap" >
-	<div style = "text-align : center; font-weight : bold; font-size : 25px; border-bottom : 1px solid #eee; margin : 20px 0px 10px; padding-bottom : 10px; overflow : auto;"> 메시지 기록</div>
-	<span class = 'detailClose' id = 'detailClose'>×</span>
-	<div id = "messageDetailtext" class = "messageDetailtext" ></div>
-</div>
 <!--///////////////// 쪽지쓰기 모달창/////////////////// -->
 	<div class = "writeMessageModal" id = "writeMessageModal">
 		<div class="post">
 			<div class="contact">
 				<div class="messageTitle">
 					<p>메시지 남기기</p>
+					<span class = "messageWriteClose" id = "messageWriteClose">x</span>
 				</div>
 				<hr>
 				<form class="comment-form">
@@ -224,11 +234,6 @@ hr{
 							<div class = "receiveWrap">
 							<input type = "text" id = "receiveReply" class = "form-control" style = "display : none; background-color : darkgrey;" readonly >
 							</div>
-						</div>
-						<div class="col-md-12 form-group">
-							<label class="email">메시지 제목</label> <input type="text"
-								class="form-control" placeholder="message Title"
-								name="message_title" id = "message_title" required />
 						</div>
 						<div class="clearfix"></div>
 						<div class="col-md-12 form-group">
@@ -255,6 +260,15 @@ hr{
 		$('#writeMessageModal').hide(); // 페이지 시작시 쪽지쓰기 모달창 가림
 		setInterval(function () { 
 			alarm();
+		}, 1000);
+	});
+	/* 스크롤따라 움직이는 Div */
+	var currentPosition = parseInt($('.messageIconWrap').css('top'));
+
+	$(window).scroll(function() {
+		var position = $(window).scrollTop();
+		$('.messageIconWrap').stop().animate({
+			'top' : position + currentPosition + 'px'
 		}, 1000);
 	});
 	///////////////// 안읽은 메시지 알림/////////////////
@@ -328,7 +342,6 @@ hr{
 							str += '	<input type = "button" onclick = "messageReply(' + data[i].message_id + ')" class = "messageReply" value = "답장">';
 							str += '<div id = "userStore_id" style = "display : none;">' + data[i].store_id + '</div>';
 							str += '<div id = "messageRead" style = "display : none;">' + data[i].message_read + '</div>';
-							str += '<div id = "message_titleNone" style = "display : none;">' + data[i].message_title + '</div>';
 							str += '</ul></div>';
 							$('#messageList').append(str);
 						} str = '';
@@ -345,7 +358,6 @@ hr{
 		//console.log($('#send_id').val());
 		getMessageList();
 	});
-			
 	/////////////쪽지 삭제 이벤트/////////////
 	function deleteMessage(message_id){
 		$.ajax({
@@ -356,17 +368,22 @@ hr{
 			}
 		});//삭제 ajax 끝
 	}
-				
 	 /////////////쪽지 답장 이벤트//////////////
 	function messageReply(message_id){
-		$('#writeMessageModal').show();
-		$('#send_id').val("관리자");
-		$('#sendWrap, #selectStore').css("display","none");
-		$('#receiveReply').css("display","block");
-		$('#receiveReply').val(send_id);
-		$('#replyBtn').show();
-		$('#sendBtn').hide();
-		$('#message_title').val(message_title).css("background-color","darkgrey");
+		$.ajax({
+			url : '${pageContext.request.contextPath}' + '/member/messageDetail/' + message_id,
+			type : 'get',
+			success : function(data){
+				console.log(data);
+				$('#writeMessageModal').show();
+				$('#send_id').val(data.receive_id);
+				$('#sendWrap, #selectStore').css("display","none");
+				$('#receiveReply').css("display","block");
+				$('#receiveReply').val(data.send_id);
+				$('#replyBtn').show();
+				$('#sendBtn').hide();
+			}
+		});
 	}
 		
 	///////////// 쪽지쓰기버튼 이벤트///////////////
@@ -411,25 +428,25 @@ hr{
 	///////////////// 쪽지 보내기버튼 이벤트////////////////
 	$('#sendBtn').click(function(){
 		var store_id = $('#store_name option:selected').attr("id");
-		sendMessage(store_id);
+		var receive_id = $('#sendList option:selected').val();
+		sendMessage(store_id, receive_id);
 	});
 	
 	/////////////////  답장보내기버튼 이벤트//////////////////
 	$('#replyBtn').click(function(){
 		var store_id = $('#userStore_id').text();
-		sendMessage(store_id);
-		$('#message_title').css("background-color","#eee");
+		var receive_id = $('#receiveReply').val();
+		sendMessage(store_id, receive_id);
 	}); //메시지 보내기 이벤트 끝
 	
 	////////////// 메시지 보내기 함수 ///////////////
-	function sendMessage(store_id){
+	function sendMessage(store_id, receive_id){
 		$.ajax({
 			url : '${pageContext.request.contextPath}' + '/member/writeMessage',
 			data : { //보내는사람, 받는사람, 받는사람의 매장아이디, 제목, 내용
 				send_id : $('#send_id').val(),
-				receive_id : send_id,
+				receive_id : receive_id,
 				store_id : store_id,
-				message_title : $('#message_title').val(),
 				message_con : $('#message_con').val()
 			},
 			success : function(data){
@@ -437,12 +454,10 @@ hr{
 				$('#replyBtn').css("display","none");
 				$('#writeMessageModal').hide(); //쪽지쓰기 모달창 끔
 				$('#messageModal').show(); // 리스트 모달창 뜸
-				$('#message_title').val(" ");
 				$('#message_con').val(" ");
 			}// 성공 끝
 		}); // ajax 끝
 		}
-	
 	$(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그들은 이런식으로 이벤트를 줘야함
 		//var str = "onclick = "readChk(' + data[i].message_id + ')"";
 		$(this).css("background-color","#4285f4").css("font-weight","bold").css("color","white");
@@ -460,10 +475,8 @@ hr{
 			}
 		});
 	});
-	
-	
-	 $('#detailClose').click(function(){
-         $('#messageDetailWrap').hide();
+	 $('#messageWriteClose').click(function(){
+         $('#writeMessageModal').hide();
       });
 	///////////////모달창 밖의 영역을 누르면 띄워져 있는 모달창을 닫음
     $(window).on('click', function() {
@@ -472,8 +485,8 @@ hr{
     	   location.reload();
        } else if (event.target == $('#writeMessageModal').get(0)){
     	   getMessageList();
+		   $('#message_con').val("Message");
     	   $('#replyBtn').css("display","none");
-    	   $('#message_title').css("background-color","#eee");
     	   $('#writeMessageModal').hide();
        } 
     });

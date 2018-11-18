@@ -92,7 +92,7 @@ html, body {
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<%@ include file="/WEB-INF/views/modal/userAddTimeModal.jsp"%>
-	<%-- <%@ include file="/WEB-INF/views/user/userMessage.jsp"%> --%>
+	<%@ include file="/WEB-INF/views/user/userMessage.jsp"%>
 
 	<div class="userMain_container">
 		<div class="title_text">안녕하세요. ${userSession.user_name}님!</div>
