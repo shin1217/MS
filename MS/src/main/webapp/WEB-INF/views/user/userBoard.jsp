@@ -26,6 +26,10 @@
 	margin: 0 auto;
 }
 
+.container * {
+	font-size: 17px;
+}
+
 .hypertext_none {
 	color: #181818;
 	text-decoration: none;

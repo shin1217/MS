@@ -32,6 +32,7 @@
 	float: right;
 	margin: 20px;
 }
+
 /* 공지사항 게시판 제목 오버 */
 .notice-title:hover {
 	text-decoration: underline;
@@ -47,6 +48,9 @@
 	color: #181818;
 	text-decoration: none;
 	
+}
+.userBoardView_con *{
+	font-size: 17px;
 }
 </style>
 </head>
@@ -71,7 +75,7 @@
 					</h3>
 				</th>
 			</tr>
-			<tr>
+			<tr class="userBoardView_con">
 				<th style="padding-left: 20px;">글번호 : ${userboardvo.uboard_id}</th>
 				<th style="width: 60%; text-align: center;">작성자 :
 					${userboardvo.writer_id}

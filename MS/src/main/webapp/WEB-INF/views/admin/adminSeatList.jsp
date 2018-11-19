@@ -58,7 +58,7 @@
 			<!-- 좌석등록 폼 -->
 			<thead>
 				<tr>
-					<td style="color: white; background-color: #101010;" colspan="4"><h4>좌석 추가</h4></td>
+					<td style="background: #E6E6F2;" colspan="4"><h4>좌석 추가</h4></td>
 				</tr>
 				<tr>
 					<th class="th-sm">좌석이름</th>
@@ -79,7 +79,7 @@
 					</form>
 				</tr>				
 				<tr>
-					<th style="color: white; background-color: #101010;" colspan="4"><h4>좌석 리스트</h4></th>
+					<th style="background: #E6E6F2;" colspan="4"><h4>좌석 리스트</h4></th>
 				</tr>
 			</tbody>
 			<!-- 좌석등록 폼 -->
