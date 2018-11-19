@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bit.ms.admin.service.AdminLoginService;
 
 @Controller
-@RequestMapping(value="/admin")
 public class AdminLoginController {
 	
 	@Autowired
 	AdminLoginService adminLog_service;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String adminLogin() {
 		
 		return "admin/adminLogin";
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/admin", method = RequestMethod.POST)
 	@ResponseBody
 	public int adminLoginPass(String admin_id, String admin_pw, HttpSession httpSession, HttpServletRequest request, HttpServletResponse response) {
 		

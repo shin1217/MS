@@ -77,8 +77,8 @@
 			<exclude-mapping path="/admin/idCheck" />
 			<exclude-mapping path="/user/idCheck" />
 			<exclude-mapping path="/admin/storeChoice" />
-			<beans:bean
-				class="com.bit.ms.interceptor.AuthCheckInterceptor" />
+			<exclude-mapping path="/admin/adminSearch" />
+			<beans:bean	class="com.bit.ms.interceptor.AuthCheckInterceptor" />
 		</interceptor>
 	</interceptors>
 </beans:beans>

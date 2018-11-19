@@ -22,6 +22,13 @@
 		where admin_id = #{admin_id}
 	</select>
 
+	<!-- Admin 아이디 찾기 수정 해야 함--> 
+	<select id="search_adminId" resultType="String">
+		select ifnull(admin_id, 0) from admininfo where
+		where admin_name = #{admin_name} and admin_phone = #{admin_phone} and store_id = #{store_id}
+		
+	</select>
+
 	<!--관리자 정보가져오기 -->
 	<select id="getAdminMyage" resultType="adminVO">
 		select * from admininfo

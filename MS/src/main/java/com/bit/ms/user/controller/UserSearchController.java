@@ -33,9 +33,11 @@ public class UserSearchController {
 	// 아이디 찾기
 	@RequestMapping(value = "/user/userSearch", method = RequestMethod.POST)
 	@ResponseBody
-	public String userIdSearch(@RequestParam("inputName_1") String user_name, @RequestParam("inputPhone_1") String user_phone) {
+	public String userIdSearch(@RequestParam("inputName_1") String user_name, 
+			@RequestParam("inputPhone_1") String user_phone, 
+			@RequestParam("search_store1") String search_store) {
 		
-		String result = searchService.get_searchId(user_name, user_phone);
+		String result = searchService.get_searchId(user_name, user_phone, search_store);
 				
 		System.out.println("컨트롤러 확인" + result);
 		

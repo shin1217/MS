@@ -83,7 +83,7 @@ body {
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/modal/userIdSearchModal.jsp" %>
+	<%@ include file="/WEB-INF/views/modal/adminIdSearchModal.jsp" %>
 	<div class="full">
 		<div class="container">
 			<div class="area_inputs wow fadeIn">
@@ -114,11 +114,11 @@ body {
 					</div>
 					<!-- 매장 선택 후 값을 비교하려 했으나 같은 값이 있다면 모두 출력해주는 걸로 바꿈 -->
 					<div class="form-group">
-						<c:if test="${!empty search_store }">
+						<c:if test="${!empty store_list2 }">
 							<select class="select_pick" id="store_id1" name="search_store1" required>
 								<option class="select_pick" disabled selected>매장을 선택해주세요</option>
-								<c:forEach var="search_store" items="${search_store }">
-									<option class="select_pick" value="${search_store.store_id }">${search_store.store_name }</option>
+								<c:forEach var="store_list2" items="${store_list2 }">
+									<option class="select_pick" value="${store_list2.store_id }">${store_list2.store_name }</option>
 								</c:forEach>
 							</select>
 						<</c:if>
@@ -142,11 +142,11 @@ body {
 						</div>
 					</div>
 					<div class="form-group">
-						<c:if test="${!empty search_store }">
+						<c:if test="${!empty store_list2 }">
 							<select class="select_pick" id="store_id2" name="search_store2" required>
 								<option class="select_pick" disabled selected>매장을 선택해주세요</option>
-								<c:forEach var="search_store" items="${search_store }">
-									<option class="select_pick" value="${search_store.store_id }">${search_store.store_name }</option>
+								<c:forEach var="store_list2" items="${store_list2 }">
+									<option class="select_pick" value="${store_list2.store_id }">${store_list2.store_name }</option>
 								</c:forEach>
 							</select>
 						</c:if>
@@ -206,11 +206,11 @@ body {
 
 	// 아이디 값 받고 출력하는 ajax
 	var idSearch_click = function(){
-		console.log($('#inputName_1').val());
+		console.log($('#inputEmail_1').val());
 		
 		$.ajax({
 			type:"POST",
-			url:"${pageContext.request.contextPath}/user/userSearch?inputName_1="
+			url:"${pageContext.request.contextPath}/admin/adminSearch?inputName_1="
 					+$('#inputName_1').val()+"&inputPhone_1="+$('#inputPhone_1').val()+"&search_store1="+$("#store_id1 option:selected").val(),
 			success:function(data){
 				console.log(data);
@@ -219,7 +219,7 @@ body {
 					$('#id_value').text("다시 확인해주세요");
 					
 				} else {
-					$('#id_value').text(data);
+					$('#admin_searchId').text(data);
 					// 아이디값 별도로 저장
 					idV = data;
 					storeV = $("#store_id1 option:selected").val();

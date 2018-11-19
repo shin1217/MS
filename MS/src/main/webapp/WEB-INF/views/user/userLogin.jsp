@@ -120,6 +120,10 @@ body {
 					</div>
 				</div>
 				<div class="form-group">
+					<span class="font-weight-bold text-white bg-dark"
+						id="spanLoginCheck"></span>
+				</div>
+				<div class="form-group">
 					<label class="font-weight-bold text-white"> 
 						<input type="checkbox" id="remember_us" name="remember_userId" ${checked}> 아이디 기억하기
 					</label>

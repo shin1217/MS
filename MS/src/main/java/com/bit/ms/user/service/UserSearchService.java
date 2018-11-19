@@ -19,15 +19,15 @@ public class UserSearchService {
 	private AdminDaoInterface adminDao;
 
 	// 아이디 찾기
-	public String get_searchId(String user_name, String user_phone) {
+	public String get_searchId(String user_name, String user_phone, String search_store) {
 
 		userDao = sqlSession.getMapper(UserDaoInterface.class);
 		
-		System.out.println("서비스 확인" + userDao.searchId(user_name, user_phone));
+		System.out.println("서비스 확인" + userDao.searchId(user_name, user_phone, search_store));
 		String result = "";
 
 		try {
-			result = userDao.searchId(user_name, user_phone);
+			result = userDao.searchId(user_name, user_phone, search_store);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
