@@ -65,17 +65,13 @@
 /* 웹에 접근한 기기가 screen일 때 세로 길이가 700px 미만일 때 */
 @media screen and (max-height:700px) {
 	.left_content {
-		overflow-y: scroll;
+		overflow-y: scroll; /* 애초부터 auto 설정해주면 타이틀 보이지 않으므로 */
 		height: 60%;
 	}
 	
 	.left_content_title {
 		padding-top: 15px;
 		height: 55px;
-	}
-	
-	.user_info_wrap {
-		overflow-y: scroll;
 	}
 }
 
@@ -89,10 +85,6 @@
 		padding-top: 25px;
 		height: 65px;
 	}
-	
-	.user_info_wrap {
-		overflow-y: scroll;
-	}
 }
 
 .com_cnt_text {
@@ -102,6 +94,7 @@
 }
 
 .user_info_wrap {
+	overflow: auto;
 	text-align: left;
 	padding: 10px;
 	font-size: 20px;
@@ -113,6 +106,7 @@
 }
 
 .order_list_wrap {
+	overflow: auto;
 	text-align: left;
 	padding: 10px;
 	font-size: 20px;
@@ -120,7 +114,6 @@
 	height: 30%;
 	margin-left: 20px;
 	margin-right: 20px;
-	overflow-y: scroll;
 }
 
 .main_btn_wrap {
