@@ -58,8 +58,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="userBoard_header">
 		<br>
-		<a class="nav-link, hypertext_none" 
-		href="${pageContext.request.contextPath}/user/userBoard?page=1">
+		<a class="nav-link, hypertext_none" href="${pageContext.request.contextPath}/user/userBoard?page=1">
 		<h1>[${storeSelectSession.store_name}] - 유저게시판</h1></a>
 		<a id="write" class="btn btn-outline-elegant waves-effect"
 		href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
@@ -119,10 +118,8 @@
 
 		<div class="buttonsRight">
 			<c:if test="${sessionScope.userSession.user_id == userboardvo.writer_id || sessionScope.adminSession != null}">
-				<button type="button" class="btn btn-dark" data-toggle="modal"
-					data-target="#modalUserBoardDeleteForm">삭제</button>
-				<button type="button" class="btn btn-dark"
-					onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${userboardvo.uboard_id}?page=${param.page}'">수정</button>
+				<button type="button" class="btn btn-dark" data-toggle="modal"	data-target="#modalUserBoardDeleteForm">삭제</button>
+				<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${userboardvo.uboard_id}?page=${param.page}'">수정</button>
 			</c:if>
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='${pageContext.request.contextPath}/user/userBoard?page=${param.page}'">
@@ -156,8 +153,7 @@
 </body>
 
 <!-- 게시글 삭제확인 모달 -->
-<div class="modal fade" id="modalUserBoardDeleteForm" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalUserBoardDeleteForm" tabindex="-1"	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header text-center">
@@ -203,6 +199,7 @@
 
 						//수정삭제버튼
 						if (  ("${sessionScope.adminSession}" != "") || ("${sessionScope.userSession.user_id}" == item.reply_writer_id)  ) {
+														
 							uboard_reply += '<button id="UserBoardReplyDeleteBtn' + item.uboard_reply_id + '" onclick="UserBoardReplyDelete('+ item.uboard_reply_id + ')" type="button" class="btn btn-danger px-3 float-right"><i class="fa fa-trash" aria-hidden="true"></i></button>';
 							uboard_reply += '<button id="UserBoardReplyEditBtn'	+ item.uboard_reply_id + '" onclick="UserBoardReplyEdit(' + item.uboard_reply_id + ')" type="button" class="btn btn-primary px-3 float-right"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>';
 						}
@@ -259,6 +256,7 @@
 	});
 	
 	function UserBoardReplyDelete(uboard_reply_id) {
+		if(confirm("정말 삭제하시겠습니까??") == true){
 		$.ajax({
 			type : 'delete',
 			url : '${pageContext.request.contextPath}/user/userBoard/reply/' + uboard_reply_id,
@@ -267,27 +265,34 @@
 				getUserBoardReplyList();
 			}
 		});
+		}
 	};
 	
 
 	function UserBoardReplyModify(uboard_reply_id) { //댓글 수정확인 누를시
-		var uboard_reply_con = $('#UserBoardReplyInput' + uboard_reply_id).val();
-		console.log(uboard_reply_con);
-		$.ajax({
-			type : 'put',
-			url : '${pageContext.request.contextPath}/user/userBoard/reply/' + uboard_reply_id,
-			headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "put"
-			},
-			data : JSON.stringify({
-				uboard_reply_con : uboard_reply_con
-			}),
-			success : function(data) {
-				console.log('수정확인');
-				getUserBoardReplyList();
-			}
-		});
+		if(confirm("수정하시겠습니까??") == true){
+			
+			var uboard_reply_con = $('#UserBoardReplyInput' + uboard_reply_id).val();
+			console.log(uboard_reply_con);
+			
+			$.ajax({
+				type : 'put',
+				url : '${pageContext.request.contextPath}/user/userBoard/reply/' + uboard_reply_id,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "put"
+				},
+			
+				data : JSON.stringify({
+					uboard_reply_con : uboard_reply_con
+				}),
+			
+				success : function(data) {
+					console.log('수정확인');
+					getUserBoardReplyList();
+				}
+			});
+		}
 	};
 
 	function UserBoardReplyEdit(urid) { //댓글수정 클릭시
