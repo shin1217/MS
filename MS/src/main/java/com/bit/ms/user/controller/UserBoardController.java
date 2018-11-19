@@ -44,7 +44,11 @@ public class UserBoardController {
 
 		UserBoardListVO ViewData = null;
 
+		List<UserBoardVO> noticeViewData = null;
+
 		ViewData = userBoardService.getUserBoardList(session, pageNum);
+
+		noticeViewData = userBoardService.getUserBoardNoticeS(session);
 
 		System.out.println("컨트롤러 ViewData = " + ViewData);
 
@@ -52,9 +56,11 @@ public class UserBoardController {
 
 		modelAndView.setViewName("user/userBoard");
 
-		modelAndView.addObject("userboardlist", ViewData);
+		modelAndView.addObject("userboardlist", ViewData); // 유저 게시물
 
-		modelAndView.addObject("pageNum", pageNum);
+		modelAndView.addObject("userboardnotice", noticeViewData); // 유저 게시판 공지사항
+
+		modelAndView.addObject("pageNum", pageNum); // 페이지 번호
 
 		return modelAndView;
 	}
@@ -76,7 +82,7 @@ public class UserBoardController {
 
 		if (adminVO == null) {
 			userBoardVO.setWriter_id(userVO.getUser_id());
-		} else {			
+		} else {
 			userBoardVO.setWriter_id(adminVO.getAdmin_id());
 		}
 		userBoardVO.setStore_id(storeVO.getStore_id());

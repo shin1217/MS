@@ -34,7 +34,7 @@ public class UserBoardService {
 		StoreVO storevo = (StoreVO) session.getAttribute("storeSelectSession");
 
 		int store_id = storevo.getStore_id();
-		
+
 		System.out.println("서비스 store_id = " + store_id);
 
 		int currentPageNum = pageNum;
@@ -77,6 +77,27 @@ public class UserBoardService {
 		return new UserBoardListVO(userBoardList, userBoardTotalCount, currentPageNum, userBoardPageTotalCount,
 				USERBOARD_COUNT_PER_PAGE, firstRow);
 
+	}
+
+	public List<UserBoardVO> getUserBoardNoticeS(HttpSession session) { //공지사항 받을것
+
+		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		StoreVO storevo = (StoreVO) session.getAttribute("storeSelectSession");
+
+		int store_id = storevo.getStore_id();
+
+		String admin_id = storevo.getAdmin_id();
+
+		List<UserBoardVO> userboardnotice = null;
+
+		try {
+			userboardnotice = userDaoInterface.getUserBoardNoticeI(store_id, admin_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return userboardnotice;
 	}
 
 	public int userBoardWrite(UserBoardVO userBoardVO) {
@@ -188,7 +209,7 @@ public class UserBoardService {
 		StoreVO storevo = (StoreVO) session.getAttribute("storeSelectSession");
 
 		int store_id = storevo.getStore_id();
-		
+
 		int num = 0;
 
 		try {

@@ -12,7 +12,6 @@
 	margin: 20px;
 }
 /* 공지사항 게시판 제목 오버 */
-
 .notice-title:hover {
 	text-decoration: underline;
 }
@@ -30,25 +29,23 @@
 .hypertext_none {
 	color: #181818;
 	text-decoration: none;
-	
 }
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="userBoard_header">
-		<br>
-		<a class="nav-link, hypertext_none" 
-		href="${pageContext.request.contextPath}/user/userBoard?page=1">
-		<h1>[${storeSelectSession.store_name}] - 유저게시판</h1></a>
-		<a id="write" class="btn btn-outline-elegant waves-effect" 
-		href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
+		<br> <a class="nav-link, hypertext_none"
+			href="${pageContext.request.contextPath}/user/userBoard?page=1">
+			<h1>[${storeSelectSession.store_name}] - 유저게시판</h1>
+		</a> <a id="write" class="btn btn-outline-elegant waves-effect"
+			href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
 	</div>
-	
+
 	<div class="container">
 		<table class="table">
 			<thead>
-				<tr class="text-center">
+				<tr class="text-center" style="background: #E6E6F2;">
 					<th style="width: 10%">글번호</th>
 					<th style="width: 55%">제목</th>
 					<th style="width: 15%">작성자</th>
@@ -56,6 +53,17 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:forEach var="userBoardVO" items="${userboardnotice}">
+					<tr style="background: #F2FCF6;">
+						<td style="text-align: center;">[공지]</td>
+						<td><a
+							href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}">${userBoardVO.uboard_title}</a></td>
+						<td style="text-align: center;">${userBoardVO.writer_id}
+							[관리자]</td>
+						<td style="text-align: center;"><fmt:formatDate
+								value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
+					</tr>
+				</c:forEach>
 				<c:if test='${userboardlist.userBoardList.isEmpty()}'>
 					<tr>
 						<td colspan="4"><h3 style="text-align: center;">작성된 게시글이
@@ -68,11 +76,11 @@
 							<td style="text-align: center;">${userBoardVO.uboard_id}</td>
 							<td><a
 								href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}">${userBoardVO.uboard_title}</a></td>
-							<td style="text-align: center;">${userBoardVO.writer_id}
-							<c:if test='${storeSelectSession.admin_id == userBoardVO.writer_id}'>
+							<td style="text-align: center;">${userBoardVO.writer_id}<c:if
+									test='${storeSelectSession.admin_id == userBoardVO.writer_id}'>
 							   [관리자]
 							 </c:if></td>
-							 <td style="text-align: center;"><fmt:formatDate
+							<td style="text-align: center;"><fmt:formatDate
 									value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>
 					</c:forEach>

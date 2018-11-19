@@ -33,6 +33,7 @@ public interface UserDaoInterface {
 	int UserBoardModifyI(UserBoardVO userBoardVO);
 	int getPreviousNUM(@Param("uboard_id") int uboard_id, @Param("store_id") int store_id);
 	int getNextNUM(@Param("uboard_id") int uboard_id, @Param("store_id") int store_id);
+	List<UserBoardVO> getUserBoardNoticeI(int store_id, String admin_id);
 	
 	/* 유저게시판 댓글 */
 	List<UserBoardReplyVO> getUserBoardReplyListI(int uboard_id);
