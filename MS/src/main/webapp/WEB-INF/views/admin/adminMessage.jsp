@@ -26,7 +26,7 @@
 	text-align : center;
 	border-radius: 10px;
 	margin-left : -350px;
-	height : 90%;
+	height : 80%;
 	overflow : overlay;
 }
 .messageListTitle{
@@ -79,7 +79,7 @@ hr{
 		margin: 0 auto;
 		background-color : white;
 		border-radius : 10px;
-		height : 710px;
+		height : 75%;
 	}
 	.comment-form label {
 		position: absolute;
@@ -229,8 +229,7 @@ hr{
 						</div>
 						<div class="col-md-12 form-group">
 							<label class="name">받는 사람</label>
-							<div id = "sendWrap" style = "width : 40%; float : left;"></div>
-							<div id = "selectStore" style = "width : 55%; float : right;"></div>
+							<div id = "sendWrap" style = "width : 100%; float : left;"></div>
 							<div class = "receiveWrap">
 							<input type = "text" id = "receiveReply" class = "form-control" style = "display : none; background-color : darkgrey;" readonly >
 							</div>
@@ -255,6 +254,7 @@ hr{
 </body>
 <script>
 	var send_id = "";
+	var adminStore_id = ${storeSelectSession.store_id};
 	$(document).ready(function(){
 		$('#messageModal').hide(); //페이지 시작시 메세지 모달창 가림
 		$('#writeMessageModal').hide(); // 페이지 시작시 쪽지쓰기 모달창 가림
@@ -378,7 +378,7 @@ hr{
 				console.log(data);
 				$('#writeMessageModal').show();
 				$('#send_id').val(data.receive_id);
-				$('#sendWrap, #selectStore').css("display","none");
+				$('#sendWrap').css("display","none");
 				$('#receiveReply').css("display","block");
 				$('#receiveReply').val(data.send_id);
 				$('#replyBtn').show();
@@ -388,9 +388,10 @@ hr{
 	}
 		
 	///////////// 쪽지쓰기버튼 이벤트///////////////
+	var userList = [];
 	$('#writeMessage').click(function(){
 		$('#writeMessageModal').show(); //쪽지쓰기를 클릭하면 모달창 뜸
-		$('#sendWrap, #selectStore').css("display","block");
+		$('#sendWrap').css("display","block");
 		$('#sendBtn').show();
 		$('#receiveReply').hide();
 		var list = "";
@@ -399,7 +400,9 @@ hr{
 			type : 'get',
 			success : function(data){
 				list = "<select class = 'sendList' id = 'sendList' style = 'width : 100%; height : 40px; padding : 3px;'><option>사용자를 선택하세요</option>";
+				list += "<option>전체보내기</option>";
 				for(var i = 0; i < data.length; i++){
+					userList.push(data[i].user_id);
 					list += "<option name = 'send_id' id = '"+ data[i].store_id +"'>" + data[i].user_id + "</option>";
 				}
 				list += "</select>";
@@ -409,9 +412,10 @@ hr{
 		list = "";
 	});
 	///////////// 사용자 매장 선택 /////////////////
-	$(document).on("change", "#sendList", function(){ //받는사람 리스트 변경 이벤트
+	/* $(document).on("change", "#sendList", function(){ //받는사람 리스트 변경 이벤트
 		send_id = $('#sendList option:selected').val(); //선택된 아이디값을 가져옴
-		//console.log(send_id);
+		//console.log(adminStore_id); 관리자의 스토어 번호
+		//console.log(userList); 사용자 목록
 		var store_name = "<select class = 'store_name' id = 'store_name' style = 'width : 100%; height : 40px; padding : 3px;'><option>사용자의 매장을 선택하세요</option>";
 			$.ajax({
 				url : '${pageContext.request.contextPath}' + '/member/sendStore/' + send_id,
@@ -424,13 +428,20 @@ hr{
 				$('#selectStore').html(store_name);
 				} //매장이름 가져오기 성공 끝
 			}); // 보내는아이디에 해당하는 매장번호 구하는 ajax 끝
-		});
+		}); */
 	
 	///////////////// 쪽지 보내기버튼 이벤트////////////////
 	$('#sendBtn').click(function(){
-		var store_id = $('#store_name option:selected').attr("id");
+		var store_id = adminStore_id;
 		var receive_id = $('#sendList option:selected').val();
-		sendMessage(store_id, receive_id);
+		if (receive_id == "전체보내기"){
+			for(var i = 0; i < userList.length; i++){
+				receive_id = userList[i];
+				sendMessage(store_id, receive_id); // 전체보내기일 경우 useList만큼 쪽지보내기 반복
+			}
+		} else {
+			sendMessage(store_id, receive_id); // 전체보내기가 아닐경우 해당아이디에 한번만 보냄
+		}
 	});
 	
 	/////////////////  답장보내기버튼 이벤트//////////////////
@@ -451,7 +462,6 @@ hr{
 				message_con : $('#message_con').val()
 			},
 			success : function(data){
-				alert("메시지를 성공적으로 보냈습니다.");
 				$('#replyBtn').css("display","none");
 				$('#writeMessageModal').hide(); //쪽지쓰기 모달창 끔
 				$('#messageModal').show(); // 리스트 모달창 뜸

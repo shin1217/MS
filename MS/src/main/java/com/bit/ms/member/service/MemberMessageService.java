@@ -77,20 +77,19 @@ public class MemberMessageService {
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		return memberDao.messageCnt(map);
 	}
-	//사용자의 매장이름을 가져옴
+	/*//사용자의 매장이름을 가져옴
 	public List<StoreVO> getStoreName(String send_id){
 		
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		return memberDao.getStoreList(send_id);
-	}
+	}*/
 	//사용자 중복아이디를 제외한 리스트 받아오기
-	public List<UserVO> getUserListDinstinct(){
+	public List<UserVO> getUserListDinstinct(int store_id){
 		
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
-		return memberDao.userListDistinct();
+		return memberDao.userListDistinct(store_id);
 		
 	}
-	
 	public MessageVO messageDetail(int message_id){
 		
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);

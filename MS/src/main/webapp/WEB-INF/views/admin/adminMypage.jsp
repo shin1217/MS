@@ -551,7 +551,7 @@
                   } else if (name == "래방"){
                      var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_sing'>"; //매장아이디가 3번이면
                   } else {
-                     var str = "<div class = 'adminMypage_storeDetail' style = 'background-color : darkgrey;'>";
+                     var str = "<div class = 'adminMypage_storeDetail' style = 'background-color : #eee;'>";
                   }
                      //조건필요없이 무조건 상세테이블 생성
                      str += "<table><tr><th colspan = '2' class = 'adminMypage_storeTitle'>매장 상세정보</th></tr>"
@@ -605,7 +605,6 @@
                $('#adminMypage_deleteModal').hide();
              } else if(event.target == $('#addStoreModal').get(0)){
                $('#addStoreModal').hide();
-               $('#newAddStore').remove();
              }
          });
          
@@ -623,12 +622,13 @@
             list.push("${store.store_name}");
          </c:forEach>
          
-         if(list.length < 3){ // 모든매장을 다 갖고있으면 매장추가 버튼이 사라진다
+         if(list.length < 10){ // 모든매장을 다 갖고있으면 매장추가 버튼이 사라진다
             $('.adminMypage_management').append('<input type = "button" id = "adminMypage_addStore" class = "adminMypage_addStore" value = "+">');
          }
          //매장 추가 클릭시 이벤트
          $('.adminMypage_addStore').click(function(){
-         $('#addStoreModal').show();
+         	$('#addStoreModal').show();
+         });
          //console.log($('#adminMypage_id').val());
          $('#addBtn').click(function(){ //모달창에서 매장등록 눌렀을때 이벤트
             $.ajax({
@@ -646,7 +646,6 @@
                } //매장추가 성공 끝
             }); // 매장추가 ajax 끝 
          }); // 모달창 이벤트 끝
-         }); // 매장추가 이벤트 끝
          
        //닫기버튼을 누르면 매장추가모달창 닫음
          $('#storeClose').click(function(){

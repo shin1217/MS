@@ -63,7 +63,6 @@ public class MemberMessageController {
 		return service.messageDelete(message_id);
 		
 	}
-	
 	//메시지를 읽었을경우
 	@RequestMapping(value = "member/readMessage", method = RequestMethod.POST)
 	public @ResponseBody int readMessage(String message_read,  int message_id) {
@@ -94,16 +93,17 @@ public class MemberMessageController {
 	}
 	//사용자 리스트를 받아오기
 	@RequestMapping(value = "member/sendList", method = RequestMethod.GET)
-	public @ResponseBody List<UserVO> getReceiveList() {
-
-		return service.getUserListDinstinct();
+	public @ResponseBody List<UserVO> getReceiveList(HttpSession session) {
+		StoreVO storeVo = (StoreVO) session.getAttribute("storeSelectSession");
+		int store_id = storeVo.getStore_id();
+		return service.getUserListDinstinct(store_id);
 	}
 	//받는 사람 아이디에 해당하는 매장이름 받아오기(관리자용)
-	@RequestMapping(value = "member/sendStore/{id}")
+	/*@RequestMapping(value = "member/sendStore/{id}")
 	public @ResponseBody List<StoreVO> getReceiveStoreId(@PathVariable("id") String send_id){
 		
 		return service.getStoreName(send_id);
-	}
+	}*/
 	//메시지 세부목록 불러오기
 	@RequestMapping(value = "member/messageDetail/{message_id}", method = RequestMethod.GET)
 	public @ResponseBody MessageVO getMessageDetail(@PathVariable("message_id") int message_id){

@@ -26,7 +26,7 @@
 	text-align : center;
 	border-radius: 10px;
 	margin-left : -350px;
-	height : 720px;
+	height : 80%;
 	overflow : overlay;
 }
 .messageListTitle{
@@ -79,7 +79,7 @@ hr{
 		margin: 0 auto;
 		background-color : white;
 		border-radius : 10px;
-		height : 710px;
+		height : 75%;
 	}
 	.comment-form label {
 		position: absolute;
@@ -365,6 +365,12 @@ $('#writeMessage').click(function(){
 	$('#sendBtn').click(function(){
 			sendMessage();
 	});
+	
+/////////////// x 버튼 클릭하면 창 닫음 //////////////
+$('#messageWriteClose').click(function(){
+	$('#writeMessageModal').hide();
+});
+
 //////////// 메시지를 읽은것 처리 /////////////////
 $(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그들은 이런식으로 이벤트를 줘야함
 	//var str = "onclick = "readChk(' + data[i].message_id + ')"";
@@ -388,7 +394,7 @@ $(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그
 $(window).on('click', function() {
    //jquery는 dom 객체를 jquery 객체로 한 번 감싸 리턴하므로 dom 객체를 얻어와야 비교 가능
    if (event.target == $('#messageModal').get(0)) {
-	   $('#messageModal').hide();
+	   location.reload();
    } else if (event.target == $('#writeMessageModal').get(0)){
 	   $('#replyBtn').css("display","none");
 	   $('#writeMessageModal').hide();
