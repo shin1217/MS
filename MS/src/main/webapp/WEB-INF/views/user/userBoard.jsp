@@ -119,6 +119,19 @@
 
 				<!-- 페이징처리 -->
 				<c:choose>
+					<c:when test="${userboardlist.pageTotalCount <= 5}">
+						<c:forEach var="num" begin="1"
+							end="${userboardlist.pageTotalCount}">
+							<c:if test="${param.page == num}">
+								<li class="page-item active"><a class="page-link"
+									href="userBoard?page=${num}">${num}</a></li>
+							</c:if>
+							<c:if test="${param.page != num}">
+								<li class="page-item"><a class="page-link"
+									href="userBoard?page=${num}">${num}</a></li>
+							</c:if>
+						</c:forEach>
+					</c:when>
 					<c:when test="${param.page <= 3}">
 						<c:forEach var="num" begin="1" end="5">
 							<c:if test="${param.page == num}">
