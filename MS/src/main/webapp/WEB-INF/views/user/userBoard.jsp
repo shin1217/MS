@@ -118,16 +118,46 @@
 				</c:choose>
 
 				<!-- 페이징처리 -->
-				<c:forEach var="num" begin="1" end="${userboardlist.pageTotalCount}">
-					<c:if test="${param.page == num}">
-						<li class="page-item active"><a class="page-link"
-							href="userBoard?page=${num}">${num}</a></li>
-					</c:if>
-					<c:if test="${param.page != num}">
-						<li class="page-item"><a class="page-link"
-							href="userBoard?page=${num}">${num}</a></li>
-					</c:if>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${param.page <= 3}">
+						<c:forEach var="num" begin="1" end="5">
+							<c:if test="${param.page == num}">
+								<li class="page-item active"><a class="page-link"
+									href="userBoard?page=${num}">${num}</a></li>
+							</c:if>
+							<c:if test="${param.page != num}">
+								<li class="page-item"><a class="page-link"
+									href="userBoard?page=${num}">${num}</a></li>
+							</c:if>
+						</c:forEach>
+					</c:when>
+					<c:when test="${param.page  >= userboardlist.pageTotalCount - 2}">
+						<c:forEach var="num" begin="${userboardlist.pageTotalCount-4}"
+							end="${userboardlist.pageTotalCount}">
+							<c:if test="${param.page == num}">
+								<li class="page-item active"><a class="page-link"
+									href="userBoard?page=${num}">${num}</a></li>
+							</c:if>
+							<c:if test="${param.page != num}">
+								<li class="page-item"><a class="page-link"
+									href="userBoard?page=${num}">${num}</a></li>
+							</c:if>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="num" begin="${param.page - 2}"
+							end="${param.page + 2}">
+							<c:if test="${param.page == num}">
+								<li class="page-item active"><a class="page-link"
+									href="userBoard?page=${num}">${num}</a></li>
+							</c:if>
+							<c:if test="${param.page != num}">
+								<li class="page-item"><a class="page-link"
+									href="userBoard?page=${num}">${num}</a></li>
+							</c:if>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 
 				<!--페이지 한칸앞으로-->
 				<c:choose>

@@ -3,15 +3,16 @@ package com.bit.ms.user.model;
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Alias("UserBoardListVO")
 public class UserBoardListVO {
-	private int UserBoardTotalCount;
-	private int currentPageNum;
-	private List<UserBoardVO> userBoardList;
-	private int pageTotalCount;
-	private int userBoardCountPerPage;
-	private int firstRow;
+	private int UserBoardTotalCount; // 글 총 갯수
+	private int currentPageNum; // 현재 페이지
+	private List<UserBoardVO> userBoardList; // 리스트 방식으로 담음 10개씩
+	private int pageTotalCount; // 페이지 수
+	private int userBoardCountPerPage; // 페이지당 보여지는 글 수 10개
+	private int firstRow; // 페이지당 첫 줄
 
 	@Override
 	public String toString() {
@@ -37,6 +38,7 @@ public class UserBoardListVO {
 
 	public void setUserBoardTotalCount(int userBoardTotalCount) {
 		UserBoardTotalCount = userBoardTotalCount;
+
 	}
 
 	public int getCurrentPageNum() {

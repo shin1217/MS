@@ -42,15 +42,13 @@ public class UserBoardController {
 			pageNum = Integer.parseInt(pageParam);
 		}
 
-		UserBoardListVO ViewData = null;
+		UserBoardListVO ViewData = userBoardService.getUserBoardList(session, pageNum);
 
-		List<UserBoardVO> noticeViewData = null;
+		List<UserBoardVO> noticeViewData = userBoardService.getUserBoardNoticeS(session);
 
-		ViewData = userBoardService.getUserBoardList(session, pageNum);
+		System.out.println("UserBoardController 유저게시물 list = " + ViewData);
 
-		noticeViewData = userBoardService.getUserBoardNoticeS(session);
-
-		System.out.println("컨트롤러 ViewData = " + ViewData);
+		System.out.println("UserBoardController 공지사항 list = " + noticeViewData);
 
 		ModelAndView modelAndView = new ModelAndView();
 
