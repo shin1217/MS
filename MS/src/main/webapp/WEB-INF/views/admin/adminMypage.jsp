@@ -19,7 +19,6 @@
    border-top : 2px solid darkgray;
    border-bottom : 2px solid darkgray;
    border-right : 2px solid darkgray;
-   font-weight : bold;
 }
 .adminMypage_adminTable>tbody>tr>td {
    width : 600px;
@@ -37,11 +36,9 @@
    background-color : #eee;
    padding-left : 20px;
    font-size : 20px;
-   font-weight : bold;
 }
 .adminMypage_title{
    margin-top : 30px;
-   font-weight : bold;
 }
 .adminMypage_editBtn, .adminMypage_deleteBtn {
    border : none;
@@ -81,7 +78,6 @@
    width : 150px;
    border-top : 2px solid darkgray;
    font-size : 17px;
-   font-weight : bold;
 }
 .adminMypage_editTitle {
    border-top : none !important;
@@ -91,7 +87,6 @@
    position : relative;
    background-color : black !important;
    color : white !important;
-   font-weight : bold;
 }
 .adminMypage_edit_table input[type="text"]{
    background-color : white;
@@ -102,7 +97,6 @@
    height : 40px;
    padding-left : 20px;
    font-size : 18px;
-   font-weight : bold;
    
 }
 .adminMypage_edit_table td {
@@ -122,7 +116,6 @@
    border : none;
    width : 120px;
    height : 40px;
-   font-weight : bold;
    font-size : 18px;
    border-radius: 7px;
 }
@@ -176,7 +169,6 @@
    margin-top : 30px;
    margin-bottom : 30px;
    font-size : 35px;
-   font-weight : bold;
 }
 .adminMypage_deleteOkBtn, .adminMypage_deleteCancelBtn{
    background-color : red;
@@ -208,7 +200,6 @@
     width: 100px;
    font-size : 20px;
    color : black;
-   font-weight : bold;
    margin-right : 20px;
    height: 50px;
     border: none;
@@ -224,7 +215,6 @@
    border : none;
    font-size : 16px;
    margin-right : 10px;
-   font-weight : bold;
    border-radius: 7px;
 }
 .adminMypage_storeName:hover{
@@ -237,7 +227,6 @@
 }
 .adminMypage_management table>tbody>tr>th{
    font-size : 20px;
-   font-weight : bold;
 }
 .adminMypage_storeDetail th {
    width : 160px;
@@ -251,7 +240,6 @@
 .adminMypage_storeDetail td {
    width : 220px;
    padding : 10px 30px;
-   font-weight : bold;
    font-size : 20px;
    color : white;
    border-bottom : 1px solid white;
@@ -335,7 +323,6 @@
    margin-top : 30px;
    margin-bottom : 30px;
    font-size : 35px;
-   font-weight : bold;
 }
 .addStoreModal{
    position : fixed;
@@ -361,7 +348,6 @@
    font-size : 30px;
    margin-top : 20px;
    margin-bottom : 15px;
-   font-weight : bold;
    text-align : center;
 }
 .adminMypage_select{
@@ -371,7 +357,6 @@
    padding : 7px;
    background-color : #eee;
    margin-right : 30px;
-   font-weight : bold;
 }
 .addBtn{
    border : none;
@@ -388,7 +373,6 @@
    top : 0px;
    right : 15px;
    font-size : 30px;
-   font-weight : bold;
 }
 .storeClose:hover{
    color : grey;
@@ -453,11 +437,11 @@
          <div class = 'addStoreWrap' id = "addStoreWrap">
            <div id = 'newAddStore'><p>매장을 추가하세요</p> <hr>
             <span class = 'storeClose' id = 'storeClose'>×</span>
-            <div class = "store_nameWrap"><label for = "Store_name" style = "font-size : 20px; font-weight : bold;">매장 이름</label><br>
+            <div class = "store_nameWrap"><label for = "Store_name" style = "font-size : 20px;">매장 이름</label><br>
             <input type = "text" class = "addStore_name" id = "store_name"></div>
-            <div class = "store_nameWrap"><label for = "store_address" style = "font-size : 20px; font-weight : bold;">매장 주소</label><br>
+            <div class = "store_nameWrap"><label for = "store_address" style = "font-size : 20px;">매장 주소</label><br>
             <input type = "text" class = "addStore_address" id = "store_address"></div>
-            <div class = "store_nameWrap"><label for = "store_num" style = "font-size : 20px; font-weight : bold;">매장 번호</label><br>
+            <div class = "store_nameWrap"><label for = "store_num" style = "font-size : 20px;">매장 번호</label><br>
             <input type = "text" class = "addStore_num" id = "store_num"></div><br><hr>
             <input type = 'button' class = 'addBtn' id = 'addBtn' value = '매장등록'></div>
          </div>

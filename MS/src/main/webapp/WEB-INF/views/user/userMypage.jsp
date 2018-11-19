@@ -19,7 +19,6 @@
    border-top : 2px solid darkgray;
    border-bottom : 2px solid darkgray;
    border-right : 2px solid darkgray;
-   font-weight : bold;
 }
 .userMyPage_userTable td {
    width : 600px;
@@ -37,11 +36,9 @@
    background-color : #eee;
    padding-left : 20px;
    font-size : 20px;
-   font-weight : bold;
 }
 .userMyPage_title{
    margin-top : 30px;
-   font-weight : bold;
 }
 .userMyPage_editBtn, .userMyPage_deleteBtn {
    border : none;
@@ -80,7 +77,6 @@
    width : 150px;
    border-top : 2px solid darkgray;
    font-size : 17px;
-   font-weight : bold;
 }
 .userMyPage_editTitle {
    border-top : none !important;
@@ -90,7 +86,6 @@
    position : relative;
    background-color : black !important;
    color : white !important;
-   font-weight : bold;
 }
 .userMyPage_edit_table input[type="text"]{
    background-color : white;
@@ -101,7 +96,6 @@
    height : 40px;
    padding-left : 20px;
    font-size : 18px;
-   font-weight : bold;
    
 }
 .userMyPage_edit_table td {
@@ -121,7 +115,6 @@
    border : none;
    width : 120px;
    height : 40px;
-   font-weight : bold;
    font-size : 18px;
 }
 .userMyPage_editOkBtn:hover {
@@ -174,7 +167,6 @@
 	margin-top : 30px;
 	margin-bottom : 30px;
 	font-size : 35px;
-	font-weight : bold;
 }
 .userMyPage_deleteOkBtn, .userMyPage_deleteCancelBtn{
 	background-color : red;

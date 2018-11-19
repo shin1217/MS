@@ -282,6 +282,7 @@ hr{
 					$('#readCnt').css("display", "block");
 					$('#readCnt').text(readCnt);
 				} else {
+					$('#readCnt').css("display", "none");
 				}
 			}
 		});
