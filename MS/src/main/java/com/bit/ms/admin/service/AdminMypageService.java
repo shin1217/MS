@@ -1,6 +1,5 @@
 package com.bit.ms.admin.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -63,16 +62,17 @@ public class AdminMypageService {
 		return adminDao.getStoreList();
 	}*/
 	//매장 추가메서드
-	public int storeAdd(StoreVO storeVo) {
+	public int storeAdd(StoreVO storeVO) {
 		
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		
-		return adminDao.addStore(storeVo);
+		return adminDao.addStore(storeVO);
 	}
 	//매장 삭제메서드
 	public void storeDelete(int store_id) {
 		
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		
 		adminDao.deleteStore(store_id);
 	}
 }

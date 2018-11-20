@@ -9,7 +9,10 @@ public class StoreVO {
 
 	private int store_id;
 	private String store_name;
+	private int store_zip;
 	private String store_address;
+	private String store_address1;
+	private String store_address2;
 	private String store_num;
 	private Timestamp store_regDate;
 	private String admin_id;
@@ -30,12 +33,36 @@ public class StoreVO {
 		this.store_name = store_name;
 	}
 
+	public int getStore_zip() {
+		return store_zip;
+	}
+
+	public void setStore_zip(int store_zip) {
+		this.store_zip = store_zip;
+	}
+
 	public String getStore_address() {
 		return store_address;
 	}
 
 	public void setStore_address(String store_address) {
 		this.store_address = store_address;
+	}
+
+	public String getStore_address1() {
+		return store_address1;
+	}
+
+	public void setStore_address1(String store_address1) {
+		this.store_address1 = store_address1;
+	}
+
+	public String getStore_address2() {
+		return store_address2;
+	}
+
+	public void setStore_address2(String store_address2) {
+		this.store_address2 = store_address2;
 	}
 
 	public String getStore_num() {
@@ -64,8 +91,9 @@ public class StoreVO {
 
 	@Override
 	public String toString() {
-		return "StoreVO [store_id=" + store_id + ", store_name=" + store_name + ", store_address=" + store_address
-				+ ", store_num=" + store_num + ", store_regDate=" + store_regDate + ", admin_id=" + admin_id + "]";
+		return "StoreVO [store_id=" + store_id + ", store_name=" + store_name + ", store_zip=" + store_zip
+				+ ", store_address=" + store_address + ", store_address1=" + store_address1 + ", store_address2="
+				+ store_address2 + ", store_num=" + store_num + ", store_regDate=" + store_regDate + ", admin_id="
+				+ admin_id + "]";
 	}
-
 }

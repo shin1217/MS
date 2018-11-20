@@ -67,11 +67,11 @@ public class AdminMypageController {
 	}*/
 	//관리자 매장 추가
 	@RequestMapping(value = "/admin/adminStoreAdd", method = RequestMethod.POST)
-	public String addStore(StoreVO storeVo) {
+	public String addStore(StoreVO storeVO) {
 		
-		System.out.println("매장등록시 정보 : " + storeVo);
+		System.out.println("매장등록시 정보 : " + storeVO);
 		//선택된 매장아이디를 포함해 새로 회원가입
-		service.storeAdd(storeVo);
+		service.storeAdd(storeVO);
 		
 		return "admin/adminMypage";
 	}

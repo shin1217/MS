@@ -24,7 +24,7 @@ public interface AdminDaoInterface {
 	int editAdmin(AdminVO adminVo);	// 관리자 수정
 	int deleteAdmin(String admin_id);// 관리자 삭제
 	StoreVO getStoreDetail(int store_id); //매장 상세정보
-	int addStore(StoreVO storeVo); //매장 추가
+	int addStore(StoreVO storeVO); //매장 추가
 	void deleteStore(int store_id); //소유한 매장삭제하기
 	List<StoreVO> getStoreList();// 매장 정보 가져오기
 	String search_adminId(@Param("inputName_1") String admin_name, @Param("inputPhone_1") String admin_phone, @Param("search_store1") String admin_storeId); // 관리자 아이디 찾기
