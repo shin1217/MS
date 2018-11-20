@@ -88,7 +88,6 @@ body {
 		$('#spanStoreError').text('');
 	});
 	
-	
 	//매장등록 버튼 클릭시
 	$('#storeRegBtn').click(function(){
 		location.href = "${pageContext.request.contextPath}/admin/storeReg";

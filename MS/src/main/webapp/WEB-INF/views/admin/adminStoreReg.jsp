@@ -6,13 +6,10 @@
 <meta charset="UTF-8">
 <title>MS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css" rel="stylesheet">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Righteous&amp;subset=latin-ext" rel="stylesheet">
 <script type="text/javascript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/zipcode.js"></script>
@@ -39,7 +36,7 @@ body {
 
 .container h1 {
 	font-family: "Righteous";
-	font-size: 80px;
+	font-size: 50px;
 	text-align: center;
 }
 
@@ -47,8 +44,13 @@ body {
 	padding: 20px;
 	text-align: center;
 }
+
 #store_zip, #store_address1 {
 	background-color: white;
+}
+
+#store_zip {
+	width: 70%;
 }
 </style>
 </head>
@@ -68,11 +70,15 @@ body {
 			</div>
 			<!-- 주소 -->
 			<div class="form-group">
-				<label>주소</label> 
-				<input type="text" class="form-control inline" id="store_zip" name="store_zip" readonly="readonly"  placeholder="우편번호">
-				<input type="button" class="btn" id="find_zip" onclick="execDaumPostcode()" value="우편번호 찾기">
-				<input type="text" class="form-control" id="store_address1" name="store_address1" readonly="readonly" placeholder="도로명주소">
-				<input type="text" class="form-control" id="store_address2" name="store_address2" placeholder="상세주소">
+				<label class="d-block">주소</label>
+				<div class="input-group">
+					<input type="text" class="form-control d-inline" id="store_zip"	name="store_zip" readonly="readonly" placeholder="우편번호">
+					<div class="input-group-append">
+						<button type="button" class="btn bg-dark text-white" id="find_zip" onclick="execDaumPostcode()">우편번호 찾기</button>
+					</div>
+				</div>
+				<input type="text" class="form-control" id="store_address1"	name="store_address1" readonly="readonly" placeholder="도로명주소">
+				<input type="text" class="form-control" id="store_address2"	name="store_address2" placeholder="상세주소">
 			</div>
 			<!-- 전화번호 -->
 			<div class="form-group">
@@ -80,13 +86,8 @@ body {
 				<input type="text" class="form-control" id="store_num" name="store_num" placeholder="전화번호">
 			</div>
 			<div class="reg_button">
-				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/admin"> 
-					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
-				</a>
-				&emsp;&emsp;
-				<button type="submit" class="btn btn-primary px-3" id="reg_submit">
-					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
-				</button>
+				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/admin">취소</a>
+				<button type="submit" class="btn btn-primary px-3" id="reg_submit">등록</button>
 			</div>
 		</form>
 	</div>
