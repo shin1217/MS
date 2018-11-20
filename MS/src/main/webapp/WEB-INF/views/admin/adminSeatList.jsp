@@ -70,8 +70,8 @@
 			<tbody>				
 				<tr>
 					<form>
-						<td style="text-align: center;"><input type="text" id="seat_name" name="seat_name"></td>
-						<td style="text-align: center;"><input type="text" id="seat_pay" name="seat_pay" style="width: 70%;" /> 원 / 시간</td>
+						<td style="text-align: center;"><input type="text" id="seat_name" name="seat_name" required></td>
+						<td style="text-align: center;"><input type="text" id="seat_pay" name="seat_pay" required onkeydown="check_input2_onkeydown()" style="width: 70%;" /> 원 / 시간</td>
 						<td style="text-align: center;"><input type="file" name="seat_qr" id="seat_qr" /></td>
 						<td style="text-align: center;"><button id="addseat_btn" type="button">등록</button><button id="reset" type="reset">초기화</button></td>
 					</form>
@@ -184,7 +184,7 @@
 		var seat_pay = $('#seat_pay').val();
 		var seat_qr = $('#seat_qr').val();
 
-		if (seat_pay) {
+		if (seat_pay && seat_name) {
 			$.ajax({
 				type : 'post',
 				url : '${pageContext.request.contextPath}/admin/seat',
@@ -205,7 +205,7 @@
 				}
 			});
 		} else {
-			alert("좌석정보를 입력해주세요 XD");
+			alert("좌석정보를 입력해주세요 :p");
 		}
 	});
 
@@ -273,5 +273,16 @@
 		$('#seat_delete_btn' + seat_id ).attr("value","취소");//댓글 수정클릭시 모양바뀜
 		$('#seat_delete_btn' + seat_id ).attr("onclick","getSeatList()");//댓글 수정클릭시 모양바뀜
 	}
+
+	 
+	function check_input2_onkeydown(){ //숫자만 입력
+	      var theForm=document.frm1;
+	      
+	      if( !( (event.keyCode >= 48 && event.keyCode<=57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode==8 )  ){
+	           alert("숫자만 입력해 주세요 :p");
+	           event.returnValue=false;
+	      } 
+	}
+
 </script>
 </html>
