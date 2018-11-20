@@ -92,9 +92,9 @@ body {
 					<input type="checkbox" id="remember_ad" name="remember_adminId" ${checked}>
 						아이디 기억하기
 					</label>
-					<div class="font-weight-bold text-white">
+					<%-- <div class="font-weight-bold text-white">
 						<a href="${pageContext.request.contextPath}/admin/adminSearch">&nbsp; 아이디 / 비밀번호 찾기</a>
-					</div>
+					</div> --%>
 					<div>
 						<button id="loginBtn" type="submit" class="btn btn-danger btn-block">로그인</button>
 					</div>
