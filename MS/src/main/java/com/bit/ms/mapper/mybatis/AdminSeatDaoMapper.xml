@@ -7,8 +7,7 @@
 	<!-- 좌석리스트 불러오기 -->
 	<select id="getSeatListI" resultType="seatVO">
 
-		select * from seat where
-		store_id = #{store_id} order by seat_name asc
+		<![CDATA[select * from seat where store_id = #{store_id} order by ${order_by} ${sort}]]>
 
 	</select>
 	<!-- 좌석리스트 불러오기 -->
@@ -16,7 +15,8 @@
 	<insert id="addSeatI" parameterType="SeatVO"
 		useGeneratedKeys="true" keyProperty="seat_id">
 
-		insert into seat(seat_name,	seat_pay, seat_qr, store_id) 
+		insert into seat(seat_name,
+		seat_pay, seat_qr, store_id)
 		values(#{seat_name}, #{seat_pay}, #{seat_qr}, #{store_id})
 
 	</insert>
@@ -29,11 +29,12 @@
 	</delete>
 
 	<update id="modifySeatI" parameterType="seatVO">
+
 		update seat
-		set
-		(seat_name=#{seat_name}, seat_pay=#{seat_pay}, seat_qr=#{seat_qr})
-		where
-		seat_id=#{seat_id}
+		set seat_name=#{seat_name}, seat_pay=#{seat_pay},
+		seat_qr=#{seat_qr}
+		where seat_id=#{seat_id}
+
 	</update>
 
 </mapper>

@@ -32,8 +32,9 @@ public class AdminSeatController {
 
 	@RequestMapping(value = "/admin/seat/list", method = RequestMethod.GET)
 	@ResponseBody
-	public List<SeatVO> getAdminSeatList(int store_id) {// 좌석관리 리스트
-		List<SeatVO> seatlist = adminSeatService.getSeatListS(store_id);
+	public List<SeatVO> getAdminSeatList(int store_id, String order_by, String sort) {// 좌석관리 리스트
+		List<SeatVO> seatlist = adminSeatService.getSeatListS(store_id, order_by, sort);
+
 		return seatlist;
 	}
 
@@ -52,9 +53,9 @@ public class AdminSeatController {
 	@RequestMapping(value = "/admin/seat/{seat_id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public void modifySeat(@PathVariable("seat_id") int seat_id, @RequestBody SeatVO seatVO) { // 좌석 수정
-		System.out.println("수정객체 확인" + seatVO);
-		seatVO.setSeat_id(seat_id);
-		adminSeatService.modifySeatS(seatVO);
+
+		adminSeatService.modifySeatS(seatVO, seat_id);
+
 	}
 
 }

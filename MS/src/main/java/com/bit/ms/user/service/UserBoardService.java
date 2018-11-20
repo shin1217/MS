@@ -3,17 +3,20 @@ package com.bit.ms.user.service;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.dao.UserDaoInterface;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserBoardListVO;
 import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
+import com.bit.ms.user.model.UserVO;
 
 @Service
 public class UserBoardService {
@@ -27,7 +30,7 @@ public class UserBoardService {
 	// 페이지마다 보여줄 게시글의 수
 	private static final int USERBOARD_COUNT_PER_PAGE = 10;
 
-	public UserBoardListVO getUserBoardList(HttpSession session, int pageNum) {
+	public UserBoardListVO getUserBoardList(HttpSession session, HttpServletRequest request) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
@@ -37,7 +40,13 @@ public class UserBoardService {
 
 		System.out.println("서비스 store_id = " + store_id);
 
-		int currentPageNum = pageNum;
+		String pageParam = request.getParameter("page");
+
+		int currentPageNum = 1;
+
+		if (pageParam != null) {
+			currentPageNum = Integer.parseInt(pageParam);
+		}
 
 		int userBoardTotalCount = 0;
 
@@ -54,17 +63,11 @@ public class UserBoardService {
 
 			if (userBoardTotalCount > 0) {
 
-				firstRow = (pageNum - 1) * USERBOARD_COUNT_PER_PAGE;
+				firstRow = (currentPageNum - 1) * USERBOARD_COUNT_PER_PAGE; // mysql은 0열부터 시작 -1을 해줌
 
-				// map.put("firstRow", firstRow);
-				// map.put("store_id", store_id);
+				userBoardList = userDaoInterface.UserBoardSelectList(store_id, firstRow);
 
-				// System.out.println("서비스 map = " + map);
-
-				userBoardList = userDaoInterface.UserBoardSelectList(store_id, firstRow); // mysql은 0열부터 시작 -1을 해줌
-
-			} else {
-				currentPageNum = 0;
+			} else { // 없는경우
 				userBoardList = Collections.emptyList();
 			}
 
@@ -72,14 +75,16 @@ public class UserBoardService {
 			e.printStackTrace();
 		}
 
-		int userBoardPageTotalCount = ((userBoardTotalCount - 1) / USERBOARD_COUNT_PER_PAGE) + 1;// 페이지 수
+		// 페이지 수(나눌때 정확한 값을 얻기위해 double로 형변환)
+		int userBoardPageTotalCount = (int) Math.ceil(userBoardTotalCount / (double) USERBOARD_COUNT_PER_PAGE);
+		System.out.println("UserBoardService || 페이지 수 : " + userBoardPageTotalCount);
 
 		return new UserBoardListVO(userBoardList, userBoardTotalCount, currentPageNum, userBoardPageTotalCount,
 				USERBOARD_COUNT_PER_PAGE, firstRow);
 
 	}
 
-	public List<UserBoardVO> getUserBoardNoticeS(HttpSession session) { //공지사항 받을것
+	public List<UserBoardVO> getUserBoardNoticeS(HttpSession session) { // 공지사항 받을것
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
@@ -100,9 +105,22 @@ public class UserBoardService {
 		return userboardnotice;
 	}
 
-	public int userBoardWrite(UserBoardVO userBoardVO) {
+	public int userBoardWrite(UserBoardVO userBoardVO, HttpSession httpsession) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
+
+		UserVO userVO = (UserVO) httpsession.getAttribute("userSession");
+		AdminVO adminVO = (AdminVO) httpsession.getAttribute("adminSession");
+		StoreVO storeVO = (StoreVO) httpsession.getAttribute("storeSelectSession");
+
+		if (adminVO == null) {
+			userBoardVO.setWriter_id(userVO.getUser_id());
+		} else {
+			userBoardVO.setWriter_id(adminVO.getAdmin_id());
+		}
+		userBoardVO.setStore_id(storeVO.getStore_id());
+
+		System.out.println("UserBoardService Write || userBoardVO : " + userBoardVO);
 
 		int resultCnt = 0;
 

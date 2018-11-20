@@ -73,9 +73,7 @@
 						<td style="text-align: center;"><input type="text" id="seat_name" name="seat_name"></td>
 						<td style="text-align: center;"><input type="text" id="seat_pay" name="seat_pay" style="width: 70%;" /> 원 / 시간</td>
 						<td style="text-align: center;"><input type="file" name="seat_qr" id="seat_qr" /></td>
-						<td style="text-align: center;">
-							<input type="hidden" id="store_id" name="store_id" value="${storeSelectSession.store_id}" />
-							<button id="addseat_btn" type="button">등록</button><button id="reset" type="reset">초기화</button></td>
+						<td style="text-align: center;"><button id="addseat_btn" type="button">등록</button><button id="reset" type="reset">초기화</button></td>
 					</form>
 				</tr>				
 				<tr>
@@ -86,10 +84,10 @@
 			<!-- 좌석리스트 -->
 			<thead>
 				<tr>
-					<th class="th-sm"><i class="fa fa-sort float-right"	aria-hidden="true"></i>좌석이름</th>
-					<th class="th-sm"><i class="fa fa-sort float-right"	aria-hidden="true"></i>비용(원)</th>
-					<th class="th-sm"><i class="fa fa-sort float-right"	aria-hidden="true"></i>QR코드</th>
-					<th class="th-sm"><i class="fa fa-sort float-right"	aria-hidden="true"></i>관리</th>
+					<th class="th-sm"><i id="seat_name_sort" class="fa fa-sort float-right" onclick="sorting('seat_name', 'desc')" aria-hidden="true"></i>좌석이름</th>
+					<th class="th-sm"><i id="seat_pay_sort" class="fa fa-sort float-right"	onclick="sorting('seat_pay', 'desc')" aria-hidden="true"></i>비용(원)</th>
+					<th>QR코드</th>
+					<th>관리</th>
 				</tr>
 			</thead>
 			<tbody id="seatlist_tbody">
@@ -115,14 +113,52 @@
 
 	var seat_t = '';
 	var session_store_id = '${storeSelectSession.store_id}';
+	
+	var order_by = "seat_name";
+	var sort = "asc";
 
-	function getSeatList() { // 좌석 리스트 출력
+	function sorting(na,so){
+		
+		order_by = na;
+		sort = so;
+		
+		console.log('sorting 함수 내 order_by : ' + order_by);
+		console.log('sorting 함수 내 sort : ' + sort);
+		
+		getSeatList(); 
+		
+		if(order_by=='seat_name'){
+			if(sort=='desc'){
+				$("#seat_name_sort").attr("onclick","sorting('seat_name', 'asc')")
+			} else {
+				$("#seat_name_sort").attr("onclick","sorting('seat_name', 'desc')")
+			}
+		}
+		
+		if(order_by=="seat_pay"){
+			if(sort=="desc"){
+				$("#seat_pay_sort").attr("onclick","sorting('seat_pay', 'asc')")
+			} else {
+				$("#seat_pay_sort").attr("onclick","sorting('seat_pay', 'desc')")
+			}
+		}
+		
+	}	
+	
+	
+	function getSeatList() { // 좌석 리스트 출력				
+	
+		console.log('list 함수 내 order_by : ' + order_by);
+		console.log('list 함수 내 sort : ' + sort);	
+		
 		$.ajax({
 			type : 'get',
 			url : '${pageContext.request.contextPath}/admin/seat/list',
 			
 			data : {
-				store_id : session_store_id
+				store_id : session_store_id,
+				order_by : order_by,
+				sort : sort
 			},
 
 			success : function(data) {
@@ -147,7 +183,6 @@
 		var seat_name = $('#seat_name').val();
 		var seat_pay = $('#seat_pay').val();
 		var seat_qr = $('#seat_qr').val();
-		var store_id = $('#store_id').val();
 
 		if (seat_pay) {
 			$.ajax({
@@ -158,7 +193,7 @@
 					seat_name : seat_name,
 					seat_pay : seat_pay,
 					seat_qr : seat_qr,
-					store_id : store_id
+					store_id : session_store_id
 				},
 
 				success : function(data) {
@@ -175,44 +210,49 @@
 	});
 
 	function seat_delete(seat_id) { // 좌석삭제
-		$.ajax({
-			type : 'delete',
-			url : '${pageContext.request.contextPath}/admin/seat/' + seat_id,
-			success : function(data) {
-				console.log('삭제확인');
-				getSeatList();
-			}
-		});
+		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+
+			$.ajax({
+				type : 'delete',
+				url : '${pageContext.request.contextPath}/admin/seat/' + seat_id,
+				success : function(data) {
+					console.log('삭제확인');
+					getSeatList();
+				}
+			});
+		}
 	};
 	
 	function seat_modify(seat_id) { // 댓글 수정 작업
-		var seat_name = $('#AdminSeatNameInput' + seat_id ).val();
-		var seat_pay = $('#AdminSeatPayInput' + seat_id ).val();
-		var seat_qr = $('#AdminSeatQRInput' + seat_id ).val();
-		console.log(seat_name);
-		console.log(seat_pay);
-		console.log(seat_qr);
+		if (confirm("수정하시겠습니까??") == true){    //확인
+
+			var seat_name = $('#AdminSeatNameInput' + seat_id ).val();
+			var seat_pay = $('#AdminSeatPayInput' + seat_id ).val();
+			var seat_qr = $('#AdminSeatQRInput' + seat_id ).val();
+			console.log(seat_name);
+			console.log(seat_pay);
+			console.log(seat_qr);
 		
-		$.ajax({
-			type : 'put',
-			url : '${pageContext.request.contextPath}/admin/seat/' + seat_id,
-			headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "put"
-			},
+			$.ajax({
+				type : 'put',
+				url : '${pageContext.request.contextPath}/admin/seat/' + seat_id,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "put"
+				},
+				
+				data : JSON.stringify({
+					seat_name : seat_name,
+					seat_pay : seat_pay,
+					seat_qr : seat_qr
+				}),			
 			
-			data : JSON.stringify({
-				seat_name : seat_name,
-				seat_pay : seat_pay,
-				seat_qr : seat_qr
-			}),			
-			
-			success : function(data) {
-				console.log('수정확인');
-				getSeatList();
-			}
-		});
-		
+				success : function(data) {
+					console.log('수정확인');
+					getSeatList();
+				}
+			});
+		}
 	};
 	
 	function seat_modify_mode(seat_id) { // 댓글수정 클릭시
