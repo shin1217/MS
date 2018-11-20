@@ -49,6 +49,6 @@ public class AdminStoreChoiceController {
 		
 		adminMypageService.storeAdd(storeVO);
 		
-		return "admin/adminMain";
+		return "redirect:/admin";
 	}
 }

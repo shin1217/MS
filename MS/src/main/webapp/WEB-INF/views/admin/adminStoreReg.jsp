@@ -48,10 +48,6 @@ body {
 #store_zip, #store_address1 {
 	background-color: white;
 }
-
-#store_zip {
-	width: 70%;
-}
 </style>
 </head>
 <body>
