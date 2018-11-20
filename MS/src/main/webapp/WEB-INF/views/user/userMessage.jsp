@@ -299,9 +299,9 @@ function getMessageList(){
 					str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
 					str += '<li>시간 : ' + data[i].message_date + '</li>';
 					if(data[i].message_read != "Y"){
-						str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+						str += '	<li><textarea readonly cols="18" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 					} else {
-						str += '	<li><textarea readonly style = "background-color : #eee;" cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+						str += '	<li><textarea readonly style = "background-color : #eee;" cols="18" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 					}
 					str += '	<input type = "button" onclick = "replyMessage(' + data[i].message_id + ')" id = "messageReply" class = "messageReply" value = "답장">';
 					str += '</ul></div>';

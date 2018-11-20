@@ -191,7 +191,10 @@ hr{
 .messageIconWrap:hover{
 	cursor : pointer;
 	-webkit-transform:scale(1.3); 
-	transition: all 0.3s ease-in-out;
+	transition: all 0.1s ease-in-out;
+}
+.messageBtn:hover{
+	background-image : url('${pageContext.request.contextPath}/images/zzan.jpg');
 }
 </style>
 </head>
@@ -336,9 +339,9 @@ hr{
 							str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
 							str += '<li>시간 : ' + data[i].message_date + '</li>';
 							if(data[i].message_read != "Y"){
-								str += '	<li><textarea readonly cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+								str += '	<li><textarea readonly cols="18" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 							} else {
-								str += '	<li><textarea readonly style = "background-color : #eee;" cols="20" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+								str += '	<li><textarea readonly style = "background-color : #eee;" cols="18" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 							}
 							str += '	<input type = "button" onclick = "messageReply(' + data[i].message_id + ')" class = "messageReply" value = "답장">';
 							str += '<div id = "userStore_id" style = "display : none;">' + data[i].store_id + '</div>';

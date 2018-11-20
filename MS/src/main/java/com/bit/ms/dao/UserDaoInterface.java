@@ -1,6 +1,7 @@
 package com.bit.ms.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -18,7 +19,11 @@ public interface UserDaoInterface {
 	String searchId(@Param("user_name")String user_name, @Param("user_phone")String user_phone, @Param("search_store")String search_store);// 유저 ID 찾기
 	UserVO searchPw(String userId);// 유저 PW 찾기
 	List<UserVO> getMyPage(String user_id);// 마이페이지 메서드
-	int editUser(UserVO userVo);// 유저 수정
+	int editUserName(HashMap<String,String> map);// 유저 이름 수정
+	int editUserPhone(HashMap<String,String> map);// 유저 폰번호 수정
+	int editUserBrith(HashMap<String,String> map);// 유저 생년월일 수정
+	int editUserPw(HashMap<String,String> map);// 유저 비밀번호 수정
+	int editUserEmail(HashMap<String,String> map);// 유저 이메일 수정
 	int deleteUser(String user_id);// 유저 삭제
 	int checkOverId(String user_id);// 아이디 중복 체크
 	String checkOverPhoneNum(String userPhone);// 유저 전화번호 중복 체크

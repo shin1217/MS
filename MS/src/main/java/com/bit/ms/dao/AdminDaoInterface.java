@@ -1,5 +1,6 @@
 package com.bit.ms.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -21,7 +22,9 @@ public interface AdminDaoInterface {
 	AdminVO loginAdmin(@Param("admin_id")String admin_id);// admin 로그인
 	AdminVO getAdminMyage(String admin_id);// 관리자 마이페이지
 	List<StoreVO> getStore(String admin_id);// 관리자의 해당 매장정보를 가져오는
-	int editAdmin(AdminVO adminVo);	// 관리자 수정
+	int editAdminName(HashMap<String, String> map); // 관리자 이름 변경
+	int editAdminPw(HashMap<String, String> map); // 관리자 비밀번호 변경
+	int editAdminPhone(HashMap<String, String> map); // 관리자 폰번호 변경
 	int deleteAdmin(String admin_id);// 관리자 삭제
 	StoreVO getStoreDetail(int store_id); //매장 상세정보
 	int addStore(StoreVO storeVO); //매장 추가

@@ -50,13 +50,26 @@ public class AdminMypageController {
 		
 		return "admin/adminMypage";
 	}
-	//관리자 수정
-	@RequestMapping(value = "/admin/adminEdit", method = RequestMethod.POST)
-	public String adminEdit(AdminVO adminVo) {
-		
-		service.editAdmin(adminVo);
-		
-		return "admin/adminMypage";
+	//관리자 이름
+	@RequestMapping(value = "/admin/adminEditname", method = RequestMethod.POST)
+	public @ResponseBody int adminEditName(AdminVO adminVo) {
+		String admin_name = adminVo.getAdmin_name();
+		String admin_id = adminVo.getAdmin_id();
+		return service.editAdminName(admin_name, admin_id); 
+	}
+	//관리자 비밀번호
+		@RequestMapping(value = "/admin/adminEditpw", method = RequestMethod.POST)
+	public @ResponseBody int adminEditPw(AdminVO adminVo) {
+		String admin_pw = adminVo.getAdmin_pw();
+		String admin_id = adminVo.getAdmin_id();
+		return service.editAdminPw(admin_pw, admin_id); 
+	}
+	//관리자 폰번호
+	@RequestMapping(value = "/admin/adminEditphone", method = RequestMethod.POST)
+	public @ResponseBody int adminEditPhone(AdminVO adminVo) {
+		String admin_phone = adminVo.getAdmin_phone();
+		String admin_id = adminVo.getAdmin_id();
+		return service.editAdminPhone(admin_phone, admin_id); 
 	}
 	/*//관리자 매장 추가
 	@RequestMapping(value = "/admin/adminStoreAdd", method = RequestMethod.GET)

@@ -52,11 +52,20 @@
 		store_id = #{store_id}
 	</select>
 
-	<!--관리자 수정하기 -->
-	<update id="editAdmin" parameterType="AdminVO">
+	<!--관리자 이름수정하기 -->
+	<update id="editAdminName" parameterType="hashmap">
 		update admininfo 
-		set	admin_pw = #{admin_pw}, admin_name = #{admin_name}, admin_phone = #{admin_phone}
-		where admin_id = #{admin_id}
+		set	admin_name = #{admin_name} where admin_id = #{admin_id}
+	</update>
+	<!--관리자 비밀번호하기 -->
+	<update id="editAdminPw" parameterType="hashmap">
+		update admininfo 
+		set	admin_pw = #{admin_pw} where admin_id = #{admin_id}
+	</update>
+	<!--관리자 폰번호하기 -->
+	<update id="editAdminPhone" parameterType="hashmap">
+		update admininfo 
+		set	admin_phone = #{admin_phone} where admin_id = #{admin_id}
 	</update>
 
 	<!-- 관리자 삭제하기 -->

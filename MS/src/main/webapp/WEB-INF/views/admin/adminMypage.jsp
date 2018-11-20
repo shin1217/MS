@@ -40,98 +40,19 @@
 .adminMypage_title{
    margin-top : 30px;
 }
-.adminMypage_editBtn, .adminMypage_deleteBtn {
+.adminMypage_deleteBtn {
    border : none;
-   background-color : #212121;
+   background-color : red;
    width : 130px;
    height : 50px;
    color : white;
-   margin-left : 70px;
+   margin-left : 190px;
    font-size : 20px;
    border-radius: 7px;
-}
-.adminMypage_deleteBtn{
-   margin-left : 20px !important;
-   background-color : red;
-}
-.adminMypage_editBtn:hover {
-   background-color : #8e8e8e;
-   cursor : pointer;
 }
 .adminMypage_deleteBtn:hover{
    background-color : palevioletred;
    cursor : pointer;
-}
-
-.adminMypage_edit_table{
-   width : 500px;
-   height : 500px;
-   position : absolute;
-   top : 15%;
-   right : 35%;
-}
-
-.adminMypage_edit_table th {
-   background-color : #eee;
-   color : black;
-   padding-left : 20px;
-   width : 150px;
-   border-top : 2px solid darkgray;
-   font-size : 17px;
-}
-.adminMypage_editTitle {
-   border-top : none !important;
-   font-size : 30px !important;
-   text-align : center;
-   height : 80px;
-   position : relative;
-   background-color : black !important;
-   color : white !important;
-}
-.adminMypage_edit_table input[type="text"]{
-   background-color : white;
-   border-radius : 5px;
-   border : none;
-   margin-left : 30px;
-   width : 280px;
-   height : 40px;
-   padding-left : 20px;
-   font-size : 18px;
-   
-}
-.adminMypage_edit_table td {
-   background-color : #eee;
-   border : 2px solid darkgray;
-}
-.adminMypage_editUserId{
-   background-color : #eee !important;
-}
-
-.adminMypage_editBtnTd{
-   text-align : center;
-}
-.adminMypage_editOkBtn{
-   background-color : #212121;
-   color : white;
-   border : none;
-   width : 120px;
-   height : 40px;
-   font-size : 18px;
-   border-radius: 7px;
-}
-.adminMypage_editOkBtn:hover {
-   background-color : #8e8e8e;
-   cursor : pointer;
-}
-.adminMypage_mainModal{
-   position : fixed;
-   width : 100%;
-   height : 100%;
-   left : 0px;
-   top : 0px;
-   z-index : 1;
-   background-color : rgba(0, 0, 0, 0.4);
-   display : none;
 }
 .adminMypage_close{
    position : absolute;
@@ -200,10 +121,10 @@
     width: 100px;
    font-size : 20px;
    color : black;
-   margin-right : 20px;
    height: 50px;
     border: none;
     border-radius: 7px;
+    margin : 10px 20px 10px 0px;
 }
 .adminMypage_addStore:hover{
    background-color : grey;
@@ -214,8 +135,8 @@
    height : 50px;
    border : none;
    font-size : 16px;
-   margin-right : 10px;
    border-radius: 7px;
+   margin : 10px 20px 10px 0px;
 }
 .adminMypage_storeName:hover{
    background-color : grey;
@@ -231,40 +152,24 @@
 .adminMypage_storeDetail th {
    width : 160px;
    padding : 10px 0px 10px 20px;
-   border-right : 1px solid white;
-   border-bottom : 1px solid white;
-   color : white;
+   border : 4px solid darkgrey;
    height : 60px;
+   background-color : white;
    /* -webkit-text-stroke : 1px black; */
 }
 .adminMypage_storeDetail td {
    width : 220px;
    padding : 10px 30px;
    font-size : 20px;
-   color : white;
-   border-bottom : 1px solid white;
+   border : 4px solid darkgrey;
+   background-color : white;
    /* -webkit-text-stroke : 1px black; */
 }
 .adminMypage_storeTitle{
    text-align : center;
    height : 70px !important;
-   background-color : black;
-   color : white;
+   background-color : white;
    font-size : 25px !important;
-}
-#adminMypage_study{
-   background-image : url('${pageContext.request.contextPath}/images/study.jpg');
-   background-size : 100%;
-   background-repeat : round;
-}
-#adminMypage_pc{
-   background-image : url('${pageContext.request.contextPath}/images/pc.jpg');
-   background-size : 100%;
-   background-repeat : round;
-}
-#adminMypage_sing{
-   background-image : url('${pageContext.request.contextPath}/images/sing.jpg');
-   background-repeat : round;
 }
 .deleteStoreWrap{
    margin-right : 20px;
@@ -278,8 +183,8 @@
    width : 15px;
    height : 15px;
    position : absolute;
-   right : 0px;
-   top : 0px;
+   right : -5px;
+   top : 7px;
    border-radius: 10px;
 }
 .storeDeleteModal{
@@ -386,6 +291,10 @@
 	height : 35px;
 	margin-bottom : 10px;
 }
+.edit:hover{
+	color : red;
+	cursor : pointer;
+}
 </style>
 </head>
 <body>
@@ -403,15 +312,18 @@
                </tr>
                <tr>
                   <th>이름</th>
-                  <td><input type = "text" name = "admin_name" id = "adminMypage_name" value = "${admin.admin_name }" readonly></td>
+                  <td><input type = "text" name = "admin_name" id = "adminMypage_name" value = "${admin.admin_name }" readonly>
+                  <p id = "edit_name" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('name')">수정하기</p></td>
                </tr>
                <tr>
                   <th>비밀번호</th>
-                  <td><input type = "text" name = "admin_pw" id = "adminMypage_pw" value = "${admin.admin_pw }" readonly></td>
+                  <td><input type = "text" name = "admin_pw" id = "adminMypage_pw" value = "${admin.admin_pw }" readonly>
+                  <p id = "edit_pw" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('pw')">수정하기</p></td>
                </tr>
                <tr>
                   <th>핸드폰번호</th>
-                  <td><input type = "text" name = "admin_phone" id = "adminMypage_phone" value = "${admin.admin_phone }" readonly></td>
+                  <td><input type = "text" name = "admin_phone" id = "adminMypage_phone" value = "${admin.admin_phone }" readonly>
+                  <p id = "edit_phone" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('phone')">수정하기</p></td>
                </tr>
                <tr>
                     <th>나의매장정보</th>
@@ -424,8 +336,7 @@
                </tr>
                <tr>
                   <th>회원정보관리</th>
-                  <td class = "adminMypage_btnTd"><input type="button" value='수정' id = "adminMypage_editBtn" class = "adminMypage_editBtn">
-                     <input type="button" id="adminMypage_deleteBtn" value="탈퇴" class = "adminMypage_deleteBtn"></td>
+                  <td class = "adminMypage_btnTd"><input type="button" id="adminMypage_deleteBtn" value="탈퇴" class = "adminMypage_deleteBtn"></td>
                </tr>
             </table>
          </form>
@@ -436,7 +347,7 @@
       <div class = "addStoreModal" id = "addStoreModal">
          <div class = 'addStoreWrap' id = "addStoreWrap">
            <div id = 'newAddStore'><p>매장을 추가하세요</p> <hr>
-            <span class = 'storeClose' id = 'storeClose'>×</span>
+            <span class = 'storeClose' id = 'storeClose'>x</span>
             <div class = "store_nameWrap"><label for = "Store_name" style = "font-size : 20px;">매장 이름</label><br>
             <input type = "text" class = "addStore_name" id = "store_name"></div>
             <div class = "store_nameWrap"><label for = "store_address" style = "font-size : 20px;">매장 주소</label><br>
@@ -462,70 +373,31 @@
                <input type = "button" id = "storeDeleteCancel" class = "storeDeleteCancel" value = "취소하기">
             </div>
          </div>
-   
-   <!-- 수정페이지 누르면 모달창이 뜸 -->
-<div id = "adminMypage_mainModal" class = "adminMypage_mainModal">
-   <form action="" id = "adminMypage_editForm">
-            <table class ="adminMypage_edit_table">
-               <tr>
-                  <th colspan = "2" class = "adminMypage_editTitle">회 원 수 정<span class = "adminMypage_close" id = "adminMypage_close">×</span></th>
-               </tr>
-               <tr id = "">
-                  <th>회원아이디</th>
-                  <td><input type = "text" style = "background-color : darkgrey;" name = "admin_id" id = "adminMypage_editUserId" value = "${admin.admin_id }" readonly></td>
-               </tr>
-               <tr>
-                  <th>이름</th>
-                  <td><input type = "text" name = "admin_name" id = "adminMypage_editName" value = "${admin.admin_name }" required></td>
-               </tr>
-               <tr>
-                  <th>비밀번호</th>
-                  <td><input type = "text" name = "admin_pw" id = "adminMypage_editPw" value = "${admin.admin_pw }" required></td>
-               </tr>
-                  <th>핸드폰번호</th>
-                  <td><input type = "text" name = "admin_phone" id = "adminMypage_editPhone" value = "${admin.admin_phone }" required></td>
-               <tr>
-                  <th>회원정보관리</th>
-                  <td class = "adminMypage_editBtnTd"><input type="button" id="adminMypage_editOkBtn" class = "adminMypage_editOkBtn" value='수정완료' onclick=""></td>
-               </tr>
-            </table>
-         </form>
-   </div>
 </div>  
 </body>
 <script>
       $(document).ready(function(){
-         $('#adminMypage_mainModal').hide(); // 시작시 수정모달창을 가림
          $('#adminMypage_deleteModal').hide(); // 시작시 삭제모달창 가림
          $('#storeDeleteModal').hide(); // 시작시 매장삭제 모달창 가림
         // $('#addStoreModal').hide(); // 시작시 매장추가 모달창 가림
-         
-         $('#adminMypage_editBtn').on('click', function(){
-         
-            $('#adminMypage_mainModal').show(); //수정버튼을 누르면 모달창 띄움
-            
-         });
-         
-         //수정페이지에서 수정완료 버튼을 눌렀을때 수정칸이 비워있으면
-         //수정이 되지 않음
-         $('#adminMypage_editOkBtn').click(function(){
-            if($('#adminMypage_editName').val() != "" 
-               && $('#adminMypage_editPw').val() != ""
-               && $('#adminMypage_editPhone').val() != ""){
-            $.ajax({
-               url : '${pageContext.request.contextPath}' + '/admin/adminEdit',
-               type : 'post',
-               data : $('#adminMypage_editForm').serialize(),
-               success : function(data){
-                  alert("회원수정을 완료했습니다.");
-                  location.reload();
-               }
-            });
-            } else{
-               alert("수정할 회원정보를 모두 입력하세요.");
-            }
-         });
-         
+      });
+      ///////////// 관리자 정보 수정/////////////
+      function edit(e){
+    	  console.log(e);
+    	  $('#adminMypage_' + e + '').focus();
+    	  $('#adminMypage_' + e + '').css("border","1px solid red").attr("readonly", false);
+    	  $('#edit_' + e + '').text("수정완료").attr("id", "edit_" + e + "Ok");
+   	  	$('#edit_' + e + 'Ok').click(function(){
+   	  		$.ajax({
+   	  			url : '${pageContext.request.contextPath}' + '/admin/adminEdit' + e + '',
+				type : 'post',
+				data : $('#adminMypage_myForm').serialize(),
+      			success : function(data){
+      				location.reload();
+      			}
+      		});
+      	});
+      } 
          //삭제버튼 클릭시 삭제확인 모달창이 뜸
          $('#adminMypage_deleteBtn').click(function(){
          
@@ -541,18 +413,7 @@
                url : '${pageContext.request.contextPath}' + '/admin/adminMypage/' + store_id,
                type : 'get',
                success : function(data){
-                  var store_name = data.store_name; //매장 이름
-                  var name = store_name.substr(store_name.length-2,2);
-                  
-                  if(name == "카페"){
-                     var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_study'>"; //매장아이디가 1번이면 
-                  } else if (name == "c방"){
-                     var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_pc'>"; //매장아이디가 2번이면
-                  } else if (name == "래방"){
-                     var str = "<div class = 'adminMypage_storeDetail' id = 'adminMypage_sing'>"; //매장아이디가 3번이면
-                  } else {
-                     var str = "<div class = 'adminMypage_storeDetail' style = 'background-color : #eee;'>";
-                  }
+                  var str = "<div class = 'adminMypage_storeDetail' style = 'background-color : #eee;'>";
                      //조건필요없이 무조건 상세테이블 생성
                      str += "<table><tr><th colspan = '2' class = 'adminMypage_storeTitle'>매장 상세정보</th></tr>"
                      str += "<tr><th>매장아이디</th><td>" + data.store_id + "</td></tr>";
@@ -606,15 +467,6 @@
              } else if(event.target == $('#addStoreModal').get(0)){
                $('#addStoreModal').hide();
              }
-         });
-         
-         //닫기버튼을 누르면 수정모달창 닫음
-         $('#adminMypage_close').click(function(){
-            $('#adminMypage_mainModal').hide();
-         });
-         
-         $('#adminMypage_close').click(function(){
-            $('#adminMypage_mainModal').hide();
          });
          
          var list = new Array(); //소유한 매장이름을 받아올 리스트
@@ -681,6 +533,5 @@
             $('#storeDeleteModal').hide();
          
          });
-      });
    </script>
 </html>
