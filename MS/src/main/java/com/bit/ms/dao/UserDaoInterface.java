@@ -21,7 +21,7 @@ public interface UserDaoInterface {
 	List<UserVO> getMyPage(String user_id);// 마이페이지 메서드
 	int editUserName(HashMap<String,String> map);// 유저 이름 수정
 	int editUserPhone(HashMap<String,String> map);// 유저 폰번호 수정
-	int editUserBrith(HashMap<String,String> map);// 유저 생년월일 수정
+	int editUserBirth(HashMap<String,String> map);// 유저 생년월일 수정
 	int editUserPw(HashMap<String,String> map);// 유저 비밀번호 수정
 	int editUserEmail(HashMap<String,String> map);// 유저 이메일 수정
 	int deleteUser(String user_id);// 유저 삭제

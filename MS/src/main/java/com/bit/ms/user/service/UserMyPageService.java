@@ -50,12 +50,12 @@ public class UserMyPageService {
 		return userDao.editUserPhone(map);
 	}
 	// 생년월일 수정 메서드
-	public int editBrith(String user_birth, String user_id) {
+	public int editBirth(String user_birth, String user_id) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("user_birth", user_birth);
 		map.put("user_id", user_id);
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.editUserBrith(map);
+		return userDao.editUserBirth(map);
 	}
 	// 이메일 수정 메서드
 	public int editEmail(String user_email, String user_id) {

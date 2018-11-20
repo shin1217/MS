@@ -26,7 +26,7 @@
 	text-align : center;
 	border-radius: 10px;
 	margin-left : -350px;
-	height : 80%;
+	height : 83%;
 	overflow : overlay;
 }
 .messageListTitle{
@@ -79,7 +79,7 @@ hr{
 		margin: 0 auto;
 		background-color : white;
 		border-radius : 10px;
-		height : 75%;
+		height : 78%;
 	}
 	.comment-form label {
 		position: absolute;
@@ -186,6 +186,9 @@ hr{
 	cursor : pointer;
 	-webkit-transform:scale(1.3); 
 	transition: all 0.3s ease-in-out;
+}
+.messageBtn:hover{
+	background-image : url('${pageContext.request.contextPath}/images/openMessage.png');
 }
 </style>
 </head>

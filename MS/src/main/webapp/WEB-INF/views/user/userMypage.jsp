@@ -20,6 +20,7 @@
    border-bottom : 2px solid darkgray;
    border-right : 2px solid darkgray;
 }
+
 .userMyPage_userTable td {
    width : 600px;
    color: black;
@@ -106,6 +107,39 @@
 	color : red;
 	cursor : pointer;
 }
+@media (max-width:520px){
+	.container {
+		width : 300px !important;
+	}
+}
+@media (max-width:770px){
+	.container {
+		width : 500px !important;
+	}
+	.userMyPage_userTable th{
+		font-size : 15px;
+	}
+	.userMyPage_userTable input[type=text]{
+		font-size : 15px ;
+		width : 200px !important;
+		margin-left : 40px;
+	}
+	.edit{
+		font-size : 13px !important;
+	}
+}
+@media (max-width:980px){
+	.container {
+		width : 720px !important;
+	}
+	.userMyPage_userTable th{
+		font-size : 15px;
+	}
+	.userMyPage_userTable input[type=text]{
+		font-size : 15px ;
+		width : 300px;
+	}
+}
 </style>
 </head>
 <body>
@@ -129,7 +163,7 @@
                </tr>
                <tr>
                   <th>비밀번호</th>
-                  <td><input type = "text" name = "user_pw" id = "userMyPage_pw" value = "${user.user_pw }" readonly>
+                  <td><input type = "text" name = "user_pw" id = "userMyPage_pw" value = "**********" readonly>
                   <p id = "edit_pw" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('pw')">수정하기</p></td>
                </tr>
                <tr>
@@ -168,117 +202,41 @@
 </div>  
 </body>
 <script>
-      $(document).ready(function(){
-         
-         $('#userMyPage_mainModal').hide(); // 시작시 수정모달창을 가림
-         $('#userMyPage_deleteModal').hide(); // 시작시 삭제모달창 가림
-      });
+$(document).ready(function(){
+   $('#userMyPage_mainModal').hide(); // 시작시 수정모달창을 가림
+   $('#userMyPage_deleteModal').hide(); // 시작시 삭제모달창 가림
+});
       
-      var user_id = ${userSession.user_id};   
-      
-      /* $('#edit_name').click(function(){
-    	  $('#userMyPage_name').focus();
-    	  $('#userMyPage_name').css("border","1px solid red").attr("readonly", false);
-    	  $('#edit_name').text("수정완료").attr("id", "edit_nameOk");
-    	  	$('#edit_nameOk').click(function(){
-    	  		$.ajax({
-    	  			url : '${pageContext.request.contextPath}' + '/user/userEditName',
-    	  			data : {
-    	  				user_name : $('#userMyPage_name').val(),
-    	  				user_id : user_id
-    	  			},
-    	  			success : function(data){
-    	  				alert("수정을 완료했습니다.");
-    	  				$('#edit_nameOk').text("수정하기").attr("id", "edit_name");
-    	  				$('#userMyPage_name').css("border","none").attr("readonly", true);
-    	  			}
-    	  		});
-    	  	});
-      }); */
+   var user_id = ${userSession.user_id};   
       
 	///////////// 수정버튼을 눌렀을 경우 //////////////
-      function edit(e){
-    	  console.log(e);
-    	  $('#userMyPage_' + e + '').focus();
-    	  $('#userMyPage_' + e + '').css("border","1px solid red").attr("readonly", false);
-    	  $('#edit_' + e + '').text("수정완료").attr("id", "edit_" + e + "Ok");
-   	  	$('#edit_' + e + 'Ok').click(function(){
-   	  		$.ajax({
-   	  			url : '${pageContext.request.contextPath}' + '/user/userEdit' + e + '',
+	function edit(e){ //수정하기 버튼을 눌렀을 경우
+		if(e == "pw"){
+    		$('#userMyPage_' + e + '').val("");
+		}
+    		$('#userMyPage_' + e + '').focus();
+    		$('#userMyPage_' + e + '').css("border","3px solid red").attr("readonly", false);
+    		$('#edit_' + e + '').text("수정완료").attr("id", "edit_" + e + "Ok").attr("onclick", "editOk(" + "'" + e + "'" + ")");
+	  	}
+    function editOk(e){ //수정확인 버튼을 눌렀을 경우
+    	if($('#userMyPage_' + e + '').val() == ""){
+			alert("올바른 정보를 입력하세요.");    			
+    	} else {
+   	 		$.ajax({
+   				url : '${pageContext.request.contextPath}' + '/user/userEdit' + e + '',
 				type : 'post',
 				data : $('#userMyPage_myForm').serialize(),
-      			success : function(data){
-      				location.reload();
-      			}
-      		});
-      	});
-      } 
-      /* $('#edit_pw').click(function(){
-    	  $('#userMyPage_pw').focus();
-    	  $('#userMyPage_pw').css("border","1px solid red").attr("readonly", false);
-    	  $('#edit_pw').text("수정완료").attr("id", "edit_pwOk");
-    	  	$('#edit_pwOk').click(function(){
-    	  		$.ajax({
-    	  			url : '${pageContext.request.contextPath}' + '/user/userEditPw',
-    	  			data : {
-    	  				user_pw : $('#userMyPage_pw').val(),
-    	  				user_id : user_id
-    	  			},
-    	  			success : function(data){
-    	  				alert("수정을 완료했습니다.");
-    	  				$('#edit_pwOk').text("수정하기").attr("id", "edit_pw");
-    	  				$('#userMyPage_pw').css("border","none").attr("readonly", true);
-    	  			}
-    	  		});
-    	  	});
-      });
-      $('#edit_phone').click(function(){
-    	  $('#userMyPage_phone').focus();
-    	  $('#userMyPage_phone').css("border","1px solid red").attr("readonly", false);
-    	  $('#edit_phone').text("수정완료").attr("id", "edit_phoneOk");
-    	  	$('#edit_phoneOk').click(function(){
-    	  		$.ajax({
-    	  			url : '${pageContext.request.contextPath}' + '/user/userEditPhone',
-    	  			data : {
-    	  				user_phone : $('#userMyPage_phone').val(),
-    	  				user_id : user_id
-    	  			},
-    	  			success : function(data){
-    	  				alert("수정을 완료했습니다.");
-    	  				$('#edit_phoneOk').text("수정하기").attr("id", "edit_phone");
-    	  				$('#userMyPage_phone').css("border","none").attr("readonly", true);
-    	  			}
-    	  		});
-    	  	});
-      });
-      $('#edit_pw').click(function(){
-    	  $('#userMyPage_pw').focus();
-    	  $('#userMyPage_pw').css("border","1px solid red").attr("readonly", false);
-    	  $('#edit_pw').text("수정완료").attr("id", "edit_pwOk");
-    	  	$('#edit_pwOk').click(function(){
-    	  		$.ajax({
-    	  			url : '${pageContext.request.contextPath}' + '/user/userEditPw',
-    	  			data : {
-    	  				user_pw : $('#userMyPage_pw').val(),
-    	  				user_id : user_id
-    	  			},
-    	  			success : function(data){
-    	  				alert("수정을 완료했습니다.");
-    	  				$('#edit_pwOk').text("수정하기").attr("id", "edit_pw");
-    	  				$('#userMyPage_pw').css("border","none").attr("readonly", true);
-    	  			}
-    	  		});
-    	  	});
-      }); */
-      
-      
+    			success : function(data){
+	    			alert("수정을 완료했습니다.");
+    				location.reload();
+    			}
+    		});
+    	}
+    }
          //삭제버튼 클릭시 삭제확인 모달창이 뜸
          $('#userMyPage_deleteBtn').click(function(){
-			
         	 $('#userMyPage_deleteModal').show();
-        	 
          });
-         
          
          //모달창에서 삭제확인버튼클릭시 로그인페이지로 이동
          $('#userMyPage_deleteOkBtn').click(function(){
@@ -315,7 +273,6 @@
              }
          });
       	
-         
          //닫기버튼을 누르면 수정모달창 닫음
          $('#userMyPage_close').click(function(){
             $('#userMyPage_mainModal').hide();

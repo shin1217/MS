@@ -66,7 +66,7 @@ public class UserMypageController {
 	public @ResponseBody int editBirth(UserVO userVo) {
 		String user_id = userVo.getUser_id();
 		String user_birth = userVo.getUser_birth();
-		return service.editBrith(user_birth, user_id);
+		return service.editBirth(user_birth, user_id);
 	}
 	//이메일 수정
 	@RequestMapping(value = "/user/userEditemail")

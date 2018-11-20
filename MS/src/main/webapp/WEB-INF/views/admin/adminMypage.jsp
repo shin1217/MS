@@ -317,7 +317,7 @@
                </tr>
                <tr>
                   <th>비밀번호</th>
-                  <td><input type = "text" name = "admin_pw" id = "adminMypage_pw" value = "${admin.admin_pw }" readonly>
+                  <td><input type = "text" name = "admin_pw" id = "adminMypage_pw" value = "***********" readonly>
                   <p id = "edit_pw" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('pw')">수정하기</p></td>
                </tr>
                <tr>
@@ -382,22 +382,28 @@
         // $('#addStoreModal').hide(); // 시작시 매장추가 모달창 가림
       });
       ///////////// 관리자 정보 수정/////////////
-      function edit(e){
-    	  console.log(e);
-    	  $('#adminMypage_' + e + '').focus();
-    	  $('#adminMypage_' + e + '').css("border","1px solid red").attr("readonly", false);
-    	  $('#edit_' + e + '').text("수정완료").attr("id", "edit_" + e + "Ok");
-   	  	$('#edit_' + e + 'Ok').click(function(){
-   	  		$.ajax({
-   	  			url : '${pageContext.request.contextPath}' + '/admin/adminEdit' + e + '',
-				type : 'post',
-				data : $('#adminMypage_myForm').serialize(),
-      			success : function(data){
-      				location.reload();
-      			}
-      		});
-      	});
-      } 
+      function edit(e){ //수정하기를 눌렀을때
+    	  if(e == "pw"){
+    	  $('#adminMypage_' + e + '').focus().val("");
+    	  }
+    	  $('#adminMypage_' + e + '').css("border","3px solid red").attr("readonly", false);
+    	  $('#edit_' + e + '').text("수정완료").attr("id", "edit_" + e + "Ok").attr("onclick","editOk(" + "'"+ e +"'" + ")");
+      }
+		function editOk(e){ //수정확인을 눌렀을때
+	    	if($('#adminMypage_' + e + '').val() == ""){
+    			  alert("제대로 정보를 입력하세요.");
+			} else {
+   		  		$.ajax({
+   	  				url : '${pageContext.request.contextPath}' + '/admin/adminEdit' + e + '',
+					type : 'post',
+					data : $('#adminMypage_myForm').serialize(),
+      				success : function(data){
+      					alert("수정을 완료했습니다.");
+	      				location.reload();
+    	  			}
+      			});
+    		}
+     	}
          //삭제버튼 클릭시 삭제확인 모달창이 뜸
          $('#adminMypage_deleteBtn').click(function(){
          
