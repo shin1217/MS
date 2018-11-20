@@ -59,7 +59,7 @@ public interface AdminDaoInterface {
 	List<SalesVO> chartList(@Param("nowMonth")int nowMonth, @Param("storeId")int storeId) throws Exception;
 	
 	/* 좌석관리 */
-	List<SeatVO> getSeatListI(int store_id);
+	List<SeatVO> getSeatListI(@Param("store_id") int store_id,@Param("order_by") String order_by,@Param("sort") String sort);
 	int addSeatI(SeatVO seatVO);
 	int deleteSeatI(int seat_id);
 	int modifySeatI(SeatVO seatVO);

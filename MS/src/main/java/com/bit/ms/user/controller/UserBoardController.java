@@ -34,16 +34,10 @@ public class UserBoardController {
 	@RequestMapping("/user/userBoard")
 	public ModelAndView userBoard(HttpServletRequest request, HttpSession session) {
 
-		String pageParam = request.getParameter("page");
+		// 유저 게시물
+		UserBoardListVO ViewData = userBoardService.getUserBoardList(session, request);
 
-		int pageNum = 1;
-
-		if (pageParam != null) {
-			pageNum = Integer.parseInt(pageParam);
-		}
-
-		UserBoardListVO ViewData = userBoardService.getUserBoardList(session, pageNum);
-
+		// 유저 게시판 상단 공지사항
 		List<UserBoardVO> noticeViewData = userBoardService.getUserBoardNoticeS(session);
 
 		System.out.println("UserBoardController 유저게시물 list = " + ViewData);
@@ -56,9 +50,9 @@ public class UserBoardController {
 
 		modelAndView.addObject("userboardlist", ViewData); // 유저 게시물
 
-		modelAndView.addObject("userboardnotice", noticeViewData); // 유저 게시판 공지사항
+		modelAndView.addObject("userboardnotice", noticeViewData); // 유저 게시판 상단 공지사항
 
-		modelAndView.addObject("pageNum", pageNum); // 페이지 번호
+		modelAndView.addObject("pageNum", ViewData.getCurrentPageNum()); // 페이지 번호
 
 		return modelAndView;
 	}
@@ -74,20 +68,7 @@ public class UserBoardController {
 	@RequestMapping(value = "/user/userBoard/write", method = RequestMethod.POST)
 	public String userBoardWriteReg(UserBoardVO userBoardVO, HttpSession httpsession) {
 
-		UserVO userVO = (UserVO) httpsession.getAttribute("userSession");
-		AdminVO adminVO = (AdminVO) httpsession.getAttribute("adminSession");
-		StoreVO storeVO = (StoreVO) httpsession.getAttribute("storeSelectSession");
-
-		if (adminVO == null) {
-			userBoardVO.setWriter_id(userVO.getUser_id());
-		} else {
-			userBoardVO.setWriter_id(adminVO.getAdmin_id());
-		}
-		userBoardVO.setStore_id(storeVO.getStore_id());
-
-		System.out.println("userBoardVO 확인" + userBoardVO);
-
-		userBoardService.userBoardWrite(userBoardVO);
+		userBoardService.userBoardWrite(userBoardVO, httpsession);
 
 		return "redirect:/user/userBoard?page=1";
 	}
