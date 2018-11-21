@@ -346,7 +346,6 @@ hr{
 								str += '	<li><textarea readonly style = "background-color : #eee;" cols="18" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 							}
 							str += '	<input type = "button" onclick = "messageReply(' + data[i].message_id + ')" class = "messageReply" value = "답장">';
-							str += '<div id = "userStore_id" style = "display : none;">' + data[i].store_id + '</div>';
 							str += '<div id = "messageRead" style = "display : none;">' + data[i].message_read + '</div>';
 							str += '</ul></div>';
 							$('#messageList').append(str);
@@ -408,7 +407,7 @@ hr{
 				list += "<option>전체보내기</option>";
 				for(var i = 0; i < data.length; i++){
 					userList.push(data[i].user_id);
-					list += "<option name = 'send_id' id = '"+ data[i].store_id +"'>" + data[i].user_id + "</option>";
+					list += "<option name = 'send_id'>" + data[i].user_id + "</option>";
 				}
 				list += "</select>";
 				$('#sendWrap').html(list);
@@ -447,23 +446,25 @@ hr{
 		} else {
 			sendMessage(store_id, receive_id); // 전체보내기가 아닐경우 해당아이디에 한번만 보냄
 		}
+		alert("메시지를 보냈습니다.");
 	});
 	
 	/////////////////  답장보내기버튼 이벤트//////////////////
 	$('#replyBtn').click(function(){
-		var store_id = $('#userStore_id').text();
 		var receive_id = $('#receiveReply').val();
-		sendMessage(store_id, receive_id);
+		var store_id = adminStore_id;
+		sendMessage(store_id,receive_id);
+		alert("답장을 보냈습니다.");
 	}); //메시지 보내기 이벤트 끝
 	
 	////////////// 메시지 보내기 함수 ///////////////
-	function sendMessage(store_id, receive_id){
+	function sendMessage(store_id,receive_id){
 		$.ajax({
 			url : '${pageContext.request.contextPath}' + '/member/writeMessage',
 			data : { //보내는사람, 받는사람, 받는사람의 매장아이디, 제목, 내용
+				store_id : store_id,
 				send_id : $('#send_id').val(),
 				receive_id : receive_id,
-				store_id : store_id,
 				message_con : $('#message_con').val()
 			},
 			success : function(data){

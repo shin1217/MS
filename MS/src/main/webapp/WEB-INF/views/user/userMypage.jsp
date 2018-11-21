@@ -170,7 +170,6 @@
       <hr>
       <div class ="userMyPage_userInfo">
          <form action="" id = "userMyPage_myForm">
-         <div name = "store_id" value = "${user.store_id}" style = "display : none;"></div>
             <table class ="userMyPage_userTable">
                <tr id = "userMyPage_userIdTr">
                   <th>회원아이디</th>

@@ -512,7 +512,7 @@
 		function numberWithCommas(x) {
 		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
-	}); // end $(document).ready(function())}
+	}); // end $(document).ready(function())} 
 	
 </script>
 </html>

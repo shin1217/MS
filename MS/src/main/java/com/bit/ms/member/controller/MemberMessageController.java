@@ -23,7 +23,7 @@ public class MemberMessageController {
 	@Autowired
 	private MemberMessageService service;
 	
-	//사용자가 갖고있는 매장목록 가져옴
+	//관리자가 갖고있는 매장목록 가져옴
 	@RequestMapping(value = "/admin/storeList", method = RequestMethod.GET)
 	public @ResponseBody List<StoreVO> getAdminStoreList(HttpSession session){
 		AdminVO adminVo = (AdminVO) session.getAttribute("adminSession");
@@ -37,7 +37,7 @@ public class MemberMessageController {
 		//System.out.println(store_name + ":" + receive_id); 
 		return service.getMessageList(store_name, receive_id);
 	}
-	//사용자와 매장아이디를 조건으로 메시지 리스트를 뽑음
+	//사용자아이디를 조건으로 메시지 리스트를 뽑음
 	@RequestMapping(value = "user/message", method = RequestMethod.GET)
 	public @ResponseBody List<MessageVO> getUserMessageList(HttpSession session) {
 		
@@ -85,19 +85,15 @@ public class MemberMessageController {
 	@RequestMapping(value = "user/messageCnt")
 	public @ResponseBody int cntUserMessage(HttpSession session) {		
 		
-		StoreVO storeVo = (StoreVO) session.getAttribute("storeSelectSession");		
 		UserVO userVo = (UserVO) session.getAttribute("userSession");
 		String receive_id = userVo.getUser_id();
-		String store_id = Integer.toString(storeVo.getStore_id()); 
 			
-		return service.messageCnt(receive_id, store_id);
+		return service.userMessageCnt(receive_id);
 	}
 	//사용자 리스트를 받아오기
 	@RequestMapping(value = "member/sendList", method = RequestMethod.GET)
-	public @ResponseBody List<UserVO> getReceiveList(HttpSession session) {
-		StoreVO storeVo = (StoreVO) session.getAttribute("storeSelectSession");
-		int store_id = storeVo.getStore_id();
-		return service.getUserListDinstinct(store_id);
+	public @ResponseBody List<UserVO> getReceiveList() {
+		return service.getUserListDinstinct();
 	}
 	//받는 사람 아이디에 해당하는 매장이름 받아오기(관리자용)
 	/*@RequestMapping(value = "member/sendStore/{id}")

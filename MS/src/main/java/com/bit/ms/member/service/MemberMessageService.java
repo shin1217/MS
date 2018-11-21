@@ -67,7 +67,7 @@ public class MemberMessageService {
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		return memberDao.readMessage(map);
 	}
-	//안읽은 메시지 카운트
+	//안읽은 메시지 카운트(관리자)
 	public int messageCnt(String receive_id, String store_id) {
 		
 		HashMap<String,String> map = new HashMap<String,String>();
@@ -77,6 +77,11 @@ public class MemberMessageService {
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		return memberDao.messageCnt(map);
 	}
+	//안읽은 메시지 카운트(사용자)
+	public int userMessageCnt(String receive_id) {
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.userMessageCnt(receive_id);
+	}
 	/*//사용자의 매장이름을 가져옴
 	public List<StoreVO> getStoreName(String send_id){
 		
@@ -84,10 +89,10 @@ public class MemberMessageService {
 		return memberDao.getStoreList(send_id);
 	}*/
 	//사용자 중복아이디를 제외한 리스트 받아오기
-	public List<UserVO> getUserListDinstinct(int store_id){
+	public List<UserVO> getUserListDinstinct(){
 		
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
-		return memberDao.userListDistinct(store_id);
+		return memberDao.userListDistinct();
 		
 	}
 	public MessageVO messageDetail(int message_id){

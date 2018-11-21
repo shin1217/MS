@@ -14,7 +14,7 @@
 	</select>
 	<!-- 사용자의 메시지리스트 불러오기 -->
 	<select id="userMessageList" resultType="messageVO">
-		select message_id, message_con, DATE_FORMAT(message_date,'%Y-%m-%d %h:%i:%S %p') message_date, send_id, receive_id, message_read, store_id 
+		select message_id, message_con, DATE_FORMAT(message_date,'%Y-%m-%d %h:%i:%S %p') message_date, send_id, receive_id, message_read, store_id
 		from message where receive_id = #{receive_id} order by message_read asc
 	</select>
 	<!-- 메시지 쓰기 -->
@@ -30,9 +30,13 @@
 	<update id="readMessage" parameterType="hashmap">
 		update message set message_read = #{message_read} where message_id = #{message_id}
 	</update>
-	<!-- 안읽은 메시지 카운트 -->	
+	<!-- 안읽은 메시지 카운트(관리자) -->	
 	<select id="messageCnt" parameterType="hashmap" resultType="int">
-		select count(*) from message where receive_id = #{receive_id} and store_id = #{store_id} and message_read = "N"
+		select count(*) from message where receive_id = #{receive_id}  and store_id = #{store_id} and message_read = "N"
+	</select>
+	<!-- 안읽은 메시지 카운트(사용자) -->	
+	<select id="userMessageCnt"  resultType="int">
+		select count(*) from message where receive_id = #{receive_id} and message_read = "N"
 	</select>
 	<!--사용자의 매장리스트 -->
 	<!-- <select id = "getStoreList" resultType = "storeVO">
@@ -40,7 +44,7 @@
 	</select> -->
 	<!-- 중복사용자 제거리스트 -->
 	<select id="userListDistinct" resultType = "userVo">
-		select distinct user_id from userinfo where store_id = #{store_id}
+		select distinct user_id from userinfo
 	</select>
 	<select id="getMessageDetail"  resultType="messageVo">
 		select * from message where message_id = #{message_id}

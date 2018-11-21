@@ -281,9 +281,8 @@ function alarm(){
 		}
 	});
 }
-var store_id = ${userSession.store_id};
 //var user_id = ${userSession.user_id};
-
+var store_id = ${storeSelectSession.store_id};
 ///////////// 메시지리스트 //////////////
 function getMessageList(){
 	$.ajax({
@@ -320,12 +319,13 @@ function getMessageList(){
 }
 /////////// 보내기메서드 /////////////
 function sendMessage(){
+	console.log(store_id);
 	$.ajax({
 		url : '${pageContext.request.contextPath}' + '/member/writeMessage/',
 		data : {
+			store_id : store_id,
 			send_id : $('#send_id').val(),
 			receive_id : $('#receive_id').val(),
-			store_id : store_id,
 			message_con : $('#message_con').val()
 		},
 		success : function(data){
