@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bit.ms.dao.UserDaoInterface">	
+	
+	<!-- 음식 종류에 맞는 모든 음식 가져오기 -->
+	<select id="getFoodInfo" parameterType="map" resultType="userFoodVO">
+		select * from food
+		where food_type=#{param1} and store_id=#{param2}
+	</select>
+	
+</mapper>

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
+import com.bit.ms.user.model.UserFoodVO;
 import com.bit.ms.user.model.UserVO;
 
 public interface UserDaoInterface {
@@ -49,4 +50,7 @@ public interface UserDaoInterface {
 	/*시간 충전*/
 	int updateAddTime(long addTime, int seatId, int usePay, String userId, int storeId);
 	List<UserVO> getUserInfoAll(int storeId);
+	
+	/* 음식 주문 */
+	List<UserFoodVO> getFoodInfo(String foodType, int storeId);
 }

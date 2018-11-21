@@ -17,24 +17,24 @@ html, body {
 	height: 100%;
 }
 
+.title_text {
+	font-size: 40px;
+	margin-bottom: 20px;
+}
+
 .orderMain_container {
 	text-align: center;
 	padding: 30px;
 	height: 100%;
 }
 
-.title_text {
-	font-size: 40px;
-	margin-bottom: 20px;
-}
-
 .left_area, .right_area {
-	height: 100%;
-	padding: 15px;
+	overflow: auto;
+	height: 95%;
+	padding: 15px 15px 0 15px; 
 	border: 1px solid black;
 	border-radius: 15px;
-	margin-bottom: 10px;
-	overflow: auto;
+	margin-bottom: 15px;
 }
 
 .left_area {
@@ -65,11 +65,10 @@ html, body {
 	}
 }
 
+/* 선택한 메뉴를 보여주는 테이블을 감싸고 있는 div */
 .order_table_wrap {
+	overflow: auto;
 	background-color: white;
-	overflow-y: scroll;
-	margin-bottom: 15px;
-	height: 71%;
 }
 
 .order_table {
@@ -109,6 +108,7 @@ html, body {
 	width: 50%;
 	float: left;
 	text-align: left;
+	vertical-align: bottom;
 	padding: 5px 10px 5px 10px;
 	font-size: 25px;
 }
@@ -123,7 +123,6 @@ html, body {
 @media screen and (max-width:1480px) and (min-width:1170px) {
 	.total_price_wrap {
 		width: 100%;
-		margin-bottom: 10px;
 	}
 	.order_btn_wrap {
 		width: 100%;
@@ -138,29 +137,30 @@ html, body {
 	}
 }
 
+/* 음식 nav bar */
 .menu_nav {
 	width: 100%;
-	height: 50px;
-	margin-bottom: 5px;
 }
 
 .menu_nav ul li {
 	list-style: none;
 	color: white;
 	background-color: #2d2d2d;
-	float: left;
-	margin-right: 10px;
+	display: inline-block;
 	line-height: 50px;
 	vertical-align: middle;
 	text-align: center;
-	width: 150px;
+	line-height: 50px;
+	vertical-align: middle;
+	text-align: center;
+	width: 140px;
 }
 
 .menu_nav ul li a {
 	text-decoration: none;
 	color: white;
 	display: block; /* 글씨 부분 뿐만 아니라 전체 영역 클릭 가능 */
-	width: 150px;
+	width: 140px;
 }
 
 .menu_nav ul li a:hover {
@@ -168,39 +168,64 @@ html, body {
 	background-color: #4d4d4d;
 }
 
-.menu_content {
+.menu_content_wrap {
+	position: relative;
 	overflow: auto;
-	height: 68%;
 }
 
-.menu_table {
+.menu_content {
 	margin: 0 auto;
-	width: 100%;
-	height: 100%;
-	border-spacing: 5px;
-	border-collapse: separate;
+	width: 90%;
+	font-size: 23px;
 }
 
-.menu_table td {
+.menu_content > div > div {
+	float: left;
+	width: 24.4%; /* inline-block 속성에 속성 사이 간격 마진이 디폴트로 있으므로 */
+	height: 46%;
+	margin: 0 0.6% 0.6% 0px; /* top right bottom left */
+	padding-top: 5px;
 	border: 1px solid black;
-	border-radius: 15px;
-	font-size: 26px;
-	color: gray;
-	text-align: center;
+	border-radius: 10px;
 }
 
-.menu_table td:hover {
-	opacity: 0.7;
+.menu_content div img {
+	width: 65%;
+	height: 60%;
+}
+
+.menu_display {
+	display: none;
+}
+
+.prev, .next {
 	cursor: pointer;
+	position: absolute;
+	top: 35%;
+	padding: 16px;
+	color: black;
+	font-weight: bold;
+	font-size: 32px;
+	border-radius: 0 3px 3px 0;
 }
 
-.menu_table td img {
-	width: 130px;
-	height: 130px;
+.prev {
+	left: 0;
 }
 
-.menu_paging {
-	height: 10%;
+.next {
+	right: 0;
+}
+
+.dot {
+	bottom: 10px;
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	transition: background-color 0.6s ease;
 }
 
 </style>
@@ -210,9 +235,11 @@ html, body {
 	<div class="orderMain_container">
 		<div class="title_text">[${storeSelectSession.store_name}] - 음식 주문</div>
 		<div class="left_area">
-			<div style="font-size: 35px">주문 내역</div>
-			<hr>
-			<div class="order_table_wrap">
+			<div style="height: 15%">
+				<div style="font-size: 35px">주문 내역</div>
+				<hr>
+			</div>
+			<div style="height: 70%" class="order_table_wrap">
 				<table border="1" class="order_table">
 					<tr style="background-color: lightgray">
 						<td>메뉴</td>
@@ -227,7 +254,7 @@ html, body {
 					</tr>
 				</table>
 			</div>
-			<div>
+			<div style="height: 15%">
 				<div class="total_price_wrap">
 					<div>
 						주문 수량<span style="float: right">7</span>
@@ -242,81 +269,168 @@ html, body {
 				</div>
 			</div>
 		</div>
+		
 		<div class="right_area">
-			<div style="font-size: 35px">음식 리스트</div>
-			<hr>
-			<div class="menu_nav">
+			<div style="height: 15%">
+				<div style="font-size: 35px">음식 리스트</div>
+				<hr>
+			</div>
+			<div style="height: 10%" class="menu_nav">
 				<ul>
-					<li><a class="menu_link" id="1">한식</a></li>
-					<li><a class="menu_link" id="2">일식</a></li>
-					<li><a class="menu_link" id="3">양식</a></li>
-					<li><a class="menu_link" id="4">디저트</a></li>
-					<li><a class="menu_link" id="5">음료</a></li>
+					<li><a class="menu_link" id="korean">한식</a></li>
+					<li><a class="menu_link" id="japan">일식</a></li>
+					<li><a class="menu_link" id="western">양식</a></li>
+					<li><a class="menu_link" id="dessert">디저트</a></li>
+					<li><a class="menu_link" id="drink">음료</a></li>
 				</ul>
 			</div>
-			<div class="menu_content">
-				<table id="menuTable" class="menu_table"></table>
+			<div style="height: 75%" class="menu_content_wrap">
+				<div style="height: 94%" class="menu_content">
+					
+				</div>
+				<div style="height: 6%" class="paging_dot_wrap">
+				
+				</div>
+				<a class="prev" onclick="plusSlides(-1)">&#10094;</a> 
+				<a class="next" onclick="plusSlides(1)">&#10095;</a>
 			</div>
-			<div class="menu_paging">페이징 처리</div>
 		</div>
 	</div>
 </body>
 <script>
 	$(document).ready(function() {
-		createTable('korean');
-		
-		$('.menu_link').on('click', function () {
-				$.ajax({
-				url: '${pageContext.request.contextPath}/user/menu?menu='+$(this).attr('id'),
-				type: 'get',
-			
-				success:function(data){
-					if(data == 1){
-						createTable('korean');
-					}
-					else if(data == 2){
-						createTable('japan');
-					}
-					else if(data==3){
-						createTable('western');
-					}
-					else if(data==4){
-						createTable('dessert');
-					}
-					else if(data==5){
-						createTable('drink');
-					}
-				} // end success  
-			});
-		});
-		
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		
-		/* 동적 테이블 생성 (음식 폴더 이름) */
-		function createTable(fName) {
-			console.log("뭐야" + fName);
-			
-			var str = '';
-			var imgNum = 1;
+		/* 페이지 로드 시 한식 메뉴로 초기화 */
+		$.ajax({
+			url : '${pageContext.request.contextPath}/user/menu?menu=korean&storeId=${storeSelectSession.store_id}',
+			type : 'get',
 
-			for (var i = 0; i < 2; i++) {
-				str += '<tr>';
-
-				for (var j = 0; j < 5; j++) {
-					str += '<td>';
-					str += '<img src="../images/'+ fName +'/'+ imgNum +'.png"/>';
-					str += '<div>햄버거</div>';
-					str += '<div>5000</div>';
-					str += '</td>';
-					imgNum++;
-				}
-				str += '</tr>';
+			success : function(data) {
+				console.log(data);
 				
-			}
-			$('#menuTable').html(str);
+				var pLength = getPagingCnt(data.length); // 페이징 표시
+				
+				var str = '';
+				var first = 0;
+				var last = 8;
+				
+				for(var i=0; i<pLength; i++){
+					
+					str += '<div style="height: 100%" class="menu_display">';
+					for(var j=first; j<data.length; j++){
+						str += createTable(data[j].food_type, data[j].food_photo, data[j].food_name, data[j].food_price);
+					}
+					str += '</div>';
+					
+					//first = ((i+1)*8);
+					//last = (data.length);
+				}
+				$('.menu_content').html(str);
+				console.log(str);
+				/* display none 처리로 아직 안나옴 */
+				
+			} // end success  
+		}); // end ajax
+		
+		/* 메뉴 클릭 시 */
+		$('.menu_link').on('click',function() {
+			$.ajax({
+				url : '${pageContext.request.contextPath}/user/menu?menu='+ $(this).attr('id') + '&storeId=${storeSelectSession.store_id}',
+				type : 'get',
+
+				success : function(data) {
+					var pLength = getPagingCnt(data.length); // 페이징 표시
+					
+					var str = '';
+					var first = 0;
+					var last = data.length % 8;
+					
+					if(data.length < 8){
+						last = 0;						
+					}
+					
+					for(var i=0; i<pLength; i++){
+						
+						str += '<div style="height: 100%" class="menu_display">';
+						for(var j=first; j<(data.length-last); j++){ // 길이 동적 변경해줘야 함
+							str += createTable(data[j].food_type, data[j].food_photo, data[j].food_name, data[j].food_price);
+						}
+						str += '</div>';
+						
+						first = ((i+1)*8);
+						last = 0;
+					}
+					
+					$('.menu_content').html(str);
+					
+					
+					
+					
+					
+					var slideIndex = 1;
+					showSlides(slideIndex);
+					
+					function currentSlide(n) {
+						showSlides(slideIndex = n);
+					}
+
+					function showSlides(n) {
+						var i;
+						var slides = $('.menu_display');
+						var dots = $('.dot');
+						  
+						if (n > slides.length) {slideIndex = 1}    
+						if (n < 1) {slideIndex = slides.length}
+						for (i = 0; i < slides.length; i++) {
+						    slides[i].style.display = "none";  
+						}
+						for (i = 0; i < dots.length; i++) {
+						    // dots[i].className = dots[i].className.replace(" active", "");
+						}
+						slides[slideIndex-1].style.display = "block";  
+						// dots[slideIndex-1].className += " active";
+					} 
+					
+					
+					
+					
+					
+					
+					
+					
+				} // end success  
+			}); // end ajax
+		});
+
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////
+		
+		/* 동적 테이블 생성 (음식 종류, 음식 사진, 음식 이름, 음식 가격) */
+		function createTable(foodType, foodPhoto, foodName, foodPrice) {
+			var str = '<div>';
+			str += '<img src="../images/'+ foodType +'/'+ foodPhoto + '"/>';
+			str += '<div style="height: 40%; padding-top: 4%">';
+			str += '<div>'+ foodName +'</div>';
+			str += '<div>'+ foodPrice +'</div>';
+			str += '</div>';
+			str += '</div>';
+			
+			return str;
 		}
-	});
+		
+		/* 데이터 갯수에 따른 페이징 dot 표시 처리 */
+		function getPagingCnt(length) {
+			var str = '';
+			var length = Math.ceil(length/8); // 소수점 올림 처리
+			
+			for(var i=0; i < length; i++){
+				str += '<span class="dot" onclick="currentSlide('+ (i+1) +')"></span>';
+			}
+			$('.paging_dot_wrap').html(str);
+			
+			return length;
+		}
+	});			
+						
 </script>
 </html>
