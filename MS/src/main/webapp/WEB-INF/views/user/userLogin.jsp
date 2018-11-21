@@ -145,8 +145,15 @@ body {
 	$(document).ready(function(){
 		//애니메이션 메서드
 		new WOW().init();
+		
+		//아이디input에서 엔터입력시 비밀번호input으로 넘어감
+		$('#inputId').keydown(function(event){
+			if(event.keyCode == 13){
+				$('#inputPassword').focus();
+			}
+		});
 
-		//비밀번호input에서 엔터를 누르면 로그인 클릭됨
+		//비밀번호input에서 엔터입력시 로그인버튼 클릭됨
 		$('#inputPassword').keydown(function(event) {
 			if(event.keyCode == 13){
 				$('#loginBtn').trigger('click');
