@@ -62,61 +62,62 @@
 			</tbody>
 		</table>
 
-		<!--Pagination -->
-		<nav class="d-flex justify-content-center mt-3"
-			style="padding-bottom: 20px">
-			<ul class="pagination pagination-circle pg-teal mb-0">
-				<!--가장맨앞으로-->
-				<li class="page-item"><a class="page-link" href="notice?page=1">First</a></li>
+		<c:if test="${!viewData.isEmpty()}">
+			<nav class="d-flex justify-content-center mt-3"	style="padding-bottom: 20px">
+				<ul class="pagination pagination-circle pg-teal mb-0">
+					<!--가장맨앞으로-->
+					<li class="page-item"><a class="page-link"
+						href="notice?page=1">First</a></li>
 
-				<!--페이지 한칸뒤로-->
-				<c:choose>
-					<c:when test="${param.page == 1}">
-						<li class="page-item"><a class="page-link"
-							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-								<span class="sr-only">Previous</span>
-						</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item"><a class="page-link"
-							aria-label="Previous" href="notice?page=${param.page-1}"> <span
-								aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
-						</a></li>
-					</c:otherwise>
-				</c:choose>
+					<!--페이지 한칸뒤로-->
+					<c:choose>
+						<c:when test="${param.page == 1}">
+							<li class="page-item"><a class="page-link"
+								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+									<span class="sr-only">Previous</span>
+							</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link"
+								aria-label="Previous" href="notice?page=${param.page-1}"> <span
+									aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
+							</a></li>
+						</c:otherwise>
+					</c:choose>
 
-				<!-- 페이징처리 -->
-				<c:forEach var="num" begin="1" end="${viewData.pageTotalCount}">
-					<c:if test="${param.page == num}">
-						<li class="page-item active"><a class="page-link"
-							href="notice?page=${num}">${num}</a></li>
-					</c:if>
-					<c:if test="${param.page != num}">
-						<li class="page-item"><a class="page-link"
-							href="notice?page=${num}">${num}</a></li>
-					</c:if>
-				</c:forEach>
+					<!-- 페이징처리 -->
+					<c:forEach var="num" begin="1" end="${viewData.pageTotalCount}">
+						<c:if test="${param.page == num}">
+							<li class="page-item active"><a class="page-link"
+								href="notice?page=${num}">${num}</a></li>
+						</c:if>
+						<c:if test="${param.page != num}">
+							<li class="page-item"><a class="page-link"
+								href="notice?page=${num}">${num}</a></li>
+						</c:if>
+					</c:forEach>
 
-				<!--페이지 한칸앞으로-->
-				<c:choose>
-					<c:when test="${viewData.pageTotalCount == param.page}">
-						<li class="page-item"><a class="page-link" aria-label="Next">
-								<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
-						</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item"><a class="page-link" aria-label="Next"
-							href="notice?page=${param.page+1}"> <span aria-hidden="true">&raquo;</span>
-								<span class="sr-only">Next</span>
-						</a></li>
-					</c:otherwise>
-				</c:choose>
+					<!--페이지 한칸앞으로-->
+					<c:choose>
+						<c:when test="${viewData.pageTotalCount == param.page}">
+							<li class="page-item"><a class="page-link" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+							</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link" aria-label="Next"
+								href="notice?page=${param.page+1}"> <span aria-hidden="true">&raquo;</span>
+									<span class="sr-only">Next</span>
+							</a></li>
+						</c:otherwise>
+					</c:choose>
 
-				<!--가장맨앞으로-->
-				<li class="page-item"><a class="page-link"
-					href="notice?page=${viewData.pageTotalCount}">Last</a></li>
-			</ul>
-		</nav>
+					<!--가장맨앞으로-->
+					<li class="page-item"><a class="page-link"
+						href="notice?page=${viewData.pageTotalCount}">Last</a></li>
+				</ul>
+			</nav>
+		</c:if>
 	</div>
 </body>
 </html>

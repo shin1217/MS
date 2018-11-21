@@ -10,13 +10,22 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
+<!-- 셀렉트 플러그인 -->
+<script src="${pageContext.request.contextPath}/select/select-mania.js"></script>
+<link href="${pageContext.request.contextPath}/select/select-mania.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/select/themes/select-mania-theme-darkblue.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/select/themes/select-mania-theme-green.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/select/themes/select-mania-theme-orange.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/select/themes/select-mania-theme-red.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/select/themes/select-mania-theme-square.css" rel="stylesheet">
+
 <style>
-* { font-family: 'BMHANNAPro'; }
+* { font-family: "BMHANNAPro"; }
 .navbar-nav li {
 	margin-left: 20px;
 }
 </style>
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-family: 'BMHANNAPro' !important;" >
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<c:if test="${!empty adminSession}">
 		<a id="adminBrand" class="navbar-brand"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 80px; margin-left: 10px;" /></a>
 	</c:if>
@@ -40,8 +49,8 @@
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/user/userBoard?page=1"><i class="fa fa-comments" aria-hidden="true"></i> 유저게시판</a>
 					</div></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout"><i class="fa fa-unlock-alt" aria-hidden="true"></i>로그아웃</a></li>
-				<li class="nav-item" style="font-size: 0.7em">
-					<select id="storeList" class="custom-select">
+				<li class="nav-item">
+					<select id="storeList" class="custom-select align-middle" style="font-size: 0.6em">
 						<!-- 전체스토어세션 매장이름 중에 선택한 스토어세션 매장이름을 비교하여 selected로 만듬 -->
 						<c:forEach items="${storeSession}" var="store" varStatus="status">
 							<option value="${status.index}" <c:if test="${store.store_name eq storeSelectSession.store_name}"> 
@@ -71,5 +80,11 @@
 		//셀렉트를 선택하고 다른 옵션을 눌러 상태값이 바뀔때 이벤트 발생(change) -> 선택한 메인페이지로 이동
 		$('#storeList').change(function(){
 			location.href="${pageContext.request.contextPath}/admin/main?store=" + $('#storeList').val();		});
+		
+		//셀렉트 플러그인
+		$('#storeList').selectMania({
+			themes: ['square','red'],
+			search: true
 		});
+	});
 </script>

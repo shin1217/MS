@@ -50,13 +50,12 @@ body {
 }
 </style>
 </head>
-<body>
-
+<body>s
 	<div class="container">
 		<div class="titleStyle">
 			<h1>매장등록</h1>
 		</div>
-		<form method="POST">
+		<form name="storeForm" method="POST">
 			<!-- 저장되있는 세션에서 로그인 아이디를 가져옴 -->
 			<input type="hidden" name="admin_id" value="${adminSession.admin_id}">
 			<!-- 매장이름 -->
@@ -83,7 +82,7 @@ body {
 			</div>
 			<div class="reg_button">
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/admin">취소</a>
-				<button type="submit" class="btn btn-primary px-3" id="reg_submit">등록</button>
+				<button type="submit" class="btn btn-primary px-3" id="reg_submit" onclick="storeCheck()">등록</button>
 			</div>
 		</form>
 	</div>
@@ -93,5 +92,15 @@ body {
 	$('#store_zip, #store_address1').click(function() {
 		$('#find_zip').trigger('click');
 	});
+	
+	function storeCheck() {
+		var form = document.storeForm;
+		
+		if(!form.store_name.value) {
+			alert("매장명을 입력해주세요");
+			form.store_name.focus();
+			return false;
+		}
+	}
 </script>
 </html>
