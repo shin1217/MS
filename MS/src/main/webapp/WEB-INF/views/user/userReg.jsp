@@ -62,19 +62,20 @@ body {
 .birt_form{
 }
 
-.email_form{
-	display:inline;
-    width: 80%;
-    height: 40px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
+/* .email_form{
+	display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
     background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+} */
 
 .select_pick{
 	display:inline;
@@ -132,13 +133,15 @@ body {
 			<!-- 본인확인 이메일 -->
 			<div class="form-group">
 				<label for="user_email">이메일</label>
-				<div class="form-inline">
-					<input type="text" class="email_form" name="user_email" id="user_email" placeholder="E-mail" required>
-						<button type="button" class="btn btn-outline-info waves-effect px-3 inI">
+					<input type="text" class="form-control" name="user_email" id="user_email" placeholder="E-mail" required>
+					<!-- <input type="text" style="margin-top: 5px;"class="email_form" name="email_confirm" id="email_confirm" placeholder="인증번호를 입력해주세요!" required>
+						<button type="button" class="btn btn-outline-danger btn-sm px-3" onclick="confirm_email()">
 							<i class="fa fa-envelope"></i>&nbsp;인증
-						</button>
+						</button>&nbsp;
+						<button type="button" class="btn btn-outline-info btn-sm px-3">
+							<i class="fa fa-envelope"></i>&nbsp;확인
+						</button>&nbsp; -->
 					<div class="check_font" id="email_check"></div>
-				</div>
 			</div>
 			<!-- 휴대전화 -->
 			<div class="form-group">
@@ -353,7 +356,29 @@ body {
 		}
 		
 	});
+	 
+	function confirm_email(){
+		console.log("인증 버튼");
 		
+		var email = $('#user_email').val();
+		console.log("이메일" + email);
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/user/regMailConfirm',
+			type : 'post',
+			data : {
+				"user_email" : email
+			},
+			success : function(data){
+				
+				console.log(data);
+				alert('이메일이 전송되었습니다 :)');
+				
+			}
+		});
+		
+	}
+	
 </script>
 
 </html>

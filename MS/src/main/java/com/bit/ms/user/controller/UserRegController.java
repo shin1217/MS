@@ -38,8 +38,6 @@ public class UserRegController {
 	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
 	public String userRegPass(UserVO userVO, Model model) {
 
-		userVO.setUser_birth(userVO.getUser_year() + userVO.getUser_month() + userVO.getUser_day()); // 이메일 앞뒤를 합쳐줌
-		
 		reg_service.userReg_service(userVO);
 
 		return "redirect:/";

@@ -12,15 +12,12 @@ public class UserVO {
 	private String user_pw; // 비밀번호
 	private String user_phone; // 폰번호
 	private String user_birth; // 생년월일
-	private String user_year; // 년
-	private String user_month; // 월
-	private String user_day; // 일
 	private String user_email; // 이메일
 	private long user_time; // 남은 시간
 	private int store_id; // 매장번호
 	private int seat_id; // 사용 중인 좌석 번호
 	private int use_pay; // 결제 금액
-	
+	private String reg_key; // 인증 번호
 	public String getUser_id() {
 		return user_id;
 	}
@@ -50,24 +47,6 @@ public class UserVO {
 	}
 	public void setUser_birth(String user_birth) {
 		this.user_birth = user_birth;
-	}
-	public String getUser_year() {
-		return user_year;
-	}
-	public void setUser_year(String user_year) {
-		this.user_year = user_year;
-	}
-	public String getUser_month() {
-		return user_month;
-	}
-	public void setUser_month(String user_month) {
-		this.user_month = user_month;
-	}
-	public String getUser_day() {
-		return user_day;
-	}
-	public void setUser_day(String user_day) {
-		this.user_day = user_day;
 	}
 	public String getUser_email() {
 		return user_email;
@@ -99,11 +78,19 @@ public class UserVO {
 	public void setUse_pay(int use_pay) {
 		this.use_pay = use_pay;
 	}
+	public String getReg_key() {
+		return reg_key;
+	}
+	public void setReg_key(String reg_key) {
+		this.reg_key = reg_key;
+	}
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
-				+ user_phone + ", user_birth=" + user_birth + ", user_year=" + user_year + ", user_month=" + user_month
-				+ ", user_day=" + user_day + ", user_email=" + user_email + ", user_time=" + user_time + ", store_id="
-				+ store_id + ", seat_id=" + seat_id + ", use_pay=" + use_pay + "]";
+				+ user_phone + ", user_birth=" + user_birth + ", user_email=" + user_email + ", user_time=" + user_time
+				+ ", store_id=" + store_id + ", seat_id=" + seat_id + ", use_pay=" + use_pay + ", reg_key=" + reg_key
+				+ "]";
 	}
+	
+	
 }
