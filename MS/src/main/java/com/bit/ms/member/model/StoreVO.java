@@ -14,7 +14,7 @@ public class StoreVO {
 	private String store_address1;
 	private String store_address2;
 	private String store_num;
-	private Timestamp store_regDate;
+	private String store_regDate;
 	private String admin_id;
 
 	public int getStore_id() {
@@ -73,11 +73,11 @@ public class StoreVO {
 		this.store_num = store_num;
 	}
 
-	public Timestamp getStore_regDate() {
+	public String getStore_regDate() {
 		return store_regDate;
 	}
 
-	public void setStore_regDate(Timestamp store_regDate) {
+	public void setStore_regDate(String store_regDate) {
 		this.store_regDate = store_regDate;
 	}
 
