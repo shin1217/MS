@@ -107,9 +107,17 @@ body {
 	</div>
 </body>
 <script>
-	//애니메이션 메서드
-	new WOW().init();
-
+	$(document).ready(function(){
+		//애니메이션 메서드
+		new WOW().init();
+	
+		//비밀번호input에서 엔터를 누르면 로그인 클릭됨
+		$('#inputPassword').keydown(function(event) {
+			if(event.keyCode == 13){
+				$('#loginBtn').trigger('click');
+			}
+		});
+	});
 	
 	$('#loginBtn').click(
 		function() {
