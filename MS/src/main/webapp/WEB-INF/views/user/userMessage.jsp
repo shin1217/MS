@@ -43,6 +43,7 @@
 }
 .post {
 	padding: 0 1.5%;
+	height : 80%;
 }
 .comment-form .form-control {
 	border: 0px;
@@ -93,6 +94,7 @@ hr{
 @media ( min-width :1200px) {
 	.post {
 		max-width: 525px;
+		height : 80%;
 	}
 }
 #submit {

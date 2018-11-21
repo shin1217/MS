@@ -43,6 +43,7 @@
 }
 .post {
 	padding: 0 1.5%;
+	height : 80%;
 }
 .comment-form .form-control {
 	border: 0px;
@@ -93,6 +94,7 @@ hr{
 @media ( min-width :1200px) {
 	.post {
 		max-width: 525px;
+		height : 80%;
 	}
 }
 #submit {
@@ -333,7 +335,7 @@ hr{
 							if(data[i].message_read != "Y"){
 								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #eee;">';
 							} else {
-								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #4285f4; color : white; font-weight : bold">';
+								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : darkgrey; color : white; font-weight : bold">';
 								str += '<img src = "${pageContext.request.contextPath}/images/delete2.png" onclick = "deleteMessage(' + data[i].message_id + ')"style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
 							}
 							str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
@@ -474,7 +476,7 @@ hr{
 		}
 	$(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그들은 이런식으로 이벤트를 줘야함
 		//var str = "onclick = "readChk(' + data[i].message_id + ')"";
-		$(this).css("background-color","#4285f4").css("font-weight","bold").css("color","white");
+		$(this).css("background-color","darkgrey").css("color","white");
 		var message_id = $(this).attr("id");
 		var read_message = "Y";
 		$.ajax({

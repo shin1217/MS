@@ -117,7 +117,6 @@
 }
 .adminMypage_management{
    padding-left : 70px;
-   position : relative;
 }
 .adminMypage_addStore{
     width: 100px;
@@ -144,8 +143,8 @@
    background-color : grey;
 }
 .adminMypage_storeDetail{
-   position : absolute;
-   top : -370px;
+position : absolute;
+   bottom : 0;
    left : 50px;
 }
 .adminMypage_management table>tbody>tr>th{
@@ -333,7 +332,7 @@
                </tr>
                <tr>
                   <th>핸드폰번호</th>
-                  <td><input type = "text" name = "admin_phone" id = "adminMypage_phone" value = "${admin.admin_phone }" readonly>
+                  <td class = "phone" style = "position : relative"><input type = "text" name = "admin_phone" id = "adminMypage_phone" value = "${admin.admin_phone }" readonly>
                   <p id = "edit_phone" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('phone')">수정하기</p></td>
                </tr>
                <tr>
@@ -425,14 +424,14 @@
          });
          
          //매장정보에 마우스오버시 매장에 대한 정보가 뜸
-         $('.adminMypage_storeName').click(function(){ //반복문으로 만들어진것의 선택자를 id 로 입력하면 중복이되어 각각 이벤트를 줄 수 없으므로 class로 선택자를 준다.
+         $('.adminMypage_storeName').mouseover(function(){ //반복문으로 만들어진것의 선택자를 id 로 입력하면 중복이되어 각각 이벤트를 줄 수 없으므로 class로 선택자를 준다.
             //console.log($(this).val());
             var store_id = $(this).attr("id");
             $.ajax({
                url : '${pageContext.request.contextPath}' + '/admin/adminMypage/' + store_id,
                type : 'get',
                success : function(data){
-                  var str = "<div class = 'adminMypage_storeDetail' style = 'background-color : #eee;'>";
+                  var str = "<div class = 'adminMypage_storeDetail' style = 'background-color : #eee; z-index : 1'>";
                      //조건필요없이 무조건 상세테이블 생성
                      str += "<table><tr><th colspan = '2' class = 'adminMypage_storeTitle' style = 'position : relative;'>매장 상세정보" + 
                      		"<span class = 'storeClose' id = 'storeDetailClose' style = 'position : absolute'>x</span></th></tr>"
@@ -443,10 +442,13 @@
                      str += "<tr><th>매장번호</th><td>" + data.store_num + "</td></tr>";
                      str += "<tr><th>등록날짜</th><td>" + data.store_regDate + "</td></tr></table></div>";
                   
-                  $('.adminMypage_management').append(str);
+                  $('.phone').append(str);
                }
             });
-         });           
+         });
+         $('.adminMypage_storeName').mouseout(function(){
+        	 $('.adminMypage_storeDetail').remove();
+         });
          //모달창에서 삭제확인버튼클릭시 로그인페이지로 이동
          $('#adminMypage_deleteOkBtn').click(function(){
             $.ajax({
