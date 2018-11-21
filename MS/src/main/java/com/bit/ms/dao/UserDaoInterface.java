@@ -30,15 +30,15 @@ public interface UserDaoInterface {
 	String checkOverPhoneNum(String userPhone);// 유저 전화번호 중복 체크
 	StoreVO getUserStoreVO(int store_id); // 유저로그인한 스토어id로 스토어VO가져옴
 	
-	/* 유저게시판 */
-	List<UserBoardVO> UserBoardSelectList(@Param("store_id") int store_id, @Param("firstRow") int firstRow);
-	int UserBoardTotalCount(int store_id);
+	/* 유저게시판 */	
+	List<UserBoardVO> UserBoardSelectList(int store_id, String keyword, int firstRow);
+	int UserBoardTotalCount(int store_id, String keyword);
 	int insertUserBoard(UserBoardVO userBoardVO);
 	UserBoardVO getUserBoardViewI(int uboard_id);
 	int UserBoardDeleteI(int uboard_id);
 	int UserBoardModifyI(UserBoardVO userBoardVO);
-	int getPreviousNUM(@Param("uboard_id") int uboard_id, @Param("store_id") int store_id);
-	int getNextNUM(@Param("uboard_id") int uboard_id, @Param("store_id") int store_id);
+	int getPreviousNUM(@Param("uboard_id") int uboard_id, @Param("store_id") int store_id , @Param("keyword") String keyword);
+	int getNextNUM(@Param("uboard_id") int uboard_id, @Param("store_id") int store_id, @Param("keyword") String keyword);
 	List<UserBoardVO> getUserBoardNoticeI(int store_id, String admin_id);
 	
 	/* 유저게시판 댓글 */

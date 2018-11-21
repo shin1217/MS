@@ -9,10 +9,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,11 +33,15 @@ public class UserBoardController {
 	private UserBoardService userBoardService;
 
 	// List
-	@RequestMapping("/user/userBoard")
-	public ModelAndView userBoard(HttpServletRequest request, HttpSession session) {
+
+	@RequestMapping(value = "/user/userBoard", method = RequestMethod.GET)
+	public ModelAndView userBoard(HttpServletRequest request, HttpSession session,
+			@RequestParam("keyword") String keyword) {
+
+		System.out.println("UserBoardController keyword = " + keyword);// 검색어 확인
 
 		// 유저 게시물
-		UserBoardListVO ViewData = userBoardService.getUserBoardList(session, request);
+		UserBoardListVO ViewData = userBoardService.getUserBoardList(session, request, keyword);
 
 		// 유저 게시판 상단 공지사항
 		List<UserBoardVO> noticeViewData = userBoardService.getUserBoardNoticeS(session);
@@ -70,7 +76,7 @@ public class UserBoardController {
 
 		userBoardService.userBoardWrite(userBoardVO, httpsession);
 
-		return "redirect:/user/userBoard?page=1";
+		return "redirect:/user/userBoard?page=1&keyword=";
 	}
 
 	// Write
@@ -82,7 +88,7 @@ public class UserBoardController {
 
 		userBoardService.UserBoardDeleteS(uboard_id);
 
-		return "redirect:/user/userBoard?page=1";
+		return "redirect:/user/userBoard?page=1&keyword=";
 	}
 
 	// Delete
@@ -105,8 +111,9 @@ public class UserBoardController {
 
 	@RequestMapping(value = "user/userBoard/modify/{uboard_id}", method = RequestMethod.POST)
 	public String userBoardModfy(@PathVariable("uboard_id") int uboard_id, UserBoardVO userBoardVO, Model model,
-			@Param("page") int page) {
+			@Param("page") int page, @Param("keyword") String keyword) {
 
+		System.out.println(keyword);
 		int resultCnt = 0;
 
 		try {
@@ -117,7 +124,7 @@ public class UserBoardController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/user/userBoard/view/" + uboard_id + "?page=" + page;
+		return "redirect:/user/userBoard/view/" + uboard_id + "?page=" + page + "&keyword=";
 	}
 
 	// Modify
@@ -125,14 +132,14 @@ public class UserBoardController {
 	// View
 
 	@RequestMapping("user/userBoard/view/{uboard_id}")
-	public String getUserBoardViewC(@PathVariable("uboard_id") int uboard_id, Model model, HttpSession session)
-			throws Exception {
+	public String getUserBoardViewC(@PathVariable("uboard_id") int uboard_id, Model model, HttpSession session,
+			@Param("keyword") String keyword) throws Exception {
 
 		UserBoardVO userboardVO = userBoardService.getUserBoardViewS(uboard_id);
 
-		int previousNUM = userBoardService.getViewPreviousNUM(session, uboard_id);
+		int previousNUM = userBoardService.getViewPreviousNUM(session, uboard_id, keyword);
 
-		int nextNUN = userBoardService.getViewNextNUM(session, uboard_id);
+		int nextNUN = userBoardService.getViewNextNUM(session, uboard_id, keyword);
 
 		model.addAttribute("userboardvo", userboardVO);
 		model.addAttribute("previousnum", previousNUM); // 이전페이지

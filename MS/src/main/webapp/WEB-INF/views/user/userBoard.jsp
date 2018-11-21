@@ -2,7 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MS</title>
@@ -20,12 +25,6 @@
 	table-layout: fixed;
 }
 
-.userBoard_header {
-	overflow: hidden;
-	width: 1140px;
-	margin: 0 auto;
-}
-
 .container * {
 	font-size: 17px;
 }
@@ -34,17 +33,63 @@
 	color: #181818;
 	text-decoration: none;
 }
+
+/* 검색창 */
+.userBoard_searchbar {
+	position: absolute;
+	bottom: 0px;
+	width: 400px;
+}
+
+input { /* This styles the actual input box */
+	font-size: 20px;
+	padding: 10px;
+	width: 100%;
+}
+
+label { /* This styles the label before interaction */
+	font-size: 20px;
+	font-weight: normal;
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	pointer-events: none;
+	transition: 0.2s ease all;
+	-moz-transition: 0.2s ease all;
+	-webkit-transition: 0.2s ease all;
+}
+
+input:focus ~ label, input:valid ~ label, form:focus ~ label {
+	/* This styles the label after interaction */
+	top: -20px;
+	font-size: 14px;
+}
+/* 검색창 */
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<div class="userBoard_header">
+	<div class="container" style="overflow: hidden; position: relative;">
 		<br> <a class="nav-link, hypertext_none"
-			href="${pageContext.request.contextPath}/user/userBoard?page=1">
-			<h1>[${storeSelectSession.store_name}] - 유저게시판</h1>
-		</a> <a id="write" class="btn btn-outline-elegant waves-effect"
+			href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword=">
+			<b style="font-size: 30px;">[${storeSelectSession.store_name}] -
+				유저게시판</b>
+		</a><br><br> <a id="write" class="btn btn-outline-elegant waves-effect"
 			href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
+
+		<div class="userBoard_searchbar">
+			<form method="get">
+				<table>
+					<tr>
+						<td ><input name="page" type="hidden" value="1" />
+						<input name="keyword" type="text" value="${param.keyword}" required><label>검색(제목+내용) + ENTER!!</label></td>
+						<td><input type="submit" value="검색" class="btn btn-outline-elegant waves-effect" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
 	</div>
+
 
 	<div class="container">
 		<table class="table">
@@ -61,7 +106,7 @@
 					<tr style="background: #F2FCF6;">
 						<td style="text-align: center;">[공지]</td>
 						<td><a
-							href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}">${userBoardVO.uboard_title}</a></td>
+							href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}&keyword=${param.keyword}">${userBoardVO.uboard_title}</a></td>
 						<td style="text-align: center;">${userBoardVO.writer_id}
 							[관리자]</td>
 						<td style="text-align: center;"><fmt:formatDate
@@ -79,7 +124,7 @@
 						<tr>
 							<td style="text-align: center;">${userBoardVO.uboard_id}</td>
 							<td><a
-								href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}">${userBoardVO.uboard_title}</a></td>
+								href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}&keyword=${param.keyword}">${userBoardVO.uboard_title}</a></td>
 							<td style="text-align: center;">${userBoardVO.writer_id}<c:if
 									test='${storeSelectSession.admin_id == userBoardVO.writer_id}'>
 							   [관리자]
@@ -98,8 +143,15 @@
 			style="padding-bottom: 20px">
 			<ul class="pagination pagination-circle pg-teal mb-0">
 				<!--가장맨앞으로-->
-				<li class="page-item"><a class="page-link"
-					href="userBoard?page=1">First</a></li>
+				<c:choose>
+					<c:when test="${param.page == 1}">
+						<li class="page-item"><a class="page-link">First</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link"
+							href="userBoard?page=1&keyword=${param.keyword}">First</a></li>
+					</c:otherwise>
+				</c:choose>
 
 				<!--페이지 한칸뒤로-->
 				<c:choose>
@@ -111,7 +163,8 @@
 					</c:when>
 					<c:otherwise>
 						<li class="page-item"><a class="page-link"
-							aria-label="Previous" href="userBoard?page=${param.page-1}">
+							aria-label="Previous"
+							href="userBoard?page=${param.page-1}&keyword=${param.keyword}">
 								<span aria-hidden="true">Previous</span> <span class="sr-only">Previous</span>
 						</a></li>
 					</c:otherwise>
@@ -124,11 +177,11 @@
 							end="${userboardlist.pageTotalCount}">
 							<c:if test="${param.page == num}">
 								<li class="page-item active"><a class="page-link"
-									href="userBoard?page=${num}">${num}</a></li>
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 							<c:if test="${param.page != num}">
 								<li class="page-item"><a class="page-link"
-									href="userBoard?page=${num}">${num}</a></li>
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 						</c:forEach>
 					</c:when>
@@ -136,11 +189,11 @@
 						<c:forEach var="num" begin="1" end="5">
 							<c:if test="${param.page == num}">
 								<li class="page-item active"><a class="page-link"
-									href="userBoard?page=${num}">${num}</a></li>
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 							<c:if test="${param.page != num}">
 								<li class="page-item"><a class="page-link"
-									href="userBoard?page=${num}">${num}</a></li>
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 						</c:forEach>
 					</c:when>
@@ -149,11 +202,11 @@
 							end="${userboardlist.pageTotalCount}">
 							<c:if test="${param.page == num}">
 								<li class="page-item active"><a class="page-link"
-									href="userBoard?page=${num}">${num}</a></li>
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 							<c:if test="${param.page != num}">
 								<li class="page-item"><a class="page-link"
-									href="userBoard?page=${num}">${num}</a></li>
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 						</c:forEach>
 					</c:when>
@@ -162,11 +215,11 @@
 							end="${param.page + 2}">
 							<c:if test="${param.page == num}">
 								<li class="page-item active"><a class="page-link"
-									href="userBoard?page=${num}">${num}</a></li>
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 							<c:if test="${param.page != num}">
 								<li class="page-item"><a class="page-link"
-									href="userBoard?page=${num}">${num}</a></li>
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 						</c:forEach>
 					</c:otherwise>
@@ -181,15 +234,24 @@
 					</c:when>
 					<c:otherwise>
 						<li class="page-item"><a class="page-link" aria-label="Next"
-							href="userBoard?page=${param.page+1}"> <span
-								aria-hidden="true">Next</span> <span class="sr-only">Next</span>
+							href="userBoard?page=${param.page+1}&keyword=${param.keyword}">
+								<span aria-hidden="true">Next</span> <span class="sr-only">Next</span>
 						</a></li>
 					</c:otherwise>
 				</c:choose>
 
 				<!--가장맨앞으로-->
-				<li class="page-item"><a class="page-link"
-					href="userBoard?page=${userboardlist.pageTotalCount}">Last</a></li>
+				<c:choose>
+					<c:when test="${userboardlist.pageTotalCount == param.page}">
+						<li class="page-item"><a class="page-link">Last</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link"
+							href="userBoard?page=${userboardlist.pageTotalCount}&keyword=${param.keyword}">Last</a></li>
+					</c:otherwise>
+				</c:choose>
+
+
 			</ul>
 		</nav>
 	</div>

@@ -38,12 +38,6 @@
 	text-decoration: underline;
 }
 
-.userBoard_header {
-	overflow: hidden;
-	width: 1140px;
-	margin: 0 auto;
-}
-
 .hypertext_none {
 	color: #181818;
 	text-decoration: none;
@@ -54,14 +48,22 @@
 }
 </style>
 </head>
-<body>
+<body>	
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<div class="userBoard_header">
-		<br>
-		<a class="nav-link, hypertext_none" href="${pageContext.request.contextPath}/user/userBoard?page=1">
-		<h1>[${storeSelectSession.store_name}] - 유저게시판</h1></a>
-		<a id="write" class="btn btn-outline-elegant waves-effect"
-		href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
+	<div class="container" style="overflow: hidden; position: relative;">
+		<br> <a class="nav-link, hypertext_none"
+			href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword=">
+			<b style="font-size: 30px;">[${storeSelectSession.store_name}] -
+				유저게시판</b>
+		</a><br> <a id="write" class="btn btn-outline-elegant waves-effect"
+			href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
+
+		<%-- <div class="userBoard_searchbar">
+			<form method="get">
+				<input name="keyword" type="text" value="${param.keyword}" required> <label>검색(제목+내용) + ENTER!!</label>
+				<input name="page" type="hidden" value="${param.page}" />
+			</form>
+		</div> --%>
 	</div>
 
 	<!-- 게시글  -->
@@ -102,7 +104,7 @@
 				</c:when>
 				<c:otherwise>
 					<button type="button" class="btn btn-outline-elegant waves-effect"
-						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/view/${previousnum}?page=${param.page}'">이전</button>
+						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/view/${previousnum}?page=${param.page}&keyword=${param.keyword}'">이전</button>
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
@@ -111,7 +113,7 @@
 				</c:when>
 				<c:otherwise>
 					<button type="button" class="btn btn-outline-elegant waves-effect"
-						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/view/${nextnum}?page=${param.page}'">다음</button>
+						onclick="location.href='${pageContext.request.contextPath}/user/userBoard/view/${nextnum}?page=${param.page}&keyword=${param.keyword}'">다음</button>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -119,10 +121,10 @@
 		<div class="buttonsRight">
 			<c:if test="${sessionScope.userSession.user_id == userboardvo.writer_id || sessionScope.adminSession != null}">
 				<button type="button" class="btn btn-dark" data-toggle="modal"	data-target="#modalUserBoardDeleteForm">삭제</button>
-				<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${userboardvo.uboard_id}?page=${param.page}'">수정</button>
+				<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${userboardvo.uboard_id}?page=${param.page}&keyword=${param.keyword}'">수정</button>
 			</c:if>
 			<button type="button" class="btn btn-dark"
-				onclick="location.href='${pageContext.request.contextPath}/user/userBoard?page=${param.page}'">
+				onclick="location.href='${pageContext.request.contextPath}/user/userBoard?page=${param.page}&keyword=${param.keyword}'">
 				목록</button>
 		</div>
 		<!-- 게시글  -->

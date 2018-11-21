@@ -30,7 +30,7 @@ public class UserBoardService {
 	// 페이지마다 보여줄 게시글의 수
 	private static final int USERBOARD_COUNT_PER_PAGE = 10;
 
-	public UserBoardListVO getUserBoardList(HttpSession session, HttpServletRequest request) {
+	public UserBoardListVO getUserBoardList(HttpSession session, HttpServletRequest request, String keyword) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
@@ -59,13 +59,13 @@ public class UserBoardService {
 		try {
 
 			// 전체 게시글 구하기
-			userBoardTotalCount = userDaoInterface.UserBoardTotalCount(store_id);
+			userBoardTotalCount = userDaoInterface.UserBoardTotalCount(store_id, keyword);
 
 			if (userBoardTotalCount > 0) {
 
 				firstRow = (currentPageNum - 1) * USERBOARD_COUNT_PER_PAGE; // mysql은 0열부터 시작 -1을 해줌
 
-				userBoardList = userDaoInterface.UserBoardSelectList(store_id, firstRow);
+				userBoardList = userDaoInterface.UserBoardSelectList(store_id, keyword, firstRow);
 
 			} else { // 없는경우
 				userBoardList = Collections.emptyList();
@@ -182,7 +182,7 @@ public class UserBoardService {
 		return userBoardVO;
 	}
 
-	public int getViewPreviousNUM(HttpSession session, int uboard_id) {
+	public int getViewPreviousNUM(HttpSession session, int uboard_id, String keyword) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
@@ -193,7 +193,7 @@ public class UserBoardService {
 		int num = 0;
 
 		try {
-			num = userDaoInterface.getPreviousNUM(uboard_id, store_id);
+			num = userDaoInterface.getPreviousNUM(uboard_id, store_id, keyword);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -201,7 +201,7 @@ public class UserBoardService {
 		return num;
 	}
 
-	public int getViewNextNUM(HttpSession session, int uboard_id) {
+	public int getViewNextNUM(HttpSession session, int uboard_id, String keyword) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
@@ -212,26 +212,7 @@ public class UserBoardService {
 		int num = 0;
 
 		try {
-			num = userDaoInterface.getNextNUM(uboard_id, store_id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return num;
-	}
-
-	public int getViewTotalCount(HttpSession session) {
-
-		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
-
-		StoreVO storevo = (StoreVO) session.getAttribute("storeSelectSession");
-
-		int store_id = storevo.getStore_id();
-
-		int num = 0;
-
-		try {
-			num = userDaoInterface.UserBoardTotalCount(store_id);
+			num = userDaoInterface.getNextNUM(uboard_id, store_id, keyword);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

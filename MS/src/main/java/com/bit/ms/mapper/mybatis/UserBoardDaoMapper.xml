@@ -4,20 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.ms.dao.UserDaoInterface">
 
-	<select id="UserBoardSelectList" resultType="UserBoardVO">
+	<select id="UserBoardSelectList" parameterType="map"
+		resultType="UserBoardVO">
 
-		select * from
-		userboard where store_id = #{store_id}
-		order by uboard_id desc limit
-		#{firstRow}, 10;
+		select * from userboard where store_id = #{param1}
+		and
+		(uboard_con like CONCAT('%',#{param2},'%') or uboard_title like
+		CONCAT('%',#{param2},'%'))
+		order by uboard_id desc limit #{param3}, 10;
 
 	</select>
 
 	<select id="UserBoardTotalCount" resultType="int">
 
 		select count(*) from
-		userboard where store_id=#{store_id}
-
+		userboard where store_id=#{param1}
+		and (uboard_con like
+		CONCAT('%',#{param2},'%') or uboard_title like
+		CONCAT('%',#{param2},'%'))
 
 	</select>
 
@@ -67,6 +71,7 @@
 		select
 		ifnull(min(uboard_id),0) from userboard where uboard_id>#{uboard_id}
 		and store_id=#{store_id}
+		and (uboard_con like CONCAT('%',#{keyword},'%') or uboard_title like CONCAT('%',#{keyword},'%'))
 
 	</select>
 
@@ -75,6 +80,7 @@
 		select ifnull( max( uboard_id ), 0 )
 		from userboard where
 		store_id=#{store_id} and <![CDATA[uboard_id < #{uboard_id}]]>
+		and (uboard_con like CONCAT('%',#{keyword},'%') or uboard_title like CONCAT('%',#{keyword},'%'))
 
 	</select>
 
