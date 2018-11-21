@@ -107,9 +107,22 @@
 	color : red;
 	cursor : pointer;
 }
-@media (max-width:520px){
+@media (max-width:570px){
 	.container {
-		width : 300px !important;
+		min-width : 100% !important;
+	}
+	.userMyPage_userTable th{
+		padding : 10px 10px;
+		width : 100px;
+	}
+	.userMyPage_userTable td{
+		width : 350px;
+	}
+	.userMyPage_deleteBtn{
+		width : 80px;
+		margin-left : 115px;
+		font-size : 15px;
+		height : 35px;
 	}
 }
 @media (max-width:770px){
@@ -118,6 +131,7 @@
 	}
 	.userMyPage_userTable th{
 		font-size : 15px;
+		padding : 10px 10px;
 	}
 	.userMyPage_userTable input[type=text]{
 		font-size : 15px ;
@@ -126,6 +140,12 @@
 	}
 	.edit{
 		font-size : 13px !important;
+	}
+	.userMyPage_deleteBtn{
+		width : 100px;
+		margin-left : 115px;
+		font-size : 20px;
+		height : 40px;
 	}
 }
 @media (max-width:980px){
@@ -207,7 +227,7 @@ $(document).ready(function(){
    $('#userMyPage_deleteModal').hide(); // 시작시 삭제모달창 가림
 });
       
-   var user_id = ${userSession.user_id};   
+   var user_id = "${userSession.user_id}";   
       
 	///////////// 수정버튼을 눌렀을 경우 //////////////
 	function edit(e){ //수정하기 버튼을 눌렀을 경우

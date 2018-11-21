@@ -298,8 +298,8 @@ html, body {
 	</div>
 </body>
 <script>
-	$(document).ready(function() {
 		var slideIndex = 1;
+	$(document).ready(function() {
 		
 		/* 페이지 로드 시 한식 메뉴로 초기화 */
 		$.ajax({
@@ -399,6 +399,7 @@ html, body {
 		}
 		
 		/* 데이터 갯수에 따른 페이징 dot 표시 처리 */
+	});			
 		function getPagingCnt(length) {
 			var str = '';
 			var length = Math.ceil(length/8); // 소수점 올림 처리
@@ -432,7 +433,6 @@ html, body {
 			slides[slideIndex-1].style.display = "block";  
 			dots[slideIndex-1].className += " active";
 		} 
-	});			
 						
 </script>
 </html>

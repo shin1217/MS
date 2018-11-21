@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MS</title>
+<script type="text/javascript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/zipcode.js"></script>
 <style>
 .adminMypage_adminInfo {
    margin: 30px 20px;
@@ -241,12 +243,13 @@
 }
 .addStoreWrap{
    position : absolute;
-   top : 20%;
-   left : 35%;
+   top : 10%;
+   left : 50%;
    width : 500px;
-   height : 500px;
+   height : 600px;
    background-color : white;
    border-radius: 10px;
+   margin-left : -250px;
 }
 .addStoreWrap p{
    position : relative;
@@ -294,6 +297,14 @@
 .edit:hover{
 	color : red;
 	cursor : pointer;
+}
+#store_zip{
+	width : 225px;
+}
+#find_zip{
+	position : absolute;
+	top : -14px;
+	right : 0px;
 }
 </style>
 </head>
@@ -351,7 +362,11 @@
             <div class = "store_nameWrap"><label for = "Store_name" style = "font-size : 20px;">매장 이름</label><br>
             <input type = "text" class = "addStore_name" id = "store_name"></div>
             <div class = "store_nameWrap"><label for = "store_address" style = "font-size : 20px;">매장 주소</label><br>
-            <input type = "text" class = "addStore_address" id = "store_address"></div>
+			<div class = "zipWrap" style = "position : relative">
+				<input type="text" class="form-control d-inline" id="store_zip"	name="store_zip" readonly="readonly" placeholder="우편번호">
+				<button type="button" class="btn bg-dark text-white" id="find_zip" onclick="execDaumPostcode()" >우편번호 찾기</button></div>
+				<input type="text" class="form-control" id="store_address1"	name="store_address1" readonly="readonly" placeholder="도로명주소">
+				<input type="text" class="form-control" id="store_address2"	name="store_address2" placeholder="상세주소"></div>
             <div class = "store_nameWrap"><label for = "store_num" style = "font-size : 20px;">매장 번호</label><br>
             <input type = "text" class = "addStore_num" id = "store_num"></div><br><hr>
             <input type = 'button' class = 'addBtn' id = 'addBtn' value = '매장등록'></div>
@@ -406,13 +421,11 @@
      	}
          //삭제버튼 클릭시 삭제확인 모달창이 뜸
          $('#adminMypage_deleteBtn').click(function(){
-         
             $('#adminMypage_deleteModal').show();
-            
          });
          
          //매장정보에 마우스오버시 매장에 대한 정보가 뜸
-         $('.adminMypage_storeName').mouseover(function(){ //반복문으로 만들어진것의 선택자를 id 로 입력하면 중복이되어 각각 이벤트를 줄 수 없으므로 class로 선택자를 준다.
+         $('.adminMypage_storeName').click(function(){ //반복문으로 만들어진것의 선택자를 id 로 입력하면 중복이되어 각각 이벤트를 줄 수 없으므로 class로 선택자를 준다.
             //console.log($(this).val());
             var store_id = $(this).attr("id");
             $.ajax({
@@ -421,9 +434,11 @@
                success : function(data){
                   var str = "<div class = 'adminMypage_storeDetail' style = 'background-color : #eee;'>";
                      //조건필요없이 무조건 상세테이블 생성
-                     str += "<table><tr><th colspan = '2' class = 'adminMypage_storeTitle'>매장 상세정보</th></tr>"
+                     str += "<table><tr><th colspan = '2' class = 'adminMypage_storeTitle' style = 'position : relative;'>매장 상세정보" + 
+                     		"<span class = 'storeClose' id = 'storeDetailClose' style = 'position : absolute'>x</span></th></tr>"
                      str += "<tr><th>매장아이디</th><td>" + data.store_id + "</td></tr>";
                      str += "<tr><th>매장이름</th><td>" + data.store_name + "</td></tr>";
+                     str += "<tr><th>우편번호</th><td>" + data.store_zip + "</td></tr>";
                      str += "<tr><th>매장주소</th><td>" + data.store_address + "</td></tr>";
                      str += "<tr><th>매장번호</th><td>" + data.store_num + "</td></tr>";
                      str += "<tr><th>등록날짜</th><td>" + data.store_regDate + "</td></tr></table></div>";
@@ -432,14 +447,6 @@
                }
             });
          });           
-         
-         //매장정보에 마우스아웃시 정보가 사라짐
-         $('.adminMypage_storeName').mouseout(function(){
-            
-            $('.adminMypage_storeDetail').remove();
-            
-         });
-         
          //모달창에서 삭제확인버튼클릭시 로그인페이지로 이동
          $('#adminMypage_deleteOkBtn').click(function(){
             $.ajax({
@@ -489,12 +496,14 @@
          });
          //console.log($('#adminMypage_id').val());
          $('#addBtn').click(function(){ //모달창에서 매장등록 눌렀을때 이벤트
-            $.ajax({
+            var store_address = $('#store_address1').val() + " " + $('#store_address2').val(); // 매장주소1,2 합친것
+        	 $.ajax({
                url : '${pageContext.request.contextPath}' + '/admin/adminStoreAdd',
                type : 'post',
                data : {
                   store_name : $('#store_name').val(),
-                  store_address : $('#store_address').val(),
+                  store_zip : $('#store_zip').val(),
+                  store_address : store_address,
                   store_num : $('#store_num').val(),
                   admin_id : $('#adminMypage_id').val()
                },
@@ -509,13 +518,15 @@
          $('#storeClose').click(function(){
             $('#addStoreModal').hide();
          });
+         $(document).on('click','#storeDetailClose',function(){
+        	$('.adminMypage_storeDetail').hide(); 
+         });
          
          //매장 삭제클릭시 이벤트
          $('.deleteStore').click(function(){
                var store_id = $(this).attr("id"); // delete버튼의 아이디값
                console.log(store_id);
             $('#storeDeleteModal').show();
-            
             $('#storeDeleteBtn').click(function(){
                $.ajax({
                   url : '${pageContext.request.contextPath}' + '/admin/adminStoreDelete',
@@ -528,11 +539,11 @@
                     location.reload(); 
                   }
                }); // 삭제 ajax끝
-               
             });
-        
          }); //매장 삭제 클릭종료
-         
+         $('#store_zip, #store_address1').click(function() {
+     		$('#find_zip').trigger('click');
+     	});
        //모달창에서 취소버튼 클릭시 다시 마이페이지이동
          $('#storeDeleteCancel').click(function(){
             

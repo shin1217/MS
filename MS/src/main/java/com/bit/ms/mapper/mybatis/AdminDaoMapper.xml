@@ -48,8 +48,8 @@
 	
 	<!--해당 매장에대한 상세정보 -->
 	<select id="getStoreDetail" resultType="StoreVO">
-		select * from store where
-		store_id = #{store_id}
+		select store_id, store_name, DATE_FORMAT(store_regDate,'%Y-%m-%d %h:%i:%S %p') store_regDate, store_num, store_zip, store_address 
+	    from store where store_id = #{store_id}
 	</select>
 
 	<!--관리자 이름수정하기 -->
