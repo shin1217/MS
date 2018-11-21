@@ -109,7 +109,7 @@ body {
 					<div class="form-group">
 						<label class="font-weight-bold text-white" for="inputPhone_1">휴대폰번호</label>
 						<div>
-							<input type="text" class="form-control" id="inputPhone_1" name="inputPhone_1" placeholder="ex) 010-7777-9999">
+							<input type="text" class="form-control" id="inputPhone_1" name="inputPhone_1" placeholder="ex) 01077779999">
 						</div>
 					</div>
 					<!-- 매장 선택 후 값을 비교하려 했으나 같은 값이 있다면 모두 출력해주는 걸로 바꿈 -->

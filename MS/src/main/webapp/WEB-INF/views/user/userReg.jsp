@@ -125,7 +125,7 @@ body {
 				<div class="check_font" id="name_check"></div>
 			</div>
 			<!-- 생년월일 -->
-			<div class="form-group">
+			<div class="form-group required">
 				<label for="user_birth">생년월일</label>
 					<input type="text" class="form-control" id="user_birth" name="user_birth" placeholder="ex) 19990415" required>
 				<div class="check_font" id="birth_check"></div>
@@ -153,8 +153,8 @@ body {
 			<div class="form-group">
 				<span>방문한 매장은 어디신가요?</span>&emsp;
 					<c:if test="${!empty store_list }">
-						<select class="select_pick" name="store_id" required>
-							<option class="select_pick" selected disabled>매장을 선택해주세요</option>
+						<select class="select_pick" id="store_id" name="store_id" required>
+							<option class="select_pick" value="0" selected disabled>매장을 선택해주세요</option>
 						<c:forEach var="storelist" items="${store_list }">
 							<option class="select_pick" value="${storelist.store_id }">${storelist.store_name }</option>
 						</c:forEach>
@@ -182,13 +182,11 @@ body {
 	var pwJ = /^[A-Za-z0-9]{4,12}$/;
 	// 이름 정규식
 	var nameJ = /^[가-힣]{2,6}$/;
-	// 생일 정규식
-	var birthJ = /^[1-2]{1}[0-9]{3}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}$/;
 	// 이메일 검사 정규식
 	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	// 휴대폰 번호 정규식
 	var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
-
+	
 	// 아이디 유효성 검사(1 = 중복 / 0 != 중복)
 	$("#user_id").blur(function() {
 		// id = "id_reg" / name = "userId"
@@ -285,9 +283,69 @@ body {
 			$('#phone_check').css('color', 'red');
 		}
 	});
+
+	// 생일 유효성 검사
+	var birthJ = false;
 	
-	// 생년월일	birthJ
+	// 생년월일	birthJ 유효성 검사
 	$('#user_birth').blur(function(){
+		var dateStr = $(this).val();		
+	    var year = Number(dateStr.substr(0,4)); 
+	    var month = Number(dateStr.substr(4,2));
+	    var day = Number(dateStr.substr(6,2));
+	    var today = new Date(); // 날짜 변수 선언
+	    var yearNow = today.getFullYear();
+		
+	    if (dateStr.length <=8) {
+			
+		    if (year < 1900 || year > yearNow){
+		    	
+		    	$('#birth_check').text('생년월일을 확인해주세요 :)');
+				$('#birth_check').css('color', 'red');
+		    	
+		    }else if (month < 1 || month > 12) {
+		    		
+		    	$('#birth_check').text('생년월일을 확인해주세요 :)');
+				$('#birth_check').css('color', 'red'); 
+		    
+		    }else if (day < 1 || day > 31) {
+		    	
+		    	$('#birth_check').text('생년월일을 확인해주세요 :)');
+				$('#birth_check').css('color', 'red'); 
+		    	
+		    }else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+		    	 
+		    	$('#birth_check').text('생년월일을 확인해주세요 :)');
+				$('#birth_check').css('color', 'red'); 
+		    	 
+		    }else if (month == 2) {
+		    	 
+		       	var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+		       	
+		     	if (day>29 || (day==29 && !isleap)) {
+		     		
+		     		$('#birth_check').text('생년월일을 확인해주세요 :)');
+					$('#birth_check').css('color', 'red'); 
+		    	
+				}else{
+					$('#birth_check').text('');
+					birthJ = true;
+				}//end of if (day>29 || (day==29 && !isleap))
+		     	
+		    }else{
+		    	
+		    	$('#birth_check').text(''); 
+				birthJ = true;
+			}//end of if
+			
+			}else{
+				//1.입력된 생년월일이 8자 초과할때 :  auth:false
+				$('#birth_check').text('생년월일을 확인해주세요 :)');
+				$('#birth_check').css('color', 'red');  
+			}
+		}); //End of method /*
+	
+	/* $('#user_birth').blur(function(){
 		if(birthJ.test($(this).val())){
 			console.log(birthJ.test($(this).val()));
 			$("#birth_check").text('');
@@ -295,24 +353,33 @@ body {
 			$('#birth_check').text('생년월일을 확인해주세요 :)');
 			$('#birth_check').css('color', 'red');
 		}
+	}); */
+	
+	// 매장 선택 값이 0인 경우 경고창
+	$("#reg_submit").click(function(){
+		console.log($('#store_id').val());
+		if($('#store_id option:selected').val() == 0){
+			$('#store_id').focus();
+			return false;
+		} else{
+			return true;
+		}
 	});
 	
 	// 가입하기 실행 버튼 유효성 검사!
-	var inval_Arr = new Array(5).fill(false);
+	var inval_Arr = new Array(6).fill(false);
 	$('#reg_submit').click(function(){
 		// 비밀번호가 같은 경우 && 비밀번호 정규식
 		if (($('#user_pw').val() == ($('#user_pw2').val()))
 				&& pwJ.test($('#user_pw').val())) {
 			inval_Arr[0] = true;
 		} else {
-			console.log('비밀번호를 확인해주세요 :)');
 			inval_Arr[0] = false;
 		}
 		// 이름 정규식
 		if (nameJ.test($('#user_name').val())) {
 			inval_Arr[1] = true;	
 		} else {
-			console.log('이름을 확인해주세요 :)');
 			inval_Arr[1] = false;
 		}
 		// 이메일 정규식
@@ -320,7 +387,6 @@ body {
 			console.log(phoneJ.test($('#user_email').val()));
 			inval_Arr[2] = true;
 		} else {
-			alert('이메일을 확인해주세요 :)');
 			inval_Arr[2] = false;
 		}
 		// 휴대폰번호 정규식
@@ -328,20 +394,24 @@ body {
 			console.log(phoneJ.test($('#user_phone').val()));
 			inval_Arr[3] = true;
 		} else {
-			alert('휴대폰번호를 확인해주세요 :)');
 			inval_Arr[3] = false;
 		}
 		// 생년월일 정규식
-		if (birthJ.test($('#user_birth').val())) {
-			console.log(birthJ.test($('#user_birth').val()));
+		if (birthJ) {
+			console.log(birthJ);
 			inval_Arr[4] = true;
 		} else {
-			alert('생년월일을 확인해주세요 :)');
 			inval_Arr[4] = false;
+		}
+		// 매장 값 확인
+		if ($('#store_id option:selected').val() != 0){
+			inval_Arr[5] = true;
+		} else{
+			inval_Arr[5] = false;
 		}
 		
 		var validAll = true;
-		for(var i = 0; i<inval_Arr.length; i++){
+		for(var i = 0; i < inval_Arr.length; i++){
 			
 			if(inval_Arr[i] == false){
 				validAll = false;
@@ -352,6 +422,7 @@ body {
 			alert('갓민수 월드에 오신 걸 환영합니다 :p');
 			return true;
 		} else{
+			alert('입력한 정보들을 다시 한번 확인해주세요 :)')
 			return false;
 		}
 		
