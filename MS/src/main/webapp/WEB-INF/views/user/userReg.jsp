@@ -149,7 +149,7 @@ body {
 				<input type="text" class="form-control" id="user_phone" name="user_phone" placeholder="Phone Number" required>
 				<div class="check_font" id="phone_check"></div>
 			</div>
-			<!-- 매장선택 -->
+			<%-- <!-- 매장선택 -->
 			<div class="form-group">
 				<span>방문한 매장은 어디신가요?</span>&emsp;
 					<c:if test="${!empty store_list }">
@@ -160,7 +160,7 @@ body {
 						</c:forEach>
 					</select>
 				</c:if>
-			</div>
+			</div> --%>
 			<div class="reg_button">
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}">
 					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
@@ -345,17 +345,7 @@ body {
 			}
 		}); //End of method /*
 	
-	/* $('#user_birth').blur(function(){
-		if(birthJ.test($(this).val())){
-			console.log(birthJ.test($(this).val()));
-			$("#birth_check").text('');
-		} else {
-			$('#birth_check').text('생년월일을 확인해주세요 :)');
-			$('#birth_check').css('color', 'red');
-		}
-	}); */
-	
-	// 매장 선택 값이 0인 경우 경고창
+	/* // 매장 선택 값이 0인 경우 경고창
 	$("#reg_submit").click(function(){
 		console.log($('#store_id').val());
 		if($('#store_id option:selected').val() == 0){
@@ -364,10 +354,33 @@ body {
 		} else{
 			return true;
 		}
-	});
+	}); */
+	
+	function confirm_email(){
+		console.log("인증 버튼");
+		
+		var email = $('#user_email').val();
+		console.log("이메일" + email);
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/user/regMailConfirm',
+			type : 'post',
+			data : {
+				"user_email" : email
+			},
+			success : function(data){
+				
+				console.log(data);
+				alert('이메일이 전송되었습니다 :)');
+				
+			}
+		});
+		
+	}
+	
 	
 	// 가입하기 실행 버튼 유효성 검사!
-	var inval_Arr = new Array(6).fill(false);
+	var inval_Arr = new Array(5).fill(false);
 	$('#reg_submit').click(function(){
 		// 비밀번호가 같은 경우 && 비밀번호 정규식
 		if (($('#user_pw').val() == ($('#user_pw2').val()))
@@ -403,12 +416,12 @@ body {
 		} else {
 			inval_Arr[4] = false;
 		}
-		// 매장 값 확인
+		/* // 매장 값 확인
 		if ($('#store_id option:selected').val() != 0){
 			inval_Arr[5] = true;
 		} else{
 			inval_Arr[5] = false;
-		}
+		} */
 		
 		var validAll = true;
 		for(var i = 0; i < inval_Arr.length; i++){
@@ -419,7 +432,8 @@ body {
 		}
 		
 		if(validAll){ // 유효성 모두 통과
-			alert('갓민수 월드에 오신 걸 환영합니다 :p');
+			alert('갓민수 월드에 오신 걸 환영합니다 :p' + '<br>' + '인증 이메일을 보냈으니 확인해주세요!');
+			confirm_email();
 			return true;
 		} else{
 			alert('입력한 정보들을 다시 한번 확인해주세요 :)')
@@ -428,27 +442,7 @@ body {
 		
 	});
 	 
-	function confirm_email(){
-		console.log("인증 버튼");
-		
-		var email = $('#user_email').val();
-		console.log("이메일" + email);
-		
-		$.ajax({
-			url : '${pageContext.request.contextPath}/user/regMailConfirm',
-			type : 'post',
-			data : {
-				"user_email" : email
-			},
-			success : function(data){
-				
-				console.log(data);
-				alert('이메일이 전송되었습니다 :)');
-				
-			}
-		});
-		
-	}
+	
 	
 </script>
 
