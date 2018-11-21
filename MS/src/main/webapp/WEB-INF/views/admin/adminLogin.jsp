@@ -131,12 +131,10 @@ body {
 			var id = $('#inputId').val();
 			var pw = $('#inputPassword').val();
 			var remember_ad = $('#remember_ad').is(':checked');
-				console.log(remember_ad);
 				$.ajax({
 					type : 'post',
 					url : '${pageContext.request.contextPath}/admin',
 					data : {
-						// name : id
 						admin_id : id,
 						admin_pw : pw,
 						remember_adminId : remember_ad

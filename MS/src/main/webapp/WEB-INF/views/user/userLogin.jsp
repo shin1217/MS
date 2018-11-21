@@ -146,7 +146,12 @@ body {
 		//애니메이션 메서드
 		new WOW().init();
 		
-		//아이디input에서 엔터입력시 비밀번호input으로 넘어감
+		//매장select에서 클릭시 아이디input으로 포커스이동
+		$('#store_id').change(function(){
+			$('#inputId').focus();
+		});
+		
+		//아이디input에서 엔터입력시 비밀번호input으로 포커스이동
 		$('#inputId').keydown(function(event){
 			if(event.keyCode == 13){
 				$('#inputPassword').focus();
@@ -171,7 +176,6 @@ body {
 			type : 'post',
 			url : '${pageContext.request.contextPath}/',
 			data : {
-				// name 값 : id 값
 				user_id : id,
 				user_pw : pw,
 				store_id : store,

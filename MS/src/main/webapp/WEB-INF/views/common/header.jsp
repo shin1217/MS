@@ -79,7 +79,8 @@
 		
 		//셀렉트를 선택하고 다른 옵션을 눌러 상태값이 바뀔때 이벤트 발생(change) -> 선택한 메인페이지로 이동
 		$('#storeList').change(function(){
-			location.href="${pageContext.request.contextPath}/admin/main?store=" + $('#storeList').val();		});
+			location.href="${pageContext.request.contextPath}/admin/main?store=" + $('#storeList').val();		
+		});
 		
 		//셀렉트 플러그인
 		$('#storeList').selectMania({
