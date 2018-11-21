@@ -205,16 +205,22 @@ html, body {
 	padding: 16px;
 	color: black;
 	font-weight: bold;
-	font-size: 32px;
+	font-size: 30px;
 	border-radius: 0 3px 3px 0;
 }
 
 .prev {
-	left: 0;
+	left: -1%;
 }
 
 .next {
 	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
 }
 
 .dot {
@@ -226,6 +232,28 @@ html, body {
 	border-radius: 50%;
 	display: inline-block;
 	transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fading {
+  -webkit-animation-name: fading;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fading;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fading {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fading {
+  from {opacity: .4} 
+  to {opacity: 1}
 }
 
 </style>
@@ -298,7 +326,6 @@ html, body {
 	</div>
 </body>
 <script>
-		var slideIndex = 1;
 	$(document).ready(function() {
 		
 		/* 페이지 로드 시 한식 메뉴로 초기화 */
@@ -307,39 +334,8 @@ html, body {
 			type : 'get',
 
 			success : function(data) {
-				var pLength = getPagingCnt(data.length); // 페이징 표시
-				
-				var str = '';
-				var first = 0;
-				var last = data.length - 8;
-				
-				if(data.length < 8){
-					last = 0;						
-				}
-				
-				for(var i=0; i<pLength; i++){
-					
-					str += '<div style="height: 100%" class="menu_display">';
-					for(var j=first; j<(data.length-last); j++){
-						str += createTable(data[j].food_type, data[j].food_photo, data[j].food_name, data[j].food_price);
-					}
-					str += '</div>';
-					
-					first = ((i+1)*8);
-					last = last - 8;
-					
-					if(last < 0 ){
-						last = 0;
-					}
-				}
-				
-				$('.menu_content').html(str);
-				showSlides(slideIndex);
-				
-				console.log(str);
-				/* display none 처리로 아직 안나옴 */
-				
-			} // end success  
+				viewProcess(data);
+			}  
 		}); // end ajax
 		
 		/* 메뉴 클릭 시 */
@@ -349,90 +345,99 @@ html, body {
 				type : 'get',
 
 				success : function(data) {
-					var pLength = getPagingCnt(data.length); // 페이징 표시
-					
-					var str = '';
-					var first = 0;
-					var last = data.length - 8;
-					
-					if(data.length < 8){
-						last = 0;						
-					}
-					
-					for(var i=0; i<pLength; i++){
-						
-						str += '<div style="height: 100%" class="menu_display">';
-						for(var j=first; j<(data.length-last); j++){
-							str += createTable(data[j].food_type, data[j].food_photo, data[j].food_name, data[j].food_price);
-						}
-						str += '</div>';
-						
-						first = ((i+1)*8);
-						last = last - 8;
-						
-						if(last < 0 ){
-							last = 0;
-						}
-					}
-					$('.menu_content').html(str);
-					showSlides(slideIndex);
-				
-				} // end success  
+					viewProcess(data);
+				}  
 			}); // end ajax
 		});
+	});	
 
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	var slideIndex = 1;
+	
+	/* 음식 nav bar 분기 처리 함수 */
+	function viewProcess(data){
+		var pLength = getPagingCnt(data.length); // 페이징 표시
 		
-		/* 동적 테이블 생성 (음식 종류, 음식 사진, 음식 이름, 음식 가격) */
-		function createTable(foodType, foodPhoto, foodName, foodPrice) {
-			var str = '<div>';
-			str += '<img src="../images/'+ foodType +'/'+ foodPhoto + '"/>';
-			str += '<div style="height: 40%; padding-top: 4%">';
-			str += '<div>'+ foodName +'</div>';
-			str += '<div>'+ foodPrice +'</div>';
-			str += '</div>';
-			str += '</div>';
-			
-			return str;
+		var str = '';
+		var first = 0;
+		var last = data.length - 8;
+		
+		if(data.length < 8){
+			last = 0;						
 		}
-		
-		/* 데이터 갯수에 따른 페이징 dot 표시 처리 */
-	});			
-		function getPagingCnt(length) {
-			var str = '';
-			var length = Math.ceil(length/8); // 소수점 올림 처리
+		for(var i=0; i<pLength; i++){
 			
-			for(var i=0; i < length; i++){
-				str += '<span class="dot" onclick="currentSlide('+ (i+1) +')"></span>';
+			str += '<div style="height: 100%" class="menu_display fading">';
+			for(var j=first; j<(data.length-last); j++){
+				str += createTable(data[j].food_type, data[j].food_photo, data[j].food_name, data[j].food_price);
 			}
-			$('.paging_dot_wrap').html(str);
+			str += '</div>';
 			
-			return length;
+			first = ((i+1)*8);
+			last = last - 8;
+			
+			if(last < 0 ){
+				last = 0;
+			}
 		}
+		$('.menu_content').html(str);
+		showSlides(slideIndex);
+	}
+	
+	/* 동적 테이블 생성 (음식 종류, 음식 사진, 음식 이름, 음식 가격) */
+	function createTable(foodType, foodPhoto, foodName, foodPrice) {
+		var str = '<div>';
+		str += '<img src="../images/'+ foodType +'/'+ foodPhoto + '"/>';
+		str += '<div style="height: 40%; padding-top: 4%">';
+		str += '<div>'+ foodName +'</div>';
+		str += '<div>'+ foodPrice +'</div>';
+		str += '</div>';
+		str += '</div>';
 		
-		/* 페이징 dot 클릭 시 처리  */
-		function currentSlide(n) {
-			showSlides(slideIndex = n);
+		return str;
+	}
+	
+	/* 데이터 갯수에 따른 페이징 dot 표시 처리 */
+	function getPagingCnt(length) {
+		var str = '';
+		var length = Math.ceil(length/8); // 소수점 올림 처리
+		
+		for(var i=0; i < length; i++){
+			str += '<span class="dot" onclick="currentSlide('+ (i+1) +')"></span>';
 		}
+		$('.paging_dot_wrap').html(str);
+		
+		return length;
+	}
+	
+	/* 페이징 화살표 클릭 시 처리 */
+	function plusSlides(n) {
+		showSlides(slideIndex += n);
+	}
 
-		function showSlides(n) {
-			var i;
-			var slides = $('.menu_display');
-			var dots = $('.dot');
-			  
-			if (n > slides.length) {slideIndex = 1}    
-			if (n < 1) {slideIndex = slides.length}
-			for (i = 0; i < slides.length; i++) {
-			    slides[i].style.display = "none";  
-			}
-			for (i = 0; i < dots.length; i++) {
-			    dots[i].className = dots[i].className.replace(" active", "");
-			}
-			slides[slideIndex-1].style.display = "block";  
-			dots[slideIndex-1].className += " active";
-		} 
-						
+	/* 페이징 dot 클릭 시 처리  */
+	function currentSlide(n) {
+		showSlides(slideIndex = n);
+	}
+
+	function showSlides(n) {
+		var i;
+		var slides = $('.menu_display');
+		var dots = $('.dot');
+		  
+		if (n > slides.length) {slideIndex = 1}    
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+		    slides[i].style.display = "none";  
+		}
+		for (i = 0; i < dots.length; i++) {
+		    dots[i].className = dots[i].className.replace(" active", "");
+		}
+		slides[slideIndex-1].style.display = "block";  
+		dots[slideIndex-1].className += " active";
+	} 
 </script>
 </html>
