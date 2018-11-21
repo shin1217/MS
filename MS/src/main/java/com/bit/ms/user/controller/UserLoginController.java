@@ -38,12 +38,13 @@ public class UserLoginController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseBody
-	public int userLoingPass(UserVO userVO, HttpSession httpSession, HttpServletRequest request,
+	public int userLoingPass(UserVO userVO, int store_id, HttpSession httpSession, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 
+		System.out.println(store_id);
 		// userLogin.jsp에서 아이디기억하기 name값(remember) 가져오기
 		String user_check = request.getParameter("remember_userId");
-		int result = login_service.userLogin_service(userVO, httpSession, user_check, response);
+		int result = login_service.userLogin_service(userVO, store_id, httpSession, user_check, response);
 
 		// 매장 리스트
 		login_service.getStoreOption();

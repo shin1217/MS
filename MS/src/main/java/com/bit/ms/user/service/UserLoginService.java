@@ -24,27 +24,21 @@ public class UserLoginService {
 	private UserDaoInterface userDao;
 	private AdminDaoInterface adminDao;
 
-	public int userLogin_service(UserVO userVO, HttpSession httpSession, String user_check,
+	public int userLogin_service(UserVO userVO, int store_id, HttpSession httpSession, String user_check,
 			HttpServletResponse response) {
 		String user_id = userVO.getUser_id();
 		String user_pw = userVO.getUser_pw();
-		int store_id = userVO.getStore_id();
 		int result = 0;
 
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		
-		if(store_id == -1) {
-			result = -1;
-			return result;
-		}
-		
-		UserVO vo = userDao.loginUser(user_id, store_id);
+		UserVO vo = userDao.loginUser(user_id);
 		StoreVO storeVO = userDao.getUserStoreVO(store_id);
 
 		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
 		if (vo != null) {
 			// 아이디,비번,스토어id가 모두 같은경우
-			if (vo.getUser_id().equals(user_id) && vo.getUser_pw().equals(user_pw) && vo.getStore_id() == store_id) {
+			if (vo.getUser_id().equals(user_id) && vo.getUser_pw().equals(user_pw)) {
 				// 쿠키 체크 검사
 				Cookie cookie = new Cookie("user_check", user_id);
 				if (user_check.equals("true")) {

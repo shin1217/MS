@@ -83,11 +83,12 @@ public class MemberMessageController {
 	}
 	//사용자 안읽은 메시지 카운트
 	@RequestMapping(value = "user/messageCnt")
-	public @ResponseBody int cntUserMessage(HttpSession session) {
-			
+	public @ResponseBody int cntUserMessage(HttpSession session) {		
+		
+		StoreVO storeVo = (StoreVO) session.getAttribute("storeSelectSession");		
 		UserVO userVo = (UserVO) session.getAttribute("userSession");
 		String receive_id = userVo.getUser_id();
-		String store_id = Integer.toString(userVo.getStore_id()); 
+		String store_id = Integer.toString(storeVo.getStore_id()); 
 			
 		return service.messageCnt(receive_id, store_id);
 	}

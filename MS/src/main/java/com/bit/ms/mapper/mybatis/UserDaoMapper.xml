@@ -11,7 +11,7 @@
 	<!-- 로그인 / 아이디와 스토어id로 찾음 -->
 	<select id="loginUser" resultType="userVO">
 		select * from userinfo where
-		user_id = #{user_id} and store_id = #{store_id}
+		user_id = #{user_id}
 	</select>
 	<!-- 아이디 찾기 -->
 	<select id="searchId" resultType="String">
