@@ -24,22 +24,22 @@ public class UserLoginService {
 	private UserDaoInterface userDao;
 	private AdminDaoInterface adminDao;
 
-	public int userLogin_service(String user_id, String user_pw, int store_id, HttpSession httpSession,
-			String user_check, HttpServletResponse response) {
-
+	public int userLogin_service(UserVO userVO, HttpSession httpSession, String user_check,
+			HttpServletResponse response) {
+		String user_id = userVO.getUser_id();
+		String user_pw = userVO.getUser_pw();
+		int store_id = userVO.getStore_id();
 		int result = 0;
 
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
-
-		UserVO vo = null;
-		StoreVO storeVO = null;
-
-		try {
-			vo = userDao.loginUser(user_id, store_id);
-			storeVO = userDao.getUserStoreVO(store_id);
-		} catch (Exception e) {
-			e.printStackTrace();
+		
+		if(store_id == -1) {
+			result = -1;
+			return result;
 		}
+		
+		UserVO vo = userDao.loginUser(user_id, store_id);
+		StoreVO storeVO = userDao.getUserStoreVO(store_id);
 
 		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
 		if (vo != null) {
@@ -60,11 +60,11 @@ public class UserLoginService {
 				// 세션 저장하기 전에 비밀번호 가리기
 				vo.setUser_pw("");
 
-				// 세션에 vo 객체 저장				
+				// 세션에 vo 객체 저장
 				httpSession.setAttribute("userSession", vo);
 				System.out.println("회원아이디 세션 userSession : " + httpSession.getAttribute("userSession"));
 				result = 1;
-				
+
 				// storeSelectSession 저장
 				httpSession.setAttribute("storeSelectSession", storeVO);
 				System.out.println("매장정보 세션 storeSelectSession : " + httpSession.getAttribute("storeSelectSession"));

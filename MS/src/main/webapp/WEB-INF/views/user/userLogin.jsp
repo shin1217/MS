@@ -10,12 +10,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
-
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <style>
 *{
 	font-size: 20px;
@@ -100,7 +99,7 @@ body {
 				<div class="form-group">
 					<c:if test="${!empty store_list2 }">
 						<select class="select_pick" id="store_id" name="store_id" required>
-								<option class="select_pick" disabled selected>매장을 선택해주세요</option>
+								<option class="select_pick" value="-1" selected>매장을 선택해주세요</option>
 							<c:forEach var="store_list2" items="${store_list2}">
 								<option class="select_pick" value="${store_list2.store_id}">${store_list2.store_name}</option>
 							</c:forEach>
@@ -182,7 +181,9 @@ body {
 				remember_userId : remember_us
 				},
 				success : function(data) {
-					if (data == 0) { //로그인 실패시
+					if (data == -1) {
+						$('#spanLoginCheck').text('매장을 선택해주세요!!');
+					} else if (data == 0) { //로그인 실패시
 						$('#spanLoginCheck').text('로그인 정보를 정확히 입력해주세요.');
 					} else { //로그인 성공시
 						location.href = '${pageContext.request.contextPath}/user/main';
