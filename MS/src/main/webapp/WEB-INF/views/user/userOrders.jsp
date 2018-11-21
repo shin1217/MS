@@ -299,32 +299,43 @@ html, body {
 </body>
 <script>
 	$(document).ready(function() {
+		var slideIndex = 1;
+		
 		/* 페이지 로드 시 한식 메뉴로 초기화 */
 		$.ajax({
 			url : '${pageContext.request.contextPath}/user/menu?menu=korean&storeId=${storeSelectSession.store_id}',
 			type : 'get',
 
 			success : function(data) {
-				console.log(data);
-				
 				var pLength = getPagingCnt(data.length); // 페이징 표시
 				
 				var str = '';
 				var first = 0;
-				var last = 8;
+				var last = data.length - 8;
+				
+				if(data.length < 8){
+					last = 0;						
+				}
 				
 				for(var i=0; i<pLength; i++){
 					
 					str += '<div style="height: 100%" class="menu_display">';
-					for(var j=first; j<data.length; j++){
+					for(var j=first; j<(data.length-last); j++){
 						str += createTable(data[j].food_type, data[j].food_photo, data[j].food_name, data[j].food_price);
 					}
 					str += '</div>';
 					
-					//first = ((i+1)*8);
-					//last = (data.length);
+					first = ((i+1)*8);
+					last = last - 8;
+					
+					if(last < 0 ){
+						last = 0;
+					}
 				}
+				
 				$('.menu_content').html(str);
+				showSlides(slideIndex);
+				
 				console.log(str);
 				/* display none 처리로 아직 안나옴 */
 				
@@ -342,7 +353,7 @@ html, body {
 					
 					var str = '';
 					var first = 0;
-					var last = data.length % 8;
+					var last = data.length - 8;
 					
 					if(data.length < 8){
 						last = 0;						
@@ -351,52 +362,21 @@ html, body {
 					for(var i=0; i<pLength; i++){
 						
 						str += '<div style="height: 100%" class="menu_display">';
-						for(var j=first; j<(data.length-last); j++){ // 길이 동적 변경해줘야 함
+						for(var j=first; j<(data.length-last); j++){
 							str += createTable(data[j].food_type, data[j].food_photo, data[j].food_name, data[j].food_price);
 						}
 						str += '</div>';
 						
 						first = ((i+1)*8);
-						last = 0;
+						last = last - 8;
+						
+						if(last < 0 ){
+							last = 0;
+						}
 					}
-					
 					$('.menu_content').html(str);
-					
-					
-					
-					
-					
-					var slideIndex = 1;
 					showSlides(slideIndex);
-					
-					function currentSlide(n) {
-						showSlides(slideIndex = n);
-					}
-
-					function showSlides(n) {
-						var i;
-						var slides = $('.menu_display');
-						var dots = $('.dot');
-						  
-						if (n > slides.length) {slideIndex = 1}    
-						if (n < 1) {slideIndex = slides.length}
-						for (i = 0; i < slides.length; i++) {
-						    slides[i].style.display = "none";  
-						}
-						for (i = 0; i < dots.length; i++) {
-						    // dots[i].className = dots[i].className.replace(" active", "");
-						}
-						slides[slideIndex-1].style.display = "block";  
-						// dots[slideIndex-1].className += " active";
-					} 
-					
-					
-					
-					
-					
-					
-					
-					
+				
 				} // end success  
 			}); // end ajax
 		});
@@ -430,6 +410,28 @@ html, body {
 			
 			return length;
 		}
+		
+		/* 페이징 dot 클릭 시 처리  */
+		function currentSlide(n) {
+			showSlides(slideIndex = n);
+		}
+
+		function showSlides(n) {
+			var i;
+			var slides = $('.menu_display');
+			var dots = $('.dot');
+			  
+			if (n > slides.length) {slideIndex = 1}    
+			if (n < 1) {slideIndex = slides.length}
+			for (i = 0; i < slides.length; i++) {
+			    slides[i].style.display = "none";  
+			}
+			for (i = 0; i < dots.length; i++) {
+			    dots[i].className = dots[i].className.replace(" active", "");
+			}
+			slides[slideIndex-1].style.display = "block";  
+			dots[slideIndex-1].className += " active";
+		} 
 	});			
 						
 </script>
