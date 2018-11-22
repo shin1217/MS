@@ -155,7 +155,7 @@ html, body {
 			
 			$.ajax({
 				// 로그인한 아이디와 충전시간, 선택한 좌석 번호 넘겨 줌.
-				url: '<%=request.getContextPath()%>/user/updateAddTime?userId=${userSession.user_id}&addTime=' + addTime + '&seatId=' + seatId + '&storeId=${userSession.store_id}', 
+				url: '<%=request.getContextPath()%>/user/updateAddTime?userId=${userSession.user_id}&addTime=' + addTime + '&seatId=' + seatId + '&storeId=${storeSelectSession.store_id}', 
 				type: 'get',
 				
 				success:function(){
@@ -169,7 +169,7 @@ html, body {
 		
 		/* 페이지 로드 시 좌석 정보 초기화 */
 		$.ajax({
-			url: '<%=request.getContextPath()%>/user/getUserInfoAll?storeId=${userSession.store_id}', 
+			url: '<%=request.getContextPath()%>/user/getUserInfoAll?storeId=${storeSelectSession.store_id}', 
 			type: 'get',
 			success:function(data){ // 좌석을 사용 중인 사용자 모두 가져오기
 				$('#use_cnt').text(data.length); // 사용 좌석 갯수 변경
