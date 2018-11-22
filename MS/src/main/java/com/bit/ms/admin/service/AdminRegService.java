@@ -33,4 +33,12 @@ public class AdminRegService {
 		
 		return result;
 	}
+
+	public int getSelectStoreName(String re_name) {
+
+		adminDao = adminSqlSession.getMapper(AdminDaoInterface.class);
+		int result = adminDao.getSelectStoreName(re_name);
+		
+		return result;
+	}
 }
