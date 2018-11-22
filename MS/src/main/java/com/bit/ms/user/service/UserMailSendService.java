@@ -21,9 +21,7 @@ public class UserMailSendService {
          
       String htmlStr = "<h2>안녕하세요 MS :p 입니다!</h2><br><br>"
                     + "인증번호를 "
-                    + "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다) <br><br>"
-                    + "<a href=\"http://localhost/bnb/userKeyConfirm?"
-                    + "userId=" + email + "&userKey=" + "hieyyun" + "\">BITBNB 가기</a>";
+                    + "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
          
       try {
          mail.setSubject("[본인인증] MS :p 회원가입 인증메일입니다", "utf-8");

@@ -70,7 +70,8 @@
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.gmail.com" />
 		<beans:property name="port" value="587" /><!-- 465 or 25 -->
-		<beans:property name="username" value="zzanzzanyoung@gmail.com" />
+		<beans:property name="username"
+			value="zzanzzanyoung@gmail.com" />
 		<beans:property name="password" value="alstnqkqh" />
 		<beans:property name="defaultEncoding" value="utf-8" />
 		<beans:property name="javaMailProperties">
@@ -93,12 +94,14 @@
 			<exclude-mapping path="/user/login" />
 			<exclude-mapping path="/admin/reg" />
 			<exclude-mapping path="/user/reg" />
+			<exclude-mapping path="/user/regMailConfirm" />
 			<exclude-mapping path="/user/userSearch" />
 			<exclude-mapping path="/admin/idCheck" />
 			<exclude-mapping path="/user/idCheck" />
 			<exclude-mapping path="/admin/storeChoice" />
 			<exclude-mapping path="/admin/adminSearch" />
-			<beans:bean	class="com.bit.ms.interceptor.AuthCheckInterceptor" />
+			<beans:bean
+				class="com.bit.ms.interceptor.AuthCheckInterceptor" />
 		</interceptor>
 	</interceptors>
 </beans:beans>

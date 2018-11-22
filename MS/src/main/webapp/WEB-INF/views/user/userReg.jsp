@@ -148,6 +148,9 @@ body {
 				<label for="user_phone">휴대전화 ('-' 없이 번호만 입력해주세요)</label>
 				<input type="text" class="form-control" id="user_phone" name="user_phone" placeholder="Phone Number" required>
 				<div class="check_font" id="phone_check"></div>
+				<button class="btn btn-danger px-3" onclick="confirm_email()">
+					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>이메일보내기
+				</button>
 			</div>
 			<%-- <!-- 매장선택 -->
 			<div class="form-group">
@@ -165,7 +168,7 @@ body {
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}">
 					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
 				</a>&emsp;&emsp;
-				<button type="submit" class="btn btn-primary px-3" id="reg_submit">
+				<button class="btn btn-primary px-3" id="reg_submit">
 					<i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기
 				</button>
 			</div>
@@ -364,15 +367,18 @@ body {
 		
 		$.ajax({
 			url : '${pageContext.request.contextPath}/user/regMailConfirm',
+			dataType : 'json',
 			type : 'post',
 			data : {
 				"user_email" : email
 			},
 			success : function(data){
-				
-				console.log(data);
+				console.log("dkjdl;kajf;klajfak;djfl;dakjfl;adjfl;akdfja;dklfja");
+			/* 	console.log(data); */
 				alert('이메일이 전송되었습니다 :)');
 				
+			},error : function(error){
+				alert(error);
 			}
 		});
 		
@@ -432,12 +438,13 @@ body {
 		}
 		
 		if(validAll){ // 유효성 모두 통과
-			alert('갓민수 월드에 오신 걸 환영합니다 :p' + '<br>' + '인증 이메일을 보냈으니 확인해주세요!');
-			confirm_email();
-			return true;
+			alert('갓민수님께서 인증 이메일을 보냈으니 확인해주세요!');
+			/* confirm_email(); */
+			/* location.href("${pageContext.request.contextPath}"); */
+			/* return false; */
 		} else{
 			alert('입력한 정보들을 다시 한번 확인해주세요 :)')
-			return false;
+			/* return false; */
 		}
 		
 	});

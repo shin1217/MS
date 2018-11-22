@@ -17,10 +17,11 @@ public class UserMailConfirmController {
 	
 	@RequestMapping(value = "/user/regMailConfirm", method = RequestMethod.POST)
 	@ResponseBody
-	public void regMailConfirm(@RequestParam("user_email")String user_email) {
+	public String regMailConfirm(@RequestParam("user_email")String user_email) {
 		
 		mailsender.mailSendWithUserKey(user_email);
 		
+		return "ok~";
 	}
 	
 }
