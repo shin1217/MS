@@ -32,6 +32,12 @@ public class UserLoginService {
 
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		
+		//매장선택을 안하면 매장선택하라는 메시지발생
+		if(store_id == -1) {
+			result = -1;
+			return result;
+		}
+		
 		UserVO vo = userDao.loginUser(user_id);
 		StoreVO storeVO = userDao.getUserStoreVO(store_id);
 
