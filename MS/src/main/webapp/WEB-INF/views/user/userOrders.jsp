@@ -430,7 +430,7 @@ html, body {
 	/* 동적 테이블 생성 (음식 아이디, 음식 종류, 음식 사진, 음식 이름, 음식 가격) */
 	function createTable(foodId, foodType, foodPhoto, foodName, foodPrice) {
 		
-		var str = '<div style="padding-top: 2%" class="food_info_wrap" onclick="selectedMenu(' + foodId + ', ' + foodType + ', '+ foodPrice + ', \'' + foodName + '\')">'; 
+		var str = '<div style="padding-top: 2%" class="food_info_wrap" onclick="selectedMenu(' + foodId + ', ' + foodType + ', '+ foodPrice + ',' + "'" + foodName + "'" + ')">'; 
 		str += '<img src="../images/'+ foodType +'/'+ foodPhoto + '"/>';
 		str += '<div style="height: 50%; padding-top: 10%">';
 		str += '<div>'+ foodName +'</div>';

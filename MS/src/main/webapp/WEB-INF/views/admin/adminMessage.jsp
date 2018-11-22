@@ -433,7 +433,6 @@ hr{
 				} //매장이름 가져오기 성공 끝
 			}); // 보내는아이디에 해당하는 매장번호 구하는 ajax 끝
 		}); */
-	
 	///////////////// 쪽지 보내기버튼 이벤트////////////////
 	$('#sendBtn').click(function(){
 		var store_id = adminStore_id;
@@ -446,7 +445,6 @@ hr{
 		} else {
 			sendMessage(store_id, receive_id); // 전체보내기가 아닐경우 해당아이디에 한번만 보냄
 		}
-		alert("메시지를 보냈습니다.");
 	});
 	
 	/////////////////  답장보내기버튼 이벤트//////////////////
@@ -454,27 +452,35 @@ hr{
 		var receive_id = $('#receiveReply').val();
 		var store_id = adminStore_id;
 		sendMessage(store_id,receive_id);
-		alert("답장을 보냈습니다.");
 	}); //메시지 보내기 이벤트 끝
 	
 	////////////// 메시지 보내기 함수 ///////////////
 	function sendMessage(store_id,receive_id){
-		$.ajax({
-			url : '${pageContext.request.contextPath}' + '/member/writeMessage',
-			data : { //보내는사람, 받는사람, 받는사람의 매장아이디, 제목, 내용
-				store_id : store_id,
-				send_id : $('#send_id').val(),
-				receive_id : receive_id,
-				message_con : $('#message_con').val()
-			},
-			success : function(data){
-				$('#replyBtn').css("display","none");
-				$('#writeMessageModal').hide(); //쪽지쓰기 모달창 끔
-				$('#messageModal').show(); // 리스트 모달창 뜸
-				$('#message_con').val(" ");
-			}// 성공 끝
-		}); // ajax 끝
+		if($('#message_con').val() == ""){
+			alert("메시지 내용을 입력하세요.");
+		} else if($('#sendList option:selected').val() == "사용자를 선택하세요"){
+			sendOk = "N";
+			alert("올바른 사용자를 선택하세요.");
+		} else {
+			$.ajax({
+				url : '${pageContext.request.contextPath}' + '/member/writeMessage',
+				data : { //보내는사람, 받는사람, 받는사람의 매장아이디, 제목, 내용
+					store_id : store_id,
+					send_id : $('#send_id').val(),
+					receive_id : receive_id,
+					message_con : $('#message_con').val()
+				},
+				success : function(data){
+					alert("메시지를 보냈습니다");
+					$('#replyBtn').css("display","none");
+					$('#writeMessageModal').hide(); //쪽지쓰기 모달창 끔
+					$('#messageModal').show(); // 리스트 모달창 뜸
+					$('#message_con').val("");
+				}// 성공 끝
+			}); // ajax 끝
 		}
+	}
+	// 메시지 읽은 표시
 	$(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그들은 이런식으로 이벤트를 줘야함
 		//var str = "onclick = "readChk(' + data[i].message_id + ')"";
 		$(this).css("background-color","darkgrey").css("color","white");
@@ -485,7 +491,7 @@ hr{
 			type : 'post',
 			data : {
 				message_id : message_id,
-				message_read : read_message
+				message_read : read_message,
 			},
 			success : function(data){
 				getMessageList();
@@ -502,7 +508,7 @@ hr{
     	   location.reload();
        } else if (event.target == $('#writeMessageModal').get(0)){
     	   getMessageList();
-		   $('#message_con').val("Message");
+    	   $('#message_con').val("");
     	   $('#replyBtn').css("display","none");
     	   $('#writeMessageModal').hide();
        } 

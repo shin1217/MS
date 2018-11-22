@@ -365,7 +365,7 @@ position : absolute;
 				<button type="button" class="btn bg-dark text-white" id="find_zip" onclick="execDaumPostcode()" >우편번호 찾기</button></div>
 				<input type="text" class="form-control" id="store_address1"	name="store_address1" readonly="readonly" placeholder="도로명주소">
 				<input type="text" class="form-control" id="store_address2"	name="store_address2" placeholder="상세주소"></div>
-            <div class = "store_nameWrap"><label for = "store_num" style = "font-size : 20px;">매장 번호</label><br>
+            <div class = "store_nameWrap"><label for = "store_num" style = "font-size : 20px;">전화 번호</label><br>
             <input type = "text" class = "addStore_num" id = "store_num"></div><br><hr>
             <input type = 'button' class = 'addBtn' id = 'addBtn' value = '매장등록'></div>
          </div>
@@ -438,7 +438,7 @@ position : absolute;
                      str += "<tr><th>매장이름</th><td>" + data.store_name + "</td></tr>";
                      str += "<tr><th>우편번호</th><td>" + data.store_zip + "</td></tr>";
                      str += "<tr><th>매장주소</th><td>" + data.store_address + "</td></tr>";
-                     str += "<tr><th>매장번호</th><td>" + data.store_num + "</td></tr>";
+                     str += "<tr><th>전화번호</th><td>" + data.store_num + "</td></tr>";
                      str += "<tr><th>등록날짜</th><td>" + data.store_regDate + "</td></tr></table></div>";
                   
                   $('.phone').append(str);
@@ -498,21 +498,29 @@ position : absolute;
          //console.log($('#adminMypage_id').val());
          $('#addBtn').click(function(){ //모달창에서 매장등록 눌렀을때 이벤트
             var store_address = $('#store_address1').val() + " " + $('#store_address2').val(); // 매장주소1,2 합친것
-        	 $.ajax({
-               url : '${pageContext.request.contextPath}' + '/admin/adminStoreAdd',
-               type : 'post',
-               data : {
-                  store_name : $('#store_name').val(),
-                  store_zip : $('#store_zip').val(),
-                  store_address : store_address,
-                  store_num : $('#store_num').val(),
-                  admin_id : $('#adminMypage_id').val()
-               },
-               success : function(data){
-                  alert("매장등록에 성공하셨습니다.");
-                  location.reload();
-               } //매장추가 성공 끝
-            }); // 매장추가 ajax 끝 
+            if($('#store_name').val() == ""){
+            	alert("매장명을 입력해주세요");
+            } else if(($('#store_zip').val() == "") || ($('#store_address1').val() == "") || ($('#store_address2').val() == "")){
+            	alert("매장주소를 입력해주세요");
+            } else if($('#store_num').val() == ""){
+            	alert("매장번호를 입력해주세요");
+            } else {
+		       	$.ajax({
+        	    url : '${pageContext.request.contextPath}' + '/admin/adminStoreAdd',
+                 type : 'post',
+                 data : {
+                    store_name : $('#store_name').val(),
+                    store_zip : $('#store_zip').val(),
+                    store_address : store_address,
+                    store_num : $('#store_num').val(),
+                    admin_id : $('#adminMypage_id').val()
+                 },
+                 success : function(data){
+                    alert("매장등록에 성공하셨습니다.");
+                    location.reload();
+                 } //매장추가 성공 끝
+          	  }); // 매장추가 ajax 끝
+            }
          }); // 모달창 이벤트 끝
          
        //닫기버튼을 누르면 매장추가모달창 닫음
@@ -537,7 +545,7 @@ position : absolute;
                   },
                   success : function(data){
                      alert("매장을 날리셨습니다.");
-                    location.reload(); 
+                     location.href = '<%=request.getContextPath()%>'
                   }
                }); // 삭제 ajax끝
             });

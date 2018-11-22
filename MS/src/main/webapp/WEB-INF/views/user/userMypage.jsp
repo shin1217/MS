@@ -178,27 +178,32 @@
                <tr>
                   <th>이름</th>
                   <td><input type = "text" name = "user_name" id = "userMyPage_name" value = "${user.user_name }" readonly>
-                  <p id = "edit_name" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick = "edit('name')">수정하기</p></td>
+                  <p id = "edit_name" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick = "edit('name')">수정하기</p>
+               	  <p id = "errorName" style = "display : none; margin-left : 70px; color : red; font-size : 15px; margin-bottom : 0px;"></p></td>
                </tr>
                <tr>
                   <th>비밀번호</th>
                   <td><input type = "text" name = "user_pw" id = "userMyPage_pw" value = "**********" readonly>
-                  <p id = "edit_pw" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('pw')">수정하기</p></td>
+                  <p id = "edit_pw" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('pw')">수정하기</p>
+                  <p id = "errorPw" style = "display : none; margin-left : 70px; color : red; font-size : 15px; margin-bottom : 0px;"></p></td>
                </tr>
                <tr>
                   <th>핸드폰번호</th>
                   <td><input type = "text" name = "user_phone" id = "userMyPage_phone" value = "${user.user_phone }" readonly>
-                  <p id = "edit_phone" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('phone')">수정하기</p></td>
+                  <p id = "edit_phone" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('phone')">수정하기</p>
+                  <p id = "errorPhone" style = "display : none; margin-left : 70px; color : red; font-size : 15px; margin-bottom : 0px;"></p></td>
                </tr>
                <tr>
                   <th>생년월일</th>
                   <td><input type = "text" name = "user_birth" id = "userMyPage_birth" value = "${user.user_birth }" readonly>
-                  <p id = "edit_birth" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('birth')">수정하기</p></td>
+                  <p id = "edit_birth" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('birth')">수정하기</p>
+                  <p id = "errorBirth" style = "display : none; margin-left : 70px; color : red; font-size : 15px; margin-bottom : 0px;"></p></td>
                </tr>
                <tr>
                   <th>회원이메일</th>
                   <td><input type = "text" name = "user_email" id = "userMyPage_email" value = "${user.user_email }" readonly>
-                  <p id = "edit_email" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('email')">수정하기</p></td>
+                  <p id = "edit_email" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('email')">수정하기</p>
+                  <p id = "errorEmail" style = "display : none; margin-left : 70px; color : red; font-size : 15px; margin-bottom : 0px;"></p></td>
                </tr>
                <tr>
                   <th>회원정보관리</th>
@@ -237,21 +242,47 @@ $(document).ready(function(){
     		$('#userMyPage_' + e + '').css("border","3px solid red").attr("readonly", false);
     		$('#edit_' + e + '').text("수정완료").attr("id", "edit_" + e + "Ok").attr("onclick", "editOk(" + "'" + e + "'" + ")");
 	  	}
-    function editOk(e){ //수정확인 버튼을 눌렀을 경우
-    	if($('#userMyPage_' + e + '').val() == ""){
-			alert("올바른 정보를 입력하세요.");    			
-    	} else {
-   	 		$.ajax({
-   				url : '${pageContext.request.contextPath}' + '/user/userEdit' + e + '',
-				type : 'post',
-				data : $('#userMyPage_myForm').serialize(),
-    			success : function(data){
-	    			alert("수정을 완료했습니다.");
-    				location.reload();
-    			}
-    		});
+	var nameP = /[^가-힣a-zA-Z0-9]/gi;
+	var phoneP = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+	var emailP = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	
+	function editOk(e){ //수정확인 버튼을 눌렀을 경우
+    	if(e == "name"){
+    		if(nameP.test($('#userMyPage_name').val())){
+    			$('#errorName').remove();
+    			editFinish(e);
+    		} else{
+    			$('#errorName').show().html("한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)");
+    		}
+    	} else if (e == "phone"){
+    		if(phoneP.test($('#userMyPage_phone').val())){
+    			$('#errorPhone').remove();
+    			editFinish(e);
+    		} else {
+    			$('#errorPhone').show().html("형식에맞지 않는 번호입니다.");
+    		}
+    	} else if (e == "email"){
+    		if(emailP.test($('#userMyPage_email').val())){
+    			$('#errorEmail').remove();
+    			editFinish(e);
+    		} else {
+    			$('#errorEmail').show().html("이메일 주소를 다시 확인해주세요.");
+    		}
     	}
-    }
+	}
+	
+	
+	function editFinish(e){
+ 		$.ajax({
+			url : '${pageContext.request.contextPath}' + '/user/userEdit' + e + '',
+			type : 'post',
+			data : $('#userMyPage_myForm').serialize(),
+   			success : function(data){
+    			alert("수정을 완료했습니다.");
+   				location.reload();
+   			}
+   		});
+	}
          //삭제버튼 클릭시 삭제확인 모달창이 뜸
          $('#userMyPage_deleteBtn').click(function(){
         	 $('#userMyPage_deleteModal').show();
