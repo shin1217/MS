@@ -26,6 +26,7 @@ input{
 }
 
 html, body {
+	background-color: black;
 	height: 100%;
 }
 
@@ -39,12 +40,12 @@ body {
 }
 
 .full {
-	background-image:
-		url("<%=request.getContextPath()%>/images/login-back.jpg");
+<%-- 	background-image:
+		url("<%=request.getContextPath()%>/images/login-back.jpg"); --%>
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 100%;
+	height: 70%;
 }
 .a_none{
 	font-size: 16px;

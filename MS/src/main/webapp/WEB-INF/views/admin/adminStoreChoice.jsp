@@ -13,6 +13,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <style>
 html, body {
+	background-color: black;
 	height: 100%;
 }
 
@@ -26,8 +27,8 @@ body {
 }
 
 .full {
-	background-image:
-		url("<%=request.getContextPath()%>/images/login-back.jpg");
+<%-- 	background-image:
+		url("<%=request.getContextPath()%>/images/login-back.jpg"); --%>
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;

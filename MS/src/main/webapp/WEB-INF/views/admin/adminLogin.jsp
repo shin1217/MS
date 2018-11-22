@@ -25,6 +25,7 @@ input{
 	font-family: sans-serif;
 }
 html, body {
+	background-color: black;
 	height: 100%;
 }
 
@@ -38,12 +39,12 @@ body {
 }
 
 .full {
-	background-image:
-		url("<%=request.getContextPath()%>/images/login-back.jpg");
+<%-- 	background-image:
+		url("<%=request.getContextPath()%>/images/login-back.jpg"); --%>
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 100%;
+	height: 70%;
 }
 
 .area_inputs {
@@ -59,7 +60,6 @@ body {
 </style>
 </head>
 <body>
-	
 	<!-- Cookie 객체 확인 및 checked 속성 바꾸기 -->
 	<c:if test="${not empty cookie.admin_check}">
 		<c:set value="checked" var="checked"/>
