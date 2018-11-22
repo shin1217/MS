@@ -48,9 +48,13 @@ body {
 #store_zip, #store_address1 {
 	background-color: white;
 }
+.redColor {
+	color: red;
+}
+
 </style>
 </head>
-<body>s
+<body>
 	<div class="container">
 		<div class="titleStyle">
 			<h1>매장등록</h1>
@@ -62,7 +66,7 @@ body {
 			<div class="form-group">
 				<label>매장명</label> 
 				<input type="text" class="form-control" id="store_name" name="store_name" placeholder="매장명">
-				<label id="store_name_la"></label>
+				<label class="redColor" id="store_name_label"></label>
 			</div>
 			<!-- 주소 -->
 			<div class="form-group">
@@ -75,13 +79,13 @@ body {
 				</div>
 				<input type="text" class="form-control" id="store_address1"	name="store_address1" readonly="readonly" placeholder="도로명주소">
 				<input type="text" class="form-control" id="store_address2"	name="store_address2" placeholder="상세주소">
-				<label id="store_add_la"></label>
+				<label class="redColor" id="store_add_label"></label>
 			</div>
 			<!-- 전화번호 -->
 			<div class="form-group">
 				<label>전화번호</label> 
 				<input type="text" class="form-control" id="store_num" name="store_num" placeholder="전화번호">
-				<label id="store_num_la"></label>
+				<label class="redColor" id="store_num_label"></label>
 			</div>
 			<div class="reg_button">
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/admin">취소</a>
@@ -96,35 +100,46 @@ body {
 		$('#find_zip').trigger('click');
 	});
 	
+	
 	function storeCheck() {
+		//각 input이 미입력 상태인 경우
+		if ($('#store_name').val() == '' || $('#store_zip').val() == ''	|| $('#store_address2').val() == ''	|| $('#store_num').val() == '') {
+			if ($('#store_name').val() == '') {
+				$('#store_name_label').text('매장명을 입력해주세요.');
+			}
+			if ($('#store_zip').val() == '' && $('#store_address2').val() == '') {
+				$('#store_add_label').text('우편번호와 상세주소를 입력해주세요.');
+			} else if ($('#store_zip').val() == '') {
+				$('#store_add_label').text('우편번호를 입력해주세요.');
+			} else if ($('#store_address2').val() == '') {
+				$('#store_add_label').text('상세주소를 입력해주세요.');
+			}
 
-		if($('#store_name').val() == '') {
-			$('#store_name_la').text('매장명을 입력해주세요.');
-			$('#store_name').focus();
-			return false;
-		}
-		
-		if($('#store_zip').val() == '') {
-			$('#store_add_la').text('주소를 입력해주세요.');
-			return false;
-		}
-		
-		if($('#store_address2').val() == '') {
-			$('#store_add_la').text('상세주소를 입력해주세요.');
-			$('#store_address2').focus();
-			return false;
-		}
-		
-		if($('#store_num').val() == '') {
-			$('#store_num_la').text('전화번호를 입력해주세요.');
-			$('#store_num').focus();
+			if ($('#store_num').val() == '') {
+				$('#store_num_label').text('전화번호를 입력해주세요.');
+			}
 			return false;
 		}
 	}
+
+	//매장명 입력시 글자,숫자,공백만 입력가능
+	$('#store_name').on('keydown blur', function() {
+		$('#store_name_label').text('');
+		var re_num = $('#store_name').val().replace(/[^a-zA-Z가-힣0-9\s]/g, '');
+		$('#store_name').val(re_num);
+	});
 	
-	//전화번호 입력할때 공백이나 -입력시 삭제함
-	$('#store_num').on('keydown blur', function(){
-		var re_num = $('#store_num').val().replace(/[-]|\s/gi, '');
+	//상세주소 입력시 글자,숫자만 입력가능
+	$('#store_address2').on('keydown blur', function() {
+		$('#store_add_label').text('');
+		var re_num = $('#store_address2').val().replace(/[^a-zA-Z가-힣0-9]/g, '');
+		$('#store_address2').val(re_num);
+	});
+	
+	//전화번호 입력시 숫자만 입력가능
+	$('#store_num').on('keydown blur', function() {
+		$('#store_num_label').text('');
+		var re_num = $('#store_num').val().replace(/[^0-9]/g, '');
 		$('#store_num').val(re_num);
 	});
 </script>
