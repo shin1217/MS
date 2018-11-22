@@ -10,7 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Righteous&amp;subset=latin-ext" rel="stylesheet">
+<script  src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/zipcode.js"></script>
 <style>
@@ -35,7 +35,6 @@ body {
 }
 
 .container h1 {
-	font-family: "Righteous";
 	font-size: 50px;
 	text-align: center;
 }
@@ -114,7 +113,6 @@ body {
 			} else if ($('#store_address2').val() == '') {
 				$('#store_add_label').text('상세주소를 입력해주세요.');
 			}
-
 			if ($('#store_num').val() == '') {
 				$('#store_num_label').text('전화번호를 입력해주세요.');
 			}
@@ -128,12 +126,22 @@ body {
 		var re_num = $('#store_name').val().replace(/[^a-zA-Z가-힣0-9\s]/g, '');
 		$('#store_name').val(re_num);
 	});
+	$('#store_name').blur(function(){
+		var re_num2 = $.trim($('#store_name').val()); //양쪽 공백을 삭제해줌
+		$('#store_name').val(re_num2);
+	});
+	
+	
 	
 	//상세주소 입력시 글자,숫자만 입력가능
 	$('#store_address2').on('keydown blur', function() {
 		$('#store_add_label').text('');
-		var re_num = $('#store_address2').val().replace(/[^a-zA-Z가-힣0-9]/g, '');
+		var re_num = $('#store_address2').val().replace(/[^a-zA-Z가-힣0-9\s]/g, '');
 		$('#store_address2').val(re_num);
+	});
+	$('#store_address2').blur(function(){
+		var re_num2 = $.trim($('#store_address2').val()); //양쪽 공백을 삭제해줌
+		$('#store_address2').val(re_num2);
 	});
 	
 	//전화번호 입력시 숫자만 입력가능
