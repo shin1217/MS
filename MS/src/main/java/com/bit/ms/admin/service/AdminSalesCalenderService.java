@@ -33,7 +33,7 @@ public class AdminSalesCalenderService {
 	}
 
 	
-	public List<SalesVO> salesViewList(int day, int storeId) {
+	public List<SalesVO> salesViewList(int day, int storeId, int nowMonth) {
 		// TODO Auto-generated method stub
 
 		salesDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
@@ -41,7 +41,7 @@ public class AdminSalesCalenderService {
 		List<SalesVO> viewList = null;
 		
 		try {
-			viewList = salesDao.listSales(day, storeId);
+			viewList = salesDao.listSales(day, storeId, nowMonth);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

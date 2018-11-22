@@ -49,9 +49,9 @@ public class AdminSalesCalenderController {
 	
 	@RequestMapping(value = "admin/salesInfo/{indexId}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<SalesVO> salesViewList(@PathVariable("indexId") int day, int storeId) {
+	public List<SalesVO> salesViewList(@PathVariable("indexId") int day, int storeId, int nowMonth) {
 		
-		List<SalesVO> viewList = salesService.salesViewList(day, storeId);
+		List<SalesVO> viewList = salesService.salesViewList(day, storeId, nowMonth);
 		
 		System.out.println("확인용 : " + viewList);
 		

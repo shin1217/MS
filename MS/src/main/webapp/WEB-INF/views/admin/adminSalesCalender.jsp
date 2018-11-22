@@ -249,10 +249,10 @@ td.sales_Table:hover {
 						
 							<%-- 오늘 날짜 칸 만들기 --%>
 							<c:when test="${ dateToday eq intToday}"> 
-									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap bgcolor="#C8C8C8">
+									<td data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="sales_Table salesText" width="100px" height="100px" valign="top" align="left" nowrap bgcolor="#C8C8C8">
 									<p><font style="font-weight: bold; color: PURPLE;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: #282828;">
-									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
+									<p>
 									
 									<c:set var="total" value="0"></c:set>
 									
@@ -269,15 +269,15 @@ td.sales_Table:hover {
 										<c:if test="${total != 0 }">
 										[총 매출] <br> <c:out value="${total }"></c:out>
 										</c:if>
-									</a></font></p></td>
+									</p></font></p></td>
 							</c:when> 
 						
 							<%-- 일요일 날짜 칸 만들기 --%>
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 1}"> 
-									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
+									<td data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="sales_Table salesText" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: RED;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: GRAY;">
-									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
+									<p>
 									
 									<c:set var="total" value="0"></c:set>
 									
@@ -294,15 +294,15 @@ td.sales_Table:hover {
 										<c:if test="${total != 0 }">
 										[총 매출] <br> <c:out value="${total }"></c:out>
 										</c:if>
-									</a></font></p></td>
+									</p></font></p></td>
 							</c:when> 
 							
 							<%-- 토요일 날짜 칸 만들기 --%>
 							<c:when test="${((i-(8-firstDayOfWeek)) % 7) == 0}"> 
-									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
+									<td data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="sales_Table salesText" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: #529DBC;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: GRAY;">
-									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
+									<p>
 									
 									<c:set var="total" value="0"></c:set>
 									
@@ -319,15 +319,15 @@ td.sales_Table:hover {
 										<c:if test="${total != 0 }">
 										[총 매출] <br> <c:out value="${total }"></c:out>
 										</c:if>
-									</a></font></p></td>
+									</p></font></p></td>
 							</c:when> 
 							
 							<%-- 평일 날짜 칸 만들기 --%>
 							<c:otherwise> 
-									<td class="sales_Table" width="100px" height="100px" valign="top" align="left" nowrap>
+									<td data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="sales_Table salesText" width="100px" height="100px" valign="top" align="left" nowrap>
 									<p><font style="font-weight: bold; color: BLACK;">${ index }</font></p>
 									<p><font style="font-weight: bold; color: GRAY;">
-									<a data-target="#layerpop" data-toggle="modal" id="indexId${ index }" value="${ index }" class="salesText">
+									<p>
 									
 									<c:set var="total" value="0"></c:set>
 									
@@ -344,7 +344,7 @@ td.sales_Table:hover {
 										<c:if test="${total != 0 }">
 										[총 매출] <br> <c:out value="${total }"></c:out>
 										</c:if>
-									</a></font></p></td>
+									</p></font></p></td>
 							</c:otherwise> 
 						</c:choose>
 						
@@ -486,13 +486,16 @@ td.sales_Table:hover {
 		$('.salesText').click(function() {
 			var salesText = '';
 			var indexId = $(this).attr('value');
+			var nowMonth = ${nowMonth};
 			var storeId = ${storeSelectSession.store_id};
 			//console.log(getText);
+			console.log(nowMonth);
 			$.ajax({
 				type : 'get',
 				url : '${pageContext.request.contextPath}/admin/salesInfo/' + indexId,
 				data : {
-					storeId : storeId
+					storeId : storeId,
+					nowMonth : nowMonth
 				},
 				success : function(data) {
 					// console.log(data);
