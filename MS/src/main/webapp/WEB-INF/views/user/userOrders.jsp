@@ -386,7 +386,7 @@ html, body {
 		
 		/* 결제하기 버튼 */
 		$('.pay_btn').on('click', function () {
-			
+			console.log($('.order_list_col > td').eq(0).text());
 		});
 	});	
 
@@ -395,6 +395,7 @@ html, body {
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	
 	var slideIndex = 1;
+	var ordersArr = [];
 	
 	/* 음식 nav bar 분기 처리 함수 */
 	function viewProcess(data){
@@ -411,7 +412,7 @@ html, body {
 			
 			str += '<div style="height: 100%" class="menu_display fading">';
 			for(var j=first; j<(data.length-last); j++){
-				str += createTable(data[j].food_type, data[j].food_photo, data[j].food_name, data[j].food_price);
+				str += createTable(data[j].food_id, data[j].food_type, data[j].food_photo, data[j].food_name, data[j].food_price);
 			}
 			str += '</div>';
 			
@@ -426,10 +427,10 @@ html, body {
 		showSlides(slideIndex);
 	}
 	
-	/* 동적 테이블 생성 (음식 종류, 음식 사진, 음식 이름, 음식 가격) */
-	function createTable(foodType, foodPhoto, foodName, foodPrice) {
+	/* 동적 테이블 생성 (음식 아이디, 음식 종류, 음식 사진, 음식 이름, 음식 가격) */
+	function createTable(foodId, foodType, foodPhoto, foodName, foodPrice) {
 		
-		var str = '<div style="padding-top: 2%" class="food_info_wrap" onclick=selectedMenu("'+ foodName +'",'+ foodPrice +')>';
+		var str = '<div style="padding-top: 2%" class="food_info_wrap" onclick="selectedMenu(' + foodId + ', ' + foodType + ', '+ foodPrice + ', \'' + foodName + '\')">'; 
 		str += '<img src="../images/'+ foodType +'/'+ foodPhoto + '"/>';
 		str += '<div style="height: 50%; padding-top: 10%">';
 		str += '<div>'+ foodName +'</div>';
@@ -481,12 +482,14 @@ html, body {
 	} 
 	
 	/* 각 음식 선택 처리 */
-	function selectedMenu(foodName, foodPrice){
+	function selectedMenu(foodId, foodType, foodPrice, foodName){
+		
 		var nameId = foodName+'Name'; // 이름 td의 id 지정
 		var cntId = foodName+'Cnt'; // 수량 span의 id 지정
  		var priceId = foodName+'Price'; // 가격 td의 아이디 지정
 		
-		var str = '<tr>';
+ 		// 주문 테이블 동적 생성
+		var str = '<tr class="order_list_col">';
 		str += '<td id='+ nameId +'>'+ foodName +'</td>';
 		str += '<td><button class="minus" onclick="minusCnt('+ cntId +', '+ foodPrice + ',' + priceId +')">-</button>';
 		str += '<span id='+ cntId +' class="food_cnt">1</span>';
@@ -506,7 +509,8 @@ html, body {
 		else {
 			$('.order_table > tbody').append(str);
 		}
-		totalChange(foodPrice);
+		
+		totalChange(foodPrice, 'plus');
 	}
 	
 	/* 각 음식 + 카운트 처리 */
@@ -517,7 +521,7 @@ html, body {
 		var price = $(priceId).text();
 		$(priceId).text(parseInt(price)+foodPrice); // 가격변경
 		
-		totalChange(foodPrice);
+		totalChange(foodPrice, 'plus');
 	}
 	
 	/* 각 음식 - 카운트 처리 */
@@ -532,18 +536,33 @@ html, body {
 	 	var price = $(priceId).text();
 		$(priceId).text(parseInt(price)-foodPrice); // 가격변경
 		
-		totalChange(foodPrice);
+		totalChange(foodPrice, 'minus');
 	}
 	
 	/* 전체 수량과 가격 처리 */
-	function totalChange(foodPrice) {
-		console.log(typeof(foodPrice));
+	function totalChange(foodPrice, n) {
+		if(n == 'plus'){
+			var totalCnt = $('#total_cnt').text();
+			$('#total_cnt').text(parseInt(totalCnt)+1); // 총 수량 계산
 		
-		var totalCnt = $('#total_cnt').text();
-		$('#total_cnt').text(parseInt(totalCnt)+1); // 총 수량 계산
+			var totalPrice = $('#total_price').text(); 
+			$('#total_price').text(parseInt(totalPrice)+foodPrice); // 총 가격 계산
+		}
 		
-		var totalPrice = $('#total_price').text(); 
-		$('#total_price').text(parseInt(totalPrice)+foodPrice); // 총 가격 계산
+		else {
+			var totalCnt = $('#total_cnt').text();
+			$('#total_cnt').text(parseInt(totalCnt)-1); // 총 수량 계산
+		
+			var totalPrice = $('#total_price').text(); 
+			$('#total_price').text(parseInt(totalPrice)-foodPrice); // 총 가격 계산
+		}
+	}
+	
+	/* 주문한 음식 정보 생성자  */
+	function OrdersList(foodType, foodId, foodCnt) {
+		this.foodType = foodType;
+		this.foodId = foodId;
+		this.foodCnt = foodCnt;
 	}
 </script>	
 </html>
