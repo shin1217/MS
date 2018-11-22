@@ -55,13 +55,14 @@ body {
 		<div class="titleStyle">
 			<h1>매장등록</h1>
 		</div>
-		<form name="storeForm" method="POST">
+		<form method="POST" onsubmit="return storeCheck()">
 			<!-- 저장되있는 세션에서 로그인 아이디를 가져옴 -->
 			<input type="hidden" name="admin_id" value="${adminSession.admin_id}">
 			<!-- 매장이름 -->
 			<div class="form-group">
 				<label>매장명</label> 
 				<input type="text" class="form-control" id="store_name" name="store_name" placeholder="매장명">
+				<label id="store_name_la"></label>
 			</div>
 			<!-- 주소 -->
 			<div class="form-group">
@@ -74,15 +75,17 @@ body {
 				</div>
 				<input type="text" class="form-control" id="store_address1"	name="store_address1" readonly="readonly" placeholder="도로명주소">
 				<input type="text" class="form-control" id="store_address2"	name="store_address2" placeholder="상세주소">
+				<label id="store_add_la"></label>
 			</div>
 			<!-- 전화번호 -->
 			<div class="form-group">
 				<label>전화번호</label> 
 				<input type="text" class="form-control" id="store_num" name="store_num" placeholder="전화번호">
+				<label id="store_num_la"></label>
 			</div>
 			<div class="reg_button">
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/admin">취소</a>
-				<button type="submit" class="btn btn-primary px-3" id="reg_submit" onclick="storeCheck()">등록</button>
+				<button type="submit" class="btn btn-primary px-3" id="reg_submit">등록</button>
 			</div>
 		</form>
 	</div>
@@ -94,13 +97,35 @@ body {
 	});
 	
 	function storeCheck() {
-		var form = document.storeForm;
+
+		if($('#store_name').val() == '') {
+			$('#store_name_la').text('매장명을 입력해주세요.');
+			$('#store_name').focus();
+			return false;
+		}
 		
-		if(!form.store_name.value) {
-			alert("매장명을 입력해주세요");
-			form.store_name.focus();
+		if($('#store_zip').val() == '') {
+			$('#store_add_la').text('주소를 입력해주세요.');
+			return false;
+		}
+		
+		if($('#store_address2').val() == '') {
+			$('#store_add_la').text('상세주소를 입력해주세요.');
+			$('#store_address2').focus();
+			return false;
+		}
+		
+		if($('#store_num').val() == '') {
+			$('#store_num_la').text('전화번호를 입력해주세요.');
+			$('#store_num').focus();
 			return false;
 		}
 	}
+	
+	//전화번호 입력할때 공백이나 -입력시 삭제함
+	$('#store_num').on('keydown blur', function(){
+		var re_num = $('#store_num').val().replace(/[-]|\s/gi, '');
+		$('#store_num').val(re_num);
+	});
 </script>
 </html>
