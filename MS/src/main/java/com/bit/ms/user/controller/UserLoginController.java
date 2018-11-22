@@ -41,7 +41,6 @@ public class UserLoginController {
 	public int userLoingPass(UserVO userVO, int store_id, HttpSession httpSession, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 
-		System.out.println(store_id);
 		// userLogin.jsp에서 아이디기억하기 name값(remember) 가져오기
 		String user_check = request.getParameter("remember_userId");
 		int result = login_service.userLogin_service(userVO, store_id, httpSession, user_check, response);
