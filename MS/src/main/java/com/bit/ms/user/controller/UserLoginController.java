@@ -51,5 +51,11 @@ public class UserLoginController {
 
 		return result;
 	}
+	
+	@RequestMapping(value = "/userRegSuccess", method = RequestMethod.GET)
+	public String user() {
+
+		return "user/userRegSuccess";
+	}
 
 }
