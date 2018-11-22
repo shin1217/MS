@@ -31,6 +31,8 @@ public class UserLoginService {
 		int result = 0;
 
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
+		UserVO vo = userDao.loginUser(user_id);
+		StoreVO storeVO = userDao.getUserStoreVO(store_id);
 		
 		//매장선택을 안하면 매장선택하라는 메시지발생
 		if(store_id == -1) {
@@ -38,8 +40,12 @@ public class UserLoginService {
 			return result;
 		}
 		
-		UserVO vo = userDao.loginUser(user_id);
-		StoreVO storeVO = userDao.getUserStoreVO(store_id);
+		// 인증 안 했을 경우 인증하란 메세지 발생
+		String y = "Y";
+		if(!(vo.getUser_key().equals(y))) {
+			result = -2;
+			return result;
+		}
 
 		// 입력한 아이디와 스토어id값을 통해 정보가 존재 할 경우
 		if (vo != null) {

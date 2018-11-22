@@ -186,6 +186,8 @@ body {
 						$('#spanLoginCheck').text('매장을 선택해주세요!!');
 					} else if (data == 0) { //로그인 실패시
 						$('#spanLoginCheck').text('로그인 정보를 정확히 입력해주세요.');
+					} else if (data == -2) { //이메일 인증 안 했을 시
+						$('#spanLoginCheck').text('이메일 인증을 해주셔야 합니다!');
 					} else { //로그인 성공시
 						location.href = '${pageContext.request.contextPath}/user/main';
 					}
