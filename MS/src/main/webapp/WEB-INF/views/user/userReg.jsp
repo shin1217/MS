@@ -148,9 +148,6 @@ body {
 				<label for="user_phone">휴대전화 ('-' 없이 번호만 입력해주세요)</label>
 				<input type="text" class="form-control" id="user_phone" name="user_phone" placeholder="Phone Number" required>
 				<div class="check_font" id="phone_check"></div>
-				<button class="btn btn-danger px-3" onclick="confirm_email()">
-					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>이메일보내기
-				</button>
 			</div>
 			<%-- <!-- 매장선택 -->
 			<div class="form-group">
@@ -182,7 +179,7 @@ body {
 	//아이디 정규식
 	var idJ = /^[a-z0-9]{4,12}$/;
 	// 비밀번호 정규식
-	var pwJ = /^[A-Za-z0-9]{4,12}$/;
+	var pwJ = /^[A-Za-z0-9]{4,12}$/; 
 	// 이름 정규식
 	var nameJ = /^[가-힣]{2,6}$/;
 	// 이메일 검사 정규식
@@ -359,7 +356,7 @@ body {
 		}
 	}); */
 	
-	function confirm_email(){
+	/* function confirm_email(){
 		console.log("인증 버튼");
 		
 		var email = $('#user_email').val();
@@ -374,7 +371,7 @@ body {
 			},
 			success : function(data){
 				console.log("dkjdl;kajf;klajfak;djfl;dakjfl;adjfl;akdfja;dklfja");
-			/* 	console.log(data); */
+				console.log(data);
 				alert('이메일이 전송되었습니다 :)');
 				
 			},error : function(error){
@@ -382,7 +379,7 @@ body {
 			}
 		});
 		
-	}
+	} */
 	
 	
 	// 가입하기 실행 버튼 유효성 검사!

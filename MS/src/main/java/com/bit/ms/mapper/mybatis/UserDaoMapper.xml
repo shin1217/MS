@@ -8,6 +8,14 @@
 		insert into userinfo (user_id, user_pw, user_name, user_phone, user_birth, user_email)
 		values (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_birth}, #{user_email})
 	</insert>
+	<!-- 회원 인증키(난수) 생성 -->
+	<insert id="GetKey" parameterType="Map">
+		update userinfo set user_key = #{param2} where user_id = #{param1}
+	</insert>
+	<!-- 회원 인증키(난수) Y로 변경 -->
+	<update id="alter_userKey" parameterType="Map">
+		update userinfo set user_key = 'Y' where user_id = #{param1} and user_key = #{param2}
+	</update>
 	<!-- 로그인 / 아이디와 스토어id로 찾음 -->
 	<select id="loginUser" resultType="userVO">
 		select * from userinfo where

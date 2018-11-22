@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
 </head>
 <body>
 
-<p>х╦©Ь╟║ют©║ ╪╨╟Ьго╪л╫ю╢о╢ы ~</p><br>
-<p>╦чюо юнаУю╩ го╪е╬ъ ╥н╠вюнюл ╟║╢иго╢о</p><br>
-<p>╟║ютго╫е юл╦чюо аж╪р╥н юнаУ ╦чюою╩ ╨╦Ёбю╦╢о х╝юнгьаж╪╪©Д</p>
+<p>Л²╦Л╕²Л≈░ Л└╠ЙЁ╣М∙≤Л┘╗Л┼╣К▀┬К▀╓ ~</p><br>
+<p>К╘■Л²╪ Л²╦Л╕²Л²└ М∙≤Л┘■Л∙╪ К║°Й╥╦Л²╦Л²╢ Й╟─К┼╔М∙≤К▀┬</p><br>
+<p>Й╟─Л·┘М∙≤Л▀═ Л²╢К╘■Л²╪ Лё╪Л├▄К║° Л²╦Л╕² К╘■Л²╪Л²└ КЁ╢К┐┬Л°╪К▀┬ М≥∙Л²╦М∙╢Лё╪Л└╦Л ■</p>
 
-<a href="${pageContext.request.contextPath}">╥н╠вюн фДюлаЖ╥н юл╣©го╠Б</a>
+<a href="${pageContext.request.contextPath}">К║°Й╥╦Л²╦ М▌≤Л²╢Л╖─К║° Л²╢К▐≥М∙≤Й╦╟</a>
 
 </body>
 </html>

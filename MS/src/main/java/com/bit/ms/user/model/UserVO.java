@@ -16,7 +16,7 @@ public class UserVO {
 	private long user_time; // 남은 시간
 	private int seat_id; // 사용 중인 좌석 번호
 	private int use_pay; // 결제 금액
-	private String reg_key; // 인증 번호
+	private String user_key; // 인증 번호
 	public String getUser_id() {
 		return user_id;
 	}
@@ -71,17 +71,17 @@ public class UserVO {
 	public void setUse_pay(int use_pay) {
 		this.use_pay = use_pay;
 	}
-	public String getReg_key() {
-		return reg_key;
+	public String getUser_key() {
+		return user_key;
 	}
-	public void setReg_key(String reg_key) {
-		this.reg_key = reg_key;
+	public void setUser_key(String reg_key) {
+		this.user_key = reg_key;
 	}
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
 				+ user_phone + ", user_birth=" + user_birth + ", user_email=" + user_email + ", user_time=" + user_time
-				+ ", seat_id=" + seat_id + ", use_pay=" + use_pay + ", reg_key=" + reg_key + "]";
+				+ ", seat_id=" + seat_id + ", use_pay=" + use_pay + ", user_key=" + user_key + "]";
 	}
 	
 	

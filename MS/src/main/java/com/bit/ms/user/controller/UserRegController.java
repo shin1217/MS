@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bit.ms.admin.service.AdminStoreListService;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
+import com.bit.ms.user.service.UserMailSendService;
 import com.bit.ms.user.service.UserRegService;
 
 @Controller
@@ -22,7 +23,11 @@ public class UserRegController {
 	private UserRegService reg_service;
 	@Autowired
 	private AdminStoreListService store_service;
+	@Autowired
+	private UserMailSendService mailsender;
 	
+	
+	// 회원가입 페이지에 보일 매장 리스트
 	@RequestMapping(value = "/user/reg", method = RequestMethod.GET)
 	public String userReg(Model model) {
 		
@@ -34,11 +39,14 @@ public class UserRegController {
 		
 		return "user/userReg";
 	}
-
+	
+	// 회원가입 컨트롤러
 	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
 	public String userRegPass(UserVO userVO, Model model) {
-
+		// 회원가입 메서드
 		reg_service.userReg_service(userVO);
+		// 인증 메일 보내기 메서드
+		mailsender.mailSendWithUserKey(userVO.getUser_email(), userVO.getUser_id());
 
 		return "redirect:/";
 	}
@@ -49,5 +57,15 @@ public class UserRegController {
 	public int idCheck(@RequestParam("userId") String user_id) {
 
 		return reg_service.userIdCheck(user_id);
+	}
+	
+	// e-mail 인증 컨트롤러
+	@RequestMapping(value = "/user/key_alter", method = RequestMethod.GET)
+	public String key_alterConfirm(@RequestParam("user_id")String user_id,
+			@RequestParam("user_key")String key) {
+		
+		mailsender.alter_userKey_service(user_id, key);
+		
+		return "user/userRegSuccess";
 	}
 }

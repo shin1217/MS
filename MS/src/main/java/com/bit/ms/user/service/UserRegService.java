@@ -16,6 +16,7 @@ public class UserRegService {
 	private SqlSessionTemplate userSqlSessin;
 	private UserDaoInterface userDao;
 
+	// 회원가입 서비스
 	public int userReg_service(UserVO userVO) {
 
 		int resultCnt = 0;
@@ -30,7 +31,8 @@ public class UserRegService {
 
 		return resultCnt;
 	}
-
+	
+	// 중복 아이디 체크
 	public int userIdCheck(String user_id) {
 
 		userDao = userSqlSessin.getMapper(UserDaoInterface.class);

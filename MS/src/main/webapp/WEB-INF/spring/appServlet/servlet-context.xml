@@ -94,7 +94,7 @@
 			<exclude-mapping path="/user/login" />
 			<exclude-mapping path="/admin/reg" />
 			<exclude-mapping path="/user/reg" />
-			<exclude-mapping path="/user/regMailConfirm" />
+			<exclude-mapping path="/user/key_alter" />
 			<exclude-mapping path="/user/userSearch" />
 			<exclude-mapping path="/admin/idCheck" />
 			<exclude-mapping path="/user/idCheck" />
