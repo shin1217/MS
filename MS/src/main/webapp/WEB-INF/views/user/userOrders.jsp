@@ -73,11 +73,39 @@ html, body {
 
 .order_table {
 	width: 100%;
+	
 }
 
 .order_table td {
 	height: 50px;
 	font-size: 24px;
+}
+
+.plus, .minus {
+	line-height:30px;
+	background-color: gray;
+	color: white;
+	font-size: 30px;
+	width:30px;
+	height:30px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.plus:hover, .minus:hover {
+	opacity: 0.7;
+}
+
+.plus {
+}
+
+.minus {
+}
+
+.food_cnt {
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .cancle_btn, .pay_btn {
@@ -184,14 +212,12 @@ html, body {
 	width: 24.4%; /* inline-block 속성에 속성 사이 간격 마진이 디폴트로 있으므로 */
 	height: 46%;
 	margin: 0 0.6% 0.6% 0px; /* top right bottom left */
-	padding-top: 5px;
 	border: 1px solid black;
 	border-radius: 10px;
 }
 
 .menu_content div img {
-	width: 65%;
-	height: 60%;
+	height: 50%;
 }
 
 .menu_display {
@@ -267,18 +293,12 @@ html, body {
 				<div style="font-size: 35px">주문 내역</div>
 				<hr>
 			</div>
-			<div style="height: 70%" class="order_table_wrap">
+			<div style="height: 65%; margin-bottom: 5%" class="order_table_wrap">
 				<table border="1" class="order_table">
 					<tr style="background-color: lightgray">
 						<td>메뉴</td>
 						<td>수량</td>
 						<td>가격</td>
-					</tr>
-					<!-- 예시 -->
-					<tr>
-						<td>햄버거</td>
-						<td>1</td>
-						<td>5,000</td>
 					</tr>
 				</table>
 			</div>
@@ -338,7 +358,7 @@ html, body {
 			}  
 		}); // end ajax
 		
-		/* 메뉴 클릭 시 */
+		/* 메뉴 navbar 클릭 시 */
 		$('.menu_link').on('click',function() {
 			$.ajax({
 				url : '${pageContext.request.contextPath}/user/menu?menu='+ $(this).attr('id') + '&storeId=${storeSelectSession.store_id}',
@@ -346,7 +366,8 @@ html, body {
 
 				success : function(data) {
 					viewProcess(data);
-				}  
+				}
+
 			}); // end ajax
 		});
 	});	
@@ -385,13 +406,18 @@ html, body {
 		}
 		$('.menu_content').html(str);
 		showSlides(slideIndex);
+	/* 	
+		$('.food_info_wrap').on('click', function () {
+			console.log('음식 클릭');
+		}); */
 	}
 	
 	/* 동적 테이블 생성 (음식 종류, 음식 사진, 음식 이름, 음식 가격) */
 	function createTable(foodType, foodPhoto, foodName, foodPrice) {
-		var str = '<div>';
+		
+		var str = '<div style="padding-top: 2%" class="food_info_wrap" onclick=selectedMenu("'+ foodName +'",'+ foodPrice +')>';
 		str += '<img src="../images/'+ foodType +'/'+ foodPhoto + '"/>';
-		str += '<div style="height: 40%; padding-top: 4%">';
+		str += '<div style="height: 50%; padding-top: 10%">';
 		str += '<div>'+ foodName +'</div>';
 		str += '<div>'+ foodPrice +'</div>';
 		str += '</div>';
@@ -439,5 +465,22 @@ html, body {
 		slides[slideIndex-1].style.display = "block";  
 		dots[slideIndex-1].className += " active";
 	} 
+	
+	/* 각 음식 선택 처리 */
+	function selectedMenu(foodName, foodPrice){
+		var str = '<tr>';
+		str += '<td>'+ foodName +'</td>';
+		str += '<td><button class="minus">-</button>';
+		str += '<span class="food_cnt">1</span>';
+		str += '<button class="plus">+</button></td>';
+		str += '<td>'+ foodPrice +'</td>'
+		str += '</tr>';
+		
+		$('.order_table > tbody').append(str);
+		
+		console.log(foodName);
+		console.log(foodPrice);
+	}
+	
 </script>
 </html>
