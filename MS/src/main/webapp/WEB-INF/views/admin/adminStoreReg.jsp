@@ -99,7 +99,6 @@ body {
 		$('#find_zip').trigger('click');
 	});
 	
-	
 	function storeCheck() {
 		//각 input이 미입력 상태인 경우
 		if ($('#store_name').val() == '' || $('#store_zip').val() == ''	|| $('#store_address2').val() == ''	|| $('#store_num').val() == '') {
@@ -123,15 +122,22 @@ body {
 	//매장명 입력시 글자,숫자,공백만 입력가능
 	$('#store_name').on('keydown blur', function() {
 		$('#store_name_label').text('');
-		var re_num = $('#store_name').val().replace(/[^a-zA-Z가-힣0-9\s]/g, '');
-		$('#store_name').val(re_num);
+		var re_name = $('#store_name').val().replace(/[^a-zA-Z가-힣0-9\s]/g, '');
+		$('#store_name').val(re_name);
 	});
 	$('#store_name').blur(function(){
-		var re_num2 = $.trim($('#store_name').val()); //양쪽 공백을 삭제해줌
-		$('#store_name').val(re_num2);
+		var re_name2 = $.trim($('#store_name').val()); //양쪽 공백을 삭제해줌
+		$('#store_name').val(re_name2);
+		$.ajax({
+			url : '${pageContext.request.contextPath}/admin/storeCheck/' + re_name2,
+			type : 'get',
+			success : function(data) {
+				if(data == 1){
+					$('#store_name_label').text('이미 사용중인 매장명입니다.');
+				}
+			}
+		});
 	});
-	
-	
 	
 	//상세주소 입력시 글자,숫자만 입력가능
 	$('#store_address2').on('keydown blur', function() {
