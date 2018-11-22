@@ -156,15 +156,14 @@ position : absolute;
    border : 4px solid darkgrey;
    height : 60px;
    background-color : white;
-   /* -webkit-text-stroke : 1px black; */
+   font-size : 20px;
 }
 .adminMypage_storeDetail td {
-   width : 220px;
+   width : 300px;
    padding : 10px 30px;
    font-size : 20px;
    border : 4px solid darkgrey;
    background-color : white;
-   /* -webkit-text-stroke : 1px black; */
 }
 .adminMypage_storeTitle{
    text-align : center;

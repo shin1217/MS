@@ -230,7 +230,7 @@ hr{
 						<div class="col-md-12 form-group">
 							<label class="name">보내는 사람</label> <input type="text"
 								class="form-control" name="send_id"
-								value = "관리자" id = "send_id" style = "background-color : darkgrey;" readonly/>
+								value = "${storeSelectSession.store_name}" id = "send_id" style = "background-color : darkgrey;" readonly/>
 						</div>
 						<div class="col-md-12 form-group">
 							<label class="name">받는 사람</label>
@@ -335,7 +335,7 @@ hr{
 							if(data[i].message_read != "Y"){
 								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #eee;">';
 							} else {
-								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : darkgrey; color : white; font-weight : bold">';
+								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : darkgrey;">';
 								str += '<img src = "${pageContext.request.contextPath}/images/delete2.png" onclick = "deleteMessage(' + data[i].message_id + ')"style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
 							}
 							str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';

@@ -228,7 +228,7 @@ hr{
 						</div>
 						<div class="col-md-12 form-group">
 							<label class="name">받는 사람</label>
-							<input type = "text" name = "receive_id" id = "receive_id" class = "form-control" style = "background-color : darkgrey;" value = "관리자" readonly >
+							<input type = "text" name = "receive_id" id = "receive_id" class = "form-control" style = "background-color : darkgrey;" value = "${storeSelectSession.store_name}" readonly >
 						</div>
 						<div class="clearfix"></div>
 						<div class="col-md-12 form-group">
@@ -283,6 +283,7 @@ function alarm(){
 }
 //var user_id = ${userSession.user_id};
 var store_id = ${storeSelectSession.store_id};
+var store_name = "${storeSelectSession.store_name}";
 ///////////// 메시지리스트 //////////////
 function getMessageList(){
 	$.ajax({
@@ -297,7 +298,7 @@ function getMessageList(){
 					if(data[i].message_read != "Y"){
 						str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #eee;">';
 					} else {
-						str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : #4285f4; color : white; font-weight : bold">';
+						str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : darkgrey;">';
 						str += '<img src = ${pageContext.request.contextPath}/images/delete2.png onclick = "deleteMessage(' + data[i].message_id + ')" style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
 					}
 					str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
@@ -379,7 +380,7 @@ $('#messageWriteClose').click(function(){
 //////////// 메시지를 읽은것 처리 /////////////////
 $(document).on("click",".messageUl",function(){ // 동적으로 생성된 태그들은 이런식으로 이벤트를 줘야함
 	//var str = "onclick = "readChk(' + data[i].message_id + ')"";
-	$(this).css("background-color","#4285f4").css("font-weight","bold").css("color","white");
+	$(this).css("background-color","darkgrey");
 	var message_id = $(this).attr("id");
 	var read_message = "Y";
 	$.ajax({

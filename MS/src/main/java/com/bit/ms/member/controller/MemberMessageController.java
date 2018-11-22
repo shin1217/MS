@@ -75,7 +75,7 @@ public class MemberMessageController {
 	public @ResponseBody int cntAdminMessage(HttpSession session) {
 		
 		StoreVO storeVo = (StoreVO) session.getAttribute("storeSelectSession");
-		String receive_id = "관리자";
+		String receive_id = storeVo.getStore_name();
 		String store_id = Integer.toString(storeVo.getStore_id()); 
 		//System.out.println(store_id + " : " + receive_id);
 		
