@@ -59,7 +59,7 @@ public class UserMailSendService {
 		
 		String key = getKey(false, 20);
 		userDao = sqlSession.getMapper(UserDaoInterface.class);
-		userDao.GetKey(user_id, key);
+		userDao.GetKey(user_id, key); 
 		
 		MimeMessage mail = mailSender.createMimeMessage();
 		String htmlStr = "<h2>안녕하세요 MS :p 민수르~ 입니다!</h2><br><br>" 
