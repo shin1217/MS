@@ -156,7 +156,7 @@ body {
 						</c:if>
 					</div> --%>
 					<div class="form-group">
-						<button id="searchBtn" type="button" class="btn btn-primary btn-block">확인</button>
+						<button id="searchBtn2" type="button" class="btn btn-primary btn-block">확인</button>
 					<a class="btn btn-danger btn-block"	href="${pageContext.request.contextPath}">취소</a>
 				</div>
 				</div>
@@ -232,14 +232,33 @@ body {
 		});
 	}
 	
+	// 비밀번호 찾기 이메일로 보내기
+	$('#searchBtn2').click(function(){
+		console.log("패스워드 찾기 : ajax 들어가기 전");
+		console.log($('#inputId').val());
+		console.log($('#inputEmail_2').val());
+		$.ajax({
+			type : "get",
+			url : "${pageContext.request.contextPath}/user/searchPassword?userId="
+					+ $('#inputId').val() + "&userEmail=" + $('#inputEmail_2').val(),
+			success : function(data){
+					
+						alert("해당 이메일로 임시 비밀번호를 발송하였습니다.");
+
+			}
+			
+		});
+		
+	});
+	
 	// 비밀번호 찾기 눌렀을 때
 	// 1 패스워드 찾기 창으로 이어진 후 2 패스워드 창에 아이디가 적힘
 	// 3 모달창 종료
 	$('#pwSearch_btn').click(function(){		
 		
-		/* var idV = $('#id_value').val(); // 오류 뜸 */ 
+		/* var idV = $('#id_value').val(); // 오류 뜸 */
 		console.log(idV);
-		console.log(storeV);
+		/* console.log(storeV); */
 		
 		// 1. 패스워드 찾기 창으로 이어지고
 		$('#search_2').prop("checked", true);
@@ -249,11 +268,13 @@ body {
 		
 		// 2.아이디 & 매장 자동 저장
 		$('#inputId').attr("value", idV);
-		$('#store_id2').val(storeV).prop("selected", true);
+		/* $('#store_id2').val(storeV).prop("selected", true); */
 		
 		// 마지막으로 모달창 종료
 		$('#background_modal').hide();
 	});
+	
+	
 	
 </script>
 </html>

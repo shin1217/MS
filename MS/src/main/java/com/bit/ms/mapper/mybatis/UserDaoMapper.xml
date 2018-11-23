@@ -16,6 +16,10 @@
 	<update id="alter_userKey" parameterType="Map">
 		update userinfo set user_key = 'Y' where user_id = #{param1} and user_key = #{param2}
 	</update>
+	<!-- 회원 임시 비밀번호-->
+	<update id="searchPassword" parameterType="Map">
+		update userinfo set user_pw = #{param3} where user_id = #{param1} and user_email = #{param2}
+	</update>
 	<!-- 로그인 / 아이디와 스토어id로 찾음 -->
 	<select id="loginUser" resultType="userVO">
 		select * from userinfo where user_id = #{user_id}
