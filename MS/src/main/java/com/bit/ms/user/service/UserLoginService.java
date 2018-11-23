@@ -36,6 +36,13 @@ public class UserLoginService {
 		// 로그인 결과값
 		int result = 0;
 		
+		// 회원 정보가 없을 시
+		if(vo == null) {
+			result = 0;
+			return result;
+		}
+		
+		
 		//매장선택을 안하면 매장선택하라는 메시지발생
 		if(storeVO != null && store_id == -1) {
 			result = -1;
