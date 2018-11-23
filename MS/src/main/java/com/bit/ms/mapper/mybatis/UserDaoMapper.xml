@@ -18,9 +18,12 @@
 	</update>
 	<!-- 로그인 / 아이디와 스토어id로 찾음 -->
 	<select id="loginUser" resultType="userVO">
-		select * from userinfo where
-		user_id = #{user_id}
+		select * from userinfo where user_id = #{user_id}
 	</select>
+	<!-- 유저 로그인시 store_id 저장 -->
+	<update id="update_store_id_S" parameterType="Map">
+		update userinfo set store_id = #{param2} where user_id = #{param1}
+	</update>	
 	<!-- 아이디 찾기 -->
 	<select id="searchId" resultType="String">
 		select ifnull(user_id, 0) from userinfo where user_name = #{user_name} and user_phone = #{user_phone} and user_key = 'Y'

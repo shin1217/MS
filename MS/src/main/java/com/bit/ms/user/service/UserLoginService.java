@@ -32,26 +32,28 @@ public class UserLoginService {
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		UserVO vo = userDao.loginUser(user_id);
 		StoreVO storeVO = userDao.getUserStoreVO(store_id);
-		
+
 		// 로그인 결과값
 		int result = 0;
 		
-		//매장선택을 안하면 매장선택하라는 메시지발생
-		if(store_id == -1) {
+		// store_id 저장 결과값
+		int update_store_id;
+
+		// 매장선택을 안하면 매장선택하라는 메시지발생
+		if (store_id == -1) {
 			result = -1;
 			return result;
 		}
-	
+
 		// 회원 정보가 없을 시
-		if(vo == null) {
+		if (vo == null) {
 			result = 0;
 			return result;
 		}
-		
-		
+
 		// 인증 안 했을 경우 인증하란 메세지 발생
 		String y = "Y";
-		if(!(vo.getUser_key().equals(y))) {
+		if (!(vo.getUser_key().equals(y))) {
 			result = -2;
 			return result;
 		}
@@ -75,17 +77,22 @@ public class UserLoginService {
 				// 세션 저장하기 전에 비밀번호 가리기
 				vo.setUser_pw("");
 
+				// 세션 저장하기 전에 vo(UserVO)객체 & DB userinfo 테이블에 매장번호 저장하기
+				vo.setStore_id(store_id);				
+				update_store_id = userDao.update_store_id_S(user_id, store_id);
+
 				// 세션에 vo 객체 저장
 				httpSession.setAttribute("userSession", vo);
 				System.out.println("회원아이디 세션 userSession : " + httpSession.getAttribute("userSession"));
-				result = 1;
 
 				// storeSelectSession 저장
 				httpSession.setAttribute("storeSelectSession", storeVO);
 				System.out.println("매장정보 세션 storeSelectSession : " + httpSession.getAttribute("storeSelectSession"));
+
+				result = 1;
 			}
 		}
-		
+
 		return result;
 	}
 
