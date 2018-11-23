@@ -36,17 +36,18 @@ public class UserLoginService {
 		// 로그인 결과값
 		int result = 0;
 		
+		//매장선택을 안하면 매장선택하라는 메시지발생
+		if(store_id == -1) {
+			result = -1;
+			return result;
+		}
+	
 		// 회원 정보가 없을 시
 		if(vo == null) {
 			result = 0;
 			return result;
 		}
 		
-		//매장선택을 안하면 매장선택하라는 메시지발생
-		if(store_id == -1) {
-			result = -1;
-			return result;
-		}
 		
 		// 인증 안 했을 경우 인증하란 메세지 발생
 		String y = "Y";
