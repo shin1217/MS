@@ -405,6 +405,7 @@ hr{
 			type : 'get',
 			success : function(data){
 				console.log(data);
+				$('#sendList').remove();
 				$('#writeMessageModal').show();
 				$('#send_id').val(data.receive_id);
 				$('#sendWrap').css("display","none");
@@ -459,16 +460,20 @@ hr{
 			}); // 보내는아이디에 해당하는 매장번호 구하는 ajax 끝
 		}); */
 	///////////////// 쪽지 보내기버튼 이벤트////////////////
+	var sendOk = "";
 	$('#sendBtn').click(function(){
 		var store_id = adminStore_id;
 		var receive_id = $('#sendList option:selected').val();
 		if (receive_id == "전체보내기"){
 			for(var i = 0; i < userList.length; i++){
 				receive_id = userList[i];
-				sendMessage(store_id, receive_id); // 전체보내기일 경우 useList만큼 쪽지보내기 반복
+				sendMessage(store_id, receive_id, sendOk); // 전체보내기일 경우 useList만큼 쪽지보내기 반복
 			}
 		} else {
-			sendMessage(store_id, receive_id); // 전체보내기가 아닐경우 해당아이디에 한번만 보냄
+			sendMessage(store_id, receive_id, sendOk); // 전체보내기가 아닐경우 해당아이디에 한번만 보냄
+		}
+		if(sendOk == "true"){
+			alert("메시지를 보냈습니다");
 		}
 	});
 	
@@ -476,15 +481,17 @@ hr{
 	$('#replyBtn').click(function(){
 		var receive_id = $('#receiveReply').val();
 		var store_id = adminStore_id;
-		sendMessage(store_id,receive_id);
+		sendMessage(store_id,receive_id, sendOk);
+		if(sendOk == "true"){
+			alert("답장을 보냈습니다");
+		}
 	}); //메시지 보내기 이벤트 끝
 	
 	////////////// 메시지 보내기 함수 ///////////////
-	function sendMessage(store_id,receive_id){
+	function sendMessage(store_id,receive_id,sendOk){
 		if($('#message_con').val() == ""){
 			alert("메시지 내용을 입력하세요.");
 		} else if($('#sendList option:selected').val() == "사용자를 선택하세요"){
-			sendOk = "N";
 			alert("올바른 사용자를 선택하세요.");
 		} else {
 			$.ajax({
@@ -496,12 +503,15 @@ hr{
 					message_con : $('#message_con').val()
 				},
 				success : function(data){
-					alert("메시지를 보냈습니다");
 					$('#replyBtn').css("display","none");
 					$('#writeMessageModal').hide(); //쪽지쓰기 모달창 끔
 					$('#messageModal').show(); // 리스트 모달창 뜸
 					$('#message_con').val("");
-				}// 성공 끝
+					sendOk = true;
+				},// 성공 끝
+				error : function(){
+					sendOk = false;
+				}
 			}); // ajax 끝
 		}
 	}

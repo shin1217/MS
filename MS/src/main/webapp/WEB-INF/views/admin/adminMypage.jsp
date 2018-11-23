@@ -403,7 +403,8 @@ position : absolute;
     	  $('#adminMypage_' + e + '').css("border","3px solid red").attr("readonly", false);
     	  $('#edit_' + e + '').text("수정완료").attr("id", "edit_" + e + "Ok").attr("onclick","editOk(" + "'"+ e +"'" + ")");
       }
-		function editOk(e){ //수정확인을 눌렀을때
+    /////////수정확인을 눌렀을때///////////
+		function editOk(e){ 
 	    	if($('#adminMypage_' + e + '').val() == ""){
     			  alert("제대로 정보를 입력하세요.");
 			} else {
@@ -418,7 +419,7 @@ position : absolute;
       			});
     		}
      	}
-         //삭제버튼 클릭시 삭제확인 모달창이 뜸
+         /////////삭제버튼 클릭시 삭제확인 모달창이 뜸///////////
          $('#adminMypage_deleteBtn').click(function(){
             $('#adminMypage_deleteModal').show();
          });
@@ -445,7 +446,7 @@ position : absolute;
                }
             });
          });
-         //매장상세보기에서 마우스를 뗀 경우
+         ///////매장상세보기에서 마우스를 뗀 경우///////////
          $('.adminMypage_storeName').mouseout(function(){
         	 $('.adminMypage_storeDetail').remove();
          });
@@ -492,7 +493,7 @@ position : absolute;
          if(list.length < 10){ // 매장이 10개 이상이면 매장추가 버튼이 사라진다
             $('.adminMypage_management').append('<input type = "button" id = "adminMypage_addStore" class = "adminMypage_addStore" value = "+">');
          }
-         //매장 추가 클릭시 이벤트
+         //////매장 추가 클릭시 매장추가 페이지로 이동//////
          $('.adminMypage_addStore').click(function(){
         	 location.href = "${pageContext.request.contextPath}/admin/storeReg";
          });
@@ -537,7 +538,7 @@ position : absolute;
         	$('.adminMypage_storeDetail').hide(); 
          }); */
          
-         //매장 삭제클릭시 이벤트
+         /////////매장 삭제클릭시 이벤트/////////
          $('.deleteStore').click(function(){
                var store_id = $(this).attr("id"); // delete버튼의 아이디값
                console.log(store_id);

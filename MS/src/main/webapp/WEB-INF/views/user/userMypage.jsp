@@ -185,7 +185,6 @@
                   <th>비밀번호</th>
                   <td><input type = "text" name = "user_pw" id = "userMyPage_pw" value = "**********" readonly>
                   <p id = "edit_pw" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('pw')">수정하기</p>
-                  <p id = "errorPw" style = "display : none; margin-left : 70px; color : red; font-size : 15px; margin-bottom : 0px;"></p></td>
                </tr>
                <tr>
                   <th>핸드폰번호</th>
@@ -242,14 +241,17 @@ $(document).ready(function(){
     		$('#userMyPage_' + e).css("border","3px solid red").attr("readonly", false);
     		$('#edit_' + e).text("수정완료").attr("id", "edit_" + e + "Ok").attr("onclick", "editOk(" + "'" + e + "'" + ")");
 	  	}
+	// 유효성검사 정규식
 	var nameP =  /^[0-9a-zA-Z가-힣]{2,20}$/;
 	var phoneP = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 	var emailP = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var birthP = /^[0-9]{6}$/;
 	
-	function editOk(e){ //수정확인 버튼을 눌렀을 경우
+	///////////수정확인 버튼을 눌렀을 경우/////////////
+	function editOk(e){ 
     	if(e == "name"){
     		if(nameP.test($('#userMyPage_name').val())){
-    			$('#errorName').remove();
+    			$('#errorName').css("display","none");
     			editFinish(e);
     		} else{
     			console.log(($('#userMyPage_name').val()));
@@ -257,22 +259,30 @@ $(document).ready(function(){
     		}
     	} else if (e == "phone"){
     		if(phoneP.test($('#userMyPage_phone').val())){
-    			$('#errorPhone').remove();
+    			$('#errorPhone').css("display","none");
     			editFinish(e);
     		} else {
     			$('#errorPhone').show().html("형식에맞지 않는 번호입니다.");
     		}
     	} else if (e == "email"){
     		if(emailP.test($('#userMyPage_email').val())){
-    			$('#errorEmail').remove();
+    			$('#errorEmail').css("display","none");
     			editFinish(e);
     		} else {
     			$('#errorEmail').show().html("이메일 주소를 다시 확인해주세요.");
     		}
+    	} else if (e == "birth"){
+    		if(birthP.test($('#userMyPage_birth').val())){
+    			$('#errorBirth').css("display","none");
+    			editFinish(e);
+    		} else {
+    			$('#errorBirth').show().html("ex)931104 의 형식으로 입력하세요.");
+    		}
+    	} else if (e == "pw"){
+    		editFinish(e);
     	}
 	}
-	
-	
+	////////// 수정에서 유효성검사를 통과했을경우 메서드 ///////////
 	function editFinish(e){
  		$.ajax({
 			url : '${pageContext.request.contextPath}' + '/user/userEdit' + e + '',
@@ -285,12 +295,13 @@ $(document).ready(function(){
    			}
    		});
 	}
-         //삭제버튼 클릭시 삭제확인 모달창이 뜸
+	
+         //////////삭제버튼 클릭시 삭제확인 모달창이 뜸///////////
          $('#userMyPage_deleteBtn').click(function(){
         	 $('#userMyPage_deleteModal').show();
          });
          
-         //모달창에서 삭제확인버튼클릭시 로그인페이지로 이동
+         /////////모달창에서 삭제확인버튼클릭시 로그인페이지로 이동////////
          $('#userMyPage_deleteOkBtn').click(function(){
         	 $.ajax({
                url : '${pageContext.request.contextPath}' + '/user/userDelete',
@@ -304,14 +315,14 @@ $(document).ready(function(){
             $('#userMyPage_mainModal').hide();
          });
          
-         //모달창에서 취소버튼 클릭시 다시 마이페이지이동
+         /////////모달창에서 취소버튼 클릭시 다시 마이페이지이동//////////
          $('#userMyPage_deleteCancelBtn').click(function(){
         	 
         	 $('#userMyPage_deleteModal').hide();
          
          });
          
-      	//모달창 밖의 영역을 누르면 띄워져 있는 모달창을 닫음
+      	//////////모달창 밖의 영역을 누르면 띄워져 있는 모달창을 닫음//////////
          $(window).on('click', function() {
             //jquery는 dom 객체를 jquery 객체로 한 번 감싸 리턴하므로 dom 객체를 얻어와야 비교 가능
             if (event.target == $('#userMyPage_mainModal').get(0)) {
@@ -325,7 +336,7 @@ $(document).ready(function(){
              }
          });
       	
-         //닫기버튼을 누르면 수정모달창 닫음
+         //////////닫기버튼을 누르면 수정모달창 닫음//////////
          $('#userMyPage_close').click(function(){
             $('#userMyPage_mainModal').hide();
          
