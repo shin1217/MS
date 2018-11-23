@@ -35,7 +35,7 @@ public class UserLoginService {
 
 		// 로그인 결과값
 		int result = 0;
-		
+
 		// store_id 저장 결과값
 		int update_store_id;
 
@@ -76,10 +76,6 @@ public class UserLoginService {
 
 				// 세션 저장하기 전에 비밀번호 가리기
 				vo.setUser_pw("");
-
-				// 세션 저장하기 전에 vo(UserVO)객체 & DB userinfo 테이블에 매장번호 저장하기
-				vo.setStore_id(store_id);				
-				update_store_id = userDao.update_store_id_S(user_id, store_id);
 
 				// 세션에 vo 객체 저장
 				httpSession.setAttribute("userSession", vo);

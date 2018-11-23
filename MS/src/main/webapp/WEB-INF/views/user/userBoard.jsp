@@ -7,11 +7,11 @@
 	rel="stylesheet">
 
 <html>
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MS</title>
 <style>
+
 #write {
 	float: right;
 	margin: 20px;
@@ -64,8 +64,11 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 	top: -20px;
 	font-size: 14px;
 }
+
 /* 검색창 */
 </style>
+
+
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -172,7 +175,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 
 				<!-- 페이징처리 -->
 				<c:choose>
-					<c:when test="${userboardlist.pageTotalCount <= 5}">
+					<c:when test="${userboardlist.pageTotalCount <= 7}">
 						<c:forEach var="num" begin="1"
 							end="${userboardlist.pageTotalCount}">
 							<c:if test="${param.page == num}">
@@ -186,7 +189,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 						</c:forEach>
 					</c:when>
 					<c:when test="${param.page <= 3}">
-						<c:forEach var="num" begin="1" end="5">
+						<c:forEach var="num" begin="1" end="7">
 							<c:if test="${param.page == num}">
 								<li class="page-item active"><a class="page-link"
 									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
@@ -197,8 +200,8 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 							</c:if>
 						</c:forEach>
 					</c:when>
-					<c:when test="${param.page  >= userboardlist.pageTotalCount - 2}">
-						<c:forEach var="num" begin="${userboardlist.pageTotalCount-4}"
+					<c:when test="${param.page  >= userboardlist.pageTotalCount - 3}">
+						<c:forEach var="num" begin="${userboardlist.pageTotalCount-6}"
 							end="${userboardlist.pageTotalCount}">
 							<c:if test="${param.page == num}">
 								<li class="page-item active"><a class="page-link"
@@ -211,8 +214,8 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="num" begin="${param.page - 2}"
-							end="${param.page + 2}">
+						<c:forEach var="num" begin="${param.page - 3}"
+							end="${param.page + 3}">
 							<c:if test="${param.page == num}">
 								<li class="page-item active"><a class="page-link"
 									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
