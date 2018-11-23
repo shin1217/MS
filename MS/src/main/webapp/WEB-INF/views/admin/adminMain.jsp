@@ -49,7 +49,7 @@
 
 .left_content_title {
 	position: relative;
-	top: -5%;
+	top: -15%;
 	padding-top: 2%;
 	border: 1px solid black;
 	border-radius: 15px;
@@ -58,7 +58,7 @@
 	font-weight: bold;
 	color: white;
 	width: 60%;
-	height: 10%;
+	height: 40%;
 	margin: 0 auto;
 }
 
@@ -99,7 +99,6 @@
 	padding: 10px;
 	font-size: 20px;
 	border: 1px solid black;
-	height: 35%;
 	margin-left: 20px;
 	margin-right: 20px;
 	margin-bottom: 7%;
@@ -111,13 +110,11 @@
 	padding: 10px;
 	font-size: 20px;
 	border: 1px solid black;
-	height: 30%;
 	margin-left: 20px;
 	margin-right: 20px;
 }
 
 .main_btn_wrap {
-	margin-top: 4%;
 }
 
 .seatTable {
@@ -180,22 +177,24 @@
 			
 		<div class="left_area">
 			<div class="left_content">
-				<div class="left_content_title"><c:out value="${sysYear}" /></div>
-				<div class="com_cnt_text"><span class="com_cnt">0</span>/20</div>
-				<hr style="border: 1px dashed gray">
+				<div style="height: 25%">
+					<div class="left_content_title"><c:out value="${sysYear}" /></div>
+					<div class="com_cnt_text"><span class="com_cnt">0</span>/20</div>
+					<hr style="border: 1px dashed gray">
+				</div>
 				
-				<div style="margin-top: -10%; height: 60%">
-					<div><b>사용자 정보</b></div>
-					<div id="selected_user_info" class="user_info_wrap">
+				<div style="height: 75%">
+					<div style="height: 10%"><b>사용자 정보</b></div>
+					<div style="height: 28%" id="selected_user_info" class="user_info_wrap">
 						<div style="color: red">* 좌석을 선택하세요.</div>
 					</div>
-				
-					<div><b>음식 주문 목록</b></div>
-					<div class="order_list_wrap">
+					
+					<div style="height: 10%"><b>음식 주문 목록</b></div>
+					<div style="height: 28%" class="order_list_wrap">
 						<div style="color: red">* 주문 대기 중인 음식이 없습니다.</div>
 					</div>
 				
-					<div class="main_btn_wrap">
+					<div style="height: 22%; margin-top: 2%" class="main_btn_wrap">
 						<button type="button" class="btn btn-mdb-color" id="addTimeBtn">충전</button>
 						<button type="button" class="btn btn-deep-orange" id="seatChangeBtn">자리 변경</button>
 					</div>
