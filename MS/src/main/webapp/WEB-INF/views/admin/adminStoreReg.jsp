@@ -125,6 +125,8 @@ body {
 		var re_name = $('#store_name').val().replace(/[^a-zA-Z가-힣0-9\s]/g, '');
 		$('#store_name').val(re_name);
 	});
+	
+	//매장명 입력후 blur상태일때 tirm후 중복검사를 해줌
 	$('#store_name').blur(function(){
 		var re_name2 = $.trim($('#store_name').val()); //양쪽 공백을 삭제해줌
 		$('#store_name').val(re_name2);

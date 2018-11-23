@@ -2,11 +2,8 @@ package com.bit.ms.admin.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,13 +27,11 @@ public class AdminUserListController {
 	}
 	
 	// 회원목록을 테이블로 뿌려줌
-	@RequestMapping(value = "/all/{store_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	@ResponseBody
-	public List<UserVO> getUserList(@PathVariable("store_id") int store_id) {
+	public List<UserVO> getUserList() {
 
-		System.out.println(store_id);		
-		
-		List<UserVO> result = listService.getUserList(store_id);
+		List<UserVO> result = listService.getUserList();
 
 		return result;
 	}

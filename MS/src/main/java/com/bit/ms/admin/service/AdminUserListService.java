@@ -21,11 +21,11 @@ public class AdminUserListService {
 	
 	AdminDaoInterface adminDao;
 	
-	public List<UserVO> getUserList(int store_id){
+	public List<UserVO> getUserList(){
 		
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		
-		return adminDao.getUserList(store_id);
+		return adminDao.getUserList();
 	}
 
 	public List<UserVO> sortingUserList(UserListVO userListVO) {

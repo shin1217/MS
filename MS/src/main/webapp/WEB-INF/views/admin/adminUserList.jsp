@@ -16,7 +16,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 
 	<div class="container">
-		<h1>${storeSelectSession.store_name} 회원목록</h1>
+		<h1>전체 회원목록</h1>
 		<table id="userListTable" class="table table-striped table-bordered">
 			<thead>
 				<tr>
@@ -37,12 +37,11 @@
 	});
 	
 	var list = '';
-	var store_id = ${storeSelectSession.store_id};
-		
+	
 	function getAllUserList(){
 		$.ajax({
 			type : 'get',
-			url : '${pageContext.request.contextPath}/admin/userList/all/' + store_id,
+			url : '${pageContext.request.contextPath}/admin/userList/all',
 			success : function(data){
 				$(data).each(function(index, item) {
 					list += '<tr>';
@@ -65,7 +64,6 @@
 			data : {
 				sortName : sortName,
 				orderBy : orderBy,
-				store_id : store_id
 			},
 			success : function(data){
 				$(data).each(function(index, item){

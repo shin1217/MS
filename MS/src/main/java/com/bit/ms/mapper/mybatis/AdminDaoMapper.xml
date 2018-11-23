@@ -69,7 +69,6 @@
 		where store_id = #{store_id}
 	</delete>
 	
-	
 	<!--관리자 이름수정하기 -->
 	<update id="editAdminName" parameterType="hashmap">
 		update admininfo 
@@ -93,13 +92,13 @@
 
 
 	<!-- 회원리스트 출력 -->
-	<select id="getUserList" parameterType="int" resultType="userVO">
-		select * from userinfo where store_id = #{store_id}
+	<select id="getUserList" resultType="userVO">
+		select * from userinfo
 	</select>
 	
 	<!-- 회원리스트 sorting -->
 	<select id="sortingUserList" parameterType="userListVO" resultType="userVO">
-		select * from userinfo where store_id = #{store_id} order by ${sortName} ${orderBy}
+		select * from userinfo order by ${sortName} ${orderBy}
 	</select>
 		
 	<!-- 관리자 아이디로 자신의 스토어전체 검색 -->
