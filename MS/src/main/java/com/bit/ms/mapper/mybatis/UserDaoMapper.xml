@@ -23,7 +23,7 @@
 	</select>
 	<!-- 아이디 찾기 -->
 	<select id="searchId" resultType="String">
-		select ifnull(user_id, 0) from userinfo where user_name = #{user_name} and user_phone = #{user_phone} and store_id = #{search_store}
+		select ifnull(user_id, 0) from userinfo where user_name = #{user_name} and user_phone = #{user_phone}
 	</select>
 	<!-- 비밀번호 찾기 -->
 	<select id="searchPw" parameterType="userVO" resultType="userVO">

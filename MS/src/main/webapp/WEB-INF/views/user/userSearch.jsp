@@ -112,7 +112,7 @@ body {
 							<input type="text" class="form-control" id="inputPhone_1" name="inputPhone_1" placeholder="ex) 01077779999">
 						</div>
 					</div>
-					<!-- 매장 선택 후 값을 비교하려 했으나 같은 값이 있다면 모두 출력해주는 걸로 바꿈 -->
+					<%-- <!-- 매장 선택 후 값을 비교하려 했으나 같은 값이 있다면 모두 출력해주는 걸로 바꿈 -->
 					<div class="form-group">
 						<c:if test="${!empty search_store }">
 							<select class="select_pick" id="store_id1" name="search_store1" required>
@@ -121,8 +121,8 @@ body {
 									<option class="select_pick" value="${search_store.store_id }">${search_store.store_name }</option>
 								</c:forEach>
 							</select>
-						<</c:if>
-					</div>
+						</c:if>
+					</div> --%>
 					<div class="form-group">
 						<button id="searchBtn" type="button" onclick="idSearch_click()" class="btn btn-primary btn-block">확인</button>
 					<a class="btn btn-danger btn-block"	href="${pageContext.request.contextPath}">취소</a>
@@ -141,7 +141,7 @@ body {
 							<input type="email" class="form-control" id="inputEmail_2"	name="inputEmail_2" placeholder="ex) E-mail@gmail.com">
 						</div>
 					</div>
-					<div class="form-group">
+					<%-- <div class="form-group">
 						<c:if test="${!empty search_store }">
 							<select class="select_pick" id="store_id2" name="search_store2" required>
 								<option class="select_pick" disabled selected>매장을 선택해주세요</option>
@@ -150,7 +150,7 @@ body {
 								</c:forEach>
 							</select>
 						</c:if>
-					</div>
+					</div> --%>
 					<div class="form-group">
 						<button id="searchBtn" type="button" class="btn btn-primary btn-block">확인</button>
 					<a class="btn btn-danger btn-block"	href="${pageContext.request.contextPath}">취소</a>
