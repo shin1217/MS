@@ -93,6 +93,10 @@ html, body {
 	cursor: pointer;
 }
 
+.minus {
+	opacity: 0.4;
+}
+
 .plus:hover, .minus:hover {
 	opacity: 0.7;
 }
@@ -376,10 +380,12 @@ html, body {
 			$('.order_table > tbody').html(str); // 선택한 메뉴 화면 초기화
 			$('#total_cnt').text('0'); // 총 수량 초기화
 			$('#total_price').text('0'); // 총 가격 초기화
+			ordersArr = []; // 배열 초기화
 		});
 		
 		/* 결제하기 버튼 */
 		$('.pay_btn').on('click', function () {
+			console.log(ordersArr);
 			
 			if(ordersArr == ''){ // 선택한 음식 없음
 				alert('주문할 음식을 선택하세요.');
@@ -506,7 +512,7 @@ html, body {
  		// 주문 테이블 동적 생성
 		var str = '<tr>';
 		str += '<td id='+ nameId +'>'+ foodName +'</td>';
-		str += '<td><button class="minus" onclick="minusCnt('+ cntId +', '+ foodPrice + ',' + priceId +')">-</button>';
+		str += '<td><button class="minus" onclick="minusCnt('+ cntId +', '+ foodPrice + ',' + priceId +')" disabled>-</button>';
 		str += '<span id='+ cntId +' class="food_cnt">1</span>';
 		str += '<button class="plus" onclick="plusCnt('+ cntId + ', '+ foodPrice +  ',' + priceId +')">+</button></td>';
 		str += '<td id='+ priceId +'>'+ foodPrice +'</td>'
@@ -515,6 +521,9 @@ html, body {
 		var fname = $('#'+nameId).text();
 		
 		if(fname == foodName){
+			$('#'+cntId).prev().attr('disabled', false);
+			$('#'+cntId).prev().css('opacity', '1');
+			
 			var cnt = $('#'+cntId).text();
 			$('#'+cntId).text(++cnt);
 			
@@ -530,6 +539,9 @@ html, body {
 	
 	/* 각 음식 + 카운트 처리 */
 	function plusCnt(cntId, foodPrice, priceId) { // cntId는 onclick 메서드를 통해 객체로 넘어옴
+		$(cntId).prev().attr('disabled', false);
+		$(cntId).prev().css('opacity', '1');
+		
 	 	var num = $(cntId).text();
 		$(cntId).text(num*1+1); // 수량변경
 		
@@ -543,15 +555,17 @@ html, body {
 	function minusCnt(cntId, foodPrice, priceId) {
 		var num = $(cntId).text();
 		
-	 	if(num-1 < 1 ){ // 수량 1이하 안되게 처리
-	 		return;
-	 	}
 	 	$(cntId).text(num*1-1); // 수량변경
 	 	
 	 	var price = $(priceId).text();
 		$(priceId).text(parseInt(price)-foodPrice); // 가격변경
 		
 		totalChange(foodPrice, 'minus');
+		
+	 	if(num-1 < 2){ // 수량 1이하 안되게 처리
+	 		$(cntId).prev().attr('disabled', true);
+			$(cntId).prev().css('opacity', '0.3');
+	 	}
 	}
 	
 	/* 전체 수량과 가격 처리 */
