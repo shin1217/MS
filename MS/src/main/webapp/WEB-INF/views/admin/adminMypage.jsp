@@ -353,7 +353,7 @@ position : absolute;
 
       </div>
    <!-- 매장 추가 모달창 -->
-      <div class = "addStoreModal" id = "addStoreModal">
+     <!--  <div class = "addStoreModal" id = "addStoreModal">
          <div class = 'addStoreWrap' id = "addStoreWrap">
            <div id = 'newAddStore'><p>매장을 추가하세요</p> <hr>
             <span class = 'storeClose' id = 'storeClose'>x</span>
@@ -369,7 +369,7 @@ position : absolute;
             <input type = "text" class = "addStore_num" id = "store_num"></div><br><hr>
             <input type = 'button' class = 'addBtn' id = 'addBtn' value = '매장등록'></div>
          </div>
-      </div>
+      </div> -->
       
    <!-- 회원 탈퇴 모달창 -->
          <div id = "adminMypage_deleteModal" class = "adminMypage_deleteModal">
@@ -399,6 +399,7 @@ position : absolute;
     	  if(e == "pw"){
     	  $('#adminMypage_' + e + '').focus().val("");
     	  }
+    	  $('#adminMypage_' + e + '').focus();
     	  $('#adminMypage_' + e + '').css("border","3px solid red").attr("readonly", false);
     	  $('#edit_' + e + '').text("수정완료").attr("id", "edit_" + e + "Ok").attr("onclick","editOk(" + "'"+ e +"'" + ")");
       }
@@ -434,7 +435,6 @@ position : absolute;
                      //조건필요없이 무조건 상세테이블 생성
                      str += "<table><tr><th colspan = '2' class = 'adminMypage_storeTitle' style = 'position : relative;'>매장 상세정보" + 
                      		"<span class = 'storeClose' id = 'storeDetailClose' style = 'position : absolute'>x</span></th></tr>"
-                     str += "<tr><th>매장아이디</th><td>" + data.store_id + "</td></tr>";
                      str += "<tr><th>매장이름</th><td>" + data.store_name + "</td></tr>";
                      str += "<tr><th>우편번호</th><td>" + data.store_zip + "</td></tr>";
                      str += "<tr><th>매장주소</th><td>" + data.store_address + "</td></tr>";
@@ -445,6 +445,7 @@ position : absolute;
                }
             });
          });
+         //매장상세보기에서 마우스를 뗀 경우
          $('.adminMypage_storeName').mouseout(function(){
         	 $('.adminMypage_storeDetail').remove();
          });
@@ -488,15 +489,15 @@ position : absolute;
             list.push("${store.store_name}");
          </c:forEach>
          
-         if(list.length < 10){ // 모든매장을 다 갖고있으면 매장추가 버튼이 사라진다
+         if(list.length < 10){ // 매장이 10개 이상이면 매장추가 버튼이 사라진다
             $('.adminMypage_management').append('<input type = "button" id = "adminMypage_addStore" class = "adminMypage_addStore" value = "+">');
          }
          //매장 추가 클릭시 이벤트
          $('.adminMypage_addStore').click(function(){
-         	$('#addStoreModal').show();
+        	 location.href = "${pageContext.request.contextPath}/admin/storeReg";
          });
          //console.log($('#adminMypage_id').val());
-         $('#addBtn').click(function(){ //모달창에서 매장등록 눌렀을때 이벤트
+         /* $('#addBtn').click(function(){ //모달창에서 매장등록 눌렀을때 이벤트
             var store_address = $('#store_address1').val() + " " + $('#store_address2').val(); // 매장주소1,2 합친것
             if($('#store_name').val() == ""){
             	alert("매장명을 입력해주세요");
@@ -523,13 +524,18 @@ position : absolute;
             }
          }); // 모달창 이벤트 끝
          
-       //닫기버튼을 누르면 매장추가모달창 닫음
+        //우편번호찾기 외의 지역을 클릭한 경우
+        $('#store_zip, #store_address1').click(function() {
+     		$('#find_zip').trigger('click');
+     	});
+
+         //닫기버튼을 누르면 매장추가모달창 닫음
          $('#storeClose').click(function(){
             $('#addStoreModal').hide();
          });
          $(document).on('click','#storeDetailClose',function(){
         	$('.adminMypage_storeDetail').hide(); 
-         });
+         }); */
          
          //매장 삭제클릭시 이벤트
          $('.deleteStore').click(function(){
@@ -544,15 +550,12 @@ position : absolute;
                      store_id : store_id
                   },
                   success : function(data){
-                     alert("매장을 날리셨습니다.");
+                     alert("매장을 날리셨습니다. 다시 로그인해주세요");
                      location.href = '<%=request.getContextPath()%>'
                   }
                }); // 삭제 ajax끝
             });
          }); //매장 삭제 클릭종료
-         $('#store_zip, #store_address1').click(function() {
-     		$('#find_zip').trigger('click');
-     	});
        //모달창에서 취소버튼 클릭시 다시 마이페이지이동
          $('#storeDeleteCancel').click(function(){
             

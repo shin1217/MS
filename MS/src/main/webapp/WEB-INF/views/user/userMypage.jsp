@@ -236,13 +236,13 @@ $(document).ready(function(){
 	///////////// 수정버튼을 눌렀을 경우 //////////////
 	function edit(e){ //수정하기 버튼을 눌렀을 경우
 		if(e == "pw"){
-    		$('#userMyPage_' + e + '').val("");
+    		$('#userMyPage_' + e).val("");
 		}
-    		$('#userMyPage_' + e + '').focus();
-    		$('#userMyPage_' + e + '').css("border","3px solid red").attr("readonly", false);
-    		$('#edit_' + e + '').text("수정완료").attr("id", "edit_" + e + "Ok").attr("onclick", "editOk(" + "'" + e + "'" + ")");
+    		$('#userMyPage_' + e).focus();
+    		$('#userMyPage_' + e).css("border","3px solid red").attr("readonly", false);
+    		$('#edit_' + e).text("수정완료").attr("id", "edit_" + e + "Ok").attr("onclick", "editOk(" + "'" + e + "'" + ")");
 	  	}
-	var nameP = /[^가-힣a-zA-Z0-9]/gi;
+	var nameP =  /^[0-9a-zA-Z가-힣]{2,20}$/;
 	var phoneP = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 	var emailP = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	
@@ -252,6 +252,7 @@ $(document).ready(function(){
     			$('#errorName').remove();
     			editFinish(e);
     		} else{
+    			console.log(($('#userMyPage_name').val()));
     			$('#errorName').show().html("한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)");
     		}
     	} else if (e == "phone"){
@@ -279,7 +280,8 @@ $(document).ready(function(){
 			data : $('#userMyPage_myForm').serialize(),
    			success : function(data){
     			alert("수정을 완료했습니다.");
-   				location.reload();
+    			$('#userMyPage_' + e).css("border","none").attr("readonly", true);
+    			$('#edit_' + e + 'Ok').text("수정하기").attr("id", "edit_" + e ).attr("onclick", "edit(" + "'" + e + "'" + ")");
    			}
    		});
 	}
