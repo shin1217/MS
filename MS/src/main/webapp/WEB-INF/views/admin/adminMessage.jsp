@@ -324,9 +324,9 @@ hr{
 			} 
 		});
 	}
-	var isUser = false;
 	////////////////// 메시지리스트 불러오는 메서드 //////////////
 	function getMessageList(){
+		var isUser = "";
 		var str = '';
 		var selectedStore = $('#adminStoreList option:selected').val(); // 선택된 스토어 이름
 		getUserList(); // 탈퇴회원인지 아닌지 비교하기위해 가입유저 리스트를 불러옴
@@ -359,11 +359,12 @@ hr{
 									isUser = false;
 								}
 							}
-							if(isUser){ // 존재하는 회원이면
+							/* if(isUser == "true"){ // 존재하는 회원이면
 								str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
 							} else { //탈퇴한 회원이면 
 								str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + ' [탈퇴회원]</li>';								
-							}
+							} */
+							str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
 							str += '<li>시간 : ' + data[i].message_date + '</li>';
 							if(data[i].message_read != "Y"){
 								str += '	<li><textarea readonly cols="18" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
