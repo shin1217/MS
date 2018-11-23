@@ -35,13 +35,12 @@ body {
 }
 
 .container {
-	min-height: 100%;
+	height: 50%;
 	position: relative;
 }
 
 .full {
-	background-image:
-		url("<%=request.getContextPath()%>/images/login-back.jpg");
+	background-color: black;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -80,6 +79,10 @@ body {
     border-radius: 15px;
 }
 
+.layout_search{
+	mar
+}
+
 </style>
 </head>
 <body>
@@ -89,6 +92,7 @@ body {
 			<div class="area_inputs wow fadeIn">
 				<div class="sub_title font-weight-bold text-white">
 					<h3>아이디/비밀번호 찾기</h3>
+					<p>인증된 이메일만 정보 찾기가 가능합니다 :)</p>
 				</div>
 				<div style="margin-bottom: 10px;"
 					class="custom-control custom-radio custom-control-inline">
@@ -202,7 +206,7 @@ body {
 	
 	// 아이디 & 스토어 값 저장하기 위한 변수
 	var idV = "";
-	var storeV = "";
+	/* var storeV = ""; */
 
 	// 아이디 값 받고 출력하는 ajax
 	var idSearch_click = function(){
@@ -211,18 +215,18 @@ body {
 		$.ajax({
 			type:"POST",
 			url:"${pageContext.request.contextPath}/user/userSearch?inputName_1="
-					+$('#inputName_1').val()+"&inputPhone_1="+$('#inputPhone_1').val()+"&search_store1="+$("#store_id1 option:selected").val(),
+					+$('#inputName_1').val()+"&inputPhone_1="+$('#inputPhone_1').val(),
 			success:function(data){
 				console.log(data);
 				
 				if(data == 0){
-					$('#id_value').text("다시 확인해주세요");
+					$('#id_value').text("회원 정보를 확인해주세요!");
 					
 				} else {
 					$('#id_value').text(data);
 					// 아이디값 별도로 저장
 					idV = data;
-					storeV = $("#store_id1 option:selected").val();
+					/* storeV = $("#store_id1 option:selected").val(); */
 				}
 			}
 		});

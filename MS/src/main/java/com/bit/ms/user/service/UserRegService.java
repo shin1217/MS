@@ -39,4 +39,12 @@ public class UserRegService {
 
 		return userDao.checkOverId(user_id);
 	}
+	
+	// 중복 이메일 체크
+	public int userMailCheck(String user_email) {
+		
+		userDao = userSqlSessin.getMapper(UserDaoInterface.class);
+		
+		return userDao.checkOverEmail(user_email);
+	}
 }

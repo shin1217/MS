@@ -228,6 +228,44 @@ body {
 				}
 			});
 		});
+	
+	// 이메일 중복 검사(1 중복 || 0 사용가능)
+	$('#user_email').blur(function(){
+		// id = "id_reg" / name = "userId"
+		var user_email = $(this).val();
+		$.ajax({
+			url :'${pageContext.request.contextPath}/user/mailCheck?userMail='+ user_email,
+			type :'get',
+			dataType : 'json',
+			success : function(data){
+				console.log(data);
+				
+				if(data == 1){
+					// 1 : 아이디가 중복되는 문구
+					$("#email_check").text("이미 가입된 이메일입니다 :p");
+					$("#email_check").css("color", "red");
+					$("#reg_submit").attr("disabled", true);
+				} else{
+					// 이메일
+					if(mailJ.test($('#user_email').val())){
+						console.log(mailJ.test($('#user_email').val()));
+						$("#email_check").text('');
+						$("#reg_submit").attr("disabled", false);
+					} else {
+						$('#email_check').text('이메일을 확인해주세요 :)');
+						$('#email_check').css('color', 'red');
+						$("#reg_submit").attr("disabled", true);
+					}
+				
+				}
+				
+			}, error : function(error) {
+				console.log("실패");
+			}
+		});
+		
+	});
+		
 	// 비밀번호 유효성 검사
 	// 1-1 정규식 체크
 	$('#user_pw').blur(function() {
@@ -262,17 +300,7 @@ body {
 		}
 	});
 	
-	// 이메일
-	$('#user_email').blur(function(){
-		if(mailJ.test($(this).val())){
-			console.log(nameJ.test($(this).val()));
-			$("#email_check").text('');
-		} else {
-			$('#email_check').text('이메일을 확인해주세요 :)');
-			$('#email_check').css('color', 'red');
-		}
-	});
-		
+	
 	// 휴대전화
 	$('#user_phone').blur(function(){
 		if(phoneJ.test($(this).val())){

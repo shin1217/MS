@@ -21,7 +21,7 @@ public interface UserDaoInterface {
 	int alter_userKey(String user_id, String key); // 유저 인증키 Y로 바꿔주는 메서드
 	UserVO loginUser(@Param("user_id")String user_id);// 유저 로그인 메서드
 	int update_store_id_S(String user_id, int store_id); // 유저 로그인시 store_id 저장
-	String searchId(@Param("user_name")String user_name, @Param("user_phone")String user_phone, @Param("search_store")String search_store);// 유저 ID 찾기
+	String searchId(@Param("user_name")String user_name, @Param("user_phone")String user_phone);// 유저 ID 찾기
 	UserVO searchPw(String userId);// 유저 PW 찾기
 	List<UserVO> getMyPage(String user_id);// 마이페이지 메서드
 	int editUserName(HashMap<String,String> map);// 유저 이름 수정
@@ -31,6 +31,7 @@ public interface UserDaoInterface {
 	int editUserEmail(HashMap<String,String> map);// 유저 이메일 수정
 	int deleteUser(String user_id);// 유저 삭제
 	int checkOverId(String user_id);// 아이디 중복 체크
+	int checkOverEmail(String user_email);// 이메일 중복 체크
 	String checkOverPhoneNum(String userPhone);// 유저 전화번호 중복 체크
 	StoreVO getUserStoreVO(int store_id); // 유저로그인한 스토어id로 스토어VO가져옴
 	

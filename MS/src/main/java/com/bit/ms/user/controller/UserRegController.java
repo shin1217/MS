@@ -59,6 +59,14 @@ public class UserRegController {
 		return reg_service.userIdCheck(user_id);
 	}
 	
+	// e-mail 중복 체크 컨트롤러
+	@RequestMapping(value = "/user/mailCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public int emailCheck(@RequestParam("userMail") String user_email) {
+		System.out.println("메일 중복체크 컨트롤러");
+		return reg_service.userMailCheck(user_email);
+	}
+	
 	// e-mail 인증 컨트롤러
 	@RequestMapping(value = "/user/key_alter", method = RequestMethod.GET)
 	public String key_alterConfirm(@RequestParam("user_id")String user_id,

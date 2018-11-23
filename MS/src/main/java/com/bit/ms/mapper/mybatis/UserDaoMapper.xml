@@ -66,6 +66,10 @@
 	<select id="checkOverId" parameterType="String" resultType="int">
 		select count(*) from userinfo where user_id = #{user_id}
 	</select>
+	<!-- 이메일 중복 검사 -->
+	<select id="checkOverEmail" parameterType="String" resultType="int">
+		select count(*) from userinfo where user_email = #{user_email}
+	</select>
 	<!-- 전화번호 중복 검사 -->
 	<select id="checkOverPhoneNum" resultType="String">
 		select userphone from
