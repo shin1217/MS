@@ -28,14 +28,16 @@ public class UserLoginService {
 			HttpServletResponse response) {
 		String user_id = userVO.getUser_id();
 		String user_pw = userVO.getUser_pw();
-		int result = 0;
 
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		UserVO vo = userDao.loginUser(user_id);
 		StoreVO storeVO = userDao.getUserStoreVO(store_id);
 		
+		// 로그인 결과값
+		int result = 0;
+		
 		//매장선택을 안하면 매장선택하라는 메시지발생
-		if(store_id == -1) {
+		if(storeVO != null && store_id == -1) {
 			result = -1;
 			return result;
 		}
@@ -76,6 +78,7 @@ public class UserLoginService {
 				System.out.println("매장정보 세션 storeSelectSession : " + httpSession.getAttribute("storeSelectSession"));
 			}
 		}
+		
 		return result;
 	}
 
