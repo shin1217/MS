@@ -23,6 +23,7 @@ public interface UserDaoInterface {
 	UserVO loginUser(@Param("user_id")String user_id);// 유저 로그인 메서드
 	int update_store_id_S(String user_id, int store_id); // 유저 로그인시 store_id 저장
 	String searchId(@Param("user_name")String user_name, @Param("user_phone")String user_phone);// 유저 ID 찾기
+	UserVO userInfo(String user_id);
 	UserVO searchPw(String userId);// 유저 PW 찾기
 	List<UserVO> getMyPage(String user_id);// 마이페이지 메서드
 	int editUserName(HashMap<String,String> map);// 유저 이름 수정
