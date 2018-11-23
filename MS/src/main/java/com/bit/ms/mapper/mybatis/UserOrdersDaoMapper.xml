@@ -9,4 +9,9 @@
 		where food_type=#{param1} and store_id=#{param2}
 	</select>
 	
+	<insert id="insertOrders" parameterType="userOrdersVO">
+		insert into orders (food_type, food_id, food_cnt, store_id)
+		values (#{food_type}, #{food_id}, #{food_cnt}, #{store_id})
+	</insert>
+	
 </mapper>

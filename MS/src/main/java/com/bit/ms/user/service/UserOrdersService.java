@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.UserDaoInterface;
 import com.bit.ms.user.model.UserFoodVO;
+import com.bit.ms.user.model.UserOrdersVO;
 
 @Service
 public class UserOrdersService {
@@ -20,5 +21,10 @@ public class UserOrdersService {
 		
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
 		return userDao.getFoodInfo(foodType, storeId);
+	}
+	
+	public int inserOrders(UserOrdersVO ordersVO) {
+		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
+		return userDao.insertOrders(ordersVO);
 	}
 }

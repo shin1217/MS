@@ -24,11 +24,9 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
 			if (obj != null || obj2 != null) {
 				return true;
 			}
-
 		}
 
 		response.sendRedirect(request.getContextPath() + "/");
-
 		return false;
 	}
 

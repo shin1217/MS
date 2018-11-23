@@ -10,6 +10,7 @@ import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
 import com.bit.ms.user.model.UserFoodVO;
+import com.bit.ms.user.model.UserOrdersVO;
 import com.bit.ms.user.model.UserVO;
 
 public interface UserDaoInterface {
@@ -56,5 +57,5 @@ public interface UserDaoInterface {
 	
 	/* 음식 주문 */
 	List<UserFoodVO> getFoodInfo(String foodType, int storeId);
-	int update_store_id_I(String user_id, int store_id);
+	int insertOrders(UserOrdersVO ordersVO);
 }

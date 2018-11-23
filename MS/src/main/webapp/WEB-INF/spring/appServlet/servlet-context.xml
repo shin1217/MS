@@ -103,5 +103,11 @@
 			<beans:bean
 				class="com.bit.ms.interceptor.AuthCheckInterceptor" />
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/user/userOrders" />
+			<beans:bean
+				class="com.bit.ms.interceptor.UsingSeatCheckInterceptor" />
+		</interceptor>
 	</interceptors>
 </beans:beans>

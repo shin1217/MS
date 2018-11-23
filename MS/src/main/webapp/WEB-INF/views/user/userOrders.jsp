@@ -97,17 +97,6 @@ html, body {
 	opacity: 0.7;
 }
 
-.plus {
-}
-
-.minus {
-}
-
-.food_cnt {
-	margin-left: 10px;
-	margin-right: 10px;
-}
-
 .cancle_btn, .pay_btn {
 	width: 46%;
 	height: 85px;
@@ -128,6 +117,11 @@ html, body {
 
 .pay_btn {
 	background-color: #CC0000;
+}
+
+.food_cnt {
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .total_price_wrap {
@@ -175,9 +169,6 @@ html, body {
 	color: white;
 	background-color: #2d2d2d;
 	display: inline-block;
-	line-height: 50px;
-	vertical-align: middle;
-	text-align: center;
 	line-height: 50px;
 	vertical-align: middle;
 	text-align: center;
@@ -351,11 +342,15 @@ html, body {
 	</div>
 </body>
 <script>
+
+	var slideIndex = 1;
+	var ordersArr = [];
+	
 	$(document).ready(function() {
 		
 		/* 페이지 로드 시 한식 메뉴로 초기화 */
 		$.ajax({
-			url : '${pageContext.request.contextPath}/user/menu?menu=korean&storeId=${storeSelectSession.store_id}',
+			url : '${pageContext.request.contextPath}/user/getMenuList?foodType=korean&storeId=${storeSelectSession.store_id}',
 			type : 'get',
 
 			success : function(data) {
@@ -366,13 +361,12 @@ html, body {
 		/* 메뉴 navbar 클릭 시 */
 		$('.menu_link').on('click',function() {
 			$.ajax({
-				url : '${pageContext.request.contextPath}/user/menu?menu='+ $(this).attr('id') + '&storeId=${storeSelectSession.store_id}',
+				url : '${pageContext.request.contextPath}/user/getMenuList?foodType='+ $(this).attr('id') + '&storeId=${storeSelectSession.store_id}',
 				type : 'get',
 
 				success : function(data) {
 					viewProcess(data);
 				}
-
 			}); // end ajax
 		});
 		
@@ -386,7 +380,30 @@ html, body {
 		
 		/* 결제하기 버튼 */
 		$('.pay_btn').on('click', function () {
-			console.log($('.order_list_col > td').eq(0).text());
+			
+			if(ordersArr == ''){ // 선택한 음식 없음
+				alert('주문할 음식을 선택하세요.');
+				return;
+			}
+			
+			var ordersConfirm = confirm('주문하시겠습니까?');
+			
+			if(ordersConfirm){
+				for(var i=0; i<ordersArr.length; i++){
+					ordersArr[i].foodCnt = $('.food_cnt').eq(i).text(); // 음식 수량 변경
+				}
+				
+				$.ajax({
+					url : '${pageContext.request.contextPath}/user/orders?storeId=${storeSelectSession.store_id}',
+					type : 'post',
+					contentType: 'application/json', /* 요청 타입 지정(안하면 405 오류) */
+					data: JSON.stringify(ordersArr), 
+
+					success : function() {
+						location.reload();
+					}  			
+				}); // end ajax
+			}
 		});
 	});	
 
@@ -394,8 +411,6 @@ html, body {
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	
-	var slideIndex = 1;
-	var ordersArr = [];
 	
 	/* 음식 nav bar 분기 처리 함수 */
 	function viewProcess(data){
@@ -430,7 +445,7 @@ html, body {
 	/* 동적 테이블 생성 (음식 아이디, 음식 종류, 음식 사진, 음식 이름, 음식 가격) */
 	function createTable(foodId, foodType, foodPhoto, foodName, foodPrice) {
 		
-		var str = '<div style="padding-top: 2%" class="food_info_wrap" onclick="selectedMenu(' + foodId + ', ' + foodType + ', '+ foodPrice + ',' + "'" + foodName + "'" + ')">'; 
+		var str = '<div style="padding-top: 2%" class="food_info_wrap" onclick="selectedMenu(' + foodId + ', ' + foodType + ', '+ foodPrice + ', ' + "'" + foodName + "'" + ')">';
 		str += '<img src="../images/'+ foodType +'/'+ foodPhoto + '"/>';
 		str += '<div style="height: 50%; padding-top: 10%">';
 		str += '<div>'+ foodName +'</div>';
@@ -489,7 +504,7 @@ html, body {
  		var priceId = foodName+'Price'; // 가격 td의 아이디 지정
 		
  		// 주문 테이블 동적 생성
-		var str = '<tr class="order_list_col">';
+		var str = '<tr>';
 		str += '<td id='+ nameId +'>'+ foodName +'</td>';
 		str += '<td><button class="minus" onclick="minusCnt('+ cntId +', '+ foodPrice + ',' + priceId +')">-</button>';
 		str += '<span id='+ cntId +' class="food_cnt">1</span>';
@@ -508,8 +523,8 @@ html, body {
 		}
 		else {
 			$('.order_table > tbody').append(str);
+			ordersArr.push(new OrdersList($(foodType).attr('id'), foodId, $('#'+cntId).text()));
 		}
-		
 		totalChange(foodPrice, 'plus');
 	}
 	
@@ -548,7 +563,6 @@ html, body {
 			var totalPrice = $('#total_price').text(); 
 			$('#total_price').text(parseInt(totalPrice)+foodPrice); // 총 가격 계산
 		}
-		
 		else {
 			var totalCnt = $('#total_cnt').text();
 			$('#total_cnt').text(parseInt(totalCnt)-1); // 총 수량 계산
