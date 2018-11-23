@@ -259,17 +259,17 @@
 		$('#AdminSeatNameInput' + seat_id ).attr("readonly", false);		
 		$('#AdminSeatPayInput' + seat_id ).attr("readonly", false);
 		$('#AdminSeatQRInput' + seat_id ).attr("readonly", false);
+		
+		$('#AdminSeatPayInput' + seat_id ).attr("onkeydown","check_input2_onkeydown()"); //댓글 수정클릭시 숫자만
 		$('#AdminSeatQRInput' + seat_id ).attr("type","file");
 		$('#AdminSeatNameInput' + seat_id ).focus();
 		
-		$('#AdminSeatNameInput' + seat_id ).attr("class","adminSeatList_edit");//댓글 수정클릭시 모양바뀜
-		$('#AdminSeatPayInput' + seat_id ).attr("class","adminSeatList_edit");//댓글 수정클릭시 모양바뀜
-		$('#AdminSeatQRInput' + seat_id ).attr("class","adminSeatList_edit");//댓글 수정클릭시 모양바뀜
-		
+		$('#AdminSeatNameInput' + seat_id ).attr("class","adminSeatList_edit");//댓글 수정클릭시 모양바뀜		
+		$('#AdminSeatPayInput' + seat_id ).attr("class","adminSeatList_edit");//댓글 수정클릭시 모양바뀜		
+		$('#AdminSeatQRInput' + seat_id ).attr("class","adminSeatList_edit");//댓글 수정클릭시 모양바뀜		
 		$('#seat_modify_btn' + seat_id ).attr("value","입력")//댓글 수정클릭시 모양바뀜
 		$('#seat_modify_btn' + seat_id ).attr("class","adminSeatList_edit")//댓글 수정클릭시 모양바뀜
 		$('#seat_modify_btn' + seat_id ).attr("onclick","seat_modify(" + seat_id + ")");
-		
 		$('#seat_delete_btn' + seat_id ).attr("value","취소");//댓글 수정클릭시 모양바뀜
 		$('#seat_delete_btn' + seat_id ).attr("onclick","getSeatList()");//댓글 수정클릭시 모양바뀜
 	}
