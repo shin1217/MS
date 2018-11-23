@@ -42,9 +42,8 @@ public class UserLoginService {
 			return result;
 		}
 		
-		
 		//매장선택을 안하면 매장선택하라는 메시지발생
-		if(storeVO != null && store_id == -1) {
+		if(store_id == -1) {
 			result = -1;
 			return result;
 		}
