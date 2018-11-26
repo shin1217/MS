@@ -63,7 +63,6 @@
 				<tr>
 					<th class="th-sm">좌석이름</th>
 					<th class="th-sm">비용(원)</th>
-					<th class="th-sm">QR코드</th>
 					<th class="th-sm">관리</th>
 				</tr>
 			</thead>
@@ -72,7 +71,6 @@
 					<form>
 						<td style="text-align: center;"><input type="text" id="seat_name" name="seat_name" required></td>
 						<td style="text-align: center;"><input type="text" id="seat_pay" name="seat_pay" required onkeydown="check_input2_onkeydown()" style="width: 70%;" /> 원 / 시간</td>
-						<td style="text-align: center;"><input type="file" name="seat_qr" id="seat_qr" /></td>
 						<td style="text-align: center;"><button id="addseat_btn" type="button">등록</button><button id="reset" type="reset">초기화</button></td>
 					</form>
 				</tr>				
@@ -169,7 +167,7 @@
 							seat_t += '<tr><td class="adminSeatList_td">'
 									+ '<input id="AdminSeatNameInput' + item.seat_id + '" value="' + item.seat_name	+ '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">'
 									+ '<input id="AdminSeatPayInput' + item.seat_id + '" value="' + item.seat_pay + '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">'
-									+ '<input type="" id="AdminSeatQRInput' + item.seat_id + '" value="' + item.seat_qr+ '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">'
+									+ '<input type="button" id="seat_qr_btn' + item.seat_id + '" value="생성하기" readonly="true" class="seat_qr_btn" onclick = "makeQr(' + item.seat_id + ')"/></td><td class="adminSeatList_td">'
 									+ '<input type="button" id="seat_modify_btn' + item.seat_id + '" onclick="seat_modify_mode(' + item.seat_id + ')" type="button" value="수정"></button>'
 									+ '<input type="button" id="seat_delete_btn' + item.seat_id + '" onclick="seat_delete(' + item.seat_id + ')" type="button" value="삭제"></button></td></tr>';
 							$('#seatlist_tbody').html(seat_t);
@@ -282,6 +280,21 @@
 	           alert("숫자만 입력해 주세요 :p");
 	           event.returnValue=false;
 	      } 
+	}
+
+	function makeQr(seat_id){
+		$.ajax({
+			url : '${pageContext.request.contextPath}/admin/addQr/',
+			type : 'post',
+			data : {
+				store_id = session_store_id,
+				seat_id = seat_id,
+				seat_qr = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=localhost/ms/user/qrLogin?store_id=" + store_id + "&seat_id=" + seat_id 
+			},
+			success : function(data){
+				$('.adminSeatList_td').html("<img src = '" + data.seat_qr + "'");
+			}
+		});
 	}
 
 </script>

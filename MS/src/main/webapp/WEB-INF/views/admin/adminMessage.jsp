@@ -311,25 +311,11 @@ hr{
 		});
 		storeList = "";
 	});
-	// 가입유저리스트를 불러옴
-	var allList = [];
-	function getUserList(){
-		$.ajax({
-			url : '${pageContext.request.contextPath}' + '/member/sendList',
-			type : 'get',
-			success : function(data){
-				for(var i = 0; i < data.length; i++){
-					allList.push(data[i].user_id);
-				}
-			} 
-		});
-	}
 	////////////////// 메시지리스트 불러오는 메서드 //////////////
 	function getMessageList(){
 		var isUser = "";
 		var str = '';
 		var selectedStore = $('#adminStoreList option:selected').val(); // 선택된 스토어 이름
-		getUserList(); // 탈퇴회원인지 아닌지 비교하기위해 가입유저 리스트를 불러옴
 			$.ajax({
 			url : '${pageContext.request.contextPath}' + '/admin/message',
 			type : 'post',
@@ -352,18 +338,6 @@ hr{
 								str += '<ul id="' + data[i].message_id + '" class = "messageUl" style = "background-color : darkgrey;">';
 								str += '<img src = "${pageContext.request.contextPath}/images/delete2.png" onclick = "deleteMessage(' + data[i].message_id + ')"style = "width : 17px; height : 20px;"class = "deleteMessage" id = "' + data[i].message_id + '">'
 							}
-							for(var j = 0; j < allList.length; j++){ // 유저가 탈퇴한 유저인지 아닌지 확인하기위해 반복문으로 비교
-								if(allList[j] == data[i].send_id){
-									isUser = true;
-								} else {
-									isUser = false;
-								}
-							}
-							/* if(isUser == "true"){ // 존재하는 회원이면
-								str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
-							} else { //탈퇴한 회원이면 
-								str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + ' [탈퇴회원]</li>';								
-							} */
 							str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
 							str += '<li>시간 : ' + data[i].message_date + '</li>';
 							if(data[i].message_read != "Y"){
