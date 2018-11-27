@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +36,6 @@ public class AdminStoreChoiceController {
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
-
 	private static final Logger logger = LoggerFactory.getLogger(AdminStoreChoiceController.class);
 
 	@RequestMapping(value = "/admin/storeChoice", method = RequestMethod.GET)
@@ -54,13 +55,11 @@ public class AdminStoreChoiceController {
 	}
 
 	@RequestMapping(value = "/admin/storeReg", method = RequestMethod.POST)
-	public String storeChoiceSubmit(MultipartFile file, StoreVO storeVO) {
+	public String storeChoiceSubmit(StoreVO storeVO) {
 
 		// 기본주소와 상세주소를 하나의 주소로 합쳐줌
 		storeVO.setStore_address(storeVO.getStore_address1() + " " + storeVO.getStore_address2());
 		adminMypageService.storeAdd(storeVO);
-
-		logger.info(file.getOriginalFilename());
 
 		return "redirect:/admin";
 	}
@@ -72,5 +71,14 @@ public class AdminStoreChoiceController {
 		int result = adminRegService.getSelectStoreName(re_name);
 
 		return result;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain; charset=UTF-8")
+	public ResponseEntity<String> uploadAjax(MultipartFile file) {
+
+		logger.info("orginalName: " + file.getOriginalFilename());
+
+		return new ResponseEntity<>(file.getOriginalFilename(), HttpStatus.CREATED);
 	}
 }

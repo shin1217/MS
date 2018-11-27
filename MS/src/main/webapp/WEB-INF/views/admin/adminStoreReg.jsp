@@ -7,7 +7,7 @@
 <title>MS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script  src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -51,6 +51,17 @@ body {
 	color: red;
 }
 
+#fileDrop{
+	width: 100%;
+	height: 100px;
+	border: 1px dotted blue;
+}
+
+small {
+	margin-left: 3px;
+	font-weight: bold;
+	color: gray;
+}
 </style>
 </head>
 <body>
@@ -86,8 +97,10 @@ body {
 				<input type="text" class="form-control" id="store_num" name="store_num" placeholder="전화번호">
 				<label class="redColor" id="store_num_label"></label>
 			</div>
-			<div>
-				<input type="file" name="file" />
+			<div class="form-group">
+				<label>매장엠블럼</label>
+				<div id="fileDrop">파일을 올려주세요.</div>
+				<div id="uploadedList"></div>
 			</div>
 			<div class="reg_button">
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/admin">취소</a>
@@ -160,6 +173,35 @@ body {
 		$('#store_num_label').text('');
 		var re_num = $('#store_num').val().replace(/[^0-9]/g, '');
 		$('#store_num').val(re_num);
+	});
+
+	//사진을 매장엠블럼div에 드래그앤드롭을 하는경우
+	$('#fileDrop').on('dragenter dragover', function(event) {
+		event.preventDefault();
+	});
+
+	$('#fileDrop').on('drop', function(event) {
+		event.preventDefault();
+
+		var files = event.originalEvent.dataTransfer.files;
+		var file = files[0];
+		
+		//console.log(file);
+		
+		var formData = new FormData();
+		formData.append("file", file);
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/uploadAjax',
+			data: formData,
+			dataType: 'text',
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function(data){
+				alert(data);
+			}
+		});
 	});
 </script>
 </html>
