@@ -45,6 +45,10 @@ body {
 	width: 30%;
 	height: 30%;
 }
+
+#storeRegBtn {
+	margin-top : 10px;
+}
 </style>
 </head>
 <body>
