@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <title>MS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css" rel="stylesheet">
@@ -14,7 +15,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <style>
 *{
 	font-size: 20px;
@@ -134,12 +137,16 @@ body {
 						<button id="loginBtn" type="button"	class="btn btn-primary btn-block">로그인</button>
 					</div>
 				</div>
-				<div>
+				<div class="form-group">
 					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
+				</div>
+				<div class="form-group">
+					<div id="naver_id_login"></div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 </body>
 <script>
 	$(document).ready(function(){
@@ -198,6 +205,19 @@ body {
 				}
 			});
 		});
+	
+	var naver_id_login = new naver_id_login("OUHAR0pHNVfL5y2SBk3v", "http://localhost:8080/ms/user/main");
+  	var state = naver_id_login.getUniqState();
+  	naver_id_login.setButton("white", 2,40);
+  	naver_id_login.setDomain("http://localhost:8080/ms");
+  	naver_id_login.setState(state);
+  	naver_id_login.setPopup();
+  	naver_id_login.init_naver_id_login();
+	
+	/* 설정정보를 초기화하고 연동을 준비 */
+	/* naverLogin.init(); */
+
+
 	
 </script>
 </html>

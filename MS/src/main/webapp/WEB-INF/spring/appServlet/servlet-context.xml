@@ -97,6 +97,7 @@
 			<mapping path="/user/**/" />
 			<exclude-mapping path="/admin" />
 			<exclude-mapping path="/user/login" />
+			<exclude-mapping path="/user/naverCallback" />
 			<exclude-mapping path="/admin/reg" />
 			<exclude-mapping path="/user/reg" />
 			<exclude-mapping path="/user/key_alter" />
