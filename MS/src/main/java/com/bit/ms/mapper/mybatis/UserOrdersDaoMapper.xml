@@ -4,7 +4,7 @@
 <mapper namespace="com.bit.ms.dao.UserDaoInterface">	
 	
 	<!-- 음식 종류에 맞는 모든 음식 가져오기 -->
-	<select id="getFoodInfo" parameterType="map" resultType="userFoodVO">
+	<select id="getFoodInfo" parameterType="map" resultType="FoodVO">
 		select * from food
 		where food_type=#{param1} and store_id=#{param2}
 	</select>

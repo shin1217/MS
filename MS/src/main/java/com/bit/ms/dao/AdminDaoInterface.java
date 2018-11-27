@@ -9,6 +9,7 @@ import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.model.NoticeVO;
 import com.bit.ms.admin.model.SalesVO;
 import com.bit.ms.admin.model.UserListVO;
+import com.bit.ms.member.model.FoodVO;
 import com.bit.ms.member.model.ReplyVO;
 import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.member.model.StoreVO;
@@ -74,4 +75,8 @@ public interface AdminDaoInterface {
 	int deleteSeat(int seatId, int storeId);
 	// UserVO isUsingSeat(String userId);
 	
+	/* 상품관리 */
+	int insertFood(FoodVO foodVO);
+	List<FoodVO> getFoodInfoAll(int storeId);
+	int deleteFood(int foodId, int storeId);
 }

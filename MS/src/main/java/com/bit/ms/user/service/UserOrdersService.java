@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.UserDaoInterface;
-import com.bit.ms.user.model.UserFoodVO;
+import com.bit.ms.member.model.FoodVO;
 import com.bit.ms.user.model.UserOrdersVO;
 
 @Service
@@ -17,7 +17,7 @@ public class UserOrdersService {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private UserDaoInterface userDao;
 	   
-	public List<UserFoodVO> getFoodInfo(String foodType, int storeId) {
+	public List<FoodVO> getFoodInfo(String foodType, int storeId) {
 		
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
 		return userDao.getFoodInfo(foodType, storeId);

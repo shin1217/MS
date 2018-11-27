@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.bit.ms.member.model.FoodVO;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
-import com.bit.ms.user.model.UserFoodVO;
 import com.bit.ms.user.model.UserOrdersVO;
 import com.bit.ms.user.model.UserVO;
 
@@ -59,6 +59,6 @@ public interface UserDaoInterface {
 	List<UserVO> getUserInfoAll(int storeId);
 	
 	/* 음식 주문 */
-	List<UserFoodVO> getFoodInfo(String foodType, int storeId);
+	List<FoodVO> getFoodInfo(String foodType, int storeId);
 	int insertOrders(UserOrdersVO ordersVO);
 }

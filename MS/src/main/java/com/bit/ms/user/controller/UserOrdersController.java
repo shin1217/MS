@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.ms.user.model.UserFoodVO;
+import com.bit.ms.member.model.FoodVO;
 import com.bit.ms.user.model.UserOrdersVO;
 import com.bit.ms.user.service.UserOrdersService;
 
@@ -27,7 +27,7 @@ public class UserOrdersController {
 
 	@RequestMapping("/user/getMenuList")
 	@ResponseBody
-	public List<UserFoodVO> getMenuList(@RequestParam("foodType") String foodType,
+	public List<FoodVO> getMenuList(@RequestParam("foodType") String foodType,
 			@RequestParam("storeId") int storeId) {
 		return service.getFoodInfo(foodType, storeId);
 	}

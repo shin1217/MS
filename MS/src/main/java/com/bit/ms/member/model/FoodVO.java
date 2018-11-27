@@ -1,9 +1,9 @@
-package com.bit.ms.user.model;
+package com.bit.ms.member.model;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("userFoodVO")
-public class UserFoodVO {
+@Alias("FoodVO")
+public class FoodVO {
 	private int food_id;
 	private String food_type;
 	private String food_name;
@@ -57,8 +57,8 @@ public class UserFoodVO {
 	
 	@Override
 	public String toString() {
-		return "UserFoodVO [food_id=" + food_id + ", food_type=" + food_type + ", food_name=" + food_name
-				+ ", food_photo=" + food_photo + ", food_stock=" + food_stock + ", food_price=" + food_price
-				+ ", store_id=" + store_id + "]";
+		return "FoodVO [food_id=" + food_id + ", food_type=" + food_type + ", food_name=" + food_name + ", food_photo="
+				+ food_photo + ", food_stock=" + food_stock + ", food_price=" + food_price + ", store_id=" + store_id
+				+ "]";
 	}
 }
