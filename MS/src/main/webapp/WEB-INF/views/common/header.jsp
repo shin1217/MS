@@ -44,7 +44,7 @@
 				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"	aria-haspopup="true" aria-expanded="false"> 관리하기 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/salesCalender"><i class="fa fa-pie-chart" aria-hidden="true"></i> 매출기록</a> 
-						<a class="dropdown-item" href="#"><i class="fa fa-book"	aria-hidden="true"></i> 상품관리</a> 
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/productManagement"><i class="fa fa-book"	aria-hidden="true"></i> 상품관리</a> 
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/seat"><i class="fa fa-eye" aria-hidden="true"></i> 좌석관리</a> 
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword="><i class="fa fa-comments" aria-hidden="true"></i> 유저게시판</a>
 					</div></li>

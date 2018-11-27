@@ -455,7 +455,7 @@ html, body {
 		str += '<img src="../images/'+ foodType +'/'+ foodPhoto + '"/>';
 		str += '<div style="height: 50%; padding-top: 10%">';
 		str += '<div>'+ foodName +'</div>';
-		str += '<div>'+ foodPrice +'</div>';
+		str += '<div>'+ numberWithCommas(foodPrice) +'</div>';
 		str += '</div>';
 		str += '</div>';
 		
@@ -591,6 +591,11 @@ html, body {
 		this.foodType = foodType;
 		this.foodId = foodId;
 		this.foodCnt = foodCnt;
+	}
+	
+	/* 가격에 콤마 표시 */
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 </script>	
 </html>
