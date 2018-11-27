@@ -36,5 +36,15 @@
 		where seat_id=#{seat_id}
 
 	</update>
+	
+	<!--qr코드 추가  -->
+	<update id="addQrI" parameterType="hashmap">
+		update seat set seat_qr = #{seat_qr} where seat_id = #{seat_id}
+	</update>
+	
+	<!-- qr코드 불러오는  -->
+	<select id="getQrI" resultType="String">
+		select seat_qr from seat where seat_id = #{seat_id}
+	</select>
 
 </mapper>

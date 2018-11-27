@@ -1,5 +1,6 @@
 package com.bit.ms.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -82,5 +83,19 @@ public class AdminSeatService {
 		}
 
 		return resultCnt;
+	}
+	
+	public int addQrS(int seat_id, String seat_qr) {
+		
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("seat_id", Integer.toString(seat_id));
+		map.put("seat_qr", seat_qr);
+		
+		adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		return adminDaoInterface.addQrI(map);
+	}
+	public String getQrS(int seat_id) {
+		adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		return adminDaoInterface.getQrI(seat_id);
 	}
 }

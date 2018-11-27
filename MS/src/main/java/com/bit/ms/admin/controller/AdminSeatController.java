@@ -57,5 +57,23 @@ public class AdminSeatController {
 		adminSeatService.modifySeatS(seatVO, seat_id);
 
 	}
+	// qr코드 추가 컨트롤러
+	@RequestMapping(value = "/admin/addQr", method = RequestMethod.POST)
+	@ResponseBody
+	public int addQr(SeatVO seatVo) {
+		
+		int seat_id = seatVo.getSeat_id();
+		String seat_qr = seatVo.getSeat_qr();
+		
+		return adminSeatService.addQrS(seat_id, seat_qr);
+	}
+	// qr 코드 불러오는 컨트롤러
+	@RequestMapping(value = "/admin/addQr/{seat_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public String getQr(@PathVariable("seat_id") int seat_id) {
+
+		return adminSeatService.getQrS(seat_id);
+	}
+	
 
 }

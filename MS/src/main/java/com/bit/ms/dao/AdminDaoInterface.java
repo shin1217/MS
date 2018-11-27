@@ -64,6 +64,8 @@ public interface AdminDaoInterface {
 	int addSeatI(SeatVO seatVO);
 	int deleteSeatI(int seat_id);
 	int modifySeatI(SeatVO seatVO);
+	int addQrI(HashMap<String,String>map); // qr코드 추가
+	String getQrI(int seat_id); // qr코드 불러오기
 	
 	/* 사용자 시간 관리 */
 	int updateAddTime(long addTime, int seatId, int storeId);

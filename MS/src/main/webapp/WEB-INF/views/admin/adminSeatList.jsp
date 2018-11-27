@@ -165,11 +165,15 @@
 				$(data).each(
 						function(index, item) {
 							seat_t += '<tr><td class="adminSeatList_td">'
-									+ '<input id="AdminSeatNameInput' + item.seat_id + '" value="' + item.seat_name	+ '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">'
-									+ '<input id="AdminSeatPayInput' + item.seat_id + '" value="' + item.seat_pay + '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">'
-									+ '<input type="button" id="seat_qr_btn' + item.seat_id + '" value="생성하기" readonly="true" class="seat_qr_btn" onclick = "makeQr(' + item.seat_id + ')"/></td><td class="adminSeatList_td">'
-									+ '<input type="button" id="seat_modify_btn' + item.seat_id + '" onclick="seat_modify_mode(' + item.seat_id + ')" type="button" value="수정"></button>'
-									+ '<input type="button" id="seat_delete_btn' + item.seat_id + '" onclick="seat_delete(' + item.seat_id + ')" type="button" value="삭제"></button></td></tr>';
+							seat_t += '<input id="AdminSeatNameInput' + item.seat_id + '" value="' + item.seat_name	+ '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">';
+							seat_t += '<input id="AdminSeatPayInput' + item.seat_id + '" value="' + item.seat_pay + '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">';
+							if(item.seat_qr == "" || item.seat_qr == null){
+								seat_t += '<input type="button" id="seat_qr_btn' + item.seat_id + '" value="생성하기" readonly="true" class="seat_qr_btn" onclick = "makeQr(' + item.seat_id + ')"/></td><td class="adminSeatList_td">';
+							} else {
+								seat_t +='<img src = "' + item.seat_qr + '" style = "width : 50px"></td><td class="adminSeatList_td">';
+							}
+							seat_t += '<input type="button" id="seat_modify_btn' + item.seat_id + '" onclick="seat_modify_mode(' + item.seat_id + ')" type="button" value="수정"></button>';
+							seat_t += '<input type="button" id="seat_delete_btn' + item.seat_id + '" onclick="seat_delete(' + item.seat_id + ')" type="button" value="삭제"></button></td></tr>';
 							$('#seatlist_tbody').html(seat_t);
 						});
 				seat_t = '';
@@ -287,12 +291,17 @@
 			url : '${pageContext.request.contextPath}/admin/addQr/',
 			type : 'post',
 			data : {
-				store_id = session_store_id,
-				seat_id = seat_id,
-				seat_qr = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=localhost/ms/user/qrLogin?store_id=" + store_id + "&seat_id=" + seat_id 
+				seat_id : seat_id,
+				seat_qr : "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=localhost/ms/user/qrLogin?store_id=" + session_store_id + "&seat_id=" + seat_id 
 			},
 			success : function(data){
-				$('.adminSeatList_td').html("<img src = '" + data.seat_qr + "'");
+				$.ajax({
+					url : '${pageContext.request.contextPath}/admin/addQr/' + seat_id,
+					type : 'get',
+					success : function(data2){
+						$('#seat_qr_btn' + seat_id ).html('<img src = "' + data2 + '" >');
+					}
+				});
 			}
 		});
 	}
