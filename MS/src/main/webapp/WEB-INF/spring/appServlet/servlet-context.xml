@@ -117,4 +117,9 @@
 				class="com.bit.ms.interceptor.UsingSeatCheckInterceptor" />
 		</interceptor>
 	</interceptors>
+
+	<!-- 매장등록 이미지경로 -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="c:\\ms\\upload"></beans:constructor-arg>
+	</beans:bean>
 </beans:beans>

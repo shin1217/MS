@@ -58,7 +58,7 @@ body {
 		<div class="titleStyle">
 			<h1>매장등록</h1>
 		</div>
-		<form method="POST" onsubmit="return storeCheck()">
+		<form method="POST" onsubmit="return storeCheck()" enctype="multipart/form-data">
 			<!-- 저장되있는 세션에서 로그인 아이디를 가져옴 -->
 			<input type="hidden" name="admin_id" value="${adminSession.admin_id}">
 			<!-- 매장이름 -->
@@ -85,6 +85,9 @@ body {
 				<label>전화번호</label> 
 				<input type="text" class="form-control" id="store_num" name="store_num" placeholder="전화번호">
 				<label class="redColor" id="store_num_label"></label>
+			</div>
+			<div>
+				<input type="file" name="file" />
 			</div>
 			<div class="reg_button">
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/admin">취소</a>
