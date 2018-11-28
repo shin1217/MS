@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
-import com.bit.ms.user.service.UserLoginManager;
+import com.bit.ms.user.service.UserRedundantLoginService;
 import com.bit.ms.user.service.UserLoginService;
 import com.bit.ms.user.service.UserSha256;
 
@@ -26,7 +26,7 @@ public class UserLoginController {
 	private UserLoginService login_service;
 
 	@Autowired
-	private UserLoginManager loginManager;
+	private UserRedundantLoginService loginManager;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String userLogin(HttpSession session, Model model) {

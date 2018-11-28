@@ -11,9 +11,9 @@ import javax.servlet.http.HttpSessionBindingListener;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserLoginManager implements HttpSessionBindingListener{
+public class UserRedundantLoginService implements HttpSessionBindingListener{
 
-    private static UserLoginManager loginManager = null;
+    private static UserRedundantLoginService loginManager = null;
     
     //로그인한 접속자를 담기위한 해시테이블
     private static Hashtable loginUsers = new Hashtable();
@@ -21,9 +21,9 @@ public class UserLoginManager implements HttpSessionBindingListener{
     /*
      * 싱글톤 패턴 사용
      */
-    public static synchronized UserLoginManager getInstance(){
+    public static synchronized UserRedundantLoginService getInstance(){
         if(loginManager == null){
-            loginManager = new UserLoginManager();
+            loginManager = new UserRedundantLoginService();
         }
         return loginManager;
     }

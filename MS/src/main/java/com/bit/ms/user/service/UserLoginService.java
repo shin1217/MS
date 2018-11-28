@@ -22,7 +22,7 @@ public class UserLoginService {
 	private SqlSessionTemplate userSqlSession;
 
 	@Autowired
-	private UserLoginManager loginManager;
+	private UserRedundantLoginService loginManager;
 
 	private UserDaoInterface userDao;
 	private AdminDaoInterface adminDao;

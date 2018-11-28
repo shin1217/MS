@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.user.model.UserVO;
-import com.bit.ms.user.service.UserLoginManager;
+import com.bit.ms.user.service.UserRedundantLoginService;
 import com.bit.ms.user.service.UserLoginService;
 import com.bit.ms.user.service.UserSha256;
 
 @Controller
-public class UserRedundantLogin {
+public class UserRedundantLoginController {
 
 	@Autowired
-	private UserLoginManager loginManager;
+	private UserRedundantLoginService loginManager;
 
 	@Autowired
 	private UserLoginService login_service;
