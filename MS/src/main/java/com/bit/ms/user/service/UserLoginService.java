@@ -126,9 +126,14 @@ public class UserLoginService {
 
 		return adminDao.getStoreList();
 	}
-
+	//사용자 시간을 가져옴
 	public long getUserTimeS(String user_id) {
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		return userDao.getUserTimeI(user_id);
+	}
+	//사용자가 선택한 자리에 다른사용자가 있나 불러옴
+	public String getUserIdS(String user_id) {
+		userDao = userSqlSession.getMapper(UserDaoInterface.class);
+		return userDao.getUserIdI(user_id);
 	}
 }

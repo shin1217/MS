@@ -66,5 +66,6 @@ public interface UserDaoInterface {
 	int insertOrders(UserOrdersVO ordersVO);
 	
 	// qr로그인시 남은시간있는지 확인
-	long getUserTimeI(String user_id);
+	Long getUserTimeI(String user_id);
+	String getUserIdI(String user_id);
 }

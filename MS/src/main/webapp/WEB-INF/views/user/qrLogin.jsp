@@ -278,17 +278,28 @@ body {
 		$.ajax({
 			url : '${pageContext.request.contextPath}/user/chkTime/' + id,
 			success : function(data){
-				if(data == null || data == ""){
+				if(data == null || data == ""){ //남은시간이 없는경우
 					$('#add_time_modal').show();
 					$('#user_id').text($('#inputId').val());
 					$('#seat_id').text(seat_id);
-				} else {
+				} else { //남은시간이 있는경우 
+					$.ajax({
+						url : '${pageContext.request.contextPath}/user/chkSeat'
+						data : {
+							user_id : id,
+							store_id : store_id
+						},
+						success : function(data){
+							//로그인 된 상태
+							
+							//로그아웃 된 상태
+						}
+					});
 					$.ajax({
 						url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + data + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + id,
 						success : function(data2){
 							location.href = '${pageContext.request.contextPath}/user/main';
 						}
-						
 					});
 				}
 			}
@@ -303,11 +314,19 @@ body {
 		var addTime = $('#selectAddTime option:selected').val()*60*60; // 충전할 시간(초 단위)
 		var userId = $('#inputId').val();
 		$.ajax({
-			url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + addTime + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + userId,
+			url : '${pageContext.request.contextPath}/user/chkId/' + seat_id,
 			success : function(data){
-				location.href = '${pageContext.request.contextPath}/user/main';
+				if(data == null){
+					$.ajax({
+						url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + addTime + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + userId,
+						success : function(data2){
+							location.href = '${pageContext.request.contextPath}/user/main';
+						}
+					});
+				} else {
+					alert("이미 사용중인 자리입니다.");
+				}
 			}
-			
 		});
 	});
 	

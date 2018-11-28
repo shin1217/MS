@@ -83,8 +83,12 @@ public class UserLoginController {
 
 	@RequestMapping(value = "/user/chkTime/{id}")
 	public @ResponseBody long getUserTime(@PathVariable("id") String user_id) {
-
+		
 		return login_service.getUserTimeS(user_id);
+	}
+	@RequestMapping(value = "/user/chkId/{id}")
+	public @ResponseBody String getUserId(@PathVariable("id") String user_id) {
+		return login_service.getUserIdS(user_id);
 	}
 
 }
