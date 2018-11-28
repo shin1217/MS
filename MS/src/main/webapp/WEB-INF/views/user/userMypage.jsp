@@ -245,7 +245,7 @@ $(document).ready(function(){
 	var nameP =  /^[0-9a-zA-Z가-힣]{2,20}$/;
 	var phoneP = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 	var emailP = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	var birthP = /^[0-9]{6}$/;
+	var birthP = /^[0-9]{8}$/;
 	
 	///////////수정확인 버튼을 눌렀을 경우/////////////
 	function editOk(e){ 
@@ -276,7 +276,7 @@ $(document).ready(function(){
     			$('#errorBirth').css("display","none");
     			editFinish(e);
     		} else {
-    			$('#errorBirth').show().html("ex)931104 의 형식으로 입력하세요.");
+    			$('#errorBirth').show().html("ex)19931104 의 형식으로 입력하세요.");
     		}
     	} else if (e == "pw"){
     		editFinish(e);
