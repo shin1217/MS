@@ -265,7 +265,7 @@ html, body {
 }
 
 /* Fading animation */
-.fading {
+/* .fading {
   -webkit-animation-name: fading;
   -webkit-animation-duration: 1.5s;
   animation-name: fading;
@@ -280,7 +280,7 @@ html, body {
 @keyframes fading {
   from {opacity: .4} 
   to {opacity: 1}
-}
+} */
 
 </style>
 </head>

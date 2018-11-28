@@ -24,14 +24,6 @@ html, body {
 	height: 100%;
 }
 
-.userUsingMain_container {
-	display: none;
-	text-align: center;
-	font-size: 50px;
-	padding: 30px;
-	height: 100%;
-}
-
 .left_area, .center_area, .right_area {
 	display: inline-block;
 	width: 33%;
@@ -116,27 +108,50 @@ html, body {
   to {opacity: 1}
 }
 
-/* 
-.seatTable {
-	margin: 0 auto;
-	border-spacing: 20px;
-	border-collapse: separate;
-}
-
-.seatTable td {
-	width: 100px;
-	height: 100px;
-	border-radius: 15px;
-	font-size: 30px;
-	color: gray;
+/* ///////////////////////////////////////////////////////////// */
+/* 좌석 사용 중인 사용자에게 보여질 화면 스타일 지정 */
+.userUsingMain_container {
+	display: none;
 	text-align: center;
-	background-color: lightgray;
+	font-size: 50px;
+	padding: 30px;
+	height: 100%;
 }
 
-.seatTable td:hover {
-	opacity: 0.7;
+.using_wrap {
+	margin: 0 auto;
+	margin-top: 5%;
+	border: 3px solid black;
+	border-radius: 30px;
+	padding: 20px;
+	width: 35%;
+}
+
+.using_text {
+	color: #3E4551;
+}
+
+.using_text > span:hover {
+	color: red;
 	cursor: pointer;
-} */
+}
+
+.end_btn {
+	width: 150px;
+	background-color: #f8585b;
+	border: none;
+	border-radius: 10px;
+	color: #fff;
+	padding: 15px 0;
+	margin-top: 10px;
+	text-align: center;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.end_btn:hover {
+	opacity: 0.7;
+}
 
 </style>
 </head>
@@ -173,10 +188,12 @@ html, body {
 	<!-- 좌석 사용 중인 유저가 보여질 화면 -->
 	<div class="userUsingMain_container fading">
 		<div>${userSession.user_name}님 즐거운 시간 되세요:p</div>
-		<div>남은 시간</div>
-		<div>00:30분</div>
-		<div>시간 충전 / 자리 변경</div>
-		<button id="endBtn">사용 종료</button>
+		<div>사용 중인 좌석은 <span id="usingSeatNum" style="color: red"></span>번 입니다.</div>
+		<div class="using_wrap">
+			<div>남은 시간 <span>00:30분</span></div>
+			<div class="using_text"><span>시간 충전</span> / <span>자리 변경</span></div>
+			<button id="endBtn" class="end_btn">사용 종료</button>
+		</div>
 	</div>
 </body>
 
@@ -193,6 +210,7 @@ html, body {
 			success : function(data) {
 				var str = '';
 				var userId = null;
+				var seatId = null;
 				var useCnt = 0;
 				$('#totalCnt').text(data.length); // 전체 컴퓨터 수 변경
 				
@@ -200,6 +218,7 @@ html, body {
 					if(data[i].user_id != null){
 						if(data[i].user_id == '${userSession.user_id}'){
 							userId = data[i].user_id; // 사용 중인 사용자 아이디 가져오기
+							seatId = data[i].seat_id;
 						}
 						str += '<div class="using" style="font-size:50px; color:red">X</div>';
 						useCnt++;
@@ -212,6 +231,7 @@ html, body {
 				$('#seatList').html(str);
 				
 				if(userId != null){
+					$('#usingSeatNum').text(seatId);
 					$('.userMain_container').hide();
 					$('.userUsingMain_container').show();
 				}
@@ -250,15 +270,19 @@ html, body {
 		
 		/* 사용 종료 */
 		$('#endBtn').on('click', function () {
-			$.ajax({
-				// 유저 아이디와 스토어 번호 넘겨 줌.
-				url: '${pageContext.request.contextPath}/user/deleteUsingInfo?userId=${userSession.user_id}&storeId=${storeSelectSession.store_id}', 
-				type: 'get',
-				
-				success:function(){
-					location.reload();
-				} // end success  
-			});
+			var ordersConfirm = confirm('정말 종료하시겠습니까?');
+			
+			if(ordersConfirm){
+				$.ajax({
+					// 유저 아이디와 스토어 번호 넘겨 줌.
+					url: '${pageContext.request.contextPath}/user/deleteUsingInfo?userId=${userSession.user_id}&storeId=${storeSelectSession.store_id}', 
+					type: 'get',
+					
+					success:function(){
+						location.reload();
+					} // end success  
+				});
+			}
 		});
 	}); // end document.ready
 	
