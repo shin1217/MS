@@ -36,7 +36,7 @@ public class UserLoginService {
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		UserVO vo = userDao.loginUser(user_id);
 		StoreVO storeVO = userDao.getUserStoreVO(store_id);
-		
+
 		System.out.println("로그인 객체 확인 vo : " + vo);
 
 		// 로그인 결과값
@@ -74,15 +74,16 @@ public class UserLoginService {
 				Cookie cookie = new Cookie("user_check", user_id);
 				if (user_check.equals("true")) {
 					response.addCookie(cookie);
-					System.out.println("3-1단계");
+					System.out.println("3단계-쿠키 아이디저장 O");
 					// 쿠키 확인
 					// System.out.println("Service check" + cookie);
 				} else {
+					System.out.println("3단계-쿠키 아이디저장 X");
 					cookie.setMaxAge(0);
 					response.addCookie(cookie);
 				}
 
-				System.out.println("3-2단계");
+				System.out.println("3단계-로그인단계");
 				// 세션 저장하기 전에 비밀번호 가리기
 				vo.setUser_pw("");
 

@@ -202,7 +202,7 @@ body {
 						console.log(data);
 						if(confirm("이미 접속중입니다. 기존의 접속을 종료하시겠습니까?")){
 							alert("로그인 되었습니다");
-							location.href = '${pageContext.request.contextPath}/member/discon?user_Id=' + id + '&user_Pw=' + pw + '&store_Id=' + store + '&remember_userId=' + remember_us;
+							location.href = '${pageContext.request.contextPath}/user/redundant?user_Id=' + id + '&user_Pw=' + pw + '&store_Id=' + store + '&remember_userId=' + remember_us;
 						} else {
 							location.href = '${pageContext.request.contextPath}/';
 						}						

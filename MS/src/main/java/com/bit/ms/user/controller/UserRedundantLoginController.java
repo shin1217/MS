@@ -23,7 +23,7 @@ public class UserRedundantLoginController {
 	@Autowired
 	private UserLoginService login_service;
 
-	@RequestMapping("/member/discon")
+	@RequestMapping("/user/redundant")
 	public ModelAndView beforelogout(HttpSession httpSession, HttpServletRequest request,
 			HttpServletResponse response) {
 
@@ -39,14 +39,16 @@ public class UserRedundantLoginController {
 			httpSession = request.getSession(true);
 		}
 
+		// 로그인시에 get방식으로 정보 받음
 		String user_id = request.getParameter("user_Id");
 		String user_pw = request.getParameter("user_Pw");
 		int store_id = Integer.parseInt(request.getParameter("store_Id"));
 		String user_check = request.getParameter("remember_userId");
 
-		System.out.println("discon : " + user_id);
-		System.out.println("discon : " + user_pw);
-		System.out.println("discon : " + store_id);
+		System.out.println("UserRedundantLoginController // user_id : " + user_id);
+		System.out.println("UserRedundantLoginController // user_pw : " + user_pw);
+		System.out.println("UserRedundantLoginController // store_id : " + store_id);
+		System.out.println("UserRedundantLoginController // user_check : " + user_check);
 
 		int result = 0;
 
@@ -54,10 +56,8 @@ public class UserRedundantLoginController {
 		userVO.setUser_id(user_id);
 		userVO.setUser_pw(UserSha256.encrypt(user_pw)); // 비밀번호 암호화
 
-		System.out.println("로그인 객체 확인 : " + userVO);
-
 		result = login_service.userLogin_service(userVO, store_id, httpSession, user_check, response);
-		System.out.println("로그인 확인 : " + result);
+
 		if (result == 1) {
 			System.out.println("먼저 로그인 해제하고 나중로그인 실행");
 			mav.setViewName("user/userMain");
