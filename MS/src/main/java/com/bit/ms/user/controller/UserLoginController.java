@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserRedundantLoginService;
@@ -89,6 +90,10 @@ public class UserLoginController {
 	@RequestMapping(value = "/user/chkId/{id}")
 	public @ResponseBody String getUserId(@PathVariable("id") String user_id) {
 		return login_service.getUserIdS(user_id);
+	}
+	@RequestMapping(value = "/user/chkSeat/{store_id}")
+	public @ResponseBody List<SeatVO> getUserList(@PathVariable("store_id") int store_id){
+		return login_service.getUserListS(store_id);
 	}
 
 }

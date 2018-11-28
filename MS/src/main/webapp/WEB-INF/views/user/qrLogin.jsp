@@ -284,29 +284,41 @@ body {
 					$('#seat_id').text(seat_id);
 				} else { //남은시간이 있는경우 
 					$.ajax({
-						url : '${pageContext.request.contextPath}/user/chkSeat'
-						data : {
-							user_id : id,
-							store_id : store_id
-						},
-						success : function(data){
+						url : '${pageContext.request.contextPath}/user/chkSeat/' + store_id,
+						success : function(data2){
 							//로그인 된 상태
-							
+							for(var i = 0; i < data2.length; i++){
+								if(id == data2[i]){
+									if(confirm("기존에 로그인된 상태입니다. 로그아웃시키고 접속하시겠습니까?")){
+										$.ajax({
+											url: '${pageContext.request.contextPath}/user/deleteUsingInfo?userId=' + id + '&storeId=' + store_id, 
+											type: 'get',
+											success:function(){
+												$.ajax({
+													url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + data + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + id,
+													success : function(){
+														location.href = '${pageContext.request.contextPath}/user/main';
+													}
+												}); // 시간등록 ajax끝
+											} // end success  
+										}); // 기존 로그인된아이디 로그아웃 ajax끝 
+									}
+								} // 로그인된상태 if문 끝	
+							} //로그인된상태 반복문 끝
 							//로그아웃 된 상태
 						}
 					});
-					$.ajax({
+					/* $.ajax({
 						url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + data + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + id,
 						success : function(data2){
 							location.href = '${pageContext.request.contextPath}/user/main';
 						}
-					});
+					}); */
 				}
 			}
 		});
 	}
 	$('#add_time_btn').click(function(){
-	
 		if ($('#selectAddTime option:selected').val() == 0) {
 			alert('충전하실 시간을 선택하세요.');
 			return;
@@ -316,10 +328,11 @@ body {
 		$.ajax({
 			url : '${pageContext.request.contextPath}/user/chkId/' + seat_id,
 			success : function(data){
-				if(data == null){
+				console.log(data);
+				if(data == null || data == ""){
 					$.ajax({
 						url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + addTime + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + userId,
-						success : function(data2){
+						success : function(){
 							location.href = '${pageContext.request.contextPath}/user/main';
 						}
 					});

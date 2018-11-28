@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.AdminDaoInterface;
 import com.bit.ms.dao.UserDaoInterface;
+import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
 
@@ -135,5 +136,10 @@ public class UserLoginService {
 	public String getUserIdS(String user_id) {
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		return userDao.getUserIdI(user_id);
+	}
+	//다른곳에 로그인이 되었는지 확인하기 위해 유저리스트를 받아옴
+	public List<SeatVO> getUserListS(int store_id){
+		userDao = userSqlSession.getMapper(UserDaoInterface.class);
+		return userDao.getUserListI(store_id);
 	}
 }
