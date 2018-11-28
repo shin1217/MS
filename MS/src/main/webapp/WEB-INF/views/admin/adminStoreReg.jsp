@@ -209,9 +209,28 @@ small {
 				var str = "";
 				
 				if(checkImageType(data)){
-					str ="<div><img src='${pageContext.request.contextPath}/displayFile?fileName=" + data + "'/></div>";
+					str += "<div><img src='${pageContext.request.contextPath}/displayFile?fileName=" + data + "'/>";
+					str += "<small data-src=" + data + ">X</small></div>";
 				} 
 				$('#fileDrop').html(str);
+			}
+		});
+	});
+	
+	$('#fileDrop').on("click", "small", function(event){
+		var that = $(this);
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/deleteFile',
+			type: 'post',
+			data: {
+				fileName: $(this).attr("data-src")
+			},
+			dataType: 'text',
+			success: function(result){
+				if(result == 'deleted'){
+					that.parent("div").remove();
+				}
 			}
 		});
 	});
