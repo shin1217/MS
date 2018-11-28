@@ -107,8 +107,9 @@ public class UserLoginService {
 				loginManager.printloginUsers(); // 접속자 리스트
 				if (loginManager.isUsing(userVO.getUser_id())) {
 					result = -3;
+				} else {
+					loginManager.setSession(httpSession, userVO.getUser_id());
 				}
-				loginManager.setSession(httpSession, userVO.getUser_id());
 
 				// 중복로그인 end
 			}
@@ -124,7 +125,7 @@ public class UserLoginService {
 
 		return adminDao.getStoreList();
 	}
-	
+
 	public long getUserTimeS(String user_id) {
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		return userDao.getUserTimeI(user_id);
