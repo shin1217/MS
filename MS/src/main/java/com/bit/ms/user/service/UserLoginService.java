@@ -124,4 +124,9 @@ public class UserLoginService {
 
 		return adminDao.getStoreList();
 	}
+	
+	public long getUserTimeS(String user_id) {
+		userDao = userSqlSession.getMapper(UserDaoInterface.class);
+		return userDao.getUserTimeI(user_id);
+	}
 }

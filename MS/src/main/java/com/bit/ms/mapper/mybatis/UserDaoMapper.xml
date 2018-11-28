@@ -88,4 +88,8 @@
 		resultType="storeVO">
 		select * from store where store_id = #{store_id}
 	</select>
+	<!-- 사용자 시간 가져오기 -->
+	<select id="getUserTimeI" resultType="Long">
+		select user_time from userinfo where user_id = #{user_id}
+	</select>
 </mapper>

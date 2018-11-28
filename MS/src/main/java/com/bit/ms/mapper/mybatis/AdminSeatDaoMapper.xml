@@ -31,8 +31,7 @@
 	<update id="modifySeatI" parameterType="seatVO">
 
 		update seat
-		set seat_name=#{seat_name}, seat_pay=#{seat_pay},
-		seat_qr=#{seat_qr}
+		set seat_name=#{seat_name}, seat_pay=#{seat_pay}
 		where seat_id=#{seat_id}
 
 	</update>

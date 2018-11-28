@@ -166,11 +166,11 @@
 						function(index, item) {
 							seat_t += '<tr><td class="adminSeatList_td">'
 							seat_t += '<input id="AdminSeatNameInput' + item.seat_id + '" value="' + item.seat_name	+ '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">';
-							seat_t += '<input id="AdminSeatPayInput' + item.seat_id + '" value="' + item.seat_pay + '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">';
+							seat_t += '<input id="AdminSeatPayInput' + item.seat_id + '" value="' + item.seat_pay + '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td" style = "padding : 0px;">';
 							if(item.seat_qr == "" || item.seat_qr == null){
-								seat_t += '<input type="button" id="seat_qr_btn' + item.seat_id + '" value="생성하기" readonly="true" class="seat_qr_btn" onclick = "makeQr(' + item.seat_id + ')"/></td><td class="adminSeatList_td">';
+								seat_t += '<input type="button" id="seat_qr_btn' + item.seat_id + '" value="생성하기" readonly="true" class="seat_qr_btn" onclick = "makeQr(' + item.seat_id + ')" style = "margin-top : 16px;"/><div id = "seat_qr" style = "display : none;"></div></td><td class="adminSeatList_td">';
 							} else {
-								seat_t +='<img src = "' + item.seat_qr + '" style = "width : 50px"></td><td class="adminSeatList_td">';
+								seat_t +='<img src = "' + item.seat_qr + '" style = "width : 50px;" id = "qrImage" onclick = "goQr(' + item.seat_id + ')"></td><td class="adminSeatList_td">';
 							}
 							seat_t += '<input type="button" id="seat_modify_btn' + item.seat_id + '" onclick="seat_modify_mode(' + item.seat_id + ')" type="button" value="수정"></button>';
 							seat_t += '<input type="button" id="seat_delete_btn' + item.seat_id + '" onclick="seat_delete(' + item.seat_id + ')" type="button" value="삭제"></button></td></tr>';
@@ -230,7 +230,6 @@
 
 			var seat_name = $('#AdminSeatNameInput' + seat_id ).val();
 			var seat_pay = $('#AdminSeatPayInput' + seat_id ).val();
-			var seat_qr = $('#AdminSeatQRInput' + seat_id ).val();
 			console.log(seat_name);
 			console.log(seat_pay);
 			console.log(seat_qr);
@@ -246,7 +245,6 @@
 				data : JSON.stringify({
 					seat_name : seat_name,
 					seat_pay : seat_pay,
-					seat_qr : seat_qr
 				}),			
 			
 				success : function(data) {
@@ -299,11 +297,16 @@
 					url : '${pageContext.request.contextPath}/admin/addQr/' + seat_id,
 					type : 'get',
 					success : function(data2){
-						$('#seat_qr_btn' + seat_id ).html('<img src = "' + data2 + '" >');
+						$('#seat_qr_btn' + seat_id ).remove();
+						$('#seat_qr').show().html('<img src = "' + data2 + '" style = "width : 50px; padding : 0px;" id = "qrImage" onclick = "goQr(' + seat_id + ')">');
 					}
 				});
 			}
 		});
+	}
+	
+	function goQr(seat_id){
+		location.href = "${pageContext.request.contextPath}/user/qrLogin?store_id=" + session_store_id + "&seat_id=" + seat_id;
 	}
 
 </script>

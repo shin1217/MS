@@ -63,4 +63,7 @@ public interface UserDaoInterface {
 	/* 음식 주문 */
 	List<FoodVO> getFoodInfo(String foodType, int storeId);
 	int insertOrders(UserOrdersVO ordersVO);
+	
+	// qr로그인시 남은시간있는지 확인
+	long getUserTimeI(String user_id);
 }
