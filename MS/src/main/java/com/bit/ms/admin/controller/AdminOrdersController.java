@@ -17,9 +17,16 @@ public class AdminOrdersController {
 	@Autowired
 	AdminProductService service;
 	
+	@RequestMapping("/admin/adminOrders")
+	public String adminOrders() {
+		
+		return "admin/adminOrders";
+	}
+	
 	@RequestMapping("/admin/insertFood")
 	@ResponseBody
-	public void insertFood(FoodVO foodVO) {
+	public void insertFood(FoodVO foodVO, @RequestParam("foodType") String foodType) {
+		foodVO.setFood_type(foodType); // 상품 타입 저장
 		int resultCnt = service.insertFood(foodVO);
 		
 		if(resultCnt == 1) {
