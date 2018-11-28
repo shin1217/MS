@@ -17,6 +17,7 @@ import com.bit.ms.member.controller.LoginManager;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserLoginService;
+import com.bit.ms.user.service.UserSha256;
 
 @Controller
 public class UserLoginController {
@@ -49,6 +50,14 @@ public class UserLoginController {
 
 		// userLogin.jsp에서 아이디기억하기 name값(remember) 가져오기
 		String user_check = request.getParameter("remember_userId");
+		
+		// 비밀번호 암호화
+		String user_pw = userVO.getUser_pw();
+		userVO.setUser_pw(UserSha256.encrypt(user_pw));
+		
+		// 암호화 확인
+		System.out.println(userVO.getUser_pw());
+		// 로그인 메서드
 		int result = login_service.userLogin_service(userVO, store_id, httpSession, user_check, response);
 
 		// 매장 리스트

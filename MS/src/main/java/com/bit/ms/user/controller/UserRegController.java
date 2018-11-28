@@ -44,6 +44,8 @@ public class UserRegController {
 	// 회원가입 컨트롤러
 	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
 	public String userRegPass(UserVO userVO, Model model) {
+		
+		// 암호 확인
 		System.out.println("첫번째:" + userVO.getUser_pw());
 		// 비밀번호 암호화
 		String encryPassword = UserSha256.encrypt(userVO.getUser_pw());

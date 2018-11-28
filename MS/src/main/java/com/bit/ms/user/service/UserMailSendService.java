@@ -65,7 +65,7 @@ public class UserMailSendService {
 		MimeMessage mail = mailSender.createMimeMessage();
 		String htmlStr = "<h2>안녕하세요 MS :p 민수르~ 입니다!</h2><br><br>" 
 				+ "<h3>" + user_id + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " 
-				+ "<a href='http://54.180.117.142/MS/user/key_alter?user_id="+ user_id +"&user_key="+key+"'>인증하기</a></p>"
+				+ "<a href='http://localhost:8080/ms/user/key_alter?user_id="+ user_id +"&user_key="+key+"'>인증하기</a></p>"
 				+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
 		try {
 			mail.setSubject("[본인인증] MS :p 민수르님의 인증메일입니다", "utf-8");
@@ -75,6 +75,9 @@ public class UserMailSendService {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+		
+		// 아마존 주소 : http://54.180.117.142/MS/user/key_alter?user_id=
+		
 	}
 	
 	// 패스워드 찾기 이메일 발송
