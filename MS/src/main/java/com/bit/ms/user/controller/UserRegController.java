@@ -15,6 +15,7 @@ import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserMailSendService;
 import com.bit.ms.user.service.UserRegService;
+import com.bit.ms.user.service.UserSha256;
 
 @Controller
 public class UserRegController {
@@ -25,7 +26,7 @@ public class UserRegController {
 	private AdminStoreListService store_service;
 	@Autowired
 	private UserMailSendService mailsender;
-	
+
 	
 	// 회원가입 페이지에 보일 매장 리스트
 	@RequestMapping(value = "/user/reg", method = RequestMethod.GET)
@@ -43,8 +44,14 @@ public class UserRegController {
 	// 회원가입 컨트롤러
 	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
 	public String userRegPass(UserVO userVO, Model model) {
+		System.out.println("첫번째:" + userVO.getUser_pw());
+		// 비밀번호 암호화
+		String encryPassword = UserSha256.encrypt(userVO.getUser_pw());
+		userVO.setUser_pw(encryPassword);
+		System.out.println("두번째:" + userVO.getUser_pw());
 		// 회원가입 메서드
 		reg_service.userReg_service(userVO);
+		
 		// 인증 메일 보내기 메서드
 		mailsender.mailSendWithUserKey(userVO.getUser_email(), userVO.getUser_id());
 
