@@ -99,7 +99,7 @@ small {
 			</div>
 			<div class="form-group">
 				<label>매장엠블럼</label>
-				<div id="fileDrop">파일을 올려주세요.</div>
+				<div id="fileDrop">등록하실 사진을 올려주세요.</div>
 				<div id="uploadedList"></div>
 			</div>
 			<div class="reg_button">
@@ -175,18 +175,25 @@ small {
 		$('#store_num').val(re_num);
 	});
 
+	//확장자가 이미지인지 확인
+	function checkImageType(fileName){
+		
+		var imgPattern = /jpg$|gif$|png$|jpeg$/i;
+		
+		return fileName.match(imgPattern);
+	}
+	
+	
 	//사진을 매장엠블럼div에 드래그앤드롭을 하는경우
 	$('#fileDrop').on('dragenter dragover', function(event) {
 		event.preventDefault();
 	});
 
 	$('#fileDrop').on('drop', function(event) {
-		event.preventDefault();
+		event.preventDefault(); 
 
 		var files = event.originalEvent.dataTransfer.files;
 		var file = files[0];
-		
-		//console.log(file);
 		
 		var formData = new FormData();
 		formData.append("file", file);
@@ -199,7 +206,12 @@ small {
 			contentType: false,
 			type: 'POST',
 			success: function(data){
-				alert(data);
+				var str = "";
+				
+				if(checkImageType(data)){
+					str ="<div><img src='${pageContext.request.contextPath}/displayFile?fileName=" + data + "'/></div>";
+				} 
+				$('#fileDrop').html(str);
 			}
 		});
 	});

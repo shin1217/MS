@@ -62,9 +62,8 @@ public class UploadFileUtils {
 
 		makeDir(uploadPath, yearPath, monthPath, datePath);
 
-		logger.info(datePath);
-
 		return datePath;
+
 	}// calcPath
 
 	// 폴더 생성 함수
@@ -79,7 +78,7 @@ public class UploadFileUtils {
 			File dirPath = new File(uploadPath + path);
 
 			if (!dirPath.exists()) {
-				dirPath.mkdir();
+				dirPath.mkdirs();
 			} // if
 
 		} // for
