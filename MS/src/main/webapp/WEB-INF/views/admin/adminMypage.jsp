@@ -322,7 +322,8 @@ position : absolute;
                <tr>
                   <th>이름</th>
                   <td><input type = "text" name = "admin_name" id = "adminMypage_name" value = "${admin.admin_name }" readonly>
-                  <p id = "edit_name" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('name')">수정하기</p></td>
+                  <p id = "edit_name" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('name')">수정하기</p>
+                  <p id = "errorName" style = "display : none; margin-left : 70px; color : red; font-size : 15px; margin-bottom : 0px;"></p></td>
                </tr>
                <tr>
                   <th>비밀번호</th>
@@ -332,7 +333,8 @@ position : absolute;
                <tr>
                   <th>핸드폰번호</th>
                   <td class = "phone" style = "position : relative"><input type = "text" name = "admin_phone" id = "adminMypage_phone" value = "${admin.admin_phone }" readonly>
-                  <p id = "edit_phone" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('phone')">수정하기</p></td>
+                  <p id = "edit_phone" class = "edit" style = "float : right; font-size : 18px; margin-top : 10px; margin-right : 30px;" onclick ="edit('phone')">수정하기</p>
+                  <p id = "errorPhone" style = "display : none; margin-left : 70px; color : red; font-size : 15px; margin-bottom : 0px;"></p></td>
                </tr>
                <tr>
                     <th>나의매장정보</th>
@@ -389,6 +391,8 @@ position : absolute;
 </div>  
 </body>
 <script>
+var nameP =  /^[0-9a-zA-Z가-힣]{2,20}$/;
+var phoneP = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
       $(document).ready(function(){
          $('#adminMypage_deleteModal').hide(); // 시작시 삭제모달창 가림
          $('#storeDeleteModal').hide(); // 시작시 매장삭제 모달창 가림
@@ -403,22 +407,39 @@ position : absolute;
     	  $('#adminMypage_' + e + '').css("border","3px solid red").attr("readonly", false);
     	  $('#edit_' + e + '').text("수정완료").attr("id", "edit_" + e + "Ok").attr("onclick","editOk(" + "'"+ e +"'" + ")");
       }
-    /////////수정확인을 눌렀을때///////////
-		function editOk(e){ 
-	    	if($('#adminMypage_' + e + '').val() == ""){
-    			  alert("제대로 정보를 입력하세요.");
-			} else {
-   		  		$.ajax({
-   	  				url : '${pageContext.request.contextPath}' + '/admin/adminEdit' + e + '',
-					type : 'post',
-					data : $('#adminMypage_myForm').serialize(),
-      				success : function(data){
-      					alert("수정을 완료했습니다.");
-	      				location.reload();
-    	  			}
-      			});
-    		}
-     	}
+      //////////////// 수정확인 눌렀을때////////////
+      function editOk(e){ 
+      	if(e == "name"){
+      		if(nameP.test($('#adminMypage_name').val())){
+      			$('#errorName').css("display","none");
+      			editFinish(e);
+      		} else{
+      			console.log(($('#adminMypage_name').val()));
+      			$('#errorName').show().html("한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)");
+      		}
+      	} else if (e == "phone"){
+      		if(phoneP.test($('#adminMypage_phone').val())){
+      			$('#errorPhone').css("display","none");
+      			editFinish(e);
+      		} else {
+      			$('#errorPhone').show().html("형식에맞지 않는 번호입니다.");
+      		}
+      	} else if (e == "pw"){
+      		editFinish(e);
+      	}
+  	}
+      function editFinish(e){
+   		$.ajax({
+  			url : '${pageContext.request.contextPath}' + '/admin/adminEdit' + e + '',
+  			type : 'post',
+  			data : $('#adminMypage_myForm').serialize(),
+     			success : function(data){
+      			alert("수정을 완료했습니다.");
+      			$('#adminMypage_' + e).css("border","none").attr("readonly", true);
+      			$('#edit_' + e + 'Ok').text("수정하기").attr("id", "edit_" + e ).attr("onclick", "edit(" + "'" + e + "'" + ")");
+     			}
+     		});
+  	}
          /////////삭제버튼 클릭시 삭제확인 모달창이 뜸///////////
          $('#adminMypage_deleteBtn').click(function(){
             $('#adminMypage_deleteModal').show();

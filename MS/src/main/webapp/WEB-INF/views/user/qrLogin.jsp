@@ -283,7 +283,13 @@ body {
 					$('#user_id').text($('#inputId').val());
 					$('#seat_id').text(seat_id);
 				} else {
-					location.href = '${pageContext.request.contextPath}/user/main';
+					$.ajax({
+						url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + data + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + id,
+						success : function(data2){
+							location.href = '${pageContext.request.contextPath}/user/main';
+						}
+						
+					});
 				}
 			}
 		});
