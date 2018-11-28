@@ -346,7 +346,6 @@ html, body {
 	</div>
 </body>
 <script>
-
 	var slideIndex = 1;
 	var ordersArr = [];
 	

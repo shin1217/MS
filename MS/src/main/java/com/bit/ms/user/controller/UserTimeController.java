@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.ms.user.model.UserVO;
+import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.user.service.UserTimeService;
 
 @Controller
@@ -36,9 +36,9 @@ public class UserTimeController {
 		}
 	}
 	
-	@RequestMapping("/user/getUserInfoAll")
+	@RequestMapping("/user/getSeatListAll")
 	@ResponseBody
-	public List<UserVO> getUserInfoAll(@RequestParam("storeId") int storeId) {
-		return service.getUserInfoAll(storeId);
+	public List<SeatVO> getSeatListAll(@RequestParam("storeId") int storeId) {
+		return service.getSeatListAll(storeId);
 	}
 }

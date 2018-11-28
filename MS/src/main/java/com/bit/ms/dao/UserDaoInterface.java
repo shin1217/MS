@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.bit.ms.member.model.FoodVO;
+import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
@@ -54,9 +55,9 @@ public interface UserDaoInterface {
 	int UserBoardReplyDeleteI(int uboard_reply_id);
 	int UserBoardReplyModifyI(UserBoardReplyVO userBoardReplyVO);
 	
-	/*시간 충전*/
+	/* 좌석 선택 및 시간 충전 */
 	int updateAddTime(long addTime, int seatId, int usePay, String userId, int storeId);
-	List<UserVO> getUserInfoAll(int storeId);
+	List<SeatVO> getSeatListAll(int storeId);
 	
 	/* 음식 주문 */
 	List<FoodVO> getFoodInfo(String foodType, int storeId);

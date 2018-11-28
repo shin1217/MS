@@ -9,10 +9,10 @@
 		where user_id=#{param4} and store_id=#{param5}
 	</update>
 	
-	<!-- 현재 좌석 사용 중인 사용자 정보 모두 가져오기 -->
-	<select id="getUserInfoAll" resultType="userVO">
-		select * from userinfo
-		where seat_id is not null and store_id=#{store_id}
+	<!-- 등록된 좌석 모두 가져오기 -->
+	<select id="getSeatListAll" resultType="seatVO">
+		select * from seat
+		where store_id=#{store_id}
 	</select>
 	
 </mapper>
