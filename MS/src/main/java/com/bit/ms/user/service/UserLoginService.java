@@ -29,7 +29,8 @@ public class UserLoginService {
 
 	public int userLogin_service(UserVO userVO, int store_id, HttpSession httpSession, String user_check,
 			HttpServletResponse response) {
-		System.out.println("로그인 객체 확인 : " + userVO);
+
+		System.out.println("UserLoginService // 로그인 객체 확인 userVO : " + userVO);
 		String user_id = userVO.getUser_id();
 		String user_pw = userVO.getUser_pw();
 
@@ -37,7 +38,7 @@ public class UserLoginService {
 		UserVO vo = userDao.loginUser(user_id);
 		StoreVO storeVO = userDao.getUserStoreVO(store_id);
 
-		System.out.println("로그인 객체 확인 vo : " + vo);
+		System.out.println("UserLoginService // 로그인 객체 확인 vo : " + vo);
 
 		// 로그인 결과값
 		int result = 0;

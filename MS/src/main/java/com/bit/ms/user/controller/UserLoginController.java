@@ -31,7 +31,7 @@ public class UserLoginController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String userLogin(HttpSession session, Model model) {
-		
+
 		// 세션만료
 		session.invalidate();
 
@@ -39,7 +39,7 @@ public class UserLoginController {
 		List<StoreVO> result = login_service.getStoreOption();
 		model.addAttribute("store_list2", result);
 
-		System.out.println("현재 접속자 수 : " + loginManager.getUserCount());
+//		System.out.println("UserLoginController // 현재 접속자 수 : " + loginManager.getUserCount());
 
 		return "user/userLogin";
 	}
@@ -74,15 +74,16 @@ public class UserLoginController {
 
 		return "user/userRegSuccess";
 	}
-	
+
 	@RequestMapping(value = "user/qrLogin")
 	public String qrLogin() {
-		
+
 		return "user/qrLogin";
 	}
+
 	@RequestMapping(value = "/user/chkTime/{id}")
 	public @ResponseBody long getUserTime(@PathVariable("id") String user_id) {
-		
+
 		return login_service.getUserTimeS(user_id);
 	}
 
