@@ -141,7 +141,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 		</table>
 
 
-		<!--Pagination 아레쪽 페이지 이동 -->
+		<!--Pagination 아래쪽 페이지 이동 -->
 		<nav class="d-flex justify-content-center mt-3"
 			style="padding-bottom: 20px">
 			<ul class="pagination pagination-circle pg-teal mb-0">

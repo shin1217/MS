@@ -31,7 +31,7 @@
 }
 
 /* 검색창 */
-.userBoard_searchbar {
+.CEOBoard_searchbar {
 	position: absolute;
 	bottom: 0px;
 	width: 400px;
@@ -67,6 +67,62 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	아ㅓ아아
+	<div class="container" style="overflow: hidden; position: relative;">
+		<br> <a class="nav-link, hypertext_none" href="#">
+			<b style="font-size: 30px;">CEO게시판</b>
+		</a><br><br> <a id="write" class="btn btn-outline-elegant waves-effect" href="#">글쓰기</a>
+
+		<div class="CEOBoard_searchbar">
+			<form method="get">
+				<table>
+					<tr>
+						<td ><input name="page" type="hidden" value="1" />
+						<input name="keyword" type="text" value="" required><label>검색(제목+내용) + ENTER!!</label></td>
+						<td><input type="submit" value="검색" class="btn btn-outline-elegant waves-effect" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+	
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr class="text-center" style="background: #E6E6F2;">
+					<th style="width: 10%">글번호</th>
+					<th style="width: 55%">제목</th>
+					<th style="width: 15%">작성자</th>
+					<th style="width: 15%">작성시간</th>
+				</tr>
+			</thead>
+			<%-- <tbody>
+				<c:forEach var="userBoardVO" items="${userboardnotice}">
+					<tr style="background: #F2FCF6;">
+						<td style="text-align: center;">[공지]</td>
+						<td><a href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}&keyword=${param.keyword}">${userBoardVO.uboard_title}</a></td>
+						<td style="text-align: center;">${userBoardVO.writer_id}[관리자]</td>
+						<td style="text-align: center;"><fmt:formatDate	value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
+					</tr>
+				</c:forEach>
+				<c:if test='${userboardlist.userBoardList.isEmpty()}'>
+					<tr>
+						<td colspan="4"><h3 style="text-align: center;">작성된 게시글이 없습니다.</h3></td>
+					</tr>
+				</c:if>
+				<c:if test='${!userboardlist.userBoardList.isEmpty()}'>
+					<c:forEach var="userBoardVO" items="${userboardlist.userBoardList}">
+						<tr>
+							<td style="text-align: center;">${userBoardVO.uboard_id}</td>
+							<td><a href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}&keyword=${param.keyword}">${userBoardVO.uboard_title}</a></td>
+							<td style="text-align: center;">${userBoardVO.writer_id}<c:if test='${storeSelectSession.admin_id == userBoardVO.writer_id}'>[관리자] </c:if></td>
+							<td style="text-align: center;"><fmt:formatDate
+									value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
+						</tr>
+					</c:forEach>
+				</c:if>
+			</tbody> --%>
+		</table>
+	</div>
+	
 </body>
 </html>

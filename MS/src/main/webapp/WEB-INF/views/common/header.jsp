@@ -47,7 +47,7 @@
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/productManagement"><i class="fa fa-book"	aria-hidden="true"></i> 상품관리</a> 
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/seat"><i class="fa fa-eye" aria-hidden="true"></i> 좌석관리</a> 
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword="><i class="fa fa-comments" aria-hidden="true"></i> 유저게시판</a>
-						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/CEOBoard"><i class="fa fa-won" aria-hidden="true"></i> 사장님게시판</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/CEOBoard"><i class="fa fa-won" aria-hidden="true"></i> CEO게시판</a>
 					</div></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout"><i class="fa fa-unlock-alt" aria-hidden="true"></i>로그아웃</a></li>
 				<li class="nav-item">
