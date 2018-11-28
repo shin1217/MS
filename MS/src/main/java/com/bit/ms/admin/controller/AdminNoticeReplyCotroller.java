@@ -31,7 +31,6 @@ public class AdminNoticeReplyCotroller {
 	public void replyInsert(ReplyVO vo) {
 
 		service.insertReply(vo);
-
 	}
 
 	@RequestMapping(value = "/{reply_id}", method = RequestMethod.DELETE)

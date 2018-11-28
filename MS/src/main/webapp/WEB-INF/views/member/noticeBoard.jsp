@@ -29,7 +29,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	
 	<div class="container">
-		<h1>${storeSelectSession.store_name} 공지사항</h1>
+		<h1>[${storeSelectSession.store_name}] = 공지사항</h1>
 		<c:if test="${!empty adminSession}">
 			<a id="write" class="btn btn-outline-elegant waves-effect"
 				href="${pageContext.request.contextPath}/admin/noticeWrite">글쓰기</a>

@@ -72,13 +72,4 @@ public class AdminStoreChoiceController {
 
 		return result;
 	}
-
-	@ResponseBody
-	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain; charset=UTF-8")
-	public ResponseEntity<String> uploadAjax(MultipartFile file) {
-
-		logger.info("orginalName: " + file.getOriginalFilename());
-
-		return new ResponseEntity<>(file.getOriginalFilename(), HttpStatus.CREATED);
-	}
 }

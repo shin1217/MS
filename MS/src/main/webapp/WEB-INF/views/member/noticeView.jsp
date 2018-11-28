@@ -160,8 +160,8 @@
 
 	$('#commentSubmit').click(function() {
 		var reply_con = $('#replyFormComment').val(); //댓글내용을 가져옴
-		var admin_id = ${adminSession.admin_id}; //세션에서 admin_id를 가져옴
-		var store_id = ${adminSession.store_id}; //세션에서 store_id를 가져옴
+		var admin_id = '${adminSession.admin_id}'; //세션에서 admin_id를 가져옴
+		var store_id = ${storeSelectSession.store_id}; //세션에서 store_id를 가져옴
 
 		$.ajax({
 			type : 'post',
@@ -181,6 +181,7 @@
 		});
 	});
 
+	//댓글 삭제
 	function replyDelete(reply_id) {
 		$.ajax({
 			type : 'delete',
@@ -191,8 +192,9 @@
 			}
 		});
 	};
-
-	function replyModify(reply_id) { //댓글 수정확인 누를시
+	
+	//댓글 수정확인 누를시
+	function replyModify(reply_id) {
 		var reply_con = $('#replyInput' + reply_id).val();
 
 		$.ajax({
@@ -211,8 +213,9 @@
 			}
 		});
 	};
-
-	function replyEdit(reid) { //댓글수정 클릭시
+	
+	//댓글수정 클릭시
+	function replyEdit(reid) {
 		$('#replyInput' + reid).attr("readonly", false);
 		$('#replyInput' + reid).focus();
 		$('#replyEditBtn' + reid).find('i').attr("class", "fa fa-check"); //댓글 수정클릭시 모양바뀜
