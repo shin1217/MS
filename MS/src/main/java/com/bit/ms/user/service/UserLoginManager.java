@@ -1,4 +1,4 @@
-package com.bit.ms.member.controller;
+package com.bit.ms.user.service;
 
 import java.util.Collection;
 import java.util.Enumeration;
@@ -11,9 +11,9 @@ import javax.servlet.http.HttpSessionBindingListener;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginManager implements HttpSessionBindingListener{
+public class UserLoginManager implements HttpSessionBindingListener{
 
-    private static LoginManager loginManager = null;
+    private static UserLoginManager loginManager = null;
     
     //로그인한 접속자를 담기위한 해시테이블
     private static Hashtable loginUsers = new Hashtable();
@@ -21,9 +21,9 @@ public class LoginManager implements HttpSessionBindingListener{
     /*
      * 싱글톤 패턴 사용
      */
-    public static synchronized LoginManager getInstance(){
+    public static synchronized UserLoginManager getInstance(){
         if(loginManager == null){
-            loginManager = new LoginManager();
+            loginManager = new UserLoginManager();
         }
         return loginManager;
     }
