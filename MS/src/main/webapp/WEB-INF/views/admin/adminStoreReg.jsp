@@ -97,8 +97,9 @@ small {
 				<input type="text" class="form-control" id="store_num" name="store_num" placeholder="전화번호">
 				<label class="redColor" id="store_num_label"></label>
 			</div>
+			<!-- 매장 로고 -->
 			<div class="form-group">
-				<label>매장엠블럼</label>
+				<label>매장 로고</label>
 				<div id="fileDrop">등록하실 사진을 올려주세요.</div>
 				<div id="uploadedList"></div>
 			</div>
@@ -217,6 +218,7 @@ small {
 		});
 	});
 	
+	//로고삭제
 	$('#fileDrop').on("click", "small", function(event){
 		var that = $(this);
 		
