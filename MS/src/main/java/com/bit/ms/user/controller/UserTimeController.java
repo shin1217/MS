@@ -46,4 +46,15 @@ public class UserTimeController {
 	public List<SeatVO> getSeatListAll(@RequestParam("storeId") int storeId) {
 		return service.getSeatListAll(storeId);
 	}
+	
+	@RequestMapping("user/deleteUsingInfo")
+	@ResponseBody
+	public void deleteUsingInfo(@RequestParam("userId") String userId,
+								@RequestParam("storeId") int storeId) {
+		int resultCnt = service.deleteUsingInfo(userId, storeId);
+		
+		if(resultCnt == 1) {
+			System.out.println("사용 중인 좌석 종료 완료");
+		}
+	}
 }

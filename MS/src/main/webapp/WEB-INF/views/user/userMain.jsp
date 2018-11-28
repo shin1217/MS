@@ -24,6 +24,14 @@ html, body {
 	height: 100%;
 }
 
+.userUsingMain_container {
+	display: none;
+	text-align: center;
+	font-size: 50px;
+	padding: 30px;
+	height: 100%;
+}
+
 .left_area, .center_area, .right_area {
 	display: inline-block;
 	width: 33%;
@@ -91,6 +99,23 @@ html, body {
 	cursor: pointer;
 }
 
+.fading {
+  -webkit-animation-name: fading;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fading;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fading {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fading {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
 /* 
 .seatTable {
 	margin: 0 auto;
@@ -118,7 +143,6 @@ html, body {
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<%@ include file="/WEB-INF/views/modal/userAddTimeModal.jsp"%>
-	<%@ include file="/WEB-INF/views/modal/userUsingModal.jsp"%>
 	<%@ include file="/WEB-INF/views/user/userMessage.jsp"%>
 
 	<div class="userMain_container">
@@ -144,6 +168,15 @@ html, body {
 			<hr>
 			<h1>준비 중...</h1>
 		</div>
+	</div>
+	
+	<!-- 좌석 사용 중인 유저가 보여질 화면 -->
+	<div class="userUsingMain_container fading">
+		<div>${userSession.user_name}님 즐거운 시간 되세요:p</div>
+		<div>남은 시간</div>
+		<div>00:30분</div>
+		<div>시간 충전 / 자리 변경</div>
+		<button id="endBtn">사용 종료</button>
 	</div>
 </body>
 
@@ -179,7 +212,8 @@ html, body {
 				$('#seatList').html(str);
 				
 				if(userId != null){
-					//$('#usingModal').show();
+					$('.userMain_container').hide();
+					$('.userUsingMain_container').show();
 				}
 			}
 		}); // end ajax
@@ -212,7 +246,20 @@ html, body {
 				selectedReset();
 				$('#addTimeModal').hide();
 			}
-		});	
+		});
+		
+		/* 사용 종료 */
+		$('#endBtn').on('click', function () {
+			$.ajax({
+				// 유저 아이디와 스토어 번호 넘겨 줌.
+				url: '${pageContext.request.contextPath}/user/deleteUsingInfo?userId=${userSession.user_id}&storeId=${storeSelectSession.store_id}', 
+				type: 'get',
+				
+				success:function(){
+					location.reload();
+				} // end success  
+			});
+		});
 	}); // end document.ready
 	
 	/* 좌석 선택 처리 */

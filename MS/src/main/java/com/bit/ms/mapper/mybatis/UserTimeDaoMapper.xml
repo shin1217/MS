@@ -21,4 +21,10 @@
 		where store_id=#{store_id}
 	</select>
 	
+	<!-- 사용 중인 좌석 삭제  -->
+	<update id="deleteUsingInfo" parameterType="map">
+		update seat set user_id = null
+		where user_id=#{param1} and store_id=#{param2}
+	</update>
+	
 </mapper>

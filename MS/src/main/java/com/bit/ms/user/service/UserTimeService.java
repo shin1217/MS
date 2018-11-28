@@ -26,11 +26,16 @@ public class UserTimeService {
 		return userDao.updateAddTime(addTime, usePay, userId, storeId);
 	}
 	
+	// 좌석에 사용 중인 사용자 추가
 	public int updateSeat(String userId, int seatId, int storeId) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		
-		// 좌석에 사용중인 사용자 추가
 		return userDao.updateSeat(userId, seatId, storeId);
+	}
+	
+	// 좌석에 사용 중인 사용자 삭제
+	public int deleteUsingInfo(String userId, int storeId) {
+		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
+		return userDao.deleteUsingInfo(userId, storeId);
 	}
 
 	// 현재 좌석 사용 중인 사용자 정보 모두 가져오기
