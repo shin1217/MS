@@ -24,15 +24,20 @@ public class UserTimeController {
 								@RequestParam("userId") String userId,
 								@RequestParam("storeId") int storeId) {
 		
-		int usePay = (int)(addTime / 3600)*1000; // 충전 시간(초)를 시간으로 변환한 후 가격 계산
+		int userPay = (int)(addTime / 3600)*1000; // 충전 시간(초)를 시간으로 변환한 후 가격 계산
 		
 		// 좌석에 따라 추가 금액 처리
 		/////////
 		
-		int resultCnt = service.updateAddTime(addTime, seatId, usePay, userId, storeId);
+		int resultCnt_1 = service.updateAddTime(addTime, userPay, userId, storeId);
+		int resultCnt_2 = service.updateSeat(userId, seatId, storeId);
 		
-		if(resultCnt > 0) {
-			System.out.println("유저 좌석 확정 및 시간 업데이트 성공");
+		if(resultCnt_1 == 1) {
+			System.out.println("시간 업데이트 성공");
+		}
+		
+		if(resultCnt_2 == 1) {
+			System.out.println("사용 중인 사용자 좌석 업데이트 성공");
 		}
 	}
 	

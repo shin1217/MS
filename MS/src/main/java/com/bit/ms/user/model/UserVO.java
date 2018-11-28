@@ -15,8 +15,7 @@ public class UserVO {
 	private String user_email; // 이메일
 	private long user_time; // 남은 시간
 	private int store_id; // 사용 중인 매장 번호
-	private int seat_id; // 사용 중인 좌석 번호
-	private int use_pay; // 결제 금액
+	private int user_pay; // 결제 금액
 	private String user_key; // 인증 번호
 
 	public UserVO() {
@@ -25,7 +24,7 @@ public class UserVO {
 	}
 
 	public UserVO(String user_id, String user_name, String user_pw, String user_phone, String user_birth,
-			String user_email, long user_time, int store_id, int seat_id, int use_pay, String user_key) {
+			String user_email, long user_time, int store_id, int user_pay, String user_key) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
@@ -35,18 +34,10 @@ public class UserVO {
 		this.user_email = user_email;
 		this.user_time = user_time;
 		this.store_id = store_id;
-		this.seat_id = seat_id;
-		this.use_pay = use_pay;
+		this.user_pay = user_pay;
 		this.user_key = user_key;
 	}
 
-	@Override
-	public String toString() {
-		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
-				+ user_phone + ", user_birth=" + user_birth + ", user_email=" + user_email + ", user_time=" + user_time
-				+ ", store_id=" + store_id + ", seat_id=" + seat_id + ", use_pay=" + use_pay + ", user_key=" + user_key
-				+ "]";
-	}
 
 	public String getUser_id() {
 		return user_id;
@@ -112,20 +103,12 @@ public class UserVO {
 		this.store_id = store_id;
 	}
 
-	public int getSeat_id() {
-		return seat_id;
-	}
-
-	public void setSeat_id(int seat_id) {
-		this.seat_id = seat_id;
-	}
-
 	public int getUse_pay() {
-		return use_pay;
+		return user_pay;
 	}
 
-	public void setUse_pay(int use_pay) {
-		this.use_pay = use_pay;
+	public void setUse_pay(int user_pay) {
+		this.user_pay = user_pay;
 	}
 
 	public String getUser_key() {
@@ -136,4 +119,10 @@ public class UserVO {
 		this.user_key = user_key;
 	}
 
+	@Override
+	public String toString() {
+		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
+				+ user_phone + ", user_birth=" + user_birth + ", user_email=" + user_email + ", user_time=" + user_time
+				+ ", store_id=" + store_id + ", user_pay=" + user_pay + ", user_key=" + user_key + "]";
+	}
 }

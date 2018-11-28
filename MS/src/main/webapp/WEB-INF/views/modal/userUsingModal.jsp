@@ -13,7 +13,7 @@
 }
 
 /* modal창 감싸고 있는 배경 Div */
-.add_time_modal {
+.using_modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
@@ -68,18 +68,17 @@
 
 </style>
 <!-- 시간 추가 modal -->
-<div id="addTimeModal" class="add_time_modal">
+<div id="usingModal" class="using_modal">
 	<div class="modal_contents">
 		<h3>
-			<b>충전 후 바로 사용 가능합니다.</b><span class="close">&times;</span>
+			<b>즐거운 시간 되세요.</b><span class="close">&times;</span>
 		</h3>
 		
 		<div id="selectedInfo" class="selected_info">
-			<span style="font-weight: bold"></span>님, <!-- 사용자 이름 -->
-			<span style="color: red; font-weight: bold"></span>자리에 <!-- 좌석 번호  -->
-			<span style="color: red; font-weight: bold"></span>을 충전하시겠습니까? <!-- 충전 시간(가격) -->
+			남은 시간: <span style="font-weight: bold"></span>
 		</div>
 		
-		<button id="addTimeBtn" class="add_time_btn">충전하기</button>
+		<button>자리 변경</button>
+		<button>시간 충전</button>
 	</div>
 </div>

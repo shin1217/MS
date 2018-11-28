@@ -56,7 +56,8 @@ public interface UserDaoInterface {
 	int UserBoardReplyModifyI(UserBoardReplyVO userBoardReplyVO);
 	
 	/* 좌석 선택 및 시간 충전 */
-	int updateAddTime(long addTime, int seatId, int usePay, String userId, int storeId);
+	int updateAddTime(long addTime, int userPay, String userId, int storeId);
+	int updateSeat(String userId, int seatId, int storeId);
 	List<SeatVO> getSeatListAll(int storeId);
 	
 	/* 음식 주문 */

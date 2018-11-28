@@ -14,7 +14,7 @@ public class UsingSeatCheckInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	UserTimeService service;
 	
-	@Override
+/*	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
@@ -28,5 +28,5 @@ public class UsingSeatCheckInterceptor extends HandlerInterceptorAdapter {
 		}
 		response.sendRedirect(request.getContextPath() + "/user/main"); // 좌석 미 등록 시 메인페이지로 이동
 		return false;
-	}
+	}*/
 }
