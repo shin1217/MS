@@ -74,9 +74,9 @@ public class UserBoardController {
 	@RequestMapping(value = "/user/userBoard/write", method = RequestMethod.POST)
 	public String userBoardWriteReg(UserBoardVO userBoardVO, HttpSession httpsession) {
 
-		userBoardService.userBoardWrite(userBoardVO, httpsession);
+		UserBoardVO vo = userBoardService.userBoardWrite(userBoardVO, httpsession);
 
-		return "redirect:/user/userBoard?page=1&keyword=";
+		return "redirect:/user/userBoard/view/" + vo.getUboard_id() + "?page=" + 1 + "&keyword=";
 	}
 
 	// Write

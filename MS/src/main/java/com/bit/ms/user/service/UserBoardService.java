@@ -105,7 +105,7 @@ public class UserBoardService {
 		return userboardnotice;
 	}
 
-	public int userBoardWrite(UserBoardVO userBoardVO, HttpSession httpsession) {
+	public UserBoardVO userBoardWrite(UserBoardVO userBoardVO, HttpSession httpsession) {
 
 		userDaoInterface = sessionTemplate.getMapper(UserDaoInterface.class);
 
@@ -120,7 +120,7 @@ public class UserBoardService {
 		}
 		userBoardVO.setStore_id(storeVO.getStore_id());
 
-		System.out.println("UserBoardService Write || userBoardVO : " + userBoardVO);
+		System.out.println("UserBoardService Write > BEFORE || userBoardVO : " + userBoardVO);
 
 		int resultCnt = 0;
 
@@ -129,8 +129,10 @@ public class UserBoardService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("UserBoardService Write > AFTER || userBoardVO : " + userBoardVO);
 
-		return resultCnt;
+		return userBoardVO;
 	}
 
 	public int UserBoardDeleteS(int uboard_id) {

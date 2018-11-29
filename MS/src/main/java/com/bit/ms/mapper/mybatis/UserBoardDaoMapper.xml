@@ -38,11 +38,11 @@
 	<insert id="insertUserBoard" parameterType="UserBoardVO"
 		useGeneratedKeys="true" keyProperty="uboard_id">
 
-		insert into
-		userboard
-		(uboard_title, uboard_con, writer_id, store_id)
-		values(#{uboard_title},
-		#{uboard_con},#{writer_id},#{store_id})
+		insert into userboard (uboard_title, uboard_con, writer_id, store_id )
+		values(#{uboard_title}, #{uboard_con},#{writer_id},#{store_id})
+		<selectKey resultType="int" keyProperty="uboard_id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 
 	</insert>
 
@@ -71,7 +71,9 @@
 		select
 		ifnull(min(uboard_id),0) from userboard where uboard_id>#{uboard_id}
 		and store_id=#{store_id}
-		and (uboard_con like CONCAT('%',#{keyword},'%') or uboard_title like CONCAT('%',#{keyword},'%'))
+		and (uboard_con like
+		CONCAT('%',#{keyword},'%') or uboard_title like
+		CONCAT('%',#{keyword},'%'))
 
 	</select>
 
@@ -80,7 +82,8 @@
 		select ifnull( max( uboard_id ), 0 )
 		from userboard where
 		store_id=#{store_id} and <![CDATA[uboard_id < #{uboard_id}]]>
-		and (uboard_con like CONCAT('%',#{keyword},'%') or uboard_title like CONCAT('%',#{keyword},'%'))
+		and (uboard_con like CONCAT('%',#{keyword},'%') or uboard_title like
+		CONCAT('%',#{keyword},'%'))
 
 	</select>
 
