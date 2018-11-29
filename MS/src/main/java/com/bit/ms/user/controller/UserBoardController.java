@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bit.ms.admin.model.AdminVO;
-import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserBoardListVO;
 import com.bit.ms.user.model.UserBoardReplyVO;
 import com.bit.ms.user.model.UserBoardVO;
-import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserBoardService;
 
 @Controller
