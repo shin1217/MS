@@ -105,7 +105,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 					<c:forEach var="CEOBoardList" items="${CEOBoard}">
 						<tr>
 							<td style="text-align: center;">${CEOBoardList.cboard_id}</td>
-							<td><a href="${pageContext.request.contextPath }/amdin/CEOBoardView">${CEOBoardList.cboard_title}</a></td>
+							<td><a href="${pageContext.request.contextPath}/admin/CEOBoardView/view/${CEOBoardList.cboard_id}">${CEOBoardList.cboard_title}</a></td>
 							<td style="text-align: center;">${CEOBoardList.writer_id}</td>
 							<td style="text-align: center;"><fmt:formatDate	value="${CEOBoardList.cboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>

@@ -37,12 +37,12 @@ public class AdminCEOBoardService {
 	}
 	
 	// 게시글 내용 보기 메서드
-	public List<AdminBoardVO> cBoardContent() {
+	public AdminBoardVO cBoardContent(int cboard_id) {
 		
+		System.out.println("서비스단 게시글 번호" + cboard_id);
+		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
 		
-		
-		
-		return null;
+		return adminDao.contentView(cboard_id);
 	}
 	
 }

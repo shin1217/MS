@@ -14,5 +14,9 @@
 	insert into ceoboard (cboard_title, cboard_con, writer_cid) values (#{cboard_title}, #{cboard_con}, #{writer_cid}) 
 </insert>
 
+<!-- CEO Board 게시글 읽기 -->
+<select id="contentView" parameterType="int" resultType="AdminBoardVO">
+	select * from ceoboard where cboard_id = #{cboard_id}
+</select>
 
 </mapper>
