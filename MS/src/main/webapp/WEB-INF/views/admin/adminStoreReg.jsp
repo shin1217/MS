@@ -208,12 +208,15 @@ small {
 			type: 'POST',
 			success: function(data){
 				var str = "";
+				var logo = $('#logo').length;
 				
-				if(checkImageType(data)){
-					str += "<div><img src='${pageContext.request.contextPath}/displayFile?fileName=" + data + "'/>";
-					str += "<small data-src=" + data + ">X</small></div>";
-				} 
-				$('#fileDrop').html(str);
+				if(logo > 0){
+					if(checkImageType(data)){
+						str += "<div id='logo'><img src='${pageContext.request.contextPath}/displayFile?fileName=" + data + "'/>";
+						str += "<small data-src=" + data + ">X</small></div>";
+						$('#fileDrop').html(str);
+					}
+				}
 			}
 		});
 	});

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bit.ms.util.MediaUtils;
 import com.bit.ms.util.UploadFileUtils;
@@ -94,24 +95,35 @@ public class AdminStoreUploadController {
 		return entity;
 	}
 
-	//파일삭제
+	// 파일삭제
 	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {
-		
-		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-		
+
+		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
 		MediaType mType = MediaUtils.getMediaType(formatName);
-		
-		if(mType != null) {
+
+		if (mType != null) {
 			String front = fileName.substring(0, 12);
 			String end = fileName.substring(14);
-			
-			new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
+
+			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
 		}
-		
+
 		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-		
+
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+
+	@SuppressWarnings("unused")
+	private String getSaveLocation(MultipartHttpServletRequest request) {
+
+		String uploadPath = request.getSession().getServletContext().getRealPath("/");
+		String attachPath = "resources/files/";
+
+		System.out.println("UtilFile getSaveLocation path : " + uploadPath + attachPath);
+
+		return null;
 	}
 }
