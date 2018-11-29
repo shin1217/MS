@@ -41,7 +41,7 @@ public class AdminBoardController {
 	}
 	
 	// CEO게시판 글쓰기 작성하기 완료 버튼
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/CEOBoardWrite", method = RequestMethod.POST)
 	public String CEOWriteSuccess(AdminBoardVO ceoBoardVO, HttpSession session) {
 		
 		// 로그인 한 세션 아이디 값을 CEOBoardVO 아이디 값에            저장시킴
