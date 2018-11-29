@@ -75,22 +75,24 @@ public class UserLoginController {
 
 		return "user/userRegSuccess";
 	}
-
+	//qr코드를 입력하면 qr로그인창으로 넘어감
 	@RequestMapping(value = "user/qrLogin")
 	public String qrLogin() {
 
 		return "user/qrLogin";
 	}
-
+	//사용자가 잔여시간이 있는지 없는지 검사
 	@RequestMapping(value = "/user/chkTime/{id}")
 	public @ResponseBody long getUserTime(@PathVariable("id") String user_id) {
 		
 		return login_service.getUserTimeS(user_id);
 	}
+	//선택한 자리에 사용자가 있는지 검색
 	@RequestMapping(value = "/user/chkId/{id}")
 	public @ResponseBody String getUserId(@PathVariable("id") String user_id) {
 		return login_service.getUserIdS(user_id);
 	}
+	//기존에 로그인이 되어있는지 검색
 	@RequestMapping(value = "/user/chkSeat/{store_id}")
 	public @ResponseBody List<SeatVO> getUserList(@PathVariable("store_id") int store_id){
 		return login_service.getUserListS(store_id);

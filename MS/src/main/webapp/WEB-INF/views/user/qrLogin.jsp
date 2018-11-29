@@ -214,8 +214,9 @@ body {
 </div>	
 </body>
 <script>
-	var store_id = "${param.store_id}";
-	var seat_id = "${param.seat_id}";
+	var store_id = "${param.store_id}"; //get으로 받아온 매장아이디
+	var seat_id = "${param.seat_id}"; //get으로 받아온 자리아이디
+	
 	$(document).ready(function(){
 		//애니메이션 메서드
 		new WOW().init();
@@ -257,17 +258,12 @@ body {
 				success : function(data) {
 					if (data == 0) { //로그인 실패시
 						console.log(data);
-						$('#spanLoginCheck').text('로그인 정보를 정확히 입력해주세요.');
+						$('#spanLoginCheck').text('로그인 정보를 정확히 입력해주세요.').attr("class","font-weight-bold text-white bg-dark");
 					} else if (data == -2) { //인증하지 않았다면?
 						console.log(data);
-						$('#spanLoginCheck').text('이메일 인증을 해주셔야 합니다!');						
+						$('#spanLoginCheck').text('이메일 인증을 해주셔야 합니다!').attr("class","font-weight-bold text-white bg-dark");						
 					} else if (data == -3) { // 아이디가 사용중이라면?
-						console.log(data);
-						if(confirm("이미 접속중입니다. 기존의 접속을 종료하시겠습니까?")){
-							chkTime(id);
-						} else {
-							location.href = '${pageContext.request.contextPath}/user/qrLogin?store_id=' + store_id + '&seat_id=' + seat_id;
-						}						
+						chkTime(id);
 					} else { //로그인 성공시
 						chkTime(id);
 					}
@@ -278,71 +274,80 @@ body {
 		$.ajax({
 			url : '${pageContext.request.contextPath}/user/chkTime/' + id,
 			success : function(data){
-				if(data == null || data == ""){ //남은시간이 없는경우
+				if(data == null || data == ""){ //남은시간이 없는경우 모달창 띄움
 					$('#add_time_modal').show();
 					$('#user_id').text($('#inputId').val());
 					$('#seat_id').text(seat_id);
 				} else { //남은시간이 있는경우 
-					$.ajax({
+					$.ajax({ //기존에 로그인이 되어있는지 검사
 						url : '${pageContext.request.contextPath}/user/chkSeat/' + store_id,
 						success : function(data2){
-							//로그인 된 상태
-							for(var i = 0; i < data2.length; i++){
-								if(id == data2[i]){
+							for(var i = 0; i < data2.length; i++){ //해당 매장에 접속중인 사용자들의 리스트와 내 아이디를 비교
+								if(id == data2[i]){ //다른자리에 로그인된 상태라면
 									if(confirm("기존에 로그인된 상태입니다. 로그아웃시키고 접속하시겠습니까?")){
 										$.ajax({
 											url: '${pageContext.request.contextPath}/user/deleteUsingInfo?userId=' + id + '&storeId=' + store_id, 
 											type: 'get',
 											success:function(){
-												$.ajax({
-													url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + data + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + id,
-													success : function(){
-														location.href = '${pageContext.request.contextPath}/user/main';
-													}
-												}); // 시간등록 ajax끝
+												newAddTime(0);
 											} // end success  
 										}); // 기존 로그인된아이디 로그아웃 ajax끝 
+									} else {
+										location.reload();
 									}
-								} // 로그인된상태 if문 끝	
+								} else { //다른자리에 로그인 안된 상태라면
+									newAddTime(0);
+								} 	
 							} //로그인된상태 반복문 끝
-							//로그아웃 된 상태
 						}
 					});
-					/* $.ajax({
-						url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + data + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + id,
-						success : function(data2){
-							location.href = '${pageContext.request.contextPath}/user/main';
-						}
-					}); */
 				}
 			}
 		});
 	}
 	$('#add_time_btn').click(function(){
+		var addTime = $('#selectAddTime option:selected').val()*60*60; // 충전할 시간(초 단위)
 		if ($('#selectAddTime option:selected').val() == 0) {
 			alert('충전하실 시간을 선택하세요.');
 			return;
+		} else {
+			newAddTime(addTime);
 		}
-		var addTime = $('#selectAddTime option:selected').val()*60*60; // 충전할 시간(초 단위)
-		var userId = $('#inputId').val();
+	});
+	//////////// 시간을 충전하는 경우 로그인 /////////////
+	function newAddTime(time){
+		var userId = $('#inputId').val(); //사용자 아이디
+		//선택한 자리에 다른 사용자가 있는지 검색
 		$.ajax({
 			url : '${pageContext.request.contextPath}/user/chkId/' + seat_id,
 			success : function(data){
 				console.log(data);
-				if(data == null || data == ""){
-					$.ajax({
-						url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + addTime + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + userId,
+				if(data == null || data == ""){ // 선택한자리가 사용중이지 않다면 그냥 로그인
+					$.ajax({ 
+						url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + time + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + userId,
 						success : function(){
 							location.href = '${pageContext.request.contextPath}/user/main';
 						}
-					});
-				} else {
-					alert("이미 사용중인 자리입니다.");
-				}
+					});	
+				} else { //선택한자리가 사용중일떄 나이면 그냥 로그인 아니라면 거부
+					if(data == userId){ //내가 사용중이라면
+						$.ajax({ 
+							url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + time + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + userId,
+							success : function(){
+								location.href = '${pageContext.request.contextPath}/user/main';
+							}
+						});
+					} else { // 다른사람이 사용중이라면
+						$('#spanLoginCheck').html("이미 사용중인 자리입니다.").attr("class","alreadUsing").css("color","red").css("font-weight","bold").css("background-color","#212121");
+						//$('#spanLoginCheck').html("이미 사용중인 자리입니다.").attr("style","color : red !important; font-size : 30px;");
+						//!important속성을 줄때 .css메서드로는 안먹히므로 attr속성으로 준다.
+						//$('#spanLoginCheck').html("이미 사용중인 자리입니다.").css("color","red !important");
+						$('#add_time_modal').hide();
+					}
+				} 
 			}
 		});
-	});
-	
+	}
 	//모달창에 시간셀렉트문
 	for (var i = 1; i <= 12; i++) {
 		var option = '<option value='+ i + '>' + i + ' 시간 (' + i + ',000원)</option>';
