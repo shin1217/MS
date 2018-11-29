@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.bit.ms.admin.model.AdminBoardVO;
 import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.model.NoticeVO;
 import com.bit.ms.admin.model.SalesVO;
@@ -47,6 +48,10 @@ public interface AdminDaoInterface {
 	void insertReply(ReplyVO vo) throws Exception;
 	void updateReply(ReplyVO vo) throws Exception;
 	void deleteReply(int id) throws Exception;
+	
+	/*CEO게시판*/
+	List<AdminBoardVO> contentList();
+	int CEOWriteReg(AdminBoardVO ceoBoardVO);
 	
 	/*회원리스트 관련*/
 	List<UserVO> getUserList();//회원리스트 전체 출력

@@ -7,7 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MS</title>
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 .hypertext_none {
@@ -19,29 +18,16 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container" style="overflow: hidden; position: relative;">
-		<br> <a class="nav-link, hypertext_none"
-			href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword=">
-			<b style="font-size: 30px;">[${storeSelectSession.store_name}] -
-				유저게시판</b>
+		<br> <a class="nav-link, hypertext_none" href="${pageContext.request.contextPath}/admin/CEOBoard">
+			<b style="font-size: 30px;">CEO게시판</b>
 		</a>
-		<%--<br> <a id="write" class="btn btn-outline-elegant waves-effect"
-			href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a> --%>
-
-		<%-- <div class="userBoard_searchbar">
-			<form method="get">
-				<input name="keyword" type="text" value="${param.keyword}" required> <label>검색(제목+내용) + ENTER!!</label>
-				<input name="page" type="hidden" value="${param.page}" />
-			</form>
-		</div> --%>
 	</div>
 
 	<div class="container">
 		<form class="text-center p-5" method="post">
-			<input type="text" class="form-control" placeholder="제목"
-				name="cboard_title" required>
+			<input type="text" class="form-control" placeholder="제목" name="cboard_title" required>
 			<!-- name값과 메서드의 매개변수가 이름이 같으면 알아서 넣어줌 -->
-			<textarea class="form-control" rows="20" placeholder="내용"
-				name="cboard_con" required></textarea>
+			<textarea class="form-control" rows="20" placeholder="내용" name="cboard_con" required></textarea>
 			<button type="submit" class="btn btn-info btn-block">작성하기</button>
 		</form>
 	</div>

@@ -11,7 +11,7 @@ public class AdminBoardVO {
 	private String cboard_title;
 	private String cboard_con;
 	private Timestamp cboard_date;
-	private String writer_id;
+	private String writer_cid;
 	private int store_id;
 	
 	public AdminBoardVO() {
@@ -25,7 +25,7 @@ public class AdminBoardVO {
 		this.cboard_title = cboard_title;
 		this.cboard_con = cboard_con;
 		this.cboard_date = cboard_date;
-		this.writer_id = writer_id;
+		this.writer_cid = writer_id;
 		this.store_id = store_id;
 	}
 
@@ -62,11 +62,11 @@ public class AdminBoardVO {
 	}
 
 	public String getWriter_id() {
-		return writer_id;
+		return writer_cid;
 	}
 
 	public void setWriter_id(String writer_id) {
-		this.writer_id = writer_id;
+		this.writer_cid = writer_id;
 	}
 
 	public int getStore_id() {
@@ -80,7 +80,7 @@ public class AdminBoardVO {
 	@Override
 	public String toString() {
 		return "AdminBoardVO [cboard_id=" + cboard_id + ", cboard_title=" + cboard_title + ", cboard_con=" + cboard_con
-				+ ", cboard_date=" + cboard_date + ", writer_id=" + writer_id + ", store_id=" + store_id + "]";
+				+ ", cboard_date=" + cboard_date + ", writer_id=" + writer_cid + ", store_id=" + store_id + "]";
 	}
 	
 	
