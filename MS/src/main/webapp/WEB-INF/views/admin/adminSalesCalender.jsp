@@ -138,7 +138,7 @@ td.sales_Table:hover {
 <body>
 
 <br>
-<h1 style="text-align: center;"><font color="#D358F7"> ${storeSelectSession.store_name } </font> 매출 현황</h1>
+<h1 style="text-align: center;"><font color="brown"> ${storeSelectSession.store_name } </font> 매출 현황</h1>
 <br>
 
 <div class="container" style="width:712px;">
