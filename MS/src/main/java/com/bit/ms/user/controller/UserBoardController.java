@@ -59,6 +59,8 @@ public class UserBoardController {
 		return modelAndView;
 	}
 
+	// List
+
 	// Write
 
 	@RequestMapping(value = "/user/userBoard/write", method = RequestMethod.GET)
