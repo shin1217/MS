@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,13 +18,14 @@
 <link href="${pageContext.request.contextPath}/select/themes/select-mania-theme-square.css" rel="stylesheet">
 <style>
 * {
-	font-family: "BMHANNAPro";
+   font-family: "BMHANNAPro";
 }
 
 .navbar-nav li {
-	margin-left: 20px;
+   margin-left: 20px;
 }
 </style>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<c:if test="${!empty adminSession}">
 		<a id="adminBrand" class="navbar-brand"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 80px; margin-left: 10px;" /></a>

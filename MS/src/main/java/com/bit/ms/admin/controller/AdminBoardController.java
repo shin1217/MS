@@ -12,14 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.admin.model.AdminBoardVO;
 import com.bit.ms.admin.model.AdminVO;
-import com.bit.ms.admin.service.AdminBoardService;
-import com.bit.ms.admin.service.AdminBoardWriteServcie;
+import com.bit.ms.admin.service.AdminCEOBoardService;
 
 @Controller
 public class AdminBoardController {
 
 	@Autowired
-	private AdminBoardService CEOBoardService;
+	private AdminCEOBoardService CEOBoardService;
 	
 	// CEO게시판 게시글 리스트
 	@RequestMapping(value = "/admin/CEOBoard", method = RequestMethod.GET)
@@ -41,23 +40,28 @@ public class AdminBoardController {
 		return "admin/adminCEOWriteForm";
 	}
 	
-	
-	@Autowired
-	AdminBoardWriteServcie CEOWriteService;
-	
 	// CEO게시판 글쓰기 작성하기 완료 버튼
 	@RequestMapping(method = RequestMethod.POST)
 	public String CEOWriteSuccess(AdminBoardVO ceoBoardVO, HttpSession session) {
 		
-		// 로그인 한 세션 아이디 값을 CEOBoardVO 아이디 값에 저장시킴
+		// 로그인 한 세션 아이디 값을 CEOBoardVO 아이디 값에            저장시킴
 		AdminVO adminVO = (AdminVO) session.getAttribute("adminSession");
 		String ceoId = adminVO.getAdmin_id();
 		ceoBoardVO.setWriter_id(ceoId);
 		
 		// 작성한 게시글이 있다면 1 / 없으면 0
-		CEOWriteService.CEOBoardWrite(ceoBoardVO);
+		CEOBoardService.CEOBoardWrite(ceoBoardVO);
 		
 		return "redirect:/admin/CEOBoard";
+	}
+	
+	// 게시글 내용 보기
+	@RequestMapping(value = "/amdin/CEOBoardView", method = RequestMethod.GET)
+	public String CEOBoardView() {
+		
+		
+		
+		return "admin/adminCEOViewBoard";
 	}
 	
 }

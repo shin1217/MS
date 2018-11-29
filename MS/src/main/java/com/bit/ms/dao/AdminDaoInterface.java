@@ -52,6 +52,8 @@ public interface AdminDaoInterface {
 	/*CEO게시판*/
 	List<AdminBoardVO> contentList();
 	int CEOWriteReg(AdminBoardVO ceoBoardVO);
+	List<AdminBoardVO> contentView();
+	
 	
 	/*회원리스트 관련*/
 	List<UserVO> getUserList();//회원리스트 전체 출력

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.dao.AdminDaoInterface;
-import com.bit.ms.user.service.UserRedundantLoginService;
 
 @Service
 public class AdminLoginService {
