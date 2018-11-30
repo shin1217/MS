@@ -7,6 +7,11 @@
 .container {
 	margin-top: 20px;
 }
+
+#userListForm {
+	float: right;
+	margin-bottom: 10px;
+}
 </style>
 <title>MS</title>
 <meta charset="utf-8">
@@ -17,6 +22,8 @@
 
 	<div class="container">
 		<h1>전체 회원목록</h1>
+		<select name="1" id=""></select>
+		<input type="text" id="userListForm" />
 		<table id="userListTable" class="table table-striped table-bordered">
 			<thead>
 				<tr>
@@ -38,6 +45,7 @@
 	
 	var list = '';
 	
+	//전체 회원리스트 출력
 	function getAllUserList(){
 		$.ajax({
 			type : 'get',
@@ -58,6 +66,8 @@
 	};
 	
 	function sorting(sortName, orderBy){
+		var that = (this);		
+		
 		$.ajax({
 			type : 'get',
 			url : '${pageContext.request.contextPath}/admin/userList/sort',

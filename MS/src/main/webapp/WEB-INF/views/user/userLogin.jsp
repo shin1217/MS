@@ -18,6 +18,7 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <style>
 *{
 	font-size: 20px;
@@ -142,6 +143,12 @@ body {
 				</div>
 				<div class="form-group">
 					<div id="naver_id_login"></div>
+				</div>
+				<div class="form-group">
+					<a id="custom-login-btn"
+						href="https://kauth.kakao.com/oauth/authorize?client_id=509065e9595aafc42a9082a096f07ff2&redirect_uri=http://localhost:8080/kakaologin&response_type=code">
+						<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300" />
+					</a>
 				</div>
 			</div>
 		</div>
