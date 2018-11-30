@@ -7,10 +7,12 @@ import java.io.InputStream;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bit.ms.util.MediaUtils;
 import com.bit.ms.util.UploadFileUtils;
@@ -31,6 +32,9 @@ public class AdminStoreUploadController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminStoreUploadController.class);
 
+	@Autowired
+	private ServletContext servletContext;
+	
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
@@ -55,6 +59,7 @@ public class AdminStoreUploadController {
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
 
 		logger.info("originalName:" + file.getOriginalFilename());
+		logger.info(servletContext.getRealPath("/"));
 
 		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
 				HttpStatus.CREATED);
@@ -114,16 +119,5 @@ public class AdminStoreUploadController {
 		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
-	}
-
-	@SuppressWarnings("unused")
-	private String getSaveLocation(MultipartHttpServletRequest request) {
-
-		String uploadPath = request.getSession().getServletContext().getRealPath("/");
-		String attachPath = "resources/files/";
-
-		System.out.println("UtilFile getSaveLocation path : " + uploadPath + attachPath);
-
-		return null;
 	}
 }

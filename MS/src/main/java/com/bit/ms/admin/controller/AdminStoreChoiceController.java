@@ -36,8 +36,7 @@ public class AdminStoreChoiceController {
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
-	private static final Logger logger = LoggerFactory.getLogger(AdminStoreChoiceController.class);
-
+	
 	@RequestMapping(value = "/admin/storeChoice", method = RequestMethod.GET)
 	public String storeChoiceForm(@Param("id") String id, Model model, HttpSession session) {
 

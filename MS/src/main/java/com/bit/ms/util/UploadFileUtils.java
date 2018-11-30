@@ -15,8 +15,6 @@ import org.springframework.util.FileCopyUtils;
 
 public class UploadFileUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(UploadFileUtils.class);
-
 	public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
 
 		// 겹쳐지지 않는 파일명을 위한 유니크한 값 생성
@@ -85,7 +83,7 @@ public class UploadFileUtils {
 
 	}// makeDir
 
-	// 음??? 아이콘? 이미지 파일이 아닌경우 썸네일을 대신?
+	// 이미지 파일이 아닌경우 썸네일을 대신?
 	private static String makeIcon(String uploadPath, String path, String fileName) throws Exception {
 		String iconName = uploadPath + path + File.separator + fileName;
 		return iconName.substring(uploadPath.length()).replace(File.separatorChar, '/');

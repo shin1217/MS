@@ -65,6 +65,7 @@ small {
 </style>
 </head>
 <body>
+	<%= request.getSession().getServletContext().getRealPath("/") %>
 	<div class="container">
 		<div class="titleStyle">
 			<h1>매장등록</h1>
@@ -208,14 +209,11 @@ small {
 			type: 'POST',
 			success: function(data){
 				var str = "";
-				var logo = $('#logo').length;
 				
-				if(logo > 0){
-					if(checkImageType(data)){
-						str += "<div id='logo'><img src='${pageContext.request.contextPath}/displayFile?fileName=" + data + "'/>";
-						str += "<small data-src=" + data + ">X</small></div>";
-						$('#fileDrop').html(str);
-					}
+				if(checkImageType(data)){
+					str += "<div><img src='${pageContext.request.contextPath}/displayFile?fileName=" + data + "'/>";
+					str += "<small data-src=" + data + ">X</small></div>";
+					$('#fileDrop').html(str);
 				}
 			}
 		});
