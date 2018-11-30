@@ -200,12 +200,7 @@ body {
 						$('#spanLoginCheck').text('이메일 인증을 해주셔야 합니다!');						
 					} else if (data == -3) { // 아이디가 사용중이라면?
 						console.log(data);
-						if(confirm("이미 접속중입니다. 기존의 접속을 종료하시겠습니까?")){
-							alert("로그인 되었습니다");
-							location.href = '${pageContext.request.contextPath}/user/redundant?user_Id=' + id + '&user_Pw=' + pw + '&store_Id=' + store + '&remember_userId=' + remember_us;
-						} else {
-							location.href = '${pageContext.request.contextPath}/';
-						}						
+						location.href = '${pageContext.request.contextPath}/user/redundant?user_Id=' + id + '&user_Pw=' + pw + '&store_Id=' + store + '&remember_userId=' + remember_us;						
 					} else { //로그인 성공시
 						console.log(data);
 						location.href = '${pageContext.request.contextPath}/user/main';

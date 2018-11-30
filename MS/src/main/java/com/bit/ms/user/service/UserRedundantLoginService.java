@@ -36,7 +36,8 @@ public class UserRedundantLoginService implements HttpSessionBindingListener {
 		// session값을 put한다.
 		loginUsers.put(event.getSession(), event.getName());
 		System.out.println(event.getName() + "님이 로그인 하셨습니다.");
-		System.out.println("valueBound 현재 접속자 수 : " + getUserCount());
+		System.out.println("[세션생성] valueBound 현재 접속자 수 : " + getUserCount());
+		System.out.println("[세션생성] valueBound 현재 접속자 리스트 : " + loginUsers);
 	}
 
 	/*
@@ -46,7 +47,8 @@ public class UserRedundantLoginService implements HttpSessionBindingListener {
 		// session값을 찾아서 없애준다.
 		loginUsers.remove(event.getSession());
 		System.out.println("  " + event.getName() + "님이 로그아웃 하셨습니다.");
-		System.out.println("valueUnbound 현재 접속자 수 : " + getUserCount());
+		System.out.println("[세션종료] valueUnbound 현재 접속자 수 : " + getUserCount());
+		System.out.println("[세션종료] valueUnbound 현재 접속자 리스트 : " + loginUsers);
 	}
 
 	/*

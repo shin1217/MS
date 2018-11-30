@@ -44,9 +44,6 @@ public class UserLoginService {
 		// 로그인 결과값
 		int result = 0;
 
-		// store_id 저장 결과값
-		int update_store_id;
-
 		// 매장선택을 안하면 매장선택하라는 메시지발생
 		if (store_id == -1) {
 			result = -1;
@@ -105,10 +102,10 @@ public class UserLoginService {
 				// 중복로그인 start
 
 				// 이미 접속한 아이디인지 체크한다.
-				System.out.println("ID가 사용중인지 확인 : " + loginManager.isUsing(userVO.getUser_id()));
 				loginManager.printloginUsers(); // 접속자 리스트
 				if (loginManager.isUsing(userVO.getUser_id())) {
 					result = -3;
+					System.out.println("@@@@@@@@@@@@@@@@@@@[중복로그인 발생]@@@@@@@@@@@@@@@@@@");
 				} else {
 					loginManager.setSession(httpSession, userVO.getUser_id());
 				}
@@ -127,18 +124,21 @@ public class UserLoginService {
 
 		return adminDao.getStoreList();
 	}
-	//사용자 시간을 가져옴
+
+	// 사용자 시간을 가져옴
 	public long getUserTimeS(String user_id) {
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		return userDao.getUserTimeI(user_id);
 	}
-	//사용자가 선택한 자리에 다른사용자가 있나 불러옴
+
+	// 사용자가 선택한 자리에 다른사용자가 있나 불러옴
 	public String getUserIdS(String user_id) {
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		return userDao.getUserIdI(user_id);
 	}
-	//다른곳에 로그인이 되었는지 확인하기 위해 유저리스트를 받아옴
-	public List<SeatVO> getUserListS(int store_id){
+
+	// 다른곳에 로그인이 되었는지 확인하기 위해 유저리스트를 받아옴
+	public List<SeatVO> getUserListS(int store_id) {
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		return userDao.getUserListI(store_id);
 	}

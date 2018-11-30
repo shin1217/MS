@@ -21,7 +21,7 @@ public class AdminSeatService {
 	public List<SeatVO> getSeatListS(int store_id, String order_by, String sort) {
 
 		adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		
+
 		System.out.println("store_id : " + store_id);
 		System.out.println("order_by : " + order_by);
 		System.out.println("sort : " + sort);
@@ -84,16 +84,17 @@ public class AdminSeatService {
 
 		return resultCnt;
 	}
-	
+
 	public int addQrS(int seat_id, String seat_qr) {
-		
-		HashMap<String,String> map = new HashMap<String,String>();
+
+		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("seat_id", Integer.toString(seat_id));
 		map.put("seat_qr", seat_qr);
-		
+
 		adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		return adminDaoInterface.addQrI(map);
 	}
+
 	public String getQrS(int seat_id) {
 		adminDaoInterface = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		return adminDaoInterface.getQrI(seat_id);

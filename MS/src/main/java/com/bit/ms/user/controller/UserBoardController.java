@@ -112,13 +112,12 @@ public class UserBoardController {
 			@Param("page") int page, @Param("keyword") String keyword) {
 
 		System.out.println(keyword);
+
 		int resultCnt = 0;
 
 		try {
 			resultCnt = userBoardService.UserBoardModifyS(userBoardVO);
-
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 

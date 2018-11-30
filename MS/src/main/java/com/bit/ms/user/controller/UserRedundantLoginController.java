@@ -59,10 +59,10 @@ public class UserRedundantLoginController {
 		result = login_service.userLogin_service(userVO, store_id, httpSession, user_check, response);
 
 		if (result == 1) {
-			System.out.println("먼저 로그인 해제하고 나중로그인 실행");
+			System.out.println("[중복로그인] 먼저 로그인 해제하고 나중로그인 실행");
 			mav.setViewName("user/userMain");
 		} else {
-			System.out.println("중복로그인 실패");
+			System.out.println("[중복로그인] 실패");
 			mav.setViewName("redirect:/");
 		}
 		loginManager.setSession(httpSession, loginId);

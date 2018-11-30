@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
-import com.bit.ms.user.service.UserRedundantLoginService;
 import com.bit.ms.user.service.UserLoginService;
+import com.bit.ms.user.service.UserRedundantLoginService;
 import com.bit.ms.user.service.UserSha256;
 
 @Controller
@@ -40,7 +40,7 @@ public class UserLoginController {
 		List<StoreVO> result = login_service.getStoreOption();
 		model.addAttribute("store_list2", result);
 
-//		System.out.println("UserLoginController // 현재 접속자 수 : " + loginManager.getUserCount());
+		System.out.println("UserLoginController // 현재 접속자 수 : " + loginManager.getUserCount());
 
 		return "user/userLogin";
 	}
@@ -58,7 +58,7 @@ public class UserLoginController {
 		userVO.setUser_pw(UserSha256.encrypt(user_pw));
 
 		// 암호화 확인
-		System.out.println(userVO.getUser_pw());
+		System.out.println("user_pw : " + userVO.getUser_pw());
 		// 로그인 메서드
 		int result = login_service.userLogin_service(userVO, store_id, httpSession, user_check, response);
 
@@ -75,26 +75,30 @@ public class UserLoginController {
 
 		return "user/userRegSuccess";
 	}
-	//qr코드를 입력하면 qr로그인창으로 넘어감
+
+	// qr코드를 입력하면 qr로그인창으로 넘어감
 	@RequestMapping(value = "user/qrLogin")
 	public String qrLogin() {
 
 		return "user/qrLogin";
 	}
-	//사용자가 잔여시간이 있는지 없는지 검사
+
+	// 사용자가 잔여시간이 있는지 없는지 검사
 	@RequestMapping(value = "/user/chkTime/{id}")
 	public @ResponseBody long getUserTime(@PathVariable("id") String user_id) {
-		
+
 		return login_service.getUserTimeS(user_id);
 	}
-	//선택한 자리에 사용자가 있는지 검색
+
+	// 선택한 자리에 사용자가 있는지 검색
 	@RequestMapping(value = "/user/chkId/{id}")
 	public @ResponseBody String getUserId(@PathVariable("id") String user_id) {
 		return login_service.getUserIdS(user_id);
 	}
-	//기존에 로그인이 되어있는지 검색
+
+	// 기존에 로그인이 되어있는지 검색
 	@RequestMapping(value = "/user/chkSeat/{store_id}")
-	public @ResponseBody List<SeatVO> getUserList(@PathVariable("store_id") int store_id){
+	public @ResponseBody List<SeatVO> getUserList(@PathVariable("store_id") int store_id) {
 		return login_service.getUserListS(store_id);
 	}
 
