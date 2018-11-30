@@ -49,6 +49,7 @@
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/seat"><i class="fa fa-eye" aria-hidden="true"></i> 좌석관리</a> 
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword="><i class="fa fa-comments" aria-hidden="true"></i> 유저게시판</a>
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/CEOBoard"><i class="fa fa-won" aria-hidden="true"></i> CEO게시판</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/member/photoBoard?page=1"><i class="fa fa-instagram" aria-hidden="true"></i> 포토게시판</a>
 					</div></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout"><i class="fa fa-unlock-alt" aria-hidden="true"></i>로그아웃</a></li>
 				<li class="nav-item">
@@ -67,6 +68,7 @@
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/notice?page=1"><i class="fa fa-bullhorn" aria-hidden="true"></i>공지사항</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userOrders"><i class="fa fa-cutlery" aria-hidden="true"></i>음식주문</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword="><i class="fa fa-comments" aria-hidden="true"></i>유저게시판</a></li>
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/photoBoard?page=1"><i class="fa fa-instagram" aria-hidden="true"></i>포토게시판</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout"><i class="fa fa-unlock-alt" aria-hidden="true"></i>로그아웃</a></li>
 			</c:if>
 		</ul>

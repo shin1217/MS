@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.bit.ms.member.model.MessageVO;
+import com.bit.ms.member.model.PhotoBoardVO;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
 
@@ -21,4 +22,10 @@ public interface MemberDaoInterface {
 		/*List<StoreVO> getStoreList(String send_id); //받는사용자의 리스트*/		
 		List<UserVO> userListDistinct(); // 쪽지를 받을 사용자 리스트 받아오기
 		MessageVO getMessageDetail(int message_id);
+		
+		//포토게시판
+		int pageCount(int store_id);
+		List<PhotoBoardVO> selectList(int store_id, int firstlow);
+		int writePhotoI(PhotoBoardVO photoVo);
+		int writePhotoComplete(String photo_file);
 }

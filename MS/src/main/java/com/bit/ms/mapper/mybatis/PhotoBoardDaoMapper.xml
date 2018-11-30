@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bit.ms.dao.MemberDaoInterface">
+	<!-- 게시물 리스트 -->
+	<select id="selectList" parameterType="map" resultType="photoVO">
+
+		select * from photoboard where store_id = #{param1} order by photo_id desc limit #{param2}, 6;
+
+	</select>
+	<!-- 페이지 카운트 -->
+	<select id="pageCount" resultType="int">
+
+		select count(*) from photoboard where store_id=#{store_id}
+
+	</select>
+	<!-- 사진빼고 게시물 등록 -->
+	<insert id="writePhotoI" parameterType="photoVO" useGeneratedKeys="true"
+	keyProperty="photo_id">
+		
+		insert into photoboard(photo_title, photo_con, store_id, photo_upid) values (#{photo_title}, #{photo_con}, #{store_id}, #{photo_upid}) 
+		
+	</insert>
+	<!-- 사진등록 -->
+	<update id="writePhotoComplete">
+		
+		update photoboard set photo_file = #{photo_file} 
+	</update>
+
+</mapper>

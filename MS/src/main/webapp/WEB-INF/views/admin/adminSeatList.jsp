@@ -63,7 +63,7 @@
 				<tr>
 					<th class="th-sm">좌석이름</th>
 					<th class="th-sm">비용(원)</th>
-					<th class="th-sm">관리</th>
+					<th class="th-sm" colspan = "2">관리</th>
 				</tr>
 			</thead>
 			<tbody>				
@@ -71,7 +71,7 @@
 					<form>
 						<td style="text-align: center;"><input type="text" id="seat_name" name="seat_name" required></td>
 						<td style="text-align: center;"><input type="text" id="seat_pay" name="seat_pay" required onkeydown="check_input2_onkeydown()" style="width: 70%;" /> 원 / 시간</td>
-						<td style="text-align: center;"><button id="addseat_btn" type="button">등록</button><button id="reset" type="reset">초기화</button></td>
+						<td style="text-align: center;" colspan = "2"><button id="addseat_btn" type="button">등록</button><button id="reset" type="reset">초기화</button></td>
 					</form>
 				</tr>				
 				<tr>
@@ -290,7 +290,7 @@
 			type : 'post',
 			data : {
 				seat_id : seat_id,
-				seat_qr : "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=localhost/ms/user/qrLogin?store_id=" + session_store_id + "&seat_id=" + seat_id 
+				seat_qr : "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=${pageContext.request.contextPath}/user/qrLogin?store_id=" + session_store_id + "&seat_id=" + seat_id 
 			},
 			success : function(data){
 				$.ajax({
