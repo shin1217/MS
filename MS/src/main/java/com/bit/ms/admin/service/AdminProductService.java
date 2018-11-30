@@ -20,14 +20,24 @@ public class AdminProductService {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		return adminDao.insertFood(foodVO);
 	}
-
-	public List<FoodVO> getFoodInfoAll(int storeId) {
+	
+	public int updateImg(String foodPhoto, int foodId, int storeId) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		return adminDao.getFoodInfoAll(storeId);	
+		return adminDao.updateImg(foodPhoto, foodId, storeId);
+	}
+
+	public int updateFood(FoodVO foodVO) {
+		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		return adminDao.updateFood(foodVO);
 	}
 	
 	public int deleteFood(int foodId, int storeId) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		return adminDao.deleteFood(foodId, storeId);
+	}
+	
+	public List<FoodVO> getFoodInfoAll(int storeId) {
+		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		return adminDao.getFoodInfoAll(storeId);	
 	}
 }

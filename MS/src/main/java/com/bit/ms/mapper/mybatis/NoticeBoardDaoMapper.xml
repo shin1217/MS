@@ -5,7 +5,7 @@
 <mapper namespace="com.bit.ms.dao.AdminDaoInterface">
 
 	<!-- 공지사항 게시글 -->
-	<insert id="insertNotice" parameterType="noticeVO" useGeneratedKeys="true" keyProperty="notice_id">
+	<insert id="insertNotice" parameterType="noticeVO">
 		insert into noticeboard(notice_title, notice_con, admin_id, store_id) 
 		values (#{notice_title}, #{notice_con}, #{admin_id}, #{store_id})
 	</insert>

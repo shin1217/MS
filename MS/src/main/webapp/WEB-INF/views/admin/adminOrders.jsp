@@ -34,12 +34,11 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container">
 		<div class="title_text">[${storeSelectSession.store_name}] - 상품 관리</div>
-		<table class="table table-bordered table-hover table-striped">
+		<form action="insertFood" method="post" enctype="multipart/form-data" onsubmit="return registerFood()">
+		<table id="addTable" class="table table-bordered table-hover table-striped">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col" colspan="6" style="font-size: 20px">상품 추가
-						<button style="float: right">Tip</button>
-					</th>
+					<th scope="col" colspan="6" style="font-size: 20px">상품 추가</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -52,31 +51,31 @@
 					<td style="width: 20%">관리</td>
 				</tr>
 				<tr>
-					<form id="addProductForm" enctype="multipart/form-data">
-						<td>
-							<select class="type_select">
-								<option value="0">타입 선택</option>
-								<option value="korean">korean</option>
-								<option value="japan">japan</option>
-								<option value="western">western</option>
-								<option value="dessert">dessert</option>
-								<option value="drink">drink</option>
-							</select>
-						</td>
-						<td><input type="text" name="food_name" placeholder="ex) 콜라"/></td>
-						<td><input type="text" name="food_price" placeholder="ex) 3000" style="width: 80%; margin-right: 5px"/>원</td>
-						<td><input type="text" name="food_stock" placeholder="ex) 50" style="width: 80%; margin-right: 5px"/>개</td>
-						<td><input type="file" name="food_photo"/></td>
-						<input type="hidden" name="store_id" value="${storeSelectSession.store_id }"/>
-					</form>
 					<td>
-						<button id="registerBtn">등록</button>
-						<button id="resetBtn">초기화</button>
+						<select class="type_select" name ="food_type">
+							<option value="0">타입 선택</option>
+							<option value="korean">korean</option>
+							<option value="japan">japan</option>
+							<option value="western">western</option>
+							<option value="dessert">dessert</option>
+							<option value="drink">drink</option>
+						</select>
+					</td>
+					<td><input type="text" name="food_name" placeholder="ex) 콜라"/></td>
+					<td><input type="text" name="food_price" placeholder="ex) 3000" style="width: 80%; margin-right: 5px"/>원</td>
+					<td><input type="text" name="food_stock" placeholder="ex) 50" style="width: 80%; margin-right: 5px"/>개</td>
+					<td><input type="file" name="report"/></td>				
+					<td>
+						<input type="hidden" name="store_id" value="${storeSelectSession.store_id }"/>
+						<input type="submit" value="등록"/>
+						<input type="button" value="초기화" id="resetBtn"/>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+		</form>
 		
+		<form id="listForm">
 		<table id="listTable" class="table table-bordered table-hover table-striped table_font">
 			<thead class="thead-dark">
 				<tr>
@@ -87,9 +86,10 @@
 			
 			</tbody>
 		</table>
+		</form>
 	</div>
 	<script>
-		var foodNameArr = [];
+		var modifyCheck = false; // 수정 버튼 스위칭
 	
 		$(document).ready(function() {
 			getFoodList();
@@ -99,62 +99,65 @@
 			$('#resetBtn').on('click', function () {
 				$('.type_select').val('0'); // select 값 초기화
 				$('input[type=text]').val(''); // 입력 값 초기화
-			});
-			
-			/* 등록 버튼 */
-			$('#registerBtn').on('click', function () {
-				var regNumber = /^[0-9]*$/; // 숫자만 입력되었는지 검사
-				var regBlank = /[\s]/g; // 공백 검사
-				
-				var foodType = $('.type_select').val(); // 선택된 타입
-				var foodName = $('input[name=food_name]').val(); // 입력된 상품 이름 
-				var foodPrice = $('input[name=food_price]').val(); // 입력된 상품 가격
-				var foodStock = $('input[name=food_stock]').val(); // 입력된 상품 재고
-				
-				if(foodType == '0' || regBlank.test(foodName) || regBlank.test(foodPrice) || regBlank.test(foodStock)){
-					alert('입력란을 모두 채워주세요.');
-					return;
-				}
-				
-				if((!regNumber.test(foodPrice)) || (!regNumber.test(foodStock))){
-					alert('가격과 재고는 숫자만 입력 가능합니다.');
-					return;
-				}
-				
-				for(var i=0; i<foodNameArr.length; i++){
-					if(foodNameArr[i] == foodName){
-						alert('이미 등록된 상품입니다.');
-						return;
-					}
-				}
-				
-				var confirmSign = confirm( '등록하시겠습니까?' );
-				if(confirmSign){
-					$.ajax({
-						url: '${pageContext.request.contextPath}/admin/insertFood?foodType='+foodType,
-						type: 'get',
-						data: $('#addProductForm').serialize(),
-							
-						success:function(){
-							$('.type_select').val('0'); // select 값 초기화
-							$('input[type=text]').val(''); // 입력 값 초기화
-							getFoodList();
-						}
-					}); // end ajax
-				}
-			});
+			});	
 		}); // end document.ready
 		
+		/* 등록 버튼 */
+		function registerFood(){
+			if(!invalidCheck('addTable', 'X')){ // 유효성 통과 못할 시
+				return false;
+			}
+			
+			var registerConfirm = confirm('등록하시겠습니까?');
+			if(!registerConfirm){
+				return false;
+			}
+			return true;
+		}		
+		
 		/* 삭제 버튼 */
-		function deleteFood(id){
+		function deleteFood(id, foodName, fileName){
 			$.ajax({
-				url: '${pageContext.request.contextPath}/admin/deleteFood?storeId=${storeSelectSession.store_id}&foodId='+id,
+				url: '${pageContext.request.contextPath}/admin/deleteFood?storeId=${storeSelectSession.store_id}&foodId='+id+'&fileName='+fileName,
 				type: 'get',
 					
 				success:function(){
 					getFoodList();
 				}
 			}); // end ajax
+		}
+		
+		/* 수정 버튼 */
+		function updateFood(id, foodName, foodPrice, foodStock){
+			// 처음으로 수정 버튼 눌럿을 때
+			if(!modifyCheck){ 
+				var foodInfo = [foodName, foodPrice, foodStock];
+				var inputName = ['food_name', 'food_price', 'food_stock'];
+				
+				$('#'+id+' > td:not(:first):not(:last):not(:nth-child(2))').addClass('changeForm'); // 첫 번째와 두번째, 마지막 td를 제외한 td에 클래스 추가
+				$('.changeForm').each(function (index, item) {
+					$(item).html('<input type="text" name='+ inputName[index] +' value='+ foodInfo[index] +'>');
+				
+				});
+				modifyCheck = true;
+			}
+			// 두 번째로 수정 버튼 눌렀을 때
+			else { 
+				if(!invalidCheck('listTable', foodName)){ // 유효성 검사 통과 못할 시
+					return false;
+				} 
+				
+				$.ajax({
+					url: '${pageContext.request.contextPath}/admin/updateFood?storeId=${storeSelectSession.store_id}&foodId='+id,
+					type: 'get',
+					data: $('#listForm').serialize(),
+						
+					success:function(){
+						modifyCheck = false;
+						getFoodList();
+					}
+				});
+			}
 		}
 		
 		/* 음식 리스트 전부 가져오기 */
@@ -166,20 +169,66 @@
 				success:function(data){
 					var str = '<tr><td>#</td><td>타입</td><td>이름</td><td>가격</td><td>재고</td><td>관리</td></tr>';
 					for(var i=0; i<data.length; i++){
-						foodNameArr.push(data[i].food_name); // 등록된 모든 음식 이름 배열에 저장
-						str += '<tr>';
-						str += '<td>'+ data[i].food_id +'</td>';
-						str += '<td>'+ data[i].food_type +'</td>';
+						str += '<tr id='+ data[i].food_id +'>';
+						str += '<td style="width:10%">'+ data[i].food_id +'</td>';
+						str += '<td style="width:15%">'+ data[i].food_type +'</td>';
 						str += '<td>'+ data[i].food_name +'</td>';
-						str += '<td>'+ data[i].food_price +'</td>';
+						str += '<td>'+ numberWithCommas(data[i].food_price) +'</td>';
 						str += '<td>'+ data[i].food_stock +'</td>';
-						str += '<td><button onclick=deleteFood('+ data[i].food_id +')>삭제</button></td>';
+						str += '<td style="width:20%"><input type="button" value="수정" onclick="updateFood('+ data[i].food_id + ', \'' + data[i].food_name + '\', ' + data[i].food_price + ', ' + data[i].food_stock + ')"/>';
+						str += ' <input type="button" value="삭제" onclick="deleteFood('+ data[i].food_id + ', \'' + data[i].food_name + '\', \'' + data[i].food_photo +'\')"/></td>';
 						str += '</tr>';
-						
-						$('#listTable > tbody').html(str); // tbody의 마지막에 행 추가
 					}
+					$('#listTable > tbody').html(str); // tbody의 마지막에 행 추가
 				}
 			});
+		}
+		
+		/* 유효성 검사 */
+		function invalidCheck(tableId, beforeName){
+			var regNumber = /^[0-9]*$/; // 숫자만 입력되었는지 검사
+			var regBlank = /[\s]/g; // 공백 검사
+			
+			var foodType = $('#'+tableId+' .type_select').val(); // 선택된 타입
+			var foodName = $('#'+tableId+' input[name=food_name]').val(); // 입력된 상품 이름 
+			var foodPrice = $('#'+tableId+' input[name=food_price]').val(); // 입력된 상품 가격
+			var foodStock = $('#'+tableId+' input[name=food_stock]').val(); // 입력된 상품 재고
+			
+			if(foodType == '0' || regBlank.test(foodName) || regBlank.test(foodPrice) || regBlank.test(foodStock)){
+				alert('입력란을 모두 채워주세요.');
+				return false;
+			}
+			
+			if((!regNumber.test(foodPrice)) || (!regNumber.test(foodStock))){
+				alert('가격과 재고는 숫자만 입력 가능합니다.');
+				return false;
+			}
+			
+			// 수정 눌렀을 때 컬럼의 음식 이름과 입력된 음식 이름이 일치하지 않을 경우에만 검사
+			if(beforeName != foodName){
+				var result = true;
+				$.ajax({
+					url: '${pageContext.request.contextPath}/admin/getFoodInfoAll?storeId=${storeSelectSession.store_id}',
+					type: 'get',
+					async: false,
+					
+					success:function(data){
+						for(var i=0; i<data.length; i++){
+							if(data[i].food_name == foodName){
+								alert('이미 등록된 상품입니다.');
+								result = false;
+							}
+						}
+					}
+				});
+				return result;
+			}
+			return true;
+		}
+		
+		/* 가격에 콤마 표시 */
+		function numberWithCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
  	</script>
 </body>
