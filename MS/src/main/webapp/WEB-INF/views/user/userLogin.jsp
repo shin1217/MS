@@ -142,13 +142,12 @@ body {
 					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
 				<div class="form-group">
-					<div id="naver_id_login"></div>
+					<a id="custom-login-btn" href="javascript:loginWithKakao()">
+					<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="100%" />
+					</a>
 				</div>
 				<div class="form-group">
-					<a id="custom-login-btn"
-						href="https://kauth.kakao.com/oauth/authorize?client_id=509065e9595aafc42a9082a096f07ff2&redirect_uri=http://localhost:8080/kakaologin&response_type=code">
-						<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300" />
-					</a>
+					<div id="naver_id_login"></div>
 				</div>
 			</div>
 		</div>
@@ -228,6 +227,26 @@ body {
 	/* naverLogin.init(); */
 
 
-	
+
+	//<![CDATA[
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('4c5b90249e332d29ffdadca852723ad8');
+	function loginWithKakao() {
+		// 로그인 창을 띄웁니다.
+		Kakao.Auth.login({
+			success : function(authObj) {
+				 Kakao.API.request({
+					 url: '/v1/user/me',
+					 success: function(res) {
+						 console.log(JSON.stringify(res));
+					 }
+				 })
+			},
+			fail : function(err) {
+				alert(JSON.stringify(err));
+			}
+		});
+	};
+	//]]>
 </script>
 </html>
