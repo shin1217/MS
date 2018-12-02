@@ -25,20 +25,18 @@ public class UsingSeatCheckInterceptor extends HandlerInterceptorAdapter {
 		// 좌석 사용 여부 검사
 		// -> return true : 정상적인 Controller 실행
 		HttpSession session = request.getSession(false);
-		System.out.println(session);
 		
 		if (session != null) {
 			UserVO userVO = (UserVO)session.getAttribute("userSession");
-			System.out.println(userVO);
 			
 			List<SeatVO> seatList = service.getSeatListAll(userVO.getStore_id());
-			System.out.println(seatList);
 			
 			for(int i=0; i < seatList.size(); i++) {
 				String usingId = seatList.get(i).getUser_id();
 				
 				if(usingId != null) {
 					if(usingId.equals(userVO.getUser_id())) {
+						request.setAttribute("seatId", seatList.get(i).getSeat_id()); // 음식 주문 페이지에 좌석 아이디를 파라미터로 전송
 						return true;
 					}
 				}

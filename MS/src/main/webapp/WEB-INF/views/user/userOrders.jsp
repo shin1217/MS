@@ -357,7 +357,9 @@ html, body {
 			type : 'get',
 
 			success : function(data) {
-				viewProcess(data);
+				if(data != ''){
+					getMenuList(data);
+				}
 			}  
 		}); // end ajax
 		
@@ -368,7 +370,9 @@ html, body {
 				type : 'get',
 
 				success : function(data) {
-					viewProcess(data);
+					if(data != ''){
+						getMenuList(data);
+					}
 				}
 			}); // end ajax
 		});
@@ -395,11 +399,11 @@ html, body {
 			
 			if(ordersConfirm){
 				for(var i=0; i<ordersArr.length; i++){
-					ordersArr[i].foodCnt = $('.food_cnt').eq(i).text(); // 음식 수량 변경
+					ordersArr[i].foodCnt = parseInt($('.food_cnt').eq(i).text()); // 음식 수량 변경
 				}
 				
 				$.ajax({
-					url : '${pageContext.request.contextPath}/user/orders?storeId=${storeSelectSession.store_id}',
+					url : '${pageContext.request.contextPath}/user/orders?storeId=${storeSelectSession.store_id}&seatId=${seatId}',
 					type : 'post',
 					contentType: 'application/json', /* 요청 타입 지정(안하면 405 오류) */
 					data: JSON.stringify(ordersArr), 
@@ -418,7 +422,7 @@ html, body {
 	
 	
 	/* 음식 nav bar 분기 처리 함수 */
-	function viewProcess(data){
+	function getMenuList(data){
 		var pLength = getPagingCnt(data.length); // 페이징 표시
 		
 		var str = '';

@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.bit.ms.dao.AdminDaoInterface">
 	
-	<!-- 선택한 좌석의 유저 시간 업데이트(충전시간, 좌석번호) -->
+	<!-- 사용자 시간 업데이트 -->
 	<update id="updateAddTime" parameterType="map">
-		update userinfo set user_time=(user_time+#{param1}) 
-		where seat_id=#{param2} and store_id=#{param3} 
+		update userinfo set
+		user_time=(user_time+#{param1})
+		where user_id=#{param2} and store_id=#{param3}
 	</update>
-	
-	<!-- 사용 중인 모든 좌석의 유저 시간 업데이트(사용시간) -->
-	<update id="updateSaveTimeAll" parameterType="map">
-		update userinfo set user_time=user_time-#{param1}
-		where seat_id is not null and store_id=#{param2}
-	</update>
-	
-	<!-- 현재 좌석 사용 중인 사용자 정보 모두 가져오기 -->
-	<select id="getUserInfoAll" resultType="userVO">
-		select * from userinfo
-		where seat_id is not null and store_id=#{store_id}
-	</select>
-	
+
 	<!-- 사용 시간 종료 또는 강제 종료된 좌석 지우기 -->
 	<update id="deleteSeat" parameterType="map">
-		update userinfo set seat_id=null, user_time=0
-		where seat_id=#{param1} and store_id=#{param2}
+		update seat set
+		user_id=null
+		where seat_id=#{param1} and
+		store_id=#{param2}
 	</update>
-	
-	<!-- 로그인한 유저의 좌석 사용 상태 검사 -->
-	<!-- <select id="isUsingSeat" resultType="userVO">
-		select * from userinfo 
-		where user_id=#{user_id} and seat_id is not null
-	</select> -->
+
+	<!-- 선택된 좌석의 사용자 정보 가져오기 -->
+	<select id="getUserInfo" parameterType="map" resultType="userVO">
+		select *
+		from userinfo
+		where user_id=#{param1} and store_id=#{param2}
+	</select>
+
+	<!-- 등록된 좌석 모두 가져오기 -->
+	<select id="getSeatListAll" resultType="seatVO">
+		select * from seat
+		where
+		store_id=#{store_id}
+	</select>
+
 </mapper>

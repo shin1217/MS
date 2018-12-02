@@ -32,7 +32,6 @@ public class AdminOrdersController {
 	public String insertFood(FoodVO foodVO,
 							HttpServletRequest request) throws IllegalStateException, IOException {
 		
-		
 		String uploadURI = request.getContextPath()+"/images/"+foodVO.getFood_type();
 		String dir = request.getSession().getServletContext().getRealPath(uploadURI);
 		System.out.println(dir);

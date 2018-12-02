@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.AdminDaoInterface;
+import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.user.model.UserVO;
 
 @Service
@@ -15,34 +16,28 @@ public class AdminTimeService {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	private AdminDaoInterface adminDao;
-		
-	// 선택한 좌석의 유저 시간 업데이트( 충전시간, 좌석 번호, 유저 아이디)
-	public int updateAddTime(long addTime, int seatId, int storeId) {
+
+	// 선택한 좌석의 유저 시간 업데이트(충전시간, 사용자 아이디, 매장 아이디)
+	public int updateAddTime(long addTime, String userId, int storeId) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		return adminDao.updateAddTime(addTime, seatId, storeId);
+		return adminDao.updateAddTime(addTime, userId, storeId);
 	}
-	
-	// 사용 중인 모든 좌석의 유저 시간 업데이트(사용시간, 충전시간)
-	public int updateSaveTimeAll(long useTime, int storeId) {
-		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		return adminDao.updateSaveTimeAll(useTime, storeId);
-	}	
-	
-	// 현재 좌석 사용 중인 사용자 정보 모두 가져오기
-	public List<UserVO> getUserInfoAll(int storeId){
-		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		return adminDao.getUserInfoAll(storeId);
-	}
-	
+
 	// 사용 종료 또는 강제 종료된 좌석 지우기
 	public int deleteSeat(int seatId, int storeId) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		return adminDao.deleteSeat(seatId, storeId);
 	}
-	
-	// 로그인한 유저의 좌석 사용 상태 검사
-	/*public UserVO isUsingSeat(String userId) {
+
+	// 선택된 좌석의 사용자 정보 가져오기
+	public UserVO getUserInfo(String userId, int storeId) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		return adminDao.isUsingSeat(userId);
-	}*/
+		return adminDao.getUserInfo(userId, storeId);
+	}
+
+	// 좌석 정보 모두 가져오기
+	public List<SeatVO> getSeatListAll(int storeId) {
+		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		return adminDao.getSeatListAll(storeId);
+	}
 }

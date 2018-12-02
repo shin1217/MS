@@ -87,12 +87,6 @@
 	}
 }
 
-.com_cnt_text {
-	font-size: 50px;
-	margin-top: -5%;
-	margin-bottom: -3%;
-}
-
 .user_info_wrap {
 	overflow: auto;
 	text-align: left;
@@ -114,52 +108,64 @@
 	margin-right: 20px;
 }
 
-.main_btn_wrap {
-}
-
-.seatTable {
+.seat_list {
+	width: 90%;
 	margin: 0 auto;
-	border-spacing: 40px;
-	border-collapse: separate;
+	margin-left: 6%;
 }
 
-.seatTable td {
-	width: 200px;
-	height: 200px;
+.seat_list > div {
+	float: left;
+	width: 22%;
+	height: 200px; 	
+	font-size: 30px;
 	border-radius: 15px;
-	font-size: 40px;
-	color: gray;
-	text-align: center;
-	background-color: lightgray;
+	margin-right: 3%;
+	margin-top: 3%;
 }
 
-.seatTable td:hover {
+.seat_list > div:hover {
 	opacity: 0.7;
 	cursor: pointer;
 }
 
-/* 좌석 정보 중 타이틀(동적 생성) */
-.seatTable td > div:nth-child(1) {
+.using {
+	background-color: #0099CC;
+	color: white;
+	text-align: right;
+	padding: 10px;
+}
+
+/* 타이틀 스타일 */
+.using > div:nth-child(1) {
+	background-color: #33b5e5;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-	background-color: #33b5e5;
 	padding-left: 5px;
 	padding-right: 5px;
 }
 
-/* 사용 종료 */
-.end_btn {
-  	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-	margin-top: 30px;
-	font-size: 20px;
-	border: none;
+/* 사용 종료 버튼 스타일 */
+.using > button {
 	width: 100%;
-	height: 40px;
+	background-color: lightgray;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border: none;
+	text-align: center;
+	color: black;
+	font-size: 25px;
 }
 
-.end_btn:hover span {
-  	color:red;
+.using > button:hover {
+	color: red;
+}
+
+.un_using {
+	line-height: 200px;
+	background-color: lightgray;
+	color: gray;
+	text-align: center;
 }
 
 </style>
@@ -179,32 +185,30 @@
 			<div class="left_content">
 				<div style="height: 25%">
 					<div class="left_content_title"><c:out value="${sysYear}" /></div>
-					<div class="com_cnt_text"><span class="com_cnt">0</span>/20</div>
+					<div class="com_cnt_text"><span id="useCnt">0</span> / <span id=totalCnt>20</span></div>
 					<hr style="border: 1px dashed gray">
 				</div>
 				
 				<div style="height: 75%">
 					<div style="height: 10%"><b>사용자 정보</b></div>
-					<div style="height: 28%" id="selected_user_info" class="user_info_wrap">
-						<div style="color: red">* 좌석을 선택하세요.</div>
+					<div style="height: 28%" id="selectedUserInfo" class="user_info_wrap">
+						<span style="color: red">* 좌석을 선택하세요.</span>
 					</div>
 					
 					<div style="height: 10%"><b>음식 주문 목록</b></div>
 					<div style="height: 28%" class="order_list_wrap">
-						<div style="color: red">* 주문 대기 중인 음식이 없습니다.</div>
+						<span style="color: red">* 주문 대기 중인 음식이 없습니다.</span>
 					</div>
 				
 					<div style="height: 22%; margin-top: 2%" class="main_btn_wrap">
-						<button type="button" class="btn btn-mdb-color" id="addTimeBtn">충전</button>
+						<button type="button" class="btn btn-mdb-color" id="showAddTimeModalBtn">충전</button>
 						<button type="button" class="btn btn-deep-orange" id="seatChangeBtn">자리 변경</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="right_area">
-			<table class="seatTable" id="seatTable">
-
-			</table>
+			<div id="seatList" class="seat_list"></div>
 		</div>
 	</div>
 	
@@ -213,50 +217,96 @@
 
 <script>
 	$(document).ready(function() {
-		var seatArr = new Array(20).fill(false); // 좌석 사용 여부 검사 배열
-		var storeId = '${storeSelectSession.store_id}';
+		var currentPosition = parseInt($('.left_content').css('top'));
 		
-		var useTime = 0; // 사용 시간(초)	
+		/* 스크롤따라 움직이는 Div */
+		$(window).scroll(function() {
+			var position = $(window).scrollTop();
+			$('.left_content').stop().animate({
+				'top' : position + currentPosition + 'px'
+			}, 1000);
+		});
 		
-		setInterval(function () { useTime++; }, 1000); // 사용 시간 계산
-
+		/* 시간 select option 초기화  */
+		for (var i = 1; i <= 12; i++) {
+			var option = '<option value='+ i + '>' + i + ' 시간</option>';
+			$('#selectAddTime').append(option);
+		}
+		
 		/* 페이지 로드 시 좌석 초기화 */
 		$.ajax({
-			url: '<%=request.getContextPath()%>/admin/getUserInfoAll?storeId=' + storeId, 
+			url: '${pageContext.request.contextPath}/admin/getSeatListAll?storeId=${storeSelectSession.store_id}', 
 			type: 'get',
-			success:function(data){ // 좌석을 사용 중인 사용자 모두 가져오기
-				$('.com_cnt').text(data.length); // 사용 중인 좌석 수 표시
-			
-				for(var i=0; i<data.length; i++){
-					seatArr[data[i].seat_id-1] = true; // 선택된 좌석 모두 사용 중으로 변경
-					resetSeat($('#seatTable td').eq(data[i].seat_id-1), data[i].seat_id, data[i].user_id, data[i].use_pay); // 좌석 표시
-					timer(data[i].user_time, data[i].seat_id); // 타이머 실행
-				}
+			success:function(data){ 
+				var str = '';
+				var useCnt = 0;
+				$('#totalCnt').text(data.length); // 전체 좌석 수 표시
 				
-				/* 사용 종료 (실행 순서 고려) AND. resetSeat 함수 안에 넣으면 for문 때문에 여러 번 실행 */
-				$('.end_btn').on('click', function(event) {
-					event.stopPropagation(); 
-					var seatId = $(this).attr('endId');
-					var confirmDel = confirm( '정말 강제 종료하시겠습니까?' );
-					
-				    if(confirmDel){
-				    	$.ajax({
-							url:'<%=request.getContextPath()%>/admin/deleteSeat?seatId=' + seatId +'&storeId=' + storeId,
-							type: 'get',
-							success:function(){
-								location.reload();
-							}
-						});
-				    }
-				}); // end 삭제 클릭
-			}
+				for(var i=0; i<data.length; i++){
+					if(data[i].user_id != null){ // 사용 중인 좌석
+						str += '<div class="using" onclick="seatChoise(this, '+ data[i].seat_id +', \''+ data[i].user_id +'\')">';
+						str += '<div style="height:25%"><span style="float:left; color:black">'+ data[i].seat_id +'</span><span>'+ data[i].user_id +'</span></div>';
+						str += '<div style="height:25%">100분</div>';
+						str += '<div style="height:25%">5000</div>';
+						str += '<button style="height:25%" onclick="deleteSeat(event, '+ data[i].seat_id +')">사용 종료</button>';
+						str += '</div>';
+						useCnt++;
+					}
+					else{ // 빈 좌석
+						str += '<div class="un_using">'+ data[i].seat_id +'</div>';
+					}
+				}
+				$('#useCnt').text(useCnt); // 현재 사용 중인 좌석 수 표시
+				$('#seatList').html(str); // 좌석 표시
+				
+			} // end success
 		}); // end ajax
 		
-		//////////////////////////////////////////////////////////////////////////////////////////////
+		/* Main 충전 버튼 */
+		$('#showAddTimeModalBtn').on('click', function () {
+			var seatId = $('.selected').attr('id');
+			
+			if(seatId != null){
+				$('#seatNum').text(seatId); // modal창의 좌석 번호 변경
+				$('#addTimeModal').show();
+			}
+		});
+		
+		/* Modal 충전 버튼 */
+		$('#addTimeBtn').on('click', function () {
+			var addTime = $('#selectAddTime option:selected').val()*60*60;
+			var userId = $('#userId').text();
+			
+			if(addTime == 0){
+				alert('충전하실 시간을 선택하세요.');
+				return;
+			}
+			
+			$.ajax({
+				url: '${pageContext.request.contextPath}/admin/updateAddTime?storeId=${storeSelectSession.store_id}&userId='+userId+'&addTime='+addTime,
+				type:'get',
+				
+				success:function(data){
+					location.reload();
+				}
+			});
+		});
+
+		/* 시간 충전 modal 창 닫기 버튼 클릭 시 처리 */
+		$('.close').on('click', function() {
+			$('#addTimeModal').hide();
+		});
+
+		/* modal 창 외 윈도우 클릭 시 처리 */
+		$(window).on('click', function() {
+			if (event.target == $('#addTimeModal').get(0)) {
+				$('#addTimeModal').hide();
+			}
+		});	
 		
 		/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
-		 window.onbeforeunload = function() {
-			$.ajax({
+		window.onbeforeunload = function() {
+			<%-- $.ajax({
 				// 사용 시간 전송
 				url: '<%=request.getContextPath()%>/admin/updateSaveTimeAll?useTime=' + useTime + '&storeId=' + storeId, 
 				type: 'get',
@@ -264,254 +314,65 @@
 				success:function(){
 					console.log("시간 저장 완료");
 				}
-			});
+			}); --%>
 		};
-		 
-		//////////////////////////////////////////////////////////////////////////////////////////////
 		
-		/* 스크롤따라 움직이는 Div */
-		var currentPosition = parseInt($('.left_content').css('top'));
-
-		$(window).scroll(function() {
-			var position = $(window).scrollTop();
-			$('.left_content').stop().animate({
-				'top' : position + currentPosition + 'px'
-			}, 1000);
-		});
+		
+	}); // end $(document).ready(function())} 
 	
-		//////////////////////////////////////////////////////////////////////////////////////////////
-
-		/* 좌석 테이블 동적 생성 */
-		var str = '';
-		var resetSeatId = 1;
-
-		for (var i = 0; i < 5; i++) {
-			str += '<tr>';
-
-			for (var j = 0; j < 4; j++) {
-				str += '<td id=' + resetSeatId + '>' + resetSeatId + '</td>';
-				resetSeatId++;
-			}
-			str += '</tr>';
+	/* 사용 중인 좌석 선택 */
+	function seatChoise(e ,seatId, userId){
+		if($(e).hasClass('selected')){ // 선택된 상태
+			$(e).css({'opacity': '', 'border': ''});
+			$(e).removeAttr('id');
+			$(e).removeClass('selected');
+			$('#selectedUserInfo').html('<span style="color:red">* 좌석을 선택하세요.</span>');
 		}
-		$('#seatTable').append(str);
-
-		//////////////////////////////////////////////////////////////////////////////////////////////
-
-		/* 좌석 클릭 시 처리 */
-		var seatId = null;
-		var before = null;
-		var selectedArr = new Array(20).fill(false); // 선택 비교 배열
-		
-		$('#seatTable td').click(function() {
-			seatId = $(this).attr('id'); // 선택한 좌석 번호를 변수에 저장
+		else{ // 선택되지 않은 상태
+			$('.selected').css({'opacity': '', 'border': ''});
+			$('.selected').removeAttr('id');
+			$('.selected').removeClass('selected');
 			
-			if(seatArr[seatId-1]){ // 사용 중인 좌석만 선택 가능
-				seletedProcess($(this), seatId); // 좌석 선택 처리 (오직 한번에 하나만 선택 가능)
-			}
-		}); // end 좌석 선택 처리
-
-		//////////////////////////////////////////////////////////////////////////////////////////////
-
-		/* 메인 충전 버튼 */
-		$('#addTimeBtn').on('click', function () {
-			var isSelected = false;
-			var seatNum = 0;
+			$(e).css({'opacity': '0.5', 'border': '3px solid black'});
+			$(e).attr('id', seatId);
+			$(e).addClass('selected');
+			$('#userId').text(userId); // modal창의 숨겨진 span태그의 텍스트 변경
 			
-			for(var i=0; i<selectedArr.length; i++){
+			$.ajax({ 
+				url:'${pageContext.request.contextPath}/admin/getUserInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
+				type:'get',
 				
-				if(selectedArr[i]){ 
-					isSelected = true;
-					seatNum = i+1;
-					break;
-				}
-			}
-			if(isSelected == false) {
-				alert('좌석을 선택해주세요.');
-				return;
-			}
-			$('#seatNum').text(seatNum); // 좌석 번호 보여주기
-			$('#add_time_modal').show(); // 시간 충전 modal창 띄우기
-		});
-		
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		
-		/* 시간 충전 select option 초기화  */
-		for (var i = 1; i <= 12; i++) {
-			var option = '<option value='+ i + '>' + i + ' 시간</option>';
-			$('#select_add_time').append(option);
+				success:function(data){
+					var str = '<span style="color:black">* 이름: ' + data.user_name + '<br>';
+					str += '* 전화번호: ' + data.user_phone + '<br>';
+					str += '* 생년월일: ' + data.user_birth + '</span>';
+					$('#selectedUserInfo').html(str);
+				} // end success 
+			}); // end ajax
 		}
-
-		/* modal 충전하기 클릭 시 처리 */
-		$('#add_time_btn').click(function() {
-			
-			if ($('#select_add_time option:selected').val() == 0) {
-				alert('충전하실 시간을 선택하세요.');
-				return;
-			}
-			var addTime = $('#select_add_time option:selected').val()*60*60; // 충전할 시간(초 단위)
-			
+	}
+	
+	/* 사용 종료 버튼 */
+	function deleteSeat(e, seatId) {
+		e.stopPropagation(); // 이벤트 버블링 중지		
+		var deleteConfirm = confirm('정말 종료하시겠습니까?'); 
+		
+		if(deleteConfirm){
 			$.ajax({
-				// 충전 시간, 좌석번호를 파라미터로 넘겨줌.
-				url: '<%=request.getContextPath()%>/admin/updateAddTime?addTime=' + addTime + '&seatId=' + seatId + '&storeId=' + storeId, 
+				url: '${pageContext.request.contextPath}/admin/deleteSeat?storeId=${storeSelectSession.store_id}&seatId='+seatId, 
 				type: 'get',
 				
 				success:function(){
 					location.reload();
-					
-				} // end success 
-			}); // end ajax 
-		}); // end 충전하기
-		
-		//////////////////////////////////////////////////////////////////////////////////////////////
-
-		/* 시간 충전 modal 창 닫기 버튼 클릭 시 처리 */
-		$('.close').on('click', function() {
-			$('#add_time_modal').hide();
-		});
-
-		/* modal 창 외 윈도우 클릭 시 처리 */
-		$(window).on('click', function() {
-			if (event.target == $('#add_time_modal').get(0)) {
-				$('#add_time_modal').hide();
-			}
-		});	
-		
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		
-		/* 좌석 생성 함수(좌석 객체, 좌석 번호, 유저 아이디, 결제 금액) */
-		function resetSeat(obj, seatId, userId, usePay) {	
-			$(obj).css({
-				'font-size' : 25,
-				'color' : 'white',
-				'background-color' : '#0099CC',
-				'text-align' : 'right',
-				'padding' : 10,
-				'vertical-align': 'top'
+				}  
 			});
-			
-			str = '<div>';
-			str += '<span style="color: black; font-weight: bold; float: left">'+ seatId +'</span>';
-			str += '<span id='+ userId + '>'+ userId +'</span>';
-			str += '</div>';
-			str += '<div><span id="countTimeMinute'+ seatId +'"></span>분';
-			str += '<span id="countTimeSecond'+ seatId +'"></span>초</div>';
-			str += '<div>'+ numberWithCommas(usePay) +'</div>';
-			str += '<button endId="' + seatId + '" class="end_btn">'; // 속성명을 id가 아닌 endId로 작성(커스텀)
-			str += '<span> 강제 종료 </span>';
-			str += '</button>';
-			
-			$(obj).text(''); // 중앙에 써있던 좌석 번호 지우기
-			$(obj).append(str); // 좌석 사용 정보 보여주기
 		}
-		
-		/* 시간 타이머(초, 좌석 아이디) */
-		function timer(s, seatId){	
-			var min = Math.floor(s/60); // 분 계산
-			var sec = Math.floor(s%60); // 초 계산
-			
-			// 써주지 않으면 처음 로드 시 1초 후 보이게 됨
-			$('#countTimeMinute'+seatId).html(min); // 분 텍스트
-			$('#countTimeSecond'+seatId).html(sec); // 초 텍스트
-			
-			if(sec < 10){ // 10초 이하일 경우 두 자리 표시 ex)09
-				$('#countTimeSecond'+seatId).html('0' + sec); 
-			}
-			
-			if(min < 5){ // 종료 5분 전
-				$('#'+seatId).css('background-color', '#CC0000');
-				$('#'+seatId).children().eq(0).css('background-color', '#ff4444');
-			}
-			
-			var timer = setInterval(function () {
-				
-				$('#countTimeMinute'+seatId).html(min); // 분 텍스트
-				$('#countTimeSecond'+seatId).html(sec); // 초 텍스트				
-				
-				if(min < 5){ // 종료 5분 전
-					$('#'+seatId).css({
-						'background-color': '#CC0000',
-					});
-					$('#'+seatId).children().eq(0).css('background-color', '#ff4444');
-				}
-				
-				if(sec == 1 && min == 0){ // 사용 시간 종료
-					$('#countTimeSecond'+seatId).html('00'); 
-					clearInterval(timer);
-					
-					$.ajax({
-						// 좌석 삭제(좌석 번호)
-						url: '<%=request.getContextPath()%>/admin/deleteSeat?seatId=' + seatId + '&storeId=' + storeId, 
-						type: 'get',
-						
-						success:function(){
-							$('#'+seatId).text(seatId);
-							$('#'+seatId).css({
-								'font-size': '',
-								'color': '',
-								'text-align': '',
-								'background-color': '',
-								'padding' : '',
-								'vertical-align': ''
-							});
-						} // end success 
-					}); // end ajax
-
-				}else{
-					sec--;
-					
-					if(sec < 10){ // 10초 이하일 경우 두 자리 표시 ex)09
-						$('#countTimeSecond'+seatId).html('0' + sec); 
-					}
-					if(sec < 1){
-						min--;
-						sec = 59;
-					}
-				}
-	    	}, 1000);
-		}
-		
-		/* 좌석 선택 처리 함수(좌석 번호) */
-		function seletedProcess(obj, id) {
-			if(before != null && before != id){ // 한 번에 한 좌석만 선택 가능
-				$('#'+before).css('opacity', ''); 
-				selectedArr[before-1] = false; 
-			}
-			before = id;
-			
-			if(selectedArr[id-1]){ // 좌석이 선택된 상태면...
-				$(obj).css('opacity', '');
-				$('#selected_user_info').html('<span style="color: red">* 좌석을 선택하세요.</span>');
-				selectedArr[id-1] = false;
-			}
-			else { // 좌석이 선택되지 않은 상태면...
-				$(obj).css('opacity', '0.5');
-				selectedArr[id-1] = true;
-				
-				$.ajax({ // 선택된 좌석의 유저 정보 가져오기
-					url:'<%=request.getContextPath()%>/admin/getUserInfoAll?storeId=' + storeId,
-					type:'get',
-					
-					success:function(data){
-						for(var i=0; i<data.length; i++){
-							if(data[i].seat_id == seatId){
-								$('#selected_user_info').html('* 이름: ' + data[i].user_name + '<br>' +
-															'* 전화번호: ' + data[i].user_phone + '<br>' +
-															'* 생년월일: ' + data[i].user_birth);
-							}
-						} 
-					} // end success 
-				}); // end ajax
-			} 
-		}
-		
-		/* 가격에 콤마 표시 */
-		function numberWithCommas(x) {
-		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		}
-	}); // end $(document).ready(function())} 
+	}
 	
+	/* 가격에 콤마 표시 */
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
 </script>
 </html>

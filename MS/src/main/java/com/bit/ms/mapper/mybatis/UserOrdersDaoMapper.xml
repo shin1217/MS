@@ -10,8 +10,13 @@
 	</select>
 	
 	<insert id="insertOrders" parameterType="userOrdersVO">
-		insert into orders (food_type, food_id, food_cnt, store_id)
-		values (#{food_type}, #{food_id}, #{food_cnt}, #{store_id})
+		insert into orders (food_type, food_id, food_cnt, seat_id, store_id)
+		values (#{food_type}, #{food_id}, #{food_cnt}, #{seat_id}, #{store_id})
 	</insert>
+	
+	<update id="updateStock" parameterType="map">
+		update food set food_stock=food_stock-#{param1}
+		where food_id=#{param2} and store_id=#{param3}
+	</update>
 	
 </mapper>

@@ -76,11 +76,10 @@ public interface AdminDaoInterface {
 	String getQrI(int seat_id); // qr코드 불러오기
 	
 	/* 사용자 시간 관리 */
-	int updateAddTime(long addTime, int seatId, int storeId);
-	int updateSaveTimeAll(long useTime, int storeId);
-	List<UserVO> getUserInfoAll(int storeId);
+	int updateAddTime(long addTime, String userId, int storeId);
 	int deleteSeat(int seatId, int storeId);
-	// UserVO isUsingSeat(String userId);
+	UserVO getUserInfo(String userId, int storeId);
+	List<SeatVO> getSeatListAll(int storeId);
 	
 	/* 상품관리 */
 	int insertFood(FoodVO foodVO);

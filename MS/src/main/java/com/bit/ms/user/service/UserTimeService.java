@@ -38,7 +38,7 @@ public class UserTimeService {
 		return userDao.deleteUsingInfo(userId, storeId);
 	}
 
-	// 현재 좌석 사용 중인 사용자 정보 모두 가져오기
+	// 좌석 정보 모두 가져오기
 	public List<SeatVO> getSeatListAll(int storeId) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
 		return userDao.getSeatListAll(storeId);

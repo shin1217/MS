@@ -28,34 +28,44 @@ public class UserOrdersController {
 	@RequestMapping("/user/getMenuList")
 	@ResponseBody
 	public List<FoodVO> getMenuList(@RequestParam("foodType") String foodType,
-			@RequestParam("storeId") int storeId) {
+									@RequestParam("storeId") int storeId) {
 		return service.getFoodInfo(foodType, storeId);
 	}
 
 	@RequestMapping("/user/orders")
 	@ResponseBody
 	public void orders(@RequestBody List<Map<String, Object>> ordersList,
+						@RequestParam("seatId") int seatId,
 						@RequestParam("storeId") int storeId) {
+		
+		int resultCnt = 0;
 		String sb1 = "";
 		String sb2 = "";
 		String sb3 = "";
 		
 		for (int i = 0; i < ordersList.size(); i++) {
-			sb1 += ((String)(ordersList.get(i).get("foodType")) + ",");
-			sb2 += ((Integer)(ordersList.get(i).get("foodId")) + ",");
-			sb3 += ((String)(ordersList.get(i).get("foodCnt")) + ",");
+			String foodType = (String)ordersList.get(i).get("foodType");
+			int foodId = (Integer)ordersList.get(i).get("foodId");
+			int foodCnt = (Integer)ordersList.get(i).get("foodCnt");
+			
+			resultCnt += service.updateStock(foodCnt, foodId, storeId); // 재고 업데이트
+			
+			sb1 += foodType + ",";
+			sb2 += foodId + ",";
+			sb3 += foodCnt + ",";
 		}
 		
 		UserOrdersVO ordersVO = new UserOrdersVO();
 		ordersVO.setFood_type(sb1);
 		ordersVO.setFood_id(sb2);
 		ordersVO.setFood_cnt(sb3);
+		ordersVO.setSeat_id(seatId);
 		ordersVO.setStore_id(storeId);
 		
-		int resultCnt = service.inserOrders(ordersVO);
+		resultCnt += service.inserOrders(ordersVO); // 주문 목록에 추가
 		
-		if(resultCnt == 1) {
-			System.out.println("주문 완료");
+		if(resultCnt == ordersList.size() + 1) {
+			System.out.println("주문 및 재고 업데이트 완료");
 		}
 	}
 }

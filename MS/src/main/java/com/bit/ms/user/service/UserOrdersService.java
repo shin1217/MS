@@ -27,4 +27,9 @@ public class UserOrdersService {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
 		return userDao.insertOrders(ordersVO);
 	}
+	
+	public int updateStock(int foodCnt, int foodId, int storeId) {
+		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
+		return userDao.updateStock(foodCnt, foodId, storeId);
+	}
 }

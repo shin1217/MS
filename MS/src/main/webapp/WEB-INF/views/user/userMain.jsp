@@ -212,7 +212,7 @@ html, body {
 				var userId = null;
 				var seatId = null;
 				var useCnt = 0;
-				$('#totalCnt').text(data.length); // 전체 컴퓨터 수 변경
+				$('#totalCnt').text(data.length); // 전체 좌석 수 변경
 				
 				for(var i=0; i<data.length; i++){
 					if(data[i].user_id != null){
@@ -245,7 +245,7 @@ html, body {
 			
 			$.ajax({
 				// 로그인한 아이디와 충전시간, 선택한 좌석 번호 넘겨 줌.
-				url: '<%=request.getContextPath()%>/user/updateAddTime?userId=${userSession.user_id}&addTime=' + addTime + '&seatId=' + seatId + '&storeId=${storeSelectSession.store_id}', 
+				url: '${pageContext.request.contextPath}/user/updateAddTime?userId=${userSession.user_id}&addTime=' + addTime + '&seatId=' + seatId + '&storeId=${storeSelectSession.store_id}', 
 				type: 'get',
 				
 				success:function(){
