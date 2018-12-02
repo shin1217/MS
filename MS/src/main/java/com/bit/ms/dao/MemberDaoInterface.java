@@ -24,8 +24,9 @@ public interface MemberDaoInterface {
 		MessageVO getMessageDetail(int message_id);
 		
 		//포토게시판
-		int pageCount(int store_id);
-		List<PhotoBoardVO> selectList(int store_id, int firstlow);
-		int writePhotoI(PhotoBoardVO photoVo);
-		int writePhotoComplete(String photo_file);
+		int pageCount(int store_id); // 총 페이지 카운트
+		List<PhotoBoardVO> selectList(int store_id, int firstlow); // 사진 리스트 뽑아오기
+		int writePhotoI(PhotoBoardVO photoVo); // 사진을 제외한 등록
+		int writePhotoComplete(String photo_file); // 사진등록 
+		PhotoBoardVO getPhotoViewI(int photo_id); // 사진 상세보기
 }

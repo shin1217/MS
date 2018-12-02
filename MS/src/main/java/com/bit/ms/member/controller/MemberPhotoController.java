@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,5 +51,17 @@ public class MemberPhotoController {
 	public String insertPhoto(PhotoBoardVO photoVo, HttpServletRequest request) throws IllegalStateException, IOException {
 		service.writePhotoS(photoVo, request);
 		return "redirect:/member/photoBoard?page=1";
+	}
+	@RequestMapping(value = "/member/photoView/{photo_id}", method = RequestMethod.GET)
+	public ModelAndView photoView(@PathVariable("photo_id") int photo_id) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		PhotoBoardVO viewData = service.getPhotoViewS(photo_id);
+		
+		modelAndView.setViewName("member/photoView");
+		modelAndView.addObject("viewData",viewData);
+		
+		return modelAndView;
 	}
 }

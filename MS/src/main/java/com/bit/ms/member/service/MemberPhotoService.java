@@ -75,5 +75,11 @@ public class MemberPhotoService {
 		}
 		return memberDao.writePhotoComplete(photoVo.getPhoto_file());
 	}
+	public PhotoBoardVO getPhotoViewS(int photo_id) {
+		
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		
+		return memberDao.getPhotoViewI(photo_id);
+	}
 
 }
