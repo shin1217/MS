@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.javassist.compiler.ast.Variable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.admin.model.AdminBoardVO;
@@ -17,7 +17,7 @@ import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.service.AdminCEOBoardService;
 
 @Controller
-public class AdminBoardController {
+public class AdminCEOBoardController {
 
 	@Autowired
 	private AdminCEOBoardService CEOBoardService;
@@ -49,7 +49,7 @@ public class AdminBoardController {
 		// 로그인 한 세션 아이디 값을 CEOBoardVO 아이디 값에 저장시킴
 		AdminVO adminVO = (AdminVO) session.getAttribute("adminSession");
 		String ceoId = adminVO.getAdmin_id();
-		ceoBoardVO.setWriter_id(ceoId);
+		ceoBoardVO.setWriter_cid(ceoId);
 		
 		// 작성한 게시글이 있다면 1 / 없으면 0
 		CEOBoardService.CEOBoardWrite(ceoBoardVO);
@@ -72,6 +72,15 @@ public class AdminBoardController {
 		mav.addObject("CEOBoard_view", ceoBoardVO);
 		
 		return mav;
+	}
+	
+	// 게시글 지우기
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public int CEOBoardDelete(@PathVariable("cboard_id")int cboard_id) {
+		
+		
+		
+		return 0;
 	}
 	
 }

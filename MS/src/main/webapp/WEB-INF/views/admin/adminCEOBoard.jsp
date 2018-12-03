@@ -71,7 +71,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 		<br> <a class="nav-link, hypertext_none" href="#">
 			<b style="font-size: 30px;">CEO게시판</b>
 		</a><br><br> <a id="write" class="btn btn-outline-elegant waves-effect" href="${pageContext.request.contextPath}/admin/CEOBoardWrite">글쓰기</a>
-
+	
 		<div class="CEOBoard_searchbar">
 			<form method="get">
 				<table>
@@ -106,7 +106,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 						<tr>
 							<td style="text-align: center;">${CEOBoardList.cboard_id}</td>
 							<td><a href="${pageContext.request.contextPath}/admin/CEOBoardView/view/${CEOBoardList.cboard_id}">${CEOBoardList.cboard_title}</a></td>
-							<td style="text-align: center;">${CEOBoardList.writer_id}</td>
+							<td style="text-align: center;">${CEOBoardList.writer_cid}</td>
 							<td style="text-align: center;"><fmt:formatDate	value="${CEOBoardList.cboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>
 					</c:forEach>
