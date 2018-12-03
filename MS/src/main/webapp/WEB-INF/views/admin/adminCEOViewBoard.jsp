@@ -50,7 +50,6 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<%@ include file="/WEB-INF/views/modal/adminCEODelete.jsp"%>
 	<div class="container" style="overflow: hidden; position: relative;">
 		<br> <a class="nav-link, hypertext_none" href="${pageContext.request.contextPath}/admin/CEOBoard">
 			<b style="font-size: 30px;">CEO게시판</b>
@@ -83,15 +82,34 @@
 			</tr>
 		</tbody>
 	</table>
-	
+<div class="container">	
 	<div class="buttonsRight">
 			<c:if test="${sessionScope.adminSession.admin_id == CEOBoard_view.writer_cid}">
-				<button type="button" class="btn btn-dark" data-toggle="modal"	data-target="#modalUserBoardDeleteForm">삭제</button>
-				<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/user/userBoard/modify/${CEOBoard_view.cboard_id}?page=${param.page}&keyword=${param.keyword}'">수정</button>
+				<button type="button" class="btn btn-dark" data-toggle="modal"	data-target="#CEOBoardDelete">삭제</button>
+				<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/admin/CEOBoard/modify/${CEOBoard_view.cboard_id}'">수정</button>
 			</c:if>
-			<button type="button" class="btn btn-dark"
-				onclick="location.href='${pageContext.request.contextPath}/admin/CEOBoard'">
-				목록</button>
+			<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/admin/CEOBoard'">목록</button>
+	</div>
+</div>
+<!-- 게시글 삭제확인 모달 -->
+<div class="modal fade" id="CEOBoardDelete" tabindex="-1"	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<h4 class="modal-title w-100 font-weight-bold">
+					정말 <span style="color: red">삭제</span>하시나요?
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-footer d-flex justify-content-center">
+				<a class="btn btn-danger" href="${pageContext.request.contextPath}/admin/CEOBoardView/delete/${CEOBoard_view.cboard_id}">삭제</a>
+				<a class="btn btn-dark" data-dismiss="modal">취소</a>
+			</div>
 		</div>
+	</div>
+</div>
+<!-- 게시글 삭제확인 모달 끝 -->
 </body>
 </html>

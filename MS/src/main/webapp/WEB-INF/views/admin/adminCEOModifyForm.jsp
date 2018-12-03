@@ -25,9 +25,9 @@
 
 	<div class="container">
 		<form class="text-center p-5" method="post">
-			<input type="text" class="form-control" placeholder="제목" name="cboard_title" value="" required>
+			<input type="text" class="form-control" placeholder="제목" name="cboard_title" value="${ceoBoardmodi.cboard_title }" required>
 			<!-- name값과 메서드의 매개변수가 이름이 같으면 알아서 넣어줌 -->
-			<textarea class="form-control" rows="20" placeholder="내용" name="cboard_con" value="" required></textarea>
+			<textarea class="form-control" rows="20" placeholder="내용" name="cboard_con" required>${ceoBoardmodi.cboard_con}</textarea>
 			<button type="submit" class="btn btn-info btn-block">수정하기</button>
 		</form>
 	</div>

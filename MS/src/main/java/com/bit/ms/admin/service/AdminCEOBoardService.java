@@ -45,4 +45,20 @@ public class AdminCEOBoardService {
 		return adminDao.contentView(cboard_id);
 	}
 	
+	// 게시글 지우기
+	public int CEOBoardDeleteService(int cboard_id) {
+		
+		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
+		
+		return adminDao.contentDel(cboard_id);
+	}
+	
+	// 게시글 수정하기
+	public int modifyCEOBoardContent(AdminBoardVO ceoVO) {
+		System.out.println("게시글 수정 서비스 : 진입");
+		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
+		
+		return adminDao.contentModi(ceoVO);
+	}
+	
 }

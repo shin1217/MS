@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.javassist.compiler.ast.Variable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,7 +61,7 @@ public class AdminCEOBoardController {
 	@RequestMapping(value = "/admin/CEOBoardView/view/{cboard_id}", method = RequestMethod.GET)
 	public ModelAndView CEOBoardView(@PathVariable("cboard_id") int cboard_id) {
 		
-		System.out.println("게시글 뷰 컨트롤러 진입");
+		System.out.println("게시글 내용 : 컨트롤러 진입");
 		
 		// 게시글 VO 객체명 생성
 		AdminBoardVO ceoBoardVO = CEOBoardService.cBoardContent(cboard_id);
@@ -75,12 +75,41 @@ public class AdminCEOBoardController {
 	}
 	
 	// 게시글 지우기
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public int CEOBoardDelete(@PathVariable("cboard_id")int cboard_id) {
+	@RequestMapping(value = "/admin/CEOBoardView/delete/{cboard_id}", method = RequestMethod.GET)
+	public String CEOBoardDelete(@PathVariable("cboard_id")int cboard_id, Model moel) {
+		// 번호 들어오는지 확인
+		System.out.println(cboard_id);
+		CEOBoardService.CEOBoardDeleteService(cboard_id);
 		
 		
 		
-		return 0;
+		return "redirect:/admin/CEOBoard";
+	}
+	
+	// 게시글 수정 폼 연결 컨트롤러
+	@RequestMapping(value = "/admin/CEOBoard/modify/{cboard_id}", method = RequestMethod.GET)
+	public ModelAndView CEOBoardModify(@PathVariable("cboard_id")int cboard_id) {
+		
+		AdminBoardVO result = CEOBoardService.cBoardContent(cboard_id);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("admin/adminCEOModifyForm");
+		mav.addObject("ceoBoardmodi", result);
+		
+		return mav;
+	}
+	
+	// 게시글 수정 확인 컨트롤러
+	@RequestMapping(value = "/admin/CEOBoard/modify/{cboard_id}", method = RequestMethod.POST)
+	public String CEOBoardModiSuccess(@PathVariable("cboard_id")int cboard_id,
+			AdminBoardVO ceoVO) {
+		
+		
+		System.out.println("게시판 수정 확인 : 컨트롤러 진입");
+		
+		CEOBoardService.modifyCEOBoardContent(ceoVO);
+		
+		return "redirect:/admin/CEOBoardView/view/" + cboard_id;
 	}
 	
 }

@@ -19,4 +19,14 @@
 	select * from ceoboard where cboard_id = #{cboard_id}
 </select>
 
+<!-- CEO Board 게시글 삭제 -->
+<delete id="contentDel" parameterType="int">
+	delete from ceoboard where cboard_id = #{cboard_id}
+</delete>
+
+<!-- CEO Board 게시글 수정 -->
+<update id="contentModi" parameterType="AdminBoardVO">
+	update ceoboard set cboard_title = #{cboard_title}, cboard_con = #{cboard_con} where cboard_id = #{cboard_id}
+</update>
+
 </mapper>
