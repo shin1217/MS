@@ -14,7 +14,7 @@
 			href="${pageContext.request.contextPath}/member/photoBoard/write">글쓰기</a>
 		<div><h3>${viewData.photo_title}</h3></div><hr>
 		<div id = "photo_id" style = "float : left;">글번호 : ${viewData.photo_id}</div>
-		<div style = "float : right;">등록시간 : <fmt:parseDate value="${viewData.photo_date}" pattern="yyyy-MM-dd HH:mm" var = "date" />
+		<div style = "float : right;">&nbsp 등록시간 : <fmt:parseDate value="${viewData.photo_date}" pattern="yyyy-MM-dd HH:mm" var = "date" />
 		<fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm" /></div>
 		<div style = "float : right;">작성자 : ${viewData.photo_upid}</div>
 	</div><br><hr>
