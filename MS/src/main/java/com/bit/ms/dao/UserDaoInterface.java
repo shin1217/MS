@@ -37,6 +37,7 @@ public interface UserDaoInterface {
 	int checkOverEmail(String user_email);// 이메일 중복 체크
 	String checkOverPhoneNum(String userPhone);// 유저 전화번호 중복 체크
 	StoreVO getUserStoreVO(int store_id); // 유저로그인한 스토어id로 스토어VO가져옴
+	int getKakaoId(String id);
 	
 	/* 유저게시판 */	
 	List<UserBoardVO> UserBoardSelectList(int store_id, String keyword, int firstRow);

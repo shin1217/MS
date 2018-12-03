@@ -228,31 +228,5 @@ body {
 	
 	/* 설정정보를 초기화하고 연동을 준비 */
 	/* naverLogin.init(); */
-
-	//<![CDATA[
-	// 사용할 앱의 JavaScript 키를 설정해 주세요.
-/* 	Kakao.init('85f4a0fdfed755ce3d9b2b081af17f44');
-	function loginWithKakao() {
-		// 로그인 창을 띄웁니다.
-		Kakao.Auth.login({
-			success : function(authObj) {
-				 Kakao.API.request({
-					 url: '/v1/user/me',
-					 success: function(res) {
-						 console.log(JSON.stringify(res.id));
-						 console.log(JSON.stringify(res.kaccount_email));
-					 }
-				 })
-			},
-			fail : function(err) {
-				alert(JSON.stringify(err));
-			}
-		});
-	}; */
-	//]]>
-	
-	/* $('#kakaologin').click(function(){
-		location.href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/kakaologin&response_type=code";
-	}); */
 </script>
 </html>
