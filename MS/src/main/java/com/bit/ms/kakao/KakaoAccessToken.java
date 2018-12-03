@@ -16,11 +16,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 
-public class KakaoGetToken {
+public class KakaoAccessToken {
 	public static JsonNode getAccessToken(String code) {
 
 		final String RequestUrl = "https://kauth.kakao.com/oauth/token";
-
 		final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 
 		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
@@ -29,7 +28,6 @@ public class KakaoGetToken {
 		postParams.add(new BasicNameValuePair("code", code)); // 로그인 과정중 얻은 code 값
 
 		final HttpClient client = HttpClientBuilder.create().build();
-
 		final HttpPost post = new HttpPost(RequestUrl);
 
 		JsonNode returnNode = null;
@@ -38,7 +36,6 @@ public class KakaoGetToken {
 			post.setEntity(new UrlEncodedFormEntity(postParams));
 
 			final HttpResponse response = client.execute(post);
-
 			final int responseCode = response.getStatusLine().getStatusCode();
 
 			System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
@@ -59,6 +56,7 @@ public class KakaoGetToken {
 		} finally {
 			// clear resources
 		}
+		
 		return returnNode;
 	}
 }
