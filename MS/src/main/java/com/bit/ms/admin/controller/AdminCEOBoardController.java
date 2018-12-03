@@ -75,7 +75,7 @@ public class AdminCEOBoardController {
 	}
 	
 	// 게시글 지우기
-	
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public int CEOBoardDelete(@PathVariable("cboard_id")int cboard_id) {
 		
 		

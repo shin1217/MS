@@ -12,7 +12,7 @@
 				<h4 class="modal-title w-100 font-weight-bold">
 					정말 <span style="color: red">삭제</span>하시나요?
 				</h4>
-				<button type="button" class="close" data-dismiss="modal"
+				<button type="button" class="close"                      data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
