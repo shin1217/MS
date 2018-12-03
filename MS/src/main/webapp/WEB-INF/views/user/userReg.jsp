@@ -121,7 +121,7 @@ body {
 			<!-- 이름 -->
 			<div class="form-group">
 				<label for="user_name">이름</label>
-					<input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name" value="${nickname}" required>
+					<input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name" value="${param.nickname}" required>
 				<div class="check_font" id="name_check"></div>
 			</div>
 			<!-- 생년월일 -->

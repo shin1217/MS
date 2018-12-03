@@ -7,14 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class KakaoAuthorizeCode {
 
 	@RequestMapping(value = "/kakaologin", produces = "application/json", method = RequestMethod.GET)
-	public ModelAndView kakaoLogin(@RequestParam("code") String code) {
-
-		ModelAndView mv = new ModelAndView();
+	public String kakaoLogin(@RequestParam("code") String code, RedirectAttributes ra) {
 		
 		System.out.println("code : " + code);
 
@@ -48,10 +47,9 @@ public class KakaoAuthorizeCode {
 			System.out.println("thumbnailImage : " + thumbnailImage);
 			System.out.println("profileImage : " + profileImage);
 			
-			mv.addObject("nickname", nickname);
-			mv.setViewName("user/userReg");
+			ra.addAttribute("nickname", nickname);
 		}
 
-		return mv;
+		return "redirect:/user/reg";
 	}
 }
