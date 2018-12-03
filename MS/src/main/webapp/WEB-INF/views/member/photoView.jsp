@@ -96,6 +96,7 @@
 			success : function(data){
 				console.log(data);
 				getReplyList(photo_id);
+				countReply(photo_id);
 				$('#photoBoardReplyFormComment').val("");
 			}
 		});
@@ -108,11 +109,11 @@
 				
 				for(var i = 0; i < data.length; i++){
 					str += "<div id = 'replyWrap' style = 'position : relative'><div id = 'reply_writeId'>" + data[i].photoreply_writeid + " (" + data[i].photoreply_date + ")</div>";
-					str += "<div id = 'reply_con'>" + data[i].photoreply_con + "</div>";
+					str += "<div><input id = 'reply_con" + data[i].photoreply_id + "' value = '" + data[i].photoreply_con + "' style = 'border : none; border-radius : 5px;' readonly></div>";
 
 					if(data[i].photoreply_writeid == writeId || data[i].photoreply_writeid == admin_id){
 						str += "<div id = 'replyBtnDiv' style = 'position : absolute; right : 0px; top : 0px;'><button id='photoBoardReplyDeleteBtn' onclick='photoBoardReplyDelete(" + data[i].photoreply_id + ")' class='btn btn-danger px-3 float-right'><i class='fa fa-trash' aria-hidden='true'></i></button>";
-						str += "<button id='photoBoardReplyEditBtn' onclick='photoBoardReplyEdit(" + data[i].photoreply_id + ")' class='btn btn-primary px-3 float-right'><i class='fa fa-paint-brush' aria-hidden='true'></i></button></div>";
+						str += "<button id='photoBoardReplyEditBtn" + data[i].photoreply_id + "' onclick='photoBoardReplyEdit(" + data[i].photoreply_id + ")' class='btn btn-primary px-3 float-right'><i class='fa fa-paint-brush' aria-hidden='true'></i></button></div>";
 					}
 					str += "<hr>";
 				}
@@ -130,7 +131,39 @@
 			}
 		});
 	}
+	function photoBoardReplyEdit(photoreply_id){
+		$('#reply_con' + photoreply_id).focus().attr("readonly",false);
+		$('#photoBoardReplyEditBtn' + photoreply_id ).find('i').attr("class", "fa fa-check");
+		$('#photoBoardReplyEditBtn' + photoreply_id).attr("onclick","photoBoardReplyEditOk(" + photoreply_id + ")");
+	}
+	function photoBoardReplyEditOk(photoreply_id){
+		if(confirm("댓글을 수정하시겠습니까??")){
+			$.ajax({
+				url : '${pageContext.request.contextPath}/member/photoView/modiReply/' + photoreply_id,
+				type : 'post',
+				data : {
+					photoreply_con : $('#reply_con' + photoreply_id).val()
+				},
+				success : function(data){
+					console.log("수정완료");
+					getReplyList(photo_id);
+				}
+			});
+		}
+	}
 	
+	function photoBoardReplyDelete(photoreply_id){
+		if(confirm("댓글을 삭제하시겠습니까??")){
+			$.ajax({
+				url : '${pageContext.request.contextPath}/member/photoView/deleteReply/' + photoreply_id,
+				success : function(data){
+					console.log("삭제완료");
+					getReplyList(photo_id);
+					countReply(photo_id);
+				}
+			});
+		}
+	}
 	
 	
 	

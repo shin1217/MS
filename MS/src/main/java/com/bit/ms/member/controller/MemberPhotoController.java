@@ -109,4 +109,14 @@ public class MemberPhotoController {
 	public int getCountReply(@PathVariable("photo_id") int photo_id) {
 		return service.getCountReplyS(photo_id);
 	}
+	@RequestMapping(value = "member/photoView/modiReply/{photoreply_id}", method = RequestMethod.POST)
+	@ResponseBody
+	public int modiReply(@PathVariable("photoreply_id") int photoreply_id, String photoreply_con) {
+		return service.modiReplyS(photoreply_id,photoreply_con);
+	}
+	@RequestMapping(value = "member/photoView/deleteReply/{photoreply_id}")
+	@ResponseBody
+	public int deleteReply(@PathVariable("photoreply_id") int photoreply_id) {
+		return service.deleteReplyS(photoreply_id);
+	}
 }

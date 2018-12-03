@@ -35,4 +35,6 @@ public interface MemberDaoInterface {
 		int writePhotoReplyI(PhotoBoardReplyVO replyVo); // 사진 답글등록
 		List<PhotoBoardReplyVO> getPhotoReplyListI(int photo_id); //사진 답글 리스트 추출
 		int getCountReplyI(int photo_id); // 해당 게시물에 달린 댓글의 총 수를 구함
+		int modiReplyI(HashMap<String,String>map); // 해당 게시물에 달린 댓글 수정
+		int deleteReplyI(int photoreply_id); //해당 게시물에 달린 댓글 삭제
 }

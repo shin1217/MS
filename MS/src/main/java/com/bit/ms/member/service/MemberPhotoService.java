@@ -127,5 +127,17 @@ public class MemberPhotoService {
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		return memberDao.getCountReplyI(photo_id);
 	}
+	public int modiReplyS(int photoreply_id, String photoreply_con) {
+		HashMap<String,String>map = new HashMap<String,String>();
+		map.put("photoreply_id", Integer.toString(photoreply_id));
+		map.put("photoreply_con", photoreply_con);
+		
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.modiReplyI(map);
+	}
+	public int deleteReplyS(int photoreply_id) {
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.deleteReplyI(photoreply_id);
+	}
 
 }

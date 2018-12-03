@@ -38,4 +38,10 @@
 	<select id = "getCountReplyI" resultType="int">
 		select count(*) from photoboardreply where photo_id = #{photo_id}
 	</select>
+	<update id="modiReplyI" parameterType="hashmap">
+		update photoboardreply set photoreply_con = #{photoreply_con} where photoreply_id = #{photoreply_id}
+	</update>
+	<delete id="deleteReplyI">
+		delete from photoboardreply where photoreply_id = #{photoreply_id}
+	</delete>
 </mapper>
