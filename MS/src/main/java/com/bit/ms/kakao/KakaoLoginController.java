@@ -60,9 +60,10 @@ public class KakaoLoginController {
 			System.out.println("thumbnailImage : " + thumbnailImage);
 			System.out.println("profileImage : " + profileImage);
 			System.out.println("email : " + email);
-
-			session.setAttribute("kakao_id", id);
 			
+			// DB에 저장할 카카오 아이디 세션에 저장
+			session.setAttribute("kakao_id", id);
+
 			ra.addAttribute("nickname", nickname);
 			ra.addAttribute("email", email);
 

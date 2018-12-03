@@ -101,7 +101,7 @@ body {
 		</div>
 		<form method="POST">
 			<!-- 세션에 저장한 카카오 아이디를 가져옴 --> 
-			<input type="hidden" value="${kakao_id}"/>
+			<input type="hidden" name="kakao_id" value="${kakao_id}"/>
 			<!-- 아이디 -->
 			<div class="form-group">
 				<label for="user_id">아이디</label>
