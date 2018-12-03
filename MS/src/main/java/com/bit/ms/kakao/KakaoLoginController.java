@@ -1,5 +1,7 @@
 package com.bit.ms.kakao;
 
+import javax.servlet.http.HttpSession;
+
 import org.codehaus.jackson.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,16 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bit.ms.user.controller.UserLoginController;
-
 @Controller
-public class KakaoAuthorizeCode {
+public class KakaoLoginController {
 
 	@Autowired
 	KakaoLoginCheckService kakaoLoginCheckService;
 
 	@RequestMapping(value = "/kakaologin", produces = "application/json", method = RequestMethod.GET)
-	public String kakaoLogin(@RequestParam("code") String code, RedirectAttributes ra) {
+	public String kakaoLogin(@RequestParam("code") String code, RedirectAttributes ra, HttpSession session) {
 
 		int result = 0;
 
@@ -61,10 +61,12 @@ public class KakaoAuthorizeCode {
 			System.out.println("profileImage : " + profileImage);
 			System.out.println("email : " + email);
 
+			session.setAttribute("kakao_id", id);
+			
 			ra.addAttribute("nickname", nickname);
 			ra.addAttribute("email", email);
 
-			// 로그인 정보가 존재 할 경우
+			// 카카오 로그인 정보가 존재 할 경우
 			if (result == 1) {
 
 				System.out.println("카카오 이미 있음");

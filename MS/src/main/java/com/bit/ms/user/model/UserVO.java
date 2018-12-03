@@ -17,6 +17,7 @@ public class UserVO {
 	private int store_id; // 사용 중인 매장 번호
 	private int user_pay; // 결제 금액
 	private String user_key; // 인증 번호
+	private String kakao_id; // 카카오 아이디
 
 	public UserVO() {
 		super();
@@ -24,7 +25,7 @@ public class UserVO {
 	}
 
 	public UserVO(String user_id, String user_name, String user_pw, String user_phone, String user_birth,
-			String user_email, long user_time, int store_id, int user_pay, String user_key) {
+			String user_email, long user_time, int store_id, int user_pay, String user_key, String kakao_id) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
@@ -36,8 +37,8 @@ public class UserVO {
 		this.store_id = store_id;
 		this.user_pay = user_pay;
 		this.user_key = user_key;
+		this.kakao_id = kakao_id;
 	}
-
 
 	public String getUser_id() {
 		return user_id;
@@ -103,11 +104,11 @@ public class UserVO {
 		this.store_id = store_id;
 	}
 
-	public int getUse_pay() {
+	public int getUser_pay() {
 		return user_pay;
 	}
 
-	public void setUse_pay(int user_pay) {
+	public void setUser_pay(int user_pay) {
 		this.user_pay = user_pay;
 	}
 
@@ -119,10 +120,20 @@ public class UserVO {
 		this.user_key = user_key;
 	}
 
+	public String getKakao_id() {
+		return kakao_id;
+	}
+
+	public void setKakao_id(String kakao_id) {
+		this.kakao_id = kakao_id;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
 				+ user_phone + ", user_birth=" + user_birth + ", user_email=" + user_email + ", user_time=" + user_time
-				+ ", store_id=" + store_id + ", user_pay=" + user_pay + ", user_key=" + user_key + "]";
+				+ ", store_id=" + store_id + ", user_pay=" + user_pay + ", user_key=" + user_key + ", kakao_id="
+				+ kakao_id + "]";
 	}
+
 }

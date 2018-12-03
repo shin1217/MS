@@ -2,6 +2,9 @@ package com.bit.ms.user.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,24 +30,23 @@ public class UserRegController {
 	@Autowired
 	private UserMailSendService mailsender;
 
-	
 	// 회원가입 페이지에 보일 매장 리스트
 	@RequestMapping(value = "/user/reg", method = RequestMethod.GET)
 	public String userReg(Model model) {
-		
+
 		List<StoreVO> result = store_service.get_storeList();
-		
+
 		// 매장 리스트
 		model.addAttribute("store_list", result);
-		System.out.println("컨트롤러 접속 확인"+ result);
-		
+		System.out.println("컨트롤러 접속 확인" + result);
+
 		return "user/userReg";
 	}
-	
+
 	// 회원가입 컨트롤러
 	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
-	public String userRegPass(UserVO userVO, Model model) {
-		
+	public String userRegPass(UserVO userVO, Model model, HttpServletRequest request) {
+
 		// 암호 확인
 		System.out.println("첫번째:" + userVO.getUser_pw());
 		// 비밀번호 암호화
@@ -53,9 +55,8 @@ public class UserRegController {
 		System.out.println("두번째:" + userVO.getUser_pw());
 		// 회원가입 메서드
 		reg_service.userReg_service(userVO);
-		
 		// 인증 메일 보내기 메서드
-		mailsender.mailSendWithUserKey(userVO.getUser_email(), userVO.getUser_id());
+		mailsender.mailSendWithUserKey(userVO.getUser_email(), userVO.getUser_id(), request);
 
 		return "redirect:/";
 	}
@@ -67,7 +68,7 @@ public class UserRegController {
 
 		return reg_service.userIdCheck(user_id);
 	}
-	
+
 	// e-mail 중복 체크 컨트롤러
 	@RequestMapping(value = "/user/mailCheck", method = RequestMethod.GET)
 	@ResponseBody
@@ -75,14 +76,13 @@ public class UserRegController {
 		System.out.println("메일 중복체크 컨트롤러");
 		return reg_service.userMailCheck(user_email);
 	}
-	
+
 	// e-mail 인증 컨트롤러
 	@RequestMapping(value = "/user/key_alter", method = RequestMethod.GET)
-	public String key_alterConfirm(@RequestParam("user_id")String user_id,
-			@RequestParam("user_key")String key) {
-		
+	public String key_alterConfirm(@RequestParam("user_id") String user_id, @RequestParam("user_key") String key) {
+
 		mailsender.alter_userKey_service(user_id, key);
-		
+
 		return "user/userRegSuccess";
 	}
 }

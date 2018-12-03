@@ -25,13 +25,12 @@ public class UserRegService {
 		try {
 			resultCnt = userDao.regUser(userVO);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return resultCnt;
 	}
-	
+
 	// 중복 아이디 체크
 	public int userIdCheck(String user_id) {
 
@@ -39,12 +38,12 @@ public class UserRegService {
 
 		return userDao.checkOverId(user_id);
 	}
-	
+
 	// 중복 이메일 체크
 	public int userMailCheck(String user_email) {
-		
+
 		userDao = userSqlSessin.getMapper(UserDaoInterface.class);
-		
+
 		return userDao.checkOverEmail(user_email);
 	}
 }

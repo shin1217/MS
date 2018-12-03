@@ -100,6 +100,8 @@ body {
 			<h1>MS :p</h1>
 		</div>
 		<form method="POST">
+			<!-- 세션에 저장한 카카오 아이디를 가져옴 --> 
+			<input type="hidden" value="${kakao_id}"/>
 			<!-- 아이디 -->
 			<div class="form-group">
 				<label for="user_id">아이디</label>
@@ -134,13 +136,6 @@ body {
 			<div class="form-group">
 				<label for="user_email">이메일</label>
 					<input type="text" class="form-control" name="user_email" id="user_email" placeholder="E-mail" value="${param.email}" required>
-					<!-- <input type="text" style="margin-top: 5px;"class="email_form" name="email_confirm" id="email_confirm" placeholder="인증번호를 입력해주세요!" required>
-						<button type="button" class="btn btn-outline-danger btn-sm px-3" onclick="confirm_email()">
-							<i class="fa fa-envelope"></i>&nbsp;인증
-						</button>&nbsp;
-						<button type="button" class="btn btn-outline-info btn-sm px-3">
-							<i class="fa fa-envelope"></i>&nbsp;확인
-						</button>&nbsp; -->
 					<div class="check_font" id="email_check"></div>
 			</div>
 			<!-- 휴대전화 -->
@@ -149,18 +144,6 @@ body {
 				<input type="text" class="form-control" id="user_phone" name="user_phone" placeholder="Phone Number" required>
 				<div class="check_font" id="phone_check"></div>
 			</div>
-			<%-- <!-- 매장선택 -->
-			<div class="form-group">
-				<span>방문한 매장은 어디신가요?</span>&emsp;
-					<c:if test="${!empty store_list }">
-						<select class="select_pick" id="store_id" name="store_id" required>
-							<option class="select_pick" value="0" selected disabled>매장을 선택해주세요</option>
-						<c:forEach var="storelist" items="${store_list }">
-							<option class="select_pick" value="${storelist.store_id }">${storelist.store_name }</option>
-						</c:forEach>
-					</select>
-				</c:if>
-			</div> --%>
 			<div class="reg_button">
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}">
 					<i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
