@@ -133,7 +133,7 @@ body {
 			<!-- 본인확인 이메일 -->
 			<div class="form-group">
 				<label for="user_email">이메일</label>
-					<input type="text" class="form-control" name="user_email" id="user_email" placeholder="E-mail" required>
+					<input type="text" class="form-control" name="user_email" id="user_email" placeholder="E-mail" value="${param.email}" required>
 					<!-- <input type="text" style="margin-top: 5px;"class="email_form" name="email_confirm" id="email_confirm" placeholder="인증번호를 입력해주세요!" required>
 						<button type="button" class="btn btn-outline-danger btn-sm px-3" onclick="confirm_email()">
 							<i class="fa fa-envelope"></i>&nbsp;인증

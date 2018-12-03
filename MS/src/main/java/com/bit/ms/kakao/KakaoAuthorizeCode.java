@@ -31,10 +31,11 @@ public class KakaoAuthorizeCode {
 		String nickname = null;
 		String thumbnailImage = null;
 		String profileImage = null;
-		String message = null;
+		String email = null;
 
 		// 유저정보 카톡에서 가져오기 Get properties
 		JsonNode properties = userInfo.path("properties");
+		JsonNode kakao_account = userInfo.path("kakao_account");
 
 		if (properties.isMissingNode()) {
 			// if "name" node is missing
@@ -42,12 +43,15 @@ public class KakaoAuthorizeCode {
 			nickname = properties.path("nickname").asText();
 			thumbnailImage = properties.path("thumbnail_image").asText();
 			profileImage = properties.path("profile_image").asText();
+			email = kakao_account.path("email").asText();
 			
 			System.out.println("nickname : " + nickname);
 			System.out.println("thumbnailImage : " + thumbnailImage);
 			System.out.println("profileImage : " + profileImage);
+			System.out.println("email : " + email);
 			
 			ra.addAttribute("nickname", nickname);
+			ra.addAttribute("email" , email);
 		}
 
 		return "redirect:/user/reg";
