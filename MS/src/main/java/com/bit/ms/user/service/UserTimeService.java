@@ -26,17 +26,16 @@ public class UserTimeService {
 		return userDao.updateAddTime(addTime, userPay, userId, storeId);
 	}
 
-	// 사용 시간 업데이트 
-	public int updateSaveTime(long addTime, String userId, int storeId) {
+	// 사용 시간 업데이트
+	public int updateSaveTime(long useTime, String userId, int storeId) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-
-		return userDao.updateSaveTime(addTime, userId, storeId);
+		return userDao.updateSaveTime(useTime, userId, storeId);
 	}
 
 	// 좌석에 사용 중인 사용자 추가
-	public int updateSeat(String userId, long time, int pay, int seatId, int storeId) {
+	public int updateSeat(String userId, int seatId, int storeId) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.updateSeat(userId, time, pay, seatId, storeId);
+		return userDao.updateSeat(userId, seatId, storeId);
 	}
 
 	// 좌석에 사용 중인 사용자 삭제

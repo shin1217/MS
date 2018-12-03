@@ -82,8 +82,6 @@
 	</div>
 </nav>
 <script>
-	var useTime = 0;
-
 	$(document).ready(function() {
 		//헤더 브랜드이미지 클릭시 메인페이지로 이동
 		$('#adminBrand').click(function() { 
@@ -105,18 +103,19 @@
 		var timer = setInterval(function (){
 			useTime += 1;
 		}, 1000);
-		
-		/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
-		window.onbeforeunload = function() {
-			$.ajax({
-				// 사용 시간 전송
-				url: '${pageContext.request.contextPath}/admin/updateSaveTime?storeId={storeSelectSession.store_id}&userId={userSession.user_id}&userTime='+userTime, 
-				type: 'get',
-				
-				success:function(){
-					console.log("시간 저장 완료");
-				}
-			});
-		};
 	});
+	
+	/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
+	var useTime = 0;
+	window.onbeforeunload = function() {
+		$.ajax({
+			// 사용 시간 전송
+			url: '${pageContext.request.contextPath}/user/updateSaveTime?storeId=${storeSelectSession.store_id}&userId=${userSession.user_id}&useTime='+useTime, 
+			type: 'get',
+			
+			success:function(){
+				console.log("시간 저장 완료");
+			}
+		});
+	};
 </script>

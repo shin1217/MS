@@ -27,18 +27,6 @@
 	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-/* 시간충전 modal창 내용 */
-.modal_contents {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 15px;
-	border: 1px solid #888;
-	border-radius: 20px;
-	width: 50%;
-	text-align: center;
-}
-
-/* 충전하기 버튼 */
 .add_time_btn {
 	width: 150px;
 	background-color: #f8585b;
@@ -50,6 +38,10 @@
 	text-align: center;
 	font-size: 18px;
 	cursor: pointer;
+}
+
+.add_time_btn:hover{
+	opacity: 0.7;
 }
 
 /* close 버튼 */
@@ -67,7 +59,8 @@
 }
 
 </style>
-<!-- 시간 추가 modal -->
+
+<!-- 사용 전 시간 추가 modal -->
 <div id="addTimeModal" class="add_time_modal">
 	<div class="modal_contents">
 		<h3>
@@ -81,5 +74,33 @@
 		</div>
 		
 		<button id="addTimeBtn" class="add_time_btn">충전하기</button>
+	</div>
+</div>
+
+<!-- 사용 중 시간 추가 modal -->
+<div id="usingAddTimeModal" class="add_time_modal">
+	<div class="modal_contents">
+		<h3>
+			<b>※ 충전하실 시간을 선택하세요.</b><span class="close">&times;</span>
+		</h3>
+		
+		<select id="selectAddTime">
+			<option value="0">select Time</option>
+		</select> <br>
+		
+		<button id="usingAddTimeBtn" class="add_time_btn">충전하기</button>
+	</div>
+</div>
+
+<!-- 사용 중 자리 변경 modal -->
+<div id="usingSeatChangeModal" class="add_time_modal">
+	<div class="modal_contents" style="height: 90%; overflow: auto">
+		<h3>
+			<b>※ 변경하실 좌석을 선택하세요.</b><span class="close">&times;</span>
+		</h3>
+		<button id="usingSeatChangeBtn" class="add_time_btn">자리이동</button>
+		
+		<div id="seatList" class="seat_list"></div>
+		
 	</div>
 </div>

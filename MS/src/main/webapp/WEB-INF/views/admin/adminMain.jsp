@@ -50,6 +50,7 @@
 .left_content_title {
 	position: relative;
 	top: -20%;
+	padding-top: 1%;
 	border: 1px solid black;
 	border-radius: 15px;
 	background-color: #2BBBAD;
@@ -222,8 +223,8 @@
 					</div>
 				
 					<div style="height: 21%; margin-top: 3%" class="main_btn_wrap">
-						<button type="button" class="btn btn-mdb-color add_btn" id="showAddTimeModalBtn" style="font-size: 20px; padding: 10px 30px 10px 30px">충전</button>
-						<button type="button" class="btn btn-deep-orange change_btn" id="seatChangeBtn" style="font-size: 20px; padding: 10px 30px 10px 30px">자리 변경</button>
+						<button type="button" class="btn btn-mdb-color add_btn" id="showAddTimeModalBtn" style="font-size: 19px; padding: 7px 30px 7px 30px">충전</button>
+						<button type="button" class="btn btn-deep-orange change_btn" id="seatChangeBtn" style="font-size: 19px; padding: 7px 30px 7px 30px">자리 변경</button>
 					</div>
 				</div>
 			</div>
@@ -258,24 +259,44 @@
 		$.ajax({
 			url: '${pageContext.request.contextPath}/admin/getSeatListAll?storeId=${storeSelectSession.store_id}', 
 			type: 'get',
+			
 			success:function(data){ 
 				var str = '';
-				var useCnt = 0;
+				var useCnt = 0; // 사용 중인 좌석 수
+				var userId = null; // 사용자 아이디
+				var userPay = 0; // 사용 금액
+				var seatId = 0; // 좌석 번호
+				var min = 0; // 남은 시간(분)
+				var sec = 0; // 남은 시간(초)
+				
 				$('#totalCnt').text(data.length); // 전체 좌석 수 표시
 				
 				for(var i=0; i<data.length; i++){
 					if(data[i].user_id != null){ // 사용 중인 좌석
-						var min = Math.floor(data[i].user_time/60); // 분 계산
-						var sec = Math.floor(data[i].user_time%60); // 초 계산
+						userId = data[i].user_id;
+						seatId = data[i].seat_id;
+					
+						$.ajax({
+							url : '${pageContext.request.contextPath}/admin/getUserInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
+							type : 'get',
+							async: false,
+							
+							success : function(data) {
+								min = Math.floor(data.user_time/60); // 분 계산
+								sec =  Math.floor(data.user_time%60); // 초 계산
+								userPay = data.user_pay;
+							}
+						});
 						
-						str += '<div class="using" onclick="seatChoise(this, '+ data[i].seat_id +', \''+ data[i].user_id +'\')">';
-						str += '<div style="height:25%"><span style="float:left; color:black">'+ data[i].seat_id +'</span><span>'+ data[i].user_id +'</span></div>';
+						str += '<div class="using" onclick="seatChoise(this, '+ seatId +', \''+ userId +'\')">';
+						str += '<div style="height:25%"><span style="float:left; color:black">'+ seatId +'</span><span>'+ userId +'</span></div>';
 						str += '<div style="height:25%"><span>'+ min +'분</span> <span>'+ sec +'초</span></div>';
-						str += '<div style="height:25%">'+ data[i].user_pay +'</div>';
-						str += '<button style="height:25%" onclick="deleteSeat(event, '+ data[i].seat_id +')">사용 종료</button>';
+						str += '<div style="height:25%">'+ userPay +'</div>';
+						str += '<button style="height:25%" onclick="deleteSeat(event, '+ seatId +')">사용 종료</button>';
 						str += '</div>';
 						useCnt++;
 					}
+					
 					else{ // 빈 좌석
 						str += '<div class="un_using">'+ data[i].seat_id +'</div>';
 					}
@@ -292,10 +313,14 @@
 		$('#showAddTimeModalBtn').on('click', function () {
 			var seatId = $('.selected').attr('id');
 			
-			if(seatId != null){
-				$('#seatNum').text(seatId); // modal창의 좌석 번호 변경
-				$('#addTimeModal').show();
+			if(seatId == null){
+				alert('충전하실 좌석을 선택하세요.');
+				return;
 			}
+			
+			$('#seatNum').text(seatId); // modal창의 좌석 번호 변경
+			$('#addTimeModal').show();
+			
 		});
 		
 		/* Modal 충전 버튼 */

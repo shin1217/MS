@@ -29,7 +29,7 @@ public class UserTimeController {
 		// 좌석에 따라 추가 금액 처리
 		
 		int resultCnt = service.updateAddTime(addTime, pay, userId, storeId);
-		resultCnt += service.updateSeat(userId, addTime, pay, seatId, storeId);
+		resultCnt += service.updateSeat(userId, seatId, storeId);
 		
 		if(resultCnt == 2) {
 			System.out.println("시간 업데이트 성공");
@@ -39,14 +39,29 @@ public class UserTimeController {
 	
 	@RequestMapping("/user/updateSaveTime")
 	@ResponseBody
-	public void updateSaveTime(@RequestParam("addTime") long addTime,
+	public void updateSaveTime(@RequestParam("useTime") long useTime,
 								@RequestParam("userId") String userId,
 								@RequestParam("storeId") int storeId) {
 		
-		int resultCnt = service.updateSaveTime(addTime, userId, storeId);
+		System.out.println("사용 시간: " + useTime);
+		int resultCnt = service.updateSaveTime(useTime, userId, storeId);
 		
 		if(resultCnt == 1) {
 			System.out.println("사용 시간 마이너스 완료");
+		}
+	}
+	
+	@RequestMapping("/user/updateSeatChange")
+	@ResponseBody
+	public void updateSeatChange(@RequestParam("seatId") int seatId,
+								@RequestParam("userId") String userId,
+								@RequestParam("storeId") int storeId) {
+		
+		int resultCnt = service.deleteUsingInfo(userId, storeId); // 이전 좌석 정보 지우기
+		resultCnt += service.updateSeat(userId, seatId, storeId); // 새로 저장
+		
+		if(resultCnt == 2) {
+			System.out.println("좌석 이동 완료");
 		}
 	}
 	

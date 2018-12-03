@@ -60,7 +60,6 @@ public class AdminTimeController {
 		return service.getOrdersInfo(seatId, storeId);
 	}
 	
-
 	// 좌석 정보 모두 가져오기
 	@RequestMapping("/admin/getSeatListAll")
 	@ResponseBody

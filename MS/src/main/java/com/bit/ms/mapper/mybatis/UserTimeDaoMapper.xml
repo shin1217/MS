@@ -14,11 +14,11 @@
 		update userinfo set user_time=(user_time-#{param1})
 		where user_id=#{param2} and store_id=#{param3}
 	</update>
-	
+
 	<!-- 좌석에 사용 중인 사용자 추가 -->
 	<update id="updateSeat" parameterType="map">
-		update seat set user_id=#{param1}, user_time=(user_time+#{param2}), user_pay=(user_pay+#{param3})
-		where seat_id=#{param4} and store_id=#{param5}
+		update seat set user_id=#{param1}
+		where seat_id=#{param2} and store_id=#{param3}
 	</update>
 	
 	<!-- 등록된 좌석 모두 가져오기 -->
@@ -29,7 +29,7 @@
 	
 	<!-- 사용 중인 좌석 삭제  -->
 	<update id="deleteUsingInfo" parameterType="map">
-		update seat set user_id=null, user_time=0, user_pay=0
+		update seat set user_id=null
 		where user_id=#{param1} and store_id=#{param2}
 	</update>
 	
