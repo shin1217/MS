@@ -1,6 +1,6 @@
 package com.bit.ms.member.controller;
 
-import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.member.model.PhotoBoardListVO;
+import com.bit.ms.member.model.PhotoBoardReplyVO;
 import com.bit.ms.member.model.PhotoBoardVO;
 import com.bit.ms.member.service.MemberPhotoService;
 
@@ -37,18 +39,18 @@ public class MemberPhotoController {
 		
 		modelAndView.setViewName("member/photoBoard");
 		modelAndView.addObject("photoData",viewData);
-	
+		modelAndView.addObject("pageNum", viewData.getCurrentPageNum());
 		return modelAndView;
 	}
 	//글쓰기로 이동
 	@RequestMapping(value = "/member/photoBoard/write", method = RequestMethod.GET)
 	public String writePhotoForm() {
-		
-		return "member/PhotoBoardWriteForm";
+		System.out.println("글쓰기 이동");
+		return "member/photoBoardWriteForm";
 	}
 	//글쓰기 폼에서 글 등록
 	@RequestMapping(value = "/member/photoBoard/write", method = RequestMethod.POST)
-	public String insertPhoto(PhotoBoardVO photoVo, HttpServletRequest request) throws IllegalStateException, IOException {
+	public String insertPhoto(PhotoBoardVO photoVo, HttpServletRequest request) {
 		service.writePhotoS(photoVo, request);
 		return "redirect:/member/photoBoard?page=1";
 	}
@@ -63,5 +65,48 @@ public class MemberPhotoController {
 		modelAndView.addObject("viewData",viewData);
 		
 		return modelAndView;
+	}
+	//게시물 삭제
+	@RequestMapping(value = "member/photoBoard/delete/{photo_id}")
+	public String deletePhoto(@PathVariable("photo_id") int photo_id) {
+		service.deletePhotoS(photo_id);
+		
+		return "redirect:/member/photoBoard?page=1";
+	}
+	//게시물 수정페이지 이동
+	@RequestMapping(value = "member/photoBoard/modify/{photo_id}", method = RequestMethod.GET)
+	public ModelAndView modiForm(@PathVariable("photo_id") int photo_id) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		PhotoBoardVO viewData = service.getPhotoViewS(photo_id);
+		
+		modelAndView.setViewName("member/photoBoardModifyForm");
+		modelAndView.addObject("viewData",viewData);
+		
+		return modelAndView;
+	}
+	//게시물 수정
+	@RequestMapping(value = "member/photoBoard/modify/{photo_id}", method = RequestMethod.POST)
+	public String modifyPhoto(@PathVariable("photo_id") int photo_id, PhotoBoardVO photoVo, HttpServletRequest request) {
+		service.modifyPhotoS(photoVo, request);
+		return "redirect:/member/photoView/" + photo_id;
+		
+	}
+	@RequestMapping(value = "member/photoView/photoReplyList/{photo_id}")
+	@ResponseBody
+	public List<PhotoBoardReplyVO> getPhotoReplyList(@PathVariable("photo_id") int photo_id){
+		System.out.println("댓글리스트 출력 완료");
+		return service.getPhotoReplyListS(photo_id);
+	}
+	@RequestMapping(value = "member/photoView/photoReply", method = RequestMethod.POST)
+	@ResponseBody
+	public int writePhotoReply(PhotoBoardReplyVO replyVo) {
+		System.out.println("댓글등록 완료");
+		return service.writePhotoReplyS(replyVo);
+	}
+	@RequestMapping(value = "member/photoView/countReply/{photo_id}")
+	@ResponseBody
+	public int getCountReply(@PathVariable("photo_id") int photo_id) {
+		return service.getCountReplyS(photo_id);
 	}
 }

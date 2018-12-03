@@ -3,6 +3,7 @@ package com.bit.ms.member.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.MemberDaoInterface;
 import com.bit.ms.member.model.PhotoBoardListVO;
+import com.bit.ms.member.model.PhotoBoardReplyVO;
 import com.bit.ms.member.model.PhotoBoardVO;
 import com.bit.ms.member.model.StoreVO;
 
@@ -54,7 +56,7 @@ public class MemberPhotoService {
 		return new PhotoBoardListVO(currentPageNum, photoTotalCount, photoList, NOTICE_COUNT_PER_PAGE, firstRow);
 	}
 	//게시물 등록
-	public int writePhotoS(PhotoBoardVO photoVo, HttpServletRequest request) throws IllegalStateException, IOException {
+	public int writePhotoS(PhotoBoardVO photoVo, HttpServletRequest request) {
 		
 		//먼저 사진파일을 제외한 나머지 내용을 등록하고 후에 시간을 받아와서 파일을 저장
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
@@ -67,10 +69,15 @@ public class MemberPhotoService {
 		if(resultCnt == 1) { // 사진을 제외한 내용등록을 성공하면 
 			
 		//db에 저장될 파일 이름
-		String imgName = photoVo.getPhoto_title() + "_" + photoVo.getPhoto_id() + "_" + photoVo.getStore_id();
+		String imgName = photoVo.getStore_id() + "_" + photoVo.getPhoto_id();
 		
-		photoVo.getPhotoFile().transferTo(new File(dir, imgName));
-		photoVo.setPhoto_file(imgName); //파일이름을 저장
+			try {
+				photoVo.getPhotoFile().transferTo(new File(dir, imgName));
+				photoVo.setPhoto_file(imgName); //파일이름을 저장
+			} catch (Exception e) { // 파일올릴때 오류가 나면 파일 지움
+				System.out.println("사진등록 실패");
+				new File(dir, imgName).delete();
+			}
 		// 사진을 db에 업데이트
 		}
 		return memberDao.writePhotoComplete(photoVo.getPhoto_file());
@@ -80,6 +87,45 @@ public class MemberPhotoService {
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		
 		return memberDao.getPhotoViewI(photo_id);
+	}
+	public int deletePhotoS(int photo_id) {
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.deletePhotoI(photo_id);
+	}
+	public int modifyPhotoS(PhotoBoardVO photoVo, HttpServletRequest request) {
+		String uploadUri = "/images/photoboard";
+		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
+		String imgName = photoVo.getStore_id() + "_" + photoVo.getPhoto_id();
+		
+		String photo_title = photoVo.getPhoto_title();
+		String photo_con = photoVo.getPhoto_title();
+		String photo_id = Integer.toString(photoVo.getPhoto_id());
+		
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("photo_title", photo_title);
+		map.put("photo_con", photo_con);
+		map.put("photo_id", photo_id);
+		try {
+			photoVo.getPhotoFile().transferTo(new File(dir, imgName));
+			photoVo.setPhoto_file(imgName);
+			map.put("photo_file", photoVo.getPhoto_file());
+		} catch (Exception e) {
+			System.out.println("파일 수정 실패");
+			new File(dir, imgName).delete();
+		}
+		return memberDao.modifyPhotoI(map);
+	}
+	public int writePhotoReplyS(PhotoBoardReplyVO replyVo) {
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.writePhotoReplyI(replyVo);
+	}
+	public List<PhotoBoardReplyVO> getPhotoReplyListS(int photo_id) {
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.getPhotoReplyListI(photo_id);
+	}
+	public int getCountReplyS(int photo_id) {
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.getCountReplyI(photo_id);
 	}
 
 }

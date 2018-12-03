@@ -23,4 +23,19 @@
 	<select id="getPhotoViewI" resultType="photoVO">
 		select * from photoboard where photo_id = #{photo_id}
 	</select>
+	<delete id="deletePhotoI">
+		delete from photoboard where photo_id = #{photo_id} 
+	</delete>
+	<update id="modifyPhotoI" parameterType="hashmap">
+		update photoboard set photo_title = #{photo_title}, photo_con = #{photo_con}, photo_file = #{photo_file} where photo_id = #{photo_id}
+	</update>
+	<insert id="writePhotoReplyI" parameterType="photoReplyVO">
+		insert into photoboardreply (photoreply_con, photoreply_writeid, store_id, photo_id) values (#{photoreply_con}, #{photoreply_writeid}, #{store_id}, #{photo_id})
+	</insert>
+	<select id="getPhotoReplyListI" resultType="photoReplyVO">
+		select * from photoboardreply where photo_id = #{photo_id}
+	</select>
+	<select id = "getCountReplyI" resultType="int">
+		select count(*) from photoboardreply where photo_id = #{photo_id}
+	</select>
 </mapper>

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.bit.ms.member.model.MessageVO;
+import com.bit.ms.member.model.PhotoBoardReplyVO;
 import com.bit.ms.member.model.PhotoBoardVO;
 import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
@@ -29,4 +30,9 @@ public interface MemberDaoInterface {
 		int writePhotoI(PhotoBoardVO photoVo); // 사진을 제외한 등록
 		int writePhotoComplete(String photo_file); // 사진등록 
 		PhotoBoardVO getPhotoViewI(int photo_id); // 사진 상세보기
+		int deletePhotoI(int photo_id); // 사진삭제
+		int modifyPhotoI(HashMap<String, String> map); //사진 수정
+		int writePhotoReplyI(PhotoBoardReplyVO replyVo); // 사진 답글등록
+		List<PhotoBoardReplyVO> getPhotoReplyListI(int photo_id); //사진 답글 리스트 추출
+		int getCountReplyI(int photo_id); // 해당 게시물에 달린 댓글의 총 수를 구함
 }
