@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.ms.admin.service.AdminTimeService;
 import com.bit.ms.member.model.SeatVO;
+import com.bit.ms.user.model.UserOrdersVO;
 import com.bit.ms.user.model.UserVO;
 
 @Controller
@@ -49,6 +50,16 @@ public class AdminTimeController {
 	public UserVO getUserInfo(@RequestParam("userId") String userId, @RequestParam("storeId") int storeId) {
 		return service.getUserInfo(userId, storeId);
 	}
+	
+	// 선택된 좌석의 주문 정보 가져오기
+	@RequestMapping("/admin/getOrdersInfo")
+	@ResponseBody
+	public List<UserOrdersVO> getOrdersInfo(@RequestParam("seatId") int seatId, 
+										@RequestParam("storeId") int storeId) {
+		
+		return service.getOrdersInfo(seatId, storeId);
+	}
+	
 
 	// 좌석 정보 모두 가져오기
 	@RequestMapping("/admin/getSeatListAll")

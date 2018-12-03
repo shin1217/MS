@@ -535,7 +535,7 @@ html, body {
 		}
 		else {
 			$('.order_table > tbody').append(str);
-			ordersArr.push(new OrdersList($(foodType).attr('id'), foodId, $('#'+cntId).text()));
+			ordersArr.push(new OrdersList($(foodType).attr('id'), foodName, foodId, $('#'+cntId).text()));
 		}
 		totalChange(foodPrice, 'plus');
 	}
@@ -590,8 +590,9 @@ html, body {
 	}
 	
 	/* 주문한 음식 정보 생성자  */
-	function OrdersList(foodType, foodId, foodCnt) {
+	function OrdersList(foodType, foodName, foodId, foodCnt) {
 		this.foodType = foodType;
+		this.foodName = foodName;
 		this.foodId = foodId;
 		this.foodCnt = foodCnt;
 	}

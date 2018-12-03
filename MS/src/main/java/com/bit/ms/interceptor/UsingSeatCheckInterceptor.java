@@ -1,5 +1,6 @@
 package com.bit.ms.interceptor;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +43,12 @@ public class UsingSeatCheckInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 		}
-		response.sendRedirect(request.getContextPath() + "/user/main"); // 좌석 미 등록 시 메인페이지로 이동
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter printwriter = response.getWriter();
+		printwriter.print(
+				"<script>alert('좌석 선택 후 주문 가능합니다.'); location.replace('" + request.getContextPath() + "/user/main');</script>");
+		
 		return false;
 	}
 }

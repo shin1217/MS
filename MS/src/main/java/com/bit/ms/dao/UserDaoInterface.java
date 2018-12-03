@@ -58,7 +58,8 @@ public interface UserDaoInterface {
 	
 	/* 좌석 선택 및 시간 충전 */
 	int updateAddTime(long addTime, int userPay, String userId, int storeId);
-	int updateSeat(String userId, int seatId, int storeId);
+	int updateSaveTime(long addTime, String userId, int storeId);
+	int updateSeat(String userId, long time, int pay, int seatId, int storeId);
 	int deleteUsingInfo(String userId, int storeId);
 	List<SeatVO> getSeatListAll(int storeId);
 	

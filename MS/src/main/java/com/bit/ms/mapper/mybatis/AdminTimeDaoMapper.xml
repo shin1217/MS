@@ -24,6 +24,13 @@
 		from userinfo
 		where user_id=#{param1} and store_id=#{param2}
 	</select>
+	
+	<!-- 선택된 좌석의 주문 정보 가져오기 -->
+	<select id="getOrdersInfo" parameterType="map" resultType="userOrdersVO">
+		select *
+		from orders
+		where seat_id=#{param1} and store_id=#{param2}
+	</select>
 
 	<!-- 등록된 좌석 모두 가져오기 -->
 	<select id="getSeatListAll" resultType="seatVO">

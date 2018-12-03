@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.AdminDaoInterface;
 import com.bit.ms.member.model.SeatVO;
+import com.bit.ms.user.model.UserOrdersVO;
 import com.bit.ms.user.model.UserVO;
 
 @Service
@@ -33,6 +34,12 @@ public class AdminTimeService {
 	public UserVO getUserInfo(String userId, int storeId) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		return adminDao.getUserInfo(userId, storeId);
+	}
+
+	// 선택된 좌석의 사용자 정보 가져오기
+	public List<UserOrdersVO> getOrdersInfo(int seatId, int storeId) {
+		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		return adminDao.getOrdersInfo(seatId, storeId);
 	}
 
 	// 좌석 정보 모두 가져오기

@@ -190,7 +190,7 @@ html, body {
 		<div>${userSession.user_name}님 즐거운 시간 되세요:p</div>
 		<div>사용 중인 좌석은 <span id="usingSeatNum" style="color: red"></span>번 입니다.</div>
 		<div class="using_wrap">
-			<div>남은 시간 <span>00:30분</span></div>
+			<div>남은 시간 : <span id="min"></span> <span id="sec"></span></div>
 			<div class="using_text"><span>시간 충전</span> / <span>자리 변경</span></div>
 			<button id="endBtn" class="end_btn">사용 종료</button>
 		</div>
@@ -211,6 +211,7 @@ html, body {
 				var str = '';
 				var userId = null;
 				var seatId = null;
+				var userTime = null;
 				var useCnt = 0;
 				$('#totalCnt').text(data.length); // 전체 좌석 수 변경
 				
@@ -218,7 +219,8 @@ html, body {
 					if(data[i].user_id != null){
 						if(data[i].user_id == '${userSession.user_id}'){
 							userId = data[i].user_id; // 사용 중인 사용자 아이디 가져오기
-							seatId = data[i].seat_id;
+							seatId = data[i].seat_id; // 사용 중인 좌석 아이디 가져오기
+							userTime = data[i].user_time; // 사용 중인 사용자의 남은 시간 가져오기
 						}
 						str += '<div class="using" style="font-size:50px; color:red">X</div>';
 						useCnt++;
@@ -231,7 +233,30 @@ html, body {
 				$('#seatList').html(str);
 				
 				if(userId != null){
-					$('#usingSeatNum').text(seatId);
+					var min = Math.floor(userTime/60); // 분 계산
+					var sec = Math.floor(userTime%60); // 초 계산
+					
+					$('#usingSeatNum').text(seatId); // 좌석 번호 변경
+					$('#min').text(min+'분');
+					$('#sec').text(sec+'초');
+					
+					var timer = setInterval(function (){
+						$('#min').text(min+'분');
+						$('#sec').text(sec+'초');
+						
+						if(sec == 1 && min == 0){ // 사용 시간 종료
+							clearInterval(timer);
+
+						} else{
+							sec--;
+							
+							if(sec < 1){
+								min--;
+								sec = 59;
+							}
+						}
+					}, 1000);
+					
 					$('.userMain_container').hide();
 					$('.userUsingMain_container').show();
 				}

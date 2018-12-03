@@ -14,6 +14,7 @@ import com.bit.ms.member.model.FoodVO;
 import com.bit.ms.member.model.ReplyVO;
 import com.bit.ms.member.model.SeatVO;
 import com.bit.ms.member.model.StoreVO;
+import com.bit.ms.user.model.UserOrdersVO;
 import com.bit.ms.user.model.UserVO;
 
 public interface AdminDaoInterface {
@@ -80,6 +81,7 @@ public interface AdminDaoInterface {
 	int updateAddTime(long addTime, String userId, int storeId);
 	int deleteSeat(int seatId, int storeId);
 	UserVO getUserInfo(String userId, int storeId);
+	List<UserOrdersVO> getOrdersInfo(int seatId, int storeId);
 	List<SeatVO> getSeatListAll(int storeId);
 	
 	/* 상품관리 */

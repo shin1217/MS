@@ -17,21 +17,28 @@ public class UserTimeService {
 	private UserDaoInterface userDao;
 
 	// 로그인한 유저의 충전 시간 업데이트(충전시간, 사용 금액, 유저 아이디, 매장 번호)
-	public int updateAddTime(long addTime, int usePay, String userId, int storeId) {
+	public int updateAddTime(long addTime, int userPay, String userId, int storeId) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
 
 		// 시간추가하기 전에 DB userinfo 테이블에 매장번호 저장하기
 		userDao.update_store_id_S(userId, storeId);
 
-		return userDao.updateAddTime(addTime, usePay, userId, storeId);
+		return userDao.updateAddTime(addTime, userPay, userId, storeId);
 	}
-	
-	// 좌석에 사용 중인 사용자 추가
-	public int updateSeat(String userId, int seatId, int storeId) {
+
+	// 사용 시간 업데이트 
+	public int updateSaveTime(long addTime, String userId, int storeId) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.updateSeat(userId, seatId, storeId);
+
+		return userDao.updateSaveTime(addTime, userId, storeId);
 	}
-	
+
+	// 좌석에 사용 중인 사용자 추가
+	public int updateSeat(String userId, long time, int pay, int seatId, int storeId) {
+		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
+		return userDao.updateSeat(userId, time, pay, seatId, storeId);
+	}
+
 	// 좌석에 사용 중인 사용자 삭제
 	public int deleteUsingInfo(String userId, int storeId) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);

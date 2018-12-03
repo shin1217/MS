@@ -11,10 +11,10 @@ public class SeatVO {
 	private int seat_update_time; // 좌석 수정시간
 	private int seat_add_time; // 좌석 충전시간
 	private String user_id; // 회원 아이디
+	private int user_time; // 남은 시간
+	private int user_pay; // 지불 금액
 	private int store_id; // 매장 번호
-
 	private String seat_qr; // 좌석 QR코드
-//	private MutlipartFile qr_file;
 
 	public int getSeat_id() {
 		return seat_id;
@@ -63,6 +63,23 @@ public class SeatVO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+	
+
+	public int getUser_time() {
+		return user_time;
+	}
+
+	public void setUser_time(int user_time) {
+		this.user_time = user_time;
+	}
+
+	public int getUser_pay() {
+		return user_pay;
+	}
+
+	public void setUser_pay(int user_pay) {
+		this.user_pay = user_pay;
+	}
 
 	public int getStore_id() {
 		return store_id;
@@ -80,11 +97,13 @@ public class SeatVO {
 		this.seat_qr = seat_qr;
 	}
 
+
 	@Override
 	public String toString() {
 		return "SeatVO [seat_id=" + seat_id + ", seat_name=" + seat_name + ", seat_pay=" + seat_pay
 				+ ", seat_update_time=" + seat_update_time + ", seat_add_time=" + seat_add_time + ", user_id=" + user_id
-				+ ", store_id=" + store_id + ", seat_qr=" + seat_qr + "]";
+				+ ", user_time=" + user_time + ", user_pay=" + user_pay + ", store_id=" + store_id + ", seat_qr="
+				+ seat_qr + "]";
 	}
 
 	public SeatVO(int seat_id, String seat_name, int seat_pay, int seat_update_time, int seat_add_time, String user_id,

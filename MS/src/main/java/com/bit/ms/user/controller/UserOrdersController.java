@@ -42,23 +42,27 @@ public class UserOrdersController {
 		String sb1 = "";
 		String sb2 = "";
 		String sb3 = "";
+		String sb4 = "";
 		
 		for (int i = 0; i < ordersList.size(); i++) {
 			String foodType = (String)ordersList.get(i).get("foodType");
+			String foodName = (String)ordersList.get(i).get("foodName");
 			int foodId = (Integer)ordersList.get(i).get("foodId");
 			int foodCnt = (Integer)ordersList.get(i).get("foodCnt");
 			
 			resultCnt += service.updateStock(foodCnt, foodId, storeId); // 재고 업데이트
 			
 			sb1 += foodType + ",";
-			sb2 += foodId + ",";
-			sb3 += foodCnt + ",";
+			sb2 += foodName + ",";
+			sb3 += foodId + ",";
+			sb4 += foodCnt + ",";
 		}
 		
 		UserOrdersVO ordersVO = new UserOrdersVO();
 		ordersVO.setFood_type(sb1);
-		ordersVO.setFood_id(sb2);
-		ordersVO.setFood_cnt(sb3);
+		ordersVO.setFood_name(sb2);
+		ordersVO.setFood_id(sb3);
+		ordersVO.setFood_cnt(sb4);
 		ordersVO.setSeat_id(seatId);
 		ordersVO.setStore_id(storeId);
 		

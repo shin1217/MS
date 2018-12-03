@@ -49,8 +49,7 @@
 
 .left_content_title {
 	position: relative;
-	top: -15%;
-	padding-top: 2%;
+	top: -20%;
 	border: 1px solid black;
 	border-radius: 15px;
 	background-color: #2BBBAD;
@@ -58,8 +57,14 @@
 	font-weight: bold;
 	color: white;
 	width: 60%;
-	height: 40%;
+	height: 45%;
 	margin: 0 auto;
+}
+
+.com_cnt_text {
+	font-size: 40px;
+	margin-bottom: -15px;
+	margin-top: -15px
 }
 
 /* 웹에 접근한 기기가 screen일 때 세로 길이가 700px 미만일 때 */
@@ -101,11 +106,26 @@
 .order_list_wrap {
 	overflow: auto;
 	text-align: left;
-	padding: 10px;
+	padding: 10px 10px 0 10px;
 	font-size: 20px;
 	border: 1px solid black;
 	margin-left: 20px;
 	margin-right: 20px;
+}
+
+.orders_table {
+	text-align: center;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.orders_table tbody > tr:nth-child(1) {
+	background-color: lightgray;
+}
+
+.orders_table td {
+	text-align: center;
+	font-size: 20px;
 }
 
 .seat_list {
@@ -168,6 +188,7 @@
 	text-align: center;
 }
 
+
 </style>
 </head>
 <body>
@@ -183,26 +204,26 @@
 			
 		<div class="left_area">
 			<div class="left_content">
-				<div style="height: 25%">
+				<div style="height: 20%">
 					<div class="left_content_title"><c:out value="${sysYear}" /></div>
 					<div class="com_cnt_text"><span id="useCnt">0</span> / <span id=totalCnt>20</span></div>
 					<hr style="border: 1px dashed gray">
 				</div>
 				
-				<div style="height: 75%">
+				<div style="height: 80%">
 					<div style="height: 10%"><b>사용자 정보</b></div>
-					<div style="height: 28%" id="selectedUserInfo" class="user_info_wrap">
+					<div style="height: 26%" id="selectedUserInfo" class="user_info_wrap">
 						<span style="color: red">* 좌석을 선택하세요.</span>
 					</div>
 					
 					<div style="height: 10%"><b>음식 주문 목록</b></div>
-					<div style="height: 28%" class="order_list_wrap">
+					<div style="height: 30%" id="orderListInfo" class="order_list_wrap">
 						<span style="color: red">* 주문 대기 중인 음식이 없습니다.</span>
 					</div>
 				
-					<div style="height: 22%; margin-top: 2%" class="main_btn_wrap">
-						<button type="button" class="btn btn-mdb-color" id="showAddTimeModalBtn">충전</button>
-						<button type="button" class="btn btn-deep-orange" id="seatChangeBtn">자리 변경</button>
+					<div style="height: 21%; margin-top: 3%" class="main_btn_wrap">
+						<button type="button" class="btn btn-mdb-color add_btn" id="showAddTimeModalBtn" style="font-size: 20px; padding: 10px 30px 10px 30px">충전</button>
+						<button type="button" class="btn btn-deep-orange change_btn" id="seatChangeBtn" style="font-size: 20px; padding: 10px 30px 10px 30px">자리 변경</button>
 					</div>
 				</div>
 			</div>
@@ -244,10 +265,13 @@
 				
 				for(var i=0; i<data.length; i++){
 					if(data[i].user_id != null){ // 사용 중인 좌석
+						var min = Math.floor(data[i].user_time/60); // 분 계산
+						var sec = Math.floor(data[i].user_time%60); // 초 계산
+						
 						str += '<div class="using" onclick="seatChoise(this, '+ data[i].seat_id +', \''+ data[i].user_id +'\')">';
 						str += '<div style="height:25%"><span style="float:left; color:black">'+ data[i].seat_id +'</span><span>'+ data[i].user_id +'</span></div>';
-						str += '<div style="height:25%">100분</div>';
-						str += '<div style="height:25%">5000</div>';
+						str += '<div style="height:25%"><span>'+ min +'분</span> <span>'+ sec +'초</span></div>';
+						str += '<div style="height:25%">'+ data[i].user_pay +'</div>';
 						str += '<button style="height:25%" onclick="deleteSeat(event, '+ data[i].seat_id +')">사용 종료</button>';
 						str += '</div>';
 						useCnt++;
@@ -261,6 +285,8 @@
 				
 			} // end success
 		}); // end ajax
+		
+		
 		
 		/* Main 충전 버튼 */
 		$('#showAddTimeModalBtn').on('click', function () {
@@ -304,20 +330,6 @@
 			}
 		});	
 		
-		/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
-		window.onbeforeunload = function() {
-			<%-- $.ajax({
-				// 사용 시간 전송
-				url: '<%=request.getContextPath()%>/admin/updateSaveTimeAll?useTime=' + useTime + '&storeId=' + storeId, 
-				type: 'get',
-				
-				success:function(){
-					console.log("시간 저장 완료");
-				}
-			}); --%>
-		};
-		
-		
 	}); // end $(document).ready(function())} 
 	
 	/* 사용 중인 좌석 선택 */
@@ -327,6 +339,7 @@
 			$(e).removeAttr('id');
 			$(e).removeClass('selected');
 			$('#selectedUserInfo').html('<span style="color:red">* 좌석을 선택하세요.</span>');
+			$('#orderListInfo').html('<span style="color:red">* 주문 대기 중인 음식이 없습니다.</span>');
 		}
 		else{ // 선택되지 않은 상태
 			$('.selected').css({'opacity': '', 'border': ''});
@@ -338,6 +351,7 @@
 			$(e).addClass('selected');
 			$('#userId').text(userId); // modal창의 숨겨진 span태그의 텍스트 변경
 			
+			// 선택된 사용자 정보 불러오기
 			$.ajax({ 
 				url:'${pageContext.request.contextPath}/admin/getUserInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
 				type:'get',
@@ -349,9 +363,36 @@
 					$('#selectedUserInfo').html(str);
 				} // end success 
 			}); // end ajax
+			
+			// 선택된 사용자의 주문 목록 불러오기
+			$.ajax({
+				url:'${pageContext.request.contextPath}/admin/getOrdersInfo?storeId=${storeSelectSession.store_id}&seatId='+seatId,
+				type:'get',
+					
+				success:function(data){
+					if(data.length > 0){
+						var str = '';
+						
+						for(var i=0; i<data.length; i++){
+							var foodNameArr = data[i].food_name.split(',');
+							var foodCntArr = data[i].food_cnt.split(',');
+							
+							str += '<table border="1" class="orders_table"><tr>';
+							str += '<td>주문번호</td><td>음식</td><td>수량</td></tr>';
+							str += '<tr><td rowspan=' + (foodNameArr.length) + '>' + data[i].orders_id;
+							
+							for(var j=0; j<foodNameArr.length-1; j++){
+								str += '</td><td>' + foodNameArr[j] + '</td><td>' + foodCntArr[j] +'</td></tr>';
+							}
+							str += '</table>';
+						}
+						$('#orderListInfo').html(str);
+					}
+				} // end success 
+			});
 		}
 	}
-	
+
 	/* 사용 종료 버튼 */
 	function deleteSeat(e, seatId) {
 		e.stopPropagation(); // 이벤트 버블링 중지		
