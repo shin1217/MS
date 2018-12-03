@@ -230,6 +230,22 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		<!-- 이메일 인증 2018.11.20 KW -->
+
+		<!-- 카카오로그인에 사용 2018.12.03 신동진 -->
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.6</version>
+		</dependency>
+
+		<!-- 카카오로그인에 사용 2018.12.03 신동진 -->
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

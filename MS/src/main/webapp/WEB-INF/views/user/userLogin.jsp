@@ -84,6 +84,9 @@ body {
     border: 1px solid #ccc;
     border-radius: 15px;
 }
+#kakaologin {
+	background: white;
+}
 
 </style>
 </head>
@@ -142,15 +145,12 @@ body {
 					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
 				<div class="form-group">
-					<a id="custom-login-btn" href="javascript:loginWithKakao()">
-					<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="100%" />
+					<a id="kakaologin" href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/kakaologin&response_type=code">
+						<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="100%" />
 					</a>
 				</div>
 				<div class="form-group">
 					<div id="naver_id_login"></div>
-				</div>
-				<div class="form-group">
-					<a id="loginaaa">카카오 로그인 테스트</a>
 				</div>
 			</div>
 		</div>
@@ -231,7 +231,7 @@ body {
 
 	//<![CDATA[
 	// 사용할 앱의 JavaScript 키를 설정해 주세요.
-	Kakao.init('85f4a0fdfed755ce3d9b2b081af17f44');
+/* 	Kakao.init('85f4a0fdfed755ce3d9b2b081af17f44');
 	function loginWithKakao() {
 		// 로그인 창을 띄웁니다.
 		Kakao.Auth.login({
@@ -248,11 +248,11 @@ body {
 				alert(JSON.stringify(err));
 			}
 		});
-	};
+	}; */
 	//]]>
 	
-	$('#loginaaa').click(function(){
+	/* $('#kakaologin').click(function(){
 		location.href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/kakaologin&response_type=code";
-	});
+	}); */
 </script>
 </html>
