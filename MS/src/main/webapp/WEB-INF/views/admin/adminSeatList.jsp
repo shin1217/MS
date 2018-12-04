@@ -182,8 +182,8 @@
 	}
 
 	$('#addseat_btn').click(function() {//좌석 추가
-		var seat_name = $('#seat_name').val();
-		var seat_pay = $('#seat_pay').val();
+		var seat_name = $('#seat_name').val().trim();
+		var seat_pay = $('#seat_pay').val().trim();
 		var seat_qr = $('#seat_qr').val();
 
 		if (seat_pay && seat_name) {
@@ -228,8 +228,8 @@
 	function seat_modify(seat_id) { // 댓글 수정 작업
 		if (confirm("수정하시겠습니까??") == true){    //확인
 
-			var seat_name = $('#AdminSeatNameInput' + seat_id ).val();
-			var seat_pay = $('#AdminSeatPayInput' + seat_id ).val();
+			var seat_name = $('#AdminSeatNameInput' + seat_id ).val().trim();
+			var seat_pay = $('#AdminSeatPayInput' + seat_id ).val().trim();
 			console.log(seat_name);
 			console.log(seat_pay);
 			console.log(seat_qr);

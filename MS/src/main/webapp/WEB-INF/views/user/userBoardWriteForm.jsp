@@ -21,8 +21,7 @@
 	<div class="container" style="overflow: hidden; position: relative;">
 		<br> <a class="nav-link, hypertext_none"
 			href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword=">
-			<b style="font-size: 30px;">[${storeSelectSession.store_name}] -
-				유저게시판</b>
+			<b style="font-size: 30px;">[${storeSelectSession.store_name}] - 유저게시판</b>
 		</a>
 		<%--<br> <a id="write" class="btn btn-outline-elegant waves-effect"
 			href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a> --%>
