@@ -69,7 +69,7 @@ public class MemberPhotoService {
 		if(resultCnt == 1) { // 사진을 제외한 내용등록을 성공하면 
 			
 		//db에 저장될 파일 이름
-		String imgName = photoVo.getStore_id() + "_" + photoVo.getPhoto_id();
+		String imgName = photoVo.getStore_id() + "_" + System.currentTimeMillis();
 		
 			try {
 				photoVo.getPhotoFile().transferTo(new File(dir, imgName));
