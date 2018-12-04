@@ -7,26 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.dao.UserDaoInterface;
-import com.bit.ms.user.controller.UserRedundantLoginController;
 import com.bit.ms.user.model.UserVO;
-import com.bit.ms.user.service.UserRedundantLoginService;
 
 @Service
 public class KakaoLoginCheckService {
 
 	// 결과값 초기화
 	int result = 0;
-
-	@Autowired
-	private UserRedundantLoginService loginManager;
-
+	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	private UserDaoInterface userDaoInterface;
-	
-	@Autowired
-	private UserRedundantLoginController con;
 
 	// DB에서 카카오ID를 찾는다
 	public int getKakaoLogin(String id) {

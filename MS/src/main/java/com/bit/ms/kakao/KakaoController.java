@@ -18,13 +18,15 @@ import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserLoginService;
 
 @Controller
-public class KakaoLoginController {
+public class KakaoController {
 
 	@Autowired
 	KakaoLoginCheckService kakaoService;
 
 	@Autowired
 	UserLoginService userService;
+
+	JsonNode accessToken;
 
 	@RequestMapping(value = "/kakaologin", produces = "application/json", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam("code") String code, RedirectAttributes ra, HttpSession session,
@@ -37,7 +39,7 @@ public class KakaoLoginController {
 		// JsonNode트리형태로 토큰받아온다
 		JsonNode jsonToken = KakaoAccessToken.getAccessToken(code);
 		// 여러 json객체 중 access_token을 가져온다
-		JsonNode accessToken = jsonToken.get("access_token");
+		accessToken = jsonToken.get("access_token");
 
 		System.out.println("access_token : " + accessToken);
 
@@ -80,8 +82,8 @@ public class KakaoLoginController {
 					response.setContentType("text/html; charset=UTF-8");
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
-					out.println("alert('이메일 인증바랍니다.');");
-					out.println("location.href='/'");
+					out.println("alert('이메일 인증해주세요.');");
+					out.println("location.href='/MS'");
 					out.println("</script>");
 					out.flush();
 
@@ -93,5 +95,29 @@ public class KakaoLoginController {
 			}
 		}
 		return "redirect:/user/reg";
+	}
+
+	@RequestMapping(value = "/kakaologout", produces = "application/json", method = RequestMethod.GET)
+	public String kakaologout() {
+
+		JsonNode userInfo = KakaoLogout.kakaoUserLogout(accessToken);
+		// Get id
+		String id = userInfo.path("id").asText();
+		
+		System.out.println("로그아웃 아이디 : " + id);
+		System.out.println(accessToken);
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/kakaounlink", produces = "application/json", method = RequestMethod.GET)
+	public void kakaounlink() {
+
+		JsonNode userInfo = KakaoUnlink.kakaoUserUnlink(accessToken);
+		// Get id
+		String id = userInfo.path("id").asText();
+		
+		System.out.println("탈퇴 아이디 : " + id);
+		System.out.println(accessToken);
 	}
 }

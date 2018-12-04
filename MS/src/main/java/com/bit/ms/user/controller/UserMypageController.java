@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.ms.kakao.KakaoController;
+import com.bit.ms.kakao.KakaoUnlink;
 import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserMyPageService;
 
@@ -18,6 +20,9 @@ public class UserMypageController {
 	
 	@Autowired
 	UserMyPageService service;
+	
+	@Autowired
+	KakaoController kakaoController;
 	
 	@RequestMapping("/user/userMypage")
 	public String userMypage(HttpSession session, Model model) {
@@ -37,6 +42,9 @@ public class UserMypageController {
 		
 		String user_id = userVo.getUser_id();
 		service.deleteUser(user_id);
+		
+		//카카오 아이디 앱연동 해제(탈퇴)
+		kakaoController.kakaounlink();
 		
 		return "user/userMypage";
 	}

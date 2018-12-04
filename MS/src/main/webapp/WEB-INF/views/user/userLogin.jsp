@@ -147,9 +147,12 @@ body {
 					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
 				<div class="form-group">
-					<a id="kakaologin" href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/kakaologin&response_type=code">
+					<a id="kakaologin" href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/MS/kakaologin&response_type=code">
 						<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="100%" />
 					</a>
+				</div>
+				<div class="form-group">
+					<a href="/MS/kakaounlink">로그아웃 테스트</a>
 				</div>
 				<div class="form-group">
 					<div id="naver_id_login"></div>
