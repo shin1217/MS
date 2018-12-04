@@ -11,7 +11,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MS</title>
 <style>
-
 #write {
 	float: right;
 	margin: 20px;
@@ -38,7 +37,7 @@
 .userBoard_searchbar {
 	position: absolute;
 	bottom: 0px;
-	width: 400px;
+	width: 500px;
 }
 
 input { /* This styles the actual input box */
@@ -77,16 +76,19 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 			href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword=">
 			<b style="font-size: 30px;">[${storeSelectSession.store_name}] -
 				유저게시판</b>
-		</a><br><br> <a id="write" class="btn btn-outline-elegant waves-effect"
+		</a><br> <br> <a id="write"
+			class="btn btn-outline-elegant waves-effect"
 			href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
 
 		<div class="userBoard_searchbar">
 			<form method="get">
 				<table>
 					<tr>
-						<td ><input name="page" type="hidden" value="1" />
-						<input name="keyword" type="text" value="${param.keyword}" required><label>검색(제목+내용) + ENTER!!</label></td>
-						<td><input type="submit" value="검색" class="btn btn-outline-elegant waves-effect" /></td>
+						<td><input name="page" type="hidden" value="1" /> <input
+							name="keyword" type="text" value="${param.keyword}" required
+							style="width: 300px;"><label>검색(제목+내용) + ENTER!!</label></td>
+						<td><input type="submit" value="검색"
+							class="btn btn-outline-elegant waves-effect" /></td>
 					</tr>
 				</table>
 			</form>
@@ -108,38 +110,39 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 				<c:forEach var="userBoardVO" items="${userboardnotice}">
 					<tr style="background: #F2FCF6;">
 						<td style="text-align: center;">[공지]</td>
-						<td><a
-							href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}&keyword=${param.keyword}">${userBoardVO.uboard_title}</a></td>
+						<td style="cursor: pointer;"
+							onClick="location.href='${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}&keyword=${param.keyword}'">${userBoardVO.uboard_title}</td>
 						<td style="text-align: center;">${userBoardVO.writer_id}
 							[관리자]</td>
 						<td style="text-align: center;"><fmt:formatDate
 								value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 					</tr>
 				</c:forEach>
-				<c:if test='${userboardlist.userBoardList.isEmpty()}'>
-					<tr>
-						<td colspan="4"><h3 style="text-align: center;">작성된 게시글이
-								없습니다.</h3></td>
-					</tr>
-				</c:if>
-				<c:if test='${!userboardlist.userBoardList.isEmpty()}'>
-					<c:forEach var="userBoardVO" items="${userboardlist.userBoardList}">
+				<c:choose>
+					<c:when test="${userboardlist.userBoardList.isEmpty()}">
 						<tr>
-							<td style="text-align: center;">${userBoardVO.uboard_id}</td>
-							<td><a
-								href="${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}&keyword=${param.keyword}">${userBoardVO.uboard_title}</a></td>
-							<td style="text-align: center;">${userBoardVO.writer_id}<c:if
-									test='${storeSelectSession.admin_id == userBoardVO.writer_id}'>
-							   [관리자]
-							 </c:if></td>
-							<td style="text-align: center;"><fmt:formatDate
-									value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
+							<td colspan="4"><h3 style="text-align: center;">작성된
+									게시글이 없습니다.</h3></td>
 						</tr>
-					</c:forEach>
-				</c:if>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="userBoardVO"
+							items="${userboardlist.userBoardList}">
+							<tr>
+								<td style="text-align: center;">${userBoardVO.uboard_id}</td>
+								<td style="cursor: pointer;"
+									onClick="location.href='${pageContext.request.contextPath}/user/userBoard/view/${userBoardVO.uboard_id}?page=${pageNum}&keyword=${param.keyword}'">
+									${userBoardVO.uboard_title}</td>
+								<td style="text-align: center;">${userBoardVO.writer_id}<c:if
+										test='${storeSelectSession.admin_id == userBoardVO.writer_id}'>     [관리자]</c:if></td>
+								<td style="text-align: center;"><fmt:formatDate
+										value="${userBoardVO.uboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</tbody>
 		</table>
-
 
 		<!--Pagination 아래쪽 페이지 이동 -->
 		<nav class="d-flex justify-content-center mt-3"

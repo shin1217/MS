@@ -47,7 +47,7 @@ public class UserLoginController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseBody
-	public int userLoingPass(UserVO userVO, int store_id, HttpSession httpSession, HttpServletRequest request,
+	public int userLoingPass(UserVO userVO, HttpSession httpSession, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 
 		// userLogin.jsp에서 아이디기억하기 name값(remember) 가져오기
@@ -60,7 +60,7 @@ public class UserLoginController {
 		// 암호화 확인
 		System.out.println("user_pw : " + userVO.getUser_pw());
 		// 로그인 메서드
-		int result = login_service.userLogin_service(userVO, store_id, httpSession, user_check, response);
+		int result = login_service.userLogin_service(userVO, httpSession, user_check, response);
 
 		// 매장 리스트
 		login_service.getStoreOption();

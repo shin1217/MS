@@ -39,6 +39,7 @@ public interface UserDaoInterface {
 	StoreVO getUserStoreVO(int store_id); // 유저로그인한 스토어id로 스토어VO가져옴
 	int getKakaoId(String id); // 카카오id 존재여부 확인
 	UserVO getKakaoToInfo(String id); // 카카오id를 통해 아이디정보 가져옴
+	List<StoreVO> getStoreAllList(); //모든 매장 정보
 	
 	/* 유저게시판 */	
 	List<UserBoardVO> UserBoardSelectList(int store_id, String keyword, int firstRow);

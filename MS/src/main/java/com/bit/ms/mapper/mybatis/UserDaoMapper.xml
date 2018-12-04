@@ -108,4 +108,8 @@
 	<select id="getKakaoToInfo" resultType="userVO">
 		select * from userinfo where kakao_id = #{id}
 	</select>
+	<!-- 모든 매장 가지고옴 -->
+	<select id="getStoreAllList" resultType="StoreVO">
+		select * from store
+	</select>
 </mapper>

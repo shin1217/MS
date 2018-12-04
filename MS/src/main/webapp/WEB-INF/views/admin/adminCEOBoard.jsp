@@ -77,7 +77,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 				<table>
 					<tr>
 						<td ><input type="hidden" name="page" value="1" />
-						<input type="text" name="keyword" value="" required><label>검색(제목+내용) + ENTER!!</label></td>
+						<input type="text" name="keyword" value="" required style="width: 300px;"><label>검색(제목+내용) + ENTER!!</label></td>
 						<td><input type="submit" value="검색" class="btn btn-outline-elegant waves-effect" /></td>
 					</tr>
 				</table>

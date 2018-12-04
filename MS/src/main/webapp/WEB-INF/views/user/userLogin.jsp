@@ -104,7 +104,8 @@ body {
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn">
-				<div class="form-group">
+				
+<%-- 				<div class="form-group">
 					<c:if test="${!empty store_list2 }">
 						<select class="select_pick" id="store_id" name="store_id" required>
 								<option class="select_pick" value="-1" selected>매장을 선택해주세요</option>
@@ -113,7 +114,8 @@ body {
 							</c:forEach>
 						</select>
 					</c:if>
-				</div>
+				</div> --%>
+				
 				<div class="form-group">
 					<label class="font-weight-bold text-white" for="inputId">아이디</label>
 					<div>
@@ -198,10 +200,7 @@ body {
 				remember_userId : remember_us
 				},
 				success : function(data) {
-					if (data == -1) {
-						console.log(data);
-						$('#spanLoginCheck').text('매장을 선택해주세요!!');
-					} else if (data == 0) { //로그인 실패시
+					if (data == 0) { //로그인 실패시
 						console.log(data);
 						$('#spanLoginCheck').text('로그인 정보를 정확히 입력해주세요.');
 					} else if (data == -2) { //인증하지 않았다면?
@@ -212,7 +211,7 @@ body {
 						location.href = '${pageContext.request.contextPath}/user/redundant?user_Id=' + id + '&user_Pw=' + pw + '&store_Id=' + store + '&remember_userId=' + remember_us;						
 					} else { //로그인 성공시
 						console.log(data);
-						location.href = '${pageContext.request.contextPath}/user/main';
+						location.href = '${pageContext.request.contextPath}/user/storeChoice';
 					}
 				}
 			});

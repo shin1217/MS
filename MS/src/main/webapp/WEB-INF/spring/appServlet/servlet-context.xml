@@ -108,6 +108,7 @@
 			<exclude-mapping path="/user/mailCheck" />
 			<exclude-mapping path="/admin/storeChoice" />
 			<exclude-mapping path="/admin/adminSearch" />
+			<exclude-mapping path="/user/storeChoice" />			
 			<beans:bean
 				class="com.bit.ms.interceptor.AuthCheckInterceptor" />
 		</interceptor>
