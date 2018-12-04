@@ -96,13 +96,13 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 				</tr>
 			</thead>
 			<tbody>
-				<c:if test='${CEOBoard.isEmpty()}'>
+				<c:if test='${CEOBoard.ceoBoardList.isEmpty()}'>
 					<tr>
 						<td colspan="4"><h3 style="text-align: center;">작성된 게시글이 없습니다.</h3></td>
 					</tr>
 				</c:if>
-				<c:if test='${!CEOBoard.isEmpty()}'>
-					<c:forEach var="CEOBoardList" items="${CEOBoard}">
+				<c:if test='${!CEOBoard.ceoBoardList.isEmpty()}'>
+					<c:forEach var="CEOBoardList" items="${CEOBoard.ceoBoardList}">
 						<tr>
 							<td style="text-align: center;">${CEOBoardList.cboard_id}</td>
 							<td><a href="${pageContext.request.contextPath}/admin/CEOBoardView/view/${CEOBoardList.cboard_id}">${CEOBoardList.cboard_title}</a></td>
@@ -113,7 +113,118 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 				</c:if>
 			</tbody>
 		</table>
+	<!--Pagination 아래쪽 페이지 이동 -->
+		<nav class="d-flex justify-content-center mt-3"
+			style="padding-bottom: 20px">
+			<ul class="pagination pagination-circle pg-teal mb-0">
+				<!--가장맨앞으로-->
+				<%--<c:choose>
+					<c:when test="${param.page == 1}">
+						<li class="page-item"><a class="page-link">First</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link"
+							href="userBoard?page=1&keyword=${param.keyword}">First</a></li>
+					</c:otherwise>
+				</c:choose>
+
+				<!--페이지 한칸뒤로-->
+				<c:choose>
+					<c:when test="${param.page == 1}">
+						<li class="page-item"><a class="page-link" aria-label="Previous"> <span aria-hidden="true">Previous</span>
+							<span class="sr-only">Previous</span>
+						</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" aria-label="Previous" href="userBoard?page=${param.page-1}&keyword=${param.keyword}">
+							<span aria-hidden="true">Previous</span>
+							<span class="sr-only">Previous</span>
+						</a></li>
+					</c:otherwise>
+				</c:choose> --%>
+
+				<!-- 페이징처리 -->
+				<%-- <c:choose>
+					<c:when test="${userboardlist.pageTotalCount <= 7}"> --%>
+						<c:forEach var="num" begin="1" end="${CEOBoardList.pageTotalCount}">
+							<c:if test="${param.page == num}">
+								<li class="page-item active"><a class="page-link" href="CEOBoard?page=${num}">${num}</a></li>
+							</c:if>
+							<c:if test="${param.page != num}">
+								<li class="page-item"><a class="page-link" href="CEOBoard?page=${num}">${num}</a></li>
+							</c:if>
+						</c:forEach>
+					<%-- </c:when> --%>
+					<%--
+					<c:when test="${param.page <= 3}">
+						<c:forEach var="num" begin="1" end="7">
+							<c:if test="${param.page == num}">
+								<li class="page-item active"><a class="page-link"
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
+							</c:if>
+							<c:if test="${param.page != num}">
+								<li class="page-item"><a class="page-link"
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
+							</c:if>
+						</c:forEach>
+					</c:when>
+					<c:when test="${param.page  >= userboardlist.pageTotalCount - 3}">
+						<c:forEach var="num" begin="${userboardlist.pageTotalCount-6}"
+							end="${userboardlist.pageTotalCount}">
+							<c:if test="${param.page == num}">
+								<li class="page-item active"><a class="page-link"
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
+							</c:if>
+							<c:if test="${param.page != num}">
+								<li class="page-item"><a class="page-link"
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
+							</c:if>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="num" begin="${param.page - 3}"
+							end="${param.page + 3}">
+							<c:if test="${param.page == num}">
+								<li class="page-item active"><a class="page-link"
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
+							</c:if>
+							<c:if test="${param.page != num}">
+								<li class="page-item"><a class="page-link"
+									href="userBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
+							</c:if>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>ㅊㅊ
+
+				<!--페이지 한칸앞으로-->
+				<%-- <c:choose>
+					<c:when test="${userboardlist.pageTotalCount == param.page}">
+						<li class="page-item"><a class="page-link" aria-label="Next">
+								<span aria-hidden="true">Next</span> <span class="sr-only">Next</span>
+						</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" aria-label="Next"
+							href="userBoard?page=${param.page+1}&keyword=${param.keyword}">
+								<span aria-hidden="true">Next</span> <span class="sr-only">Next</span>
+						</a></li>
+					</c:otherwise>
+				</c:choose>
+
+				<!--가장맨앞으로-->
+				<c:choose>
+					<c:when test="${userboardlist.pageTotalCount == param.page}">
+						<li class="page-item"><a class="page-link">Last</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link"
+							href="userBoard?page=${userboardlist.pageTotalCount}&keyword=${param.keyword}">Last</a></li>
+					</c:otherwise>
+				</c:choose> --%>
+
+
+			</ul>
+		</nav>
 	</div>
-	
 </body>
 </html>

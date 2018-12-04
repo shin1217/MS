@@ -5,8 +5,7 @@
 
 <!-- CEO Board 게시글 List -->
 <select id="contentList" resultType="AdminBoardVO">
-	select * from ceoboard order by cboard_id desc
-
+	select * from ceoboard order by cboard_id desc limit #{firstRow}, 10;
 </select>
 
 <!-- CEO Board 작성 게시글 등록 -->
@@ -28,5 +27,10 @@
 <update id="contentModi" parameterType="AdminBoardVO">
 	update ceoboard set cboard_title = #{cboard_title}, cboard_con = #{cboard_con} where cboard_id = #{cboard_id}
 </update>
+
+<!-- CEO Board 게시글 갯수 구하기 (10개씩 담을 예정)-->
+<select id="CEOBOardTotalCount" resultType="int">
+	select count(*) from ceoboard
+</select>
 
 </mapper>

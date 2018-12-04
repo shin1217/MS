@@ -51,11 +51,13 @@ public interface AdminDaoInterface {
 	void deleteReply(int id) throws Exception;
 	
 	/*CEO게시판*/
-	List<AdminBoardVO> contentList(); // CEO 게시판 리스트
+	List<AdminBoardVO> contentList(int firstRow); // CEO 게시판 리스트
 	int CEOWriteReg(AdminBoardVO ceoBoardVO); // CEO 게시판 게시글 등록
 	AdminBoardVO contentView(int cboard_id); // CEO 게시글 읽기
-	int contentDel(int cboard_id);
-	int contentModi(AdminBoardVO ceoVO);
+	int contentDel(int cboard_id); // 게시글 삭제하기
+	int contentModi(AdminBoardVO ceoVO); // 게시글 수정하기
+		/*CEO게시판 페이징 처리*/
+	int CEOBOardTotalCount ();
 	
 	/*회원리스트 관련*/
 	List<UserVO> getUserList();//회원리스트 전체 출력

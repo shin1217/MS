@@ -1,11 +1,15 @@
 package com.bit.ms.admin.service;
 
+import java.util.Collections;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bit.ms.admin.model.AdminBoardListVO;
 import com.bit.ms.admin.model.AdminBoardVO;
 import com.bit.ms.dao.AdminDaoInterface;
 
@@ -16,14 +20,54 @@ public class AdminCEOBoardService {
 	private SqlSessionTemplate sqlSession;
 	private AdminDaoInterface adminDao;
 	
+	// 페이지 마다 보여줄 게시글의 갯수
+	private static final int CEOBOARD_COUNT_PER_PAGE = 10;
 	// 게시글 리스트 불러는 메서드
-	public List<AdminBoardVO> cBoardContentList() {
+	public AdminBoardListVO cBoardContentList(HttpServletRequest request) {
 		
 		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
+		String pageParam = request.getParameter("page");
+		int currentPageNum = 1;
 		
-		return adminDao.contentList();
+		// int형으로 안 받아지기 때문에 String 값으로 받은 뒤 형변환을 해주었다.
+		if(pageParam != null) {
+			currentPageNum = Integer.parseInt(pageParam);
+		}
+		// 총 페이지 수
+		int ceoBoardTotalCount = 0;
+		List<AdminBoardVO> ceoBoardList = null;
+		int firstRow = 0;
+		
+		System.out.println("서비스는 나오지?");
+		
+		try{
+			// 전체 게시글 구하기
+			ceoBoardTotalCount = adminDao.CEOBOardTotalCount();
+			
+			if(ceoBoardTotalCount > 0) {
+				// mysql은 0열부터 시작 -1을 해줌
+				firstRow = (currentPageNum - 1) * CEOBOARD_COUNT_PER_PAGE;
+				ceoBoardList = adminDao.contentList(firstRow);
+				
+				System.out.println("1" + ceoBoardList);
+				
+			} else { // 없을 경우
+				ceoBoardList = Collections.emptyList();
+				System.out.println("2" + ceoBoardList);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 페이지 수(나눌때 정확한 값을 얻기 위해 double로 형변환)
+		int ceoBoardPageTotalCount = (int) Math.ceil(ceoBoardTotalCount / (double) CEOBOARD_COUNT_PER_PAGE);
+		System.out.println("CEOboardService 진입 - 페이지 수 :" + ceoBoardPageTotalCount);
+		
+		return new AdminBoardListVO(ceoBoardTotalCount, currentPageNum, ceoBoardList, ceoBoardPageTotalCount, CEOBOARD_COUNT_PER_PAGE, firstRow);
 	}
 	
+
 	// 게시글 작성 메서드
 	public int CEOBoardWrite(AdminBoardVO ceoBoardVO) {
 		
@@ -36,6 +80,7 @@ public class AdminCEOBoardService {
 		return result;
 	}
 	
+	
 	// 게시글 내용 보기 메서드
 	public AdminBoardVO cBoardContent(int cboard_id) {
 		
@@ -45,6 +90,7 @@ public class AdminCEOBoardService {
 		return adminDao.contentView(cboard_id);
 	}
 	
+
 	// 게시글 지우기
 	public int CEOBoardDeleteService(int cboard_id) {
 		
@@ -52,6 +98,7 @@ public class AdminCEOBoardService {
 		
 		return adminDao.contentDel(cboard_id);
 	}
+	
 	
 	// 게시글 수정하기
 	public int modifyCEOBoardContent(AdminBoardVO ceoVO) {

@@ -90,7 +90,7 @@ body {
 				<label for="admin_name">이름</label> <input type="text"
 					class="form-control" id="admin_name" name="admin_name"
 					placeholder="Name">
-				<div class="check_font" id="name_check">confirm message</div>
+				<div class="check_font" id="name_check"></div>
 			</div>
 			<!-- 휴대전화 -->
 			<div class="form-group">
