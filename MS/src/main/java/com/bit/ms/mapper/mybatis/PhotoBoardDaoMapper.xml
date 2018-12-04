@@ -17,8 +17,8 @@
 		insert into photoboard(photo_title, photo_con, store_id, photo_upid) values (#{photo_title}, #{photo_con}, #{store_id}, #{photo_upid}) 
 	</insert>
 	<!-- 사진등록 -->
-	<update id="writePhotoComplete">
-		update photoboard set photo_file = #{photo_file} 
+	<update id="writePhotoComplete" parameterType="hashmap">
+		update photoboard set photo_file = #{photo_file} where photo_id = #{photo_id}
 	</update>
 	<select id="getPhotoViewI" resultType="photoVO">
 		select * from photoboard where photo_id = #{photo_id}

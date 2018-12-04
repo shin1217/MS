@@ -8,11 +8,12 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<div class = "container">
-	<div class = "photoHeader">
+<div class = "container"><br>
+	<div class = "photoHeader" style = "position : relative">
+	<b style = "font-size : 30px; margin-top : 10px;">[${storeSelectSession.store_name}] - Photo게시판</b>
 		<a id="write" class="btn btn-outline-elegant waves-effect"
-			href="${pageContext.request.contextPath}/member/photoBoard/write">글쓰기</a>
-		<div><h3>${viewData.photo_title}</h3></div><hr>
+			href="${pageContext.request.contextPath}/member/photoBoard/write" style = "position : absolute; right : 0px; top : 0px;">글쓰기</a>
+		<hr><div><h3>${viewData.photo_title}</h3></div>
 		<div id = "photo_id" style = "float : left;">글번호 : ${viewData.photo_id}</div>
 		<div style = "float : right;">&nbsp 등록시간 : <fmt:parseDate value="${viewData.photo_date}" pattern="yyyy-MM-dd HH:mm" var = "date" />
 		<fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm" /></div>
@@ -22,12 +23,12 @@
 		<div><img src = "${pageContext.request.contextPath}/images/photoboard/${viewData.photo_file}" style = "width : 350px; height : 350px;"></div><br>
 		<div>${viewData.photo_con}</div><hr>
 	</div>
-	<div id = "btnDiv">
+	<div id = "btnDiv" style = "float : right;">
 		<c:if test="${userSession.user_id == viewData.photo_upid || adminSession == viewData.photo_upid}">
 		<button type="button" class="btn btn-dark" data-toggle="modal"	data-target="#modalPhotoBoardDeleteForm">삭제</button>
 		<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/member/photoBoard/modify/${viewData.photo_id}'">수정</button></c:if>
 		<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/member/photoBoard?page=1'">목록</button>
-	</div>
+	</div><br>
 	<div id = reply>
 		<!-- 댓글  -->
 		<section class="comments my-5"> <!-- 코멘트 총개수 -->

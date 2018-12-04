@@ -53,7 +53,7 @@ public class MemberPhotoService {
 			photoList = Collections.emptyList();
 		}
 		
-		return new PhotoBoardListVO(currentPageNum, photoTotalCount, photoList, NOTICE_COUNT_PER_PAGE, firstRow);
+		return new PhotoBoardListVO(photoTotalCount, currentPageNum, photoList, NOTICE_COUNT_PER_PAGE, firstRow);
 	}
 	//게시물 등록
 	public int writePhotoS(PhotoBoardVO photoVo, HttpServletRequest request) {
@@ -80,7 +80,10 @@ public class MemberPhotoService {
 			}
 		// 사진을 db에 업데이트
 		}
-		return memberDao.writePhotoComplete(photoVo.getPhoto_file());
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("photo_file", photoVo.getPhoto_file());
+		map.put("photo_id", Integer.toString(photoVo.getPhoto_id()));
+		return memberDao.writePhotoComplete(map);
 	}
 	public PhotoBoardVO getPhotoViewS(int photo_id) {
 		

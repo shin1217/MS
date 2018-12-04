@@ -28,7 +28,7 @@ public interface MemberDaoInterface {
 		int pageCount(int store_id); // 총 페이지 카운트
 		List<PhotoBoardVO> selectList(int store_id, int firstlow); // 사진 리스트 뽑아오기
 		int writePhotoI(PhotoBoardVO photoVo); // 사진을 제외한 등록
-		int writePhotoComplete(String photo_file); // 사진등록 
+		int writePhotoComplete(HashMap<String,String> map); // 사진등록 
 		PhotoBoardVO getPhotoViewI(int photo_id); // 사진 상세보기
 		int deletePhotoI(int photo_id); // 사진삭제
 		int modifyPhotoI(HashMap<String, String> map); //사진 수정
