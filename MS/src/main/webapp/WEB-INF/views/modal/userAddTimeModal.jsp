@@ -100,7 +100,7 @@
 		</h3>
 		<button id="usingSeatChangeBtn" class="add_time_btn">자리이동</button>
 		
-		<div id="seatList" class="seat_list"></div>
+		<div class="seat_list"></div>
 		
 	</div>
 </div>

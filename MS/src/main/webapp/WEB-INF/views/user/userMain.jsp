@@ -168,7 +168,7 @@ html, body {
 			<div class="content_text">자리선택</div>
 			<hr>
 			<div class="content_text"><span id="useCnt">0</span> / <span id="totalCnt">0</span></div>
-			<div id="seatList" class="seat_list"></div>
+			<div class="seat_list"></div>
 		</div>
 
 		<div class="center_area">
@@ -240,7 +240,7 @@ html, body {
 					}
 				}
 				$('#useCnt').text(useCnt); // 현재 사용 중인 컴퓨터 수 변경
-				$('#seatList').html(str);
+				$('.seat_list').html(str); // 자리 변경 modal창의 테이블과 같이 업데이트
 				
 				if(userId != null){
 					var min = Math.floor(userTime/60); // 분 계산
@@ -386,7 +386,7 @@ html, body {
 	
 	/* 좌석 선택 처리 */
 	function seatChoise(e, seatId) {
-		$('#seatList > div').each(function (index, item) {
+		$('.seat_list > div').each(function (index, item) {
 			choiseProcess(seatId, item, e, 'seat');
 		});
 	}
