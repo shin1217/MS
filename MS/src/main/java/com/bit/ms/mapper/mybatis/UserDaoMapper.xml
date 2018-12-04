@@ -104,4 +104,8 @@
 	<select id="getKakaoId" resultType="int">
 		select count(*) from userinfo where kakao_id = #{id}
 	</select>
+	<!-- 카카오 아이디를 통해 유저정보 검색 -->
+	<select id="getKakaoToInfo" resultType="userVO">
+		select * from userinfo where kakao_id = #{id}
+	</select>
 </mapper>
