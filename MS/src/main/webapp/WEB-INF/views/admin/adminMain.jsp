@@ -307,8 +307,6 @@
 			} // end success
 		}); // end ajax
 		
-		
-		
 		/* Main 충전 버튼 */
 		$('#showAddTimeModalBtn').on('click', function () {
 			var seatId = $('.selected').attr('id');

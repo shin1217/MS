@@ -20,11 +20,6 @@ public class AdminProductService {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		return adminDao.insertFood(foodVO);
 	}
-	
-	public int updateImg(String foodPhoto, int foodId, int storeId) {
-		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		return adminDao.updateImg(foodPhoto, foodId, storeId);
-	}
 
 	public int updateFood(FoodVO foodVO) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);

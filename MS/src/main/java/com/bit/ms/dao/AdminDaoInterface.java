@@ -91,7 +91,6 @@ public interface AdminDaoInterface {
 	
 	/* 상품관리 */
 	int insertFood(FoodVO foodVO);
-	int updateImg(String foodPhoto, int foodId, int storeId);
 	int updateFood(FoodVO foodVO);
 	int deleteFood(int foodId, int storeId);
 	List<FoodVO> getFoodInfoAll(int storeId);

@@ -455,7 +455,8 @@ html, body {
 	function createTable(foodId, foodType, foodPhoto, foodName, foodPrice) {
 		
 		var str = '<div style="padding-top: 2%" class="food_info_wrap" onclick="selectedMenu(' + foodId + ', ' + foodType + ', '+ foodPrice + ', ' + "'" + foodName + "'" + ')">';
-		str += '<img src="../images/'+ foodType +'/'+ foodPhoto + '"/>';
+		str += '<img src="http://52.79.242.155:8080/FileServer/resources/foodImg/'+ foodType +'/'+ foodPhoto + '"/>';
+		/* str += '<img src="../resources/foodImg/'+ foodType +'/'+ foodPhoto + '"/>'; */
 		str += '<div style="height: 50%; padding-top: 10%">';
 		str += '<div>'+ foodName +'</div>';
 		str += '<div>'+ numberWithCommas(foodPrice) +'</div>';

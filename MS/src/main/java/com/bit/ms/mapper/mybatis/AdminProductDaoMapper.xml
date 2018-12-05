@@ -4,16 +4,10 @@
 <mapper namespace="com.bit.ms.dao.AdminDaoInterface">	
 	
 	<!-- 음식 추가(사진은 업데이트를 통해 저장) -->
-	<insert id="insertFood" parameterType="FoodVO" useGeneratedKeys="true" keyProperty="food_id">
-		insert into food (food_type, food_name, food_price, food_stock, store_id)
-		values (#{food_type}, #{food_name}, #{food_price}, #{food_stock}, #{store_id})
+	<insert id="insertFood" parameterType="FoodVO">
+		insert into food (food_type, food_name, food_photo, food_price, food_stock, store_id)
+		values (#{food_type}, #{food_name}, #{food_photo}, #{food_price}, #{food_stock}, #{store_id})
 	</insert>
-	
-	<!-- 음식 이미지 추가 -->
-	<update id="updateImg" parameterType="map">
-		update food set food_photo=#{param1}
-		where food_id=#{param2} and store_id=#{param3}
-	</update>
 	
 	<!-- 음식 정보 수정 -->
 	<update id="updateFood" parameterType="FoodVO">

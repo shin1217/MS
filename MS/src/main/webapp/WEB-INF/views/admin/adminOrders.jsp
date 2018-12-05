@@ -34,7 +34,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container">
 		<div class="title_text">[${storeSelectSession.store_name}] - 상품 관리</div>
-		<form action="insertFood" method="post" enctype="multipart/form-data" onsubmit="return registerFood()">
+		<form action="insertFood" id="addForm"  method="POST"  enctype="multipart/form-data">
 		<table id="addTable" class="table table-bordered table-hover table-striped">
 			<thead class="thead-dark">
 				<tr>
@@ -64,10 +64,13 @@
 					<td><input type="text" name="food_name" placeholder="ex) 콜라"/></td>
 					<td><input type="text" name="food_price" placeholder="ex) 3000" style="width: 80%; margin-right: 5px"/>원</td>
 					<td><input type="text" name="food_stock" placeholder="ex) 50" style="width: 80%; margin-right: 5px"/>개</td>
-					<td><input type="file" name="report"/></td>				
+					<td>
+						<input type="file" name="report"/>
+						<input type="hidden" name="food_photo"> <!-- 커맨드 객체를 위한 폼 -->
+					</td>				
 					<td>
 						<input type="hidden" name="store_id" value="${storeSelectSession.store_id }"/>
-						<input type="submit" value="등록"/>
+						<input type="button" value="등록" onclick="insertFood()"/>
 						<input type="button" value="초기화" id="resetBtn"/>
 					</td>
 				</tr>
@@ -103,7 +106,7 @@
 		}); // end document.ready
 		
 		/* 등록 버튼 */
-		function registerFood(){
+		function insertFood(){
 			if(!invalidCheck('addTable', 'X')){ // 유효성 통과 못할 시
 				return false;
 			}
@@ -112,19 +115,45 @@
 			if(!registerConfirm){
 				return false;
 			}
-			return true;
+			
+			var formData = new FormData($('#addForm')[0]);
+			
+			 $.ajax({
+                 async : false,
+                 type : 'POST',
+               	 url : 'http://52.79.242.155:8080/FileServer/uploadFile/food',
+                 data : formData,
+                 processData : false,
+                 contentType : false,
+                 
+                 success : function(data) {
+                	$('#addTable input[name=food_photo]').val(data); // hidden form에 파일 이름 저장
+                	$('#addForm').submit();
+                 }
+			 });
 		}		
 		
 		/* 삭제 버튼 */
 		function deleteFood(id, foodName, fileName){
+			
 			$.ajax({
-				url: '${pageContext.request.contextPath}/admin/deleteFood?storeId=${storeSelectSession.store_id}&foodId='+id+'&fileName='+fileName,
-				type: 'get',
-					
-				success:function(){
-					getFoodList();
-				}
-			}); // end ajax
+                async : false,
+                type : 'get',
+              	url : 'http://52.79.242.155:8080/FileServer/deleteFile/food?fileName='+fileName,
+                processData : false,
+                contentType : false,
+                
+                success : function(data) {
+                	$.ajax({
+        				url: '${pageContext.request.contextPath}/admin/deleteFood?storeId=${storeSelectSession.store_id}&foodId='+id,
+        				type: 'get',
+        					
+        				success:function(){
+        					getFoodList();
+        				}
+        			}); // end ajax
+                }
+			 });
 		}
 		
 		/* 수정 버튼 */
