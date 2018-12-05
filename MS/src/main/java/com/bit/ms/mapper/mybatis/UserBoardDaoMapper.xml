@@ -66,8 +66,7 @@
 
 	<select id="getNextNUM" resultType="int">
 
-		select
-		ifnull(min(uboard_id),0) from userboard where uboard_id>#{uboard_id}
+		select ifnull( min( uboard_id ), -1 ) from userboard where uboard_id>#{uboard_id}
 		and store_id=#{store_id}
 		and (uboard_con like
 		CONCAT('%',#{keyword},'%') or uboard_title like
@@ -77,8 +76,7 @@
 
 	<select id="getPreviousNUM" resultType="int">
 
-		select ifnull( max( uboard_id ), 0 )
-		from userboard where
+		select ifnull( max( uboard_id ), -1 ) from userboard where
 		store_id=#{store_id} and <![CDATA[uboard_id < #{uboard_id}]]>
 		and (uboard_con like CONCAT('%',#{keyword},'%') or uboard_title like
 		CONCAT('%',#{keyword},'%'))

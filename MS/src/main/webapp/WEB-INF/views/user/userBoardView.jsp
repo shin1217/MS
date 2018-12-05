@@ -99,7 +99,7 @@
 	<div class="container">
 		<div class="buttonsLeft">
 			<c:choose>
-				<c:when test="${previousnum==0}">
+				<c:when test="${previousnum==-1}">
 					<!-- <button type="button" class="btn btn-outline-elegant waves-effect">없음</button> -->
 				</c:when>
 				<c:otherwise>
@@ -108,7 +108,7 @@
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
-				<c:when test="${nextnum==0}">
+				<c:when test="${nextnum==-1}">
 					<!-- <button type="button" class="btn btn-outline-elegant waves-effect">없음</button> -->
 				</c:when>
 				<c:otherwise>
