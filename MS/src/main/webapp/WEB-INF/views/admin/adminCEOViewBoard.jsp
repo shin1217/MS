@@ -51,9 +51,9 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container" style="overflow: hidden; position: relative;">
-		<br> <a class="nav-link, hypertext_none" href="${pageContext.request.contextPath}/admin/CEOBoard">
-			<b style="font-size: 30px;">CEO게시판</b>
-		</a><br><br> <a id="write" class="btn btn-outline-elegant waves-effect" href="${pageContext.request.contextPath}/admin/CEOBoardWrite">글쓰기</a>
+		<br> <a class="nav-link, hypertext_none" href="${pageContext.request.contextPath}/admin/CEOBoard?page=1&keyword=">
+			<b style="font-size: 30px;">CEO게시판</b></a><br><br>
+			<a id="write" class="btn btn-outline-elegant waves-effect" href="${pageContext.request.contextPath}/admin/CEOBoardWrite">글쓰기</a>
 	</div>
 
 	<!-- 게시글  -->
@@ -82,13 +82,33 @@
 			</tr>
 		</tbody>
 	</table>
-<div class="container">	
+	<div class="container">
+		<div class="buttonsLeft">
+			<c:choose>
+				<c:when test="${preNum == -1}">
+					<!-- <button type="button" class="btn btn-outline-elegant waves-effect">없음</button> -->
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-outline-elegant waves-effect"
+						onclick="location.href='${pageContext.request.contextPath}/admin/CEOBoardView/view/${preNum}?page=${param.page}&keyword=${param.keyword}'">이전</button>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${nextNum == -1}">
+					<!-- <button type="button" class="btn btn-outline-elegant waves-effect">없음</button> -->
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-outline-elegant waves-effect"
+						onclick="location.href='${pageContext.request.contextPath}/admin/CEOBoardView/view/${nextNum}?page=${param.page}&keyword=${param.keyword}'">다음</button>
+				</c:otherwise>
+			</c:choose>
+		</div>
 	<div class="buttonsRight">
 			<c:if test="${sessionScope.adminSession.admin_id == CEOBoard_view.writer_cid}">
 				<button type="button" class="btn btn-dark" data-toggle="modal"	data-target="#CEOBoardDelete">삭제</button>
-				<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/admin/CEOBoard/modify/${CEOBoard_view.cboard_id}'">수정</button>
+				<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/admin/CEOBoard/modify/${CEOBoard_view.cboard_id}?page=${param.page }&keyword=${param.keyword }'">수정</button>
 			</c:if>
-			<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/admin/CEOBoard'">목록</button>
+			<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/admin/CEOBoard?page=${param.page }&keyword=${param.keyword }'">목록</button>
 	</div>
 </div>
 <!-- 게시글 삭제확인 모달 -->

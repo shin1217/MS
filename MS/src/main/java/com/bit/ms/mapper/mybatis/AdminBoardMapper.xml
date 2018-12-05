@@ -4,8 +4,9 @@
 <mapper namespace="com.bit.ms.dao.AdminDaoInterface">
 
 <!-- CEO Board 게시글 List -->
-<select id="contentList" resultType="AdminBoardVO">
-	select * from ceoboard order by cboard_id desc limit #{firstRow}, 10;
+<select id="contentList" parameterType="map" resultType="AdminBoardVO">
+	select * from ceoboard where (cboard_con like CONCAT('%',#{param2},'%') or cboard_title like
+		CONCAT('%',#{param2},'%')) order by cboard_id desc limit #{param1}, 10;
 </select>
 
 <!-- CEO Board 작성 게시글 등록 -->
@@ -28,9 +29,20 @@
 	update ceoboard set cboard_title = #{cboard_title}, cboard_con = #{cboard_con} where cboard_id = #{cboard_id}
 </update>
 
-<!-- CEO Board 게시글 갯수 구하기 (10개씩 담을 예정)-->
+<!-- CEO Board 게시글 페이징-->
 <select id="CEOBOardTotalCount" resultType="int">
-	select count(*) from ceoboard
+	select count(*) from ceoboard where (cboard_con like CONCAT('%',#{keyword},'%') or cboard_title like CONCAT('%',#{keyword},'%'))
 </select>
+
+<!-- CEO Board View 내 페이징(이전 / 다음) -->
+<select id="getPreviousPage" resultType="int">
+	select ifnull(max(cboard_id),-1) from ceoboard where <![CDATA[cboard_id < #{cboard_id}]]>
+	and (cboard_con like CONCAT('%',#{keyword},'%') or cboard_title like CONCAT('%',#{keyword},'%'))
+</select>
+<select id="getNextPage" resultType="int">
+select ifnull(min(cboard_id),-1) from ceoboard where cboard_id > #{cboard_id}
+	and (cboard_con like CONCAT('%',#{keyword},'%') or cboard_title like CONCAT('%',#{keyword},'%'))
+</select>
+
 
 </mapper>

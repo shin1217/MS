@@ -23,10 +23,10 @@ public class AdminCEOBoardService {
 	// 페이지 마다 보여줄 게시글의 갯수
 	private static final int CEOBOARD_COUNT_PER_PAGE = 10;
 	// 게시글 리스트 불러는 메서드
-	public AdminBoardListVO cBoardContentList(HttpServletRequest request) {
+	public AdminBoardListVO cBoardContentList(HttpServletRequest request, String keyword) {
 		
 		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
-		String pageParam = request.getParameter("page");
+		String pageParam = request.getParameter("page"); // keyword와 같이 param 이지만 다르게 받음
 		int currentPageNum = 1;
 		
 		// int형으로 안 받아지기 때문에 String 값으로 받은 뒤 형변환을 해주었다.
@@ -42,12 +42,12 @@ public class AdminCEOBoardService {
 		
 		try{
 			// 전체 게시글 구하기
-			ceoBoardTotalCount = adminDao.CEOBOardTotalCount();
+			ceoBoardTotalCount = adminDao.CEOBOardTotalCount(keyword);
 			
 			if(ceoBoardTotalCount > 0) {
 				// mysql은 0열부터 시작 -1을 해줌
 				firstRow = (currentPageNum - 1) * CEOBOARD_COUNT_PER_PAGE;
-				ceoBoardList = adminDao.contentList(firstRow);
+				ceoBoardList = adminDao.contentList(firstRow, keyword);
 				
 				System.out.println("1" + ceoBoardList);
 				
@@ -90,7 +90,38 @@ public class AdminCEOBoardService {
 		return adminDao.contentView(cboard_id);
 	}
 	
+	// view 페이지에서 페이지 이동
+	public int previousPageMove(int cboard_id, String keyword) {
+		
+		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
+		// 첫번째 게시글 0
+		int num = 0;
+		
+		try {
+			num = adminDao.getPreviousPage(cboard_id, keyword);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return num;
+	}
 
+	public int nextPageMove(int cboard_id, String keyword) {
+		
+		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
+		
+		int num = 0;
+		
+		try {
+			num = adminDao.getNextPage(cboard_id, keyword);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return num;
+	}
+	
 	// 게시글 지우기
 	public int CEOBoardDeleteService(int cboard_id) {
 		

@@ -3,12 +3,14 @@ package com.bit.ms.admin.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.admin.model.AdminBoardListVO;
@@ -24,9 +26,10 @@ public class AdminCEOBoardController {
 	
 	// CEO게시판 게시글 리스트
 	@RequestMapping(value = "/admin/CEOBoard", method = RequestMethod.GET)
-	public ModelAndView adminCEOBoard(HttpServletRequest request) {
+	public ModelAndView adminCEOBoard(HttpServletRequest request,
+			@RequestParam("keyword")String keyword) {
 		
-		AdminBoardListVO CEOBoardList = CEOBoardService.cBoardContentList(request);
+		AdminBoardListVO CEOBoardList = CEOBoardService.cBoardContentList(request, keyword);
 		System.out.println("컨트롤러 : " + CEOBoardList);
 		
 		ModelAndView mav = new ModelAndView();
@@ -61,31 +64,35 @@ public class AdminCEOBoardController {
 	
 	// 게시글 내용 보기
 	@RequestMapping(value = "/admin/CEOBoardView/view/{cboard_id}", method = RequestMethod.GET)
-	public ModelAndView CEOBoardView(@PathVariable("cboard_id") int cboard_id) {
+	public ModelAndView CEOBoardView(@PathVariable("cboard_id") int cboard_id,
+			@RequestParam("keyword")String keyword) {
 		
 		System.out.println("게시글 내용 : 컨트롤러 진입");
 		
 		// 게시글 VO 객체명 생성
 		AdminBoardVO ceoBoardVO = CEOBoardService.cBoardContent(cboard_id);
+		int preNum = CEOBoardService.previousPageMove(cboard_id, keyword);
+		int nextNum = CEOBoardService.nextPageMove(cboard_id, keyword);
 		
 		// 게시글VO ModelAndView 객체에 담기
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/adminCEOViewBoard");
 		mav.addObject("CEOBoard_view", ceoBoardVO);
+		mav.addObject("preNum", preNum);
+		mav.addObject("nextNum", nextNum);
 		
 		return mav;
 	}
+		
 	
 	// 게시글 지우기
 	@RequestMapping(value = "/admin/CEOBoardView/delete/{cboard_id}", method = RequestMethod.GET)
-	public String CEOBoardDelete(@PathVariable("cboard_id")int cboard_id, Model moel) {
+	public String CEOBoardDelete(@PathVariable("cboard_id")int cboard_id) {
 		// 번호 들어오는지 확인
 		System.out.println(cboard_id);
 		CEOBoardService.CEOBoardDeleteService(cboard_id);
 		
-		
-		
-		return "redirect:/admin/CEOBoard";
+		return "redirect:/admin/CEOBoard?page=1&keyword=";
 	}
 	
 	// 게시글 수정 폼 연결 컨트롤러
@@ -104,14 +111,14 @@ public class AdminCEOBoardController {
 	// 게시글 수정 확인 컨트롤러
 	@RequestMapping(value = "/admin/CEOBoard/modify/{cboard_id}", method = RequestMethod.POST)
 	public String CEOBoardModiSuccess(@PathVariable("cboard_id")int cboard_id,
-			AdminBoardVO ceoVO) {
+			@RequestParam("page")int page, AdminBoardVO ceoVO) {
 		
 		
 		System.out.println("게시판 수정 확인 : 컨트롤러 진입");
 		
 		CEOBoardService.modifyCEOBoardContent(ceoVO);
 		
-		return "redirect:/admin/CEOBoardView/view/" + cboard_id;
+		return "redirect:/admin/CEOBoardView/view/"+ cboard_id +"?page="+ page +"&keyword=";
 	}
 	
 }

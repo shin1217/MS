@@ -77,14 +77,13 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 				<table>
 					<tr>
 						<td ><input type="hidden" name="page" value="1" />
-						<input type="text" name="keyword" value="" required style="width: 300px;"><label>검색(제목+내용) + ENTER!!</label></td>
+						<input type="text" style="width: 300px;" name="keyword" value="${param.keyword }"><label>검색(제목+내용) + ENTER!!</label></td>
 						<td><input type="submit" value="검색" class="btn btn-outline-elegant waves-effect" /></td>
 					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
-	
 	<div class="container">
 		<table class="table">
 			<thead>
@@ -105,7 +104,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 					<c:forEach var="CEOBoardList" items="${CEOBoard.ceoBoardList}">
 						<tr>
 							<td style="text-align: center;">${CEOBoardList.cboard_id}</td>
-							<td><a href="${pageContext.request.contextPath}/admin/CEOBoardView/view/${CEOBoardList.cboard_id}">${CEOBoardList.cboard_title}</a></td>
+							<td><a href="${pageContext.request.contextPath}/admin/CEOBoardView/view/${CEOBoardList.cboard_id}?page=${param.page}&keyword=${param.keyword}">${CEOBoardList.cboard_title}</a></td>
 							<td style="text-align: center;">${CEOBoardList.writer_cid}</td>
 							<td style="text-align: center;"><fmt:formatDate	value="${CEOBoardList.cboard_date}" pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>
@@ -123,7 +122,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 						<li class="page-item"><a class="page-link">First</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="CEOBoard?page=1">First</a></li>
+						<li class="page-item"><a class="page-link" href="CEOBoard?page=1&keyword=${param.keyword}">First</a></li>
 					</c:otherwise>
 				</c:choose>
 
@@ -135,7 +134,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 						</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" aria-label="Previous" href="CEOBoard?page=${param.page-1}">
+						<li class="page-item"><a class="page-link" aria-label="Previous" href="CEOBoard?page=${param.page-1}&keyword=${param.keyword}">
 							<span aria-hidden="true">Previous</span>
 							<span class="sr-only">Previous</span>
 						</a></li>
@@ -147,20 +146,20 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 					<c:when test="${CEOBoard.pageTotalCount <= 7}">
 						<c:forEach var="num" begin="1" end="${CEOBoard.pageTotalCount}">
 							<c:if test="${param.page == num}">
-								<li class="page-item active"><a class="page-link" href="CEOBoard?page=${num}">${num}</a></li>
+								<li class="page-item active"><a class="page-link" href="CEOBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 							<c:if test="${param.page != num}">
-								<li class="page-item"><a class="page-link" href="CEOBoard?page=${num}">${num}</a></li>
+								<li class="page-item"><a class="page-link" href="CEOBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 						</c:forEach>
 					</c:when>
 					<c:when test="${param.page <= 3}">
 						<c:forEach var="num" begin="1" end="7">
 							<c:if test="${param.page == num}">
-								<li class="page-item active"><a class="page-link" href="CEOBoard?page=${num}">${num}</a></li>
+								<li class="page-item active"><a class="page-link" href="CEOBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 							<c:if test="${param.page != num}">
-								<li class="page-item"><a class="page-link" href="CEOBoard?page=${num}">${num}</a></li>
+								<li class="page-item"><a class="page-link" href="CEOBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 						</c:forEach>
 					</c:when>
@@ -168,10 +167,10 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 						<c:forEach var="num" begin="${CEOBoard.pageTotalCount-6}"
 							end="${CEOBoard.pageTotalCount}">
 							<c:if test="${param.page == num}">
-								<li class="page-item active"><a class="page-link" href="CEOBoard?page=${num}">${num}</a></li>
+								<li class="page-item active"><a class="page-link" href="CEOBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 							<c:if test="${param.page != num}">
-								<li class="page-item"><a class="page-link" href="CEOBoard?page=${num}">${num}</a></li>
+								<li class="page-item"><a class="page-link" href="CEOBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 						</c:forEach>
 					</c:when>
@@ -179,10 +178,10 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 						<c:forEach var="num" begin="${param.page - 3}"
 							end="${param.page + 3}">
 							<c:if test="${param.page == num}">
-								<li class="page-item active"><a class="page-link" href="CEOBoard?page=${num}">${num}</a></li>
+								<li class="page-item active"><a class="page-link" href="CEOBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 							<c:if test="${param.page != num}">
-								<li class="page-item"><a class="page-link" href="CEOBoard?page=${num}">${num}</a></li>
+								<li class="page-item"><a class="page-link" href="CEOBoard?page=${num}&keyword=${param.keyword}">${num}</a></li>
 							</c:if>
 						</c:forEach>
 					</c:otherwise>
@@ -196,7 +195,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 						</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" aria-label="Next" href="CEOBoard?page=${param.page+1}">
+						<li class="page-item"><a class="page-link" aria-label="Next" href="CEOBoard?page=${param.page+1}&keyword=${param.keyword}">
 							<span aria-hidden="true">Next</span> <span class="sr-only">Next</span>
 						</a></li>
 					</c:otherwise>
@@ -208,11 +207,9 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 						<li class="page-item"><a class="page-link">Last</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="CEOBoard?page=${CEOBoard.pageTotalCount}">Last</a></li>
+						<li class="page-item"><a class="page-link" href="CEOBoard?page=${CEOBoard.pageTotalCount}&keyword=${param.keyword}">Last</a></li>
 					</c:otherwise>
 				</c:choose>
-
-
 			</ul>
 		</nav>
 	</div>
