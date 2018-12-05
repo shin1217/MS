@@ -101,7 +101,7 @@ html, body {
 	opacity: 0.7;
 }
 
-.cancle_btn, .pay_btn {
+.total_cancel_btn, .pay_btn {
 	width: 46%;
 	height: 85px;
 	border: none;
@@ -111,11 +111,11 @@ html, body {
 	font-size: 26px;
 }
 
-.cancle_btn:hover, .pay_btn:hover {
+.total_cancel_btn:hover, .pay_btn:hover {
 	opacity: 0.7;
 }
 
-.cancle_btn {
+.total_cancel_btn {
 	background-color: #1C2331;
 }
 
@@ -154,7 +154,7 @@ html, body {
 		width: 100%;
 		text-align: center;
 	}
-	.cancle_btn, .pay_btn {
+	.total_cancel_btn, .pay_btn {
 		width: 110px;
 	}
 	.left_area {
@@ -163,9 +163,18 @@ html, body {
 	}
 }
 
+.cancel_btn:hover {
+	cursor: pointer;
+	color: red;
+}
+
 /* 음식 nav bar */
 .menu_nav {
 	width: 100%;
+}
+
+.selected {
+	background-color: #ffbb33;
 }
 
 .menu_nav ul li {
@@ -246,7 +255,7 @@ html, body {
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+  	background-color: rgba(0,0,0,0.8);
 }
 
 .dot {
@@ -299,6 +308,7 @@ html, body {
 						<td>메뉴</td>
 						<td>수량</td>
 						<td>가격</td>
+						<td>취소</td>
 					</tr>
 				</table>
 			</div>
@@ -312,7 +322,7 @@ html, body {
 					</div>
 				</div>
 				<div class="order_btn_wrap">
-					<button class="cancle_btn">전체취소</button>
+					<button class="total_cancel_btn">전체취소</button>
 					<button class="pay_btn">결제하기</button>
 				</div>
 			</div>
@@ -325,7 +335,7 @@ html, body {
 			</div>
 			<div style="height: 10%" class="menu_nav">
 				<ul>
-					<li><a class="menu_link" id="korean">한식</a></li>
+					<li><a class="menu_link selected" id="korean">한식</a></li>
 					<li><a class="menu_link" id="japan">일식</a></li>
 					<li><a class="menu_link" id="western">양식</a></li>
 					<li><a class="menu_link" id="dessert">디저트</a></li>
@@ -346,10 +356,10 @@ html, body {
 	</div>
 </body>
 <script>
-	var slideIndex = 1;
-	var ordersArr = [];
+	var slideIndex = 1; // 페이징
 	
 	$(document).ready(function() {
+		$('.selected').css('background-color', '#ffbb33');
 		
 		/* 페이지 로드 시 한식 메뉴로 초기화 */
 		$.ajax({
@@ -365,6 +375,12 @@ html, body {
 		
 		/* 메뉴 navbar 클릭 시 */
 		$('.menu_link').on('click',function() {
+			$('.selected').css('background-color', '');
+			$('.selected').removeClass('selected');
+			
+			$(this).addClass('selected');
+			$(this).css('background-color', '#ffbb33');
+			
 			$.ajax({
 				url : '${pageContext.request.contextPath}/user/getMenuList?foodType='+ $(this).attr('id') + '&storeId=${storeSelectSession.store_id}',
 				type : 'get',
@@ -378,8 +394,8 @@ html, body {
 		});
 		
 		/* 전체취소 버튼 */
-		$('.cancle_btn').on('click', function () {
-			var str = '<tr style="background-color: lightgray"><td>메뉴</td><td>수량</td><td>가격</td></tr>';
+		$('.total_cancel_btn').on('click', function () {
+			var str = '<tr style="background-color: lightgray"><td>메뉴</td><td>수량</td><td>가격</td><td>삭제</td></tr>';
 			$('.order_table > tbody').html(str); // 선택한 메뉴 화면 초기화
 			$('#total_cnt').text('0'); // 총 수량 초기화
 			$('#total_price').text('0'); // 총 가격 초기화
@@ -388,39 +404,42 @@ html, body {
 		
 		/* 결제하기 버튼 */
 		$('.pay_btn').on('click', function () {
-			console.log(ordersArr);
+			var ordersArr = []; // 주문 음식 담을 배열
+
+			$('.order_table tr').each(function (index) {
+				if(index != 0){
+					var foodId = $(this).attr('id'); // 음식 아이디
+					var foodType = $(this).attr('class'); // 음식 타입
+					var foodName = $(this).children().eq(0).text(); // 음식 이름
+					var foodCnt = $(this).children().children().eq(1).text();  // 음식 수량
+					ordersArr.push(new OrdersList(parseInt(foodId), foodType, foodName, parseInt(foodCnt))); // 배열에 저장
+				}
+			});
 			
 			if(ordersArr == ''){ // 선택한 음식 없음
 				alert('주문할 음식을 선택하세요.');
 				return;
-			}
+			} 
 			
+			console.log(ordersArr);
 			var ordersConfirm = confirm('주문하시겠습니까?');
 			
 			if(ordersConfirm){
-				for(var i=0; i<ordersArr.length; i++){
-					ordersArr[i].foodCnt = parseInt($('.food_cnt').eq(i).text()); // 음식 수량 변경
-				}
 				
 				$.ajax({
 					url : '${pageContext.request.contextPath}/user/orders?storeId=${storeSelectSession.store_id}&seatId=${seatId}',
 					type : 'post',
-					contentType: 'application/json', /* 요청 타입 지정(안하면 405 오류) */
+					contentType: 'application/json', // 요청 타입 지정(안하면 405 오류) 
 					data: JSON.stringify(ordersArr), 
 
 					success : function() {
 						location.reload();
 					}  			
-				}); // end ajax
+				}); // end ajax 
 			}
 		});
-	});	
+	});	// end document ready
 
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
 	/* 음식 nav bar 분기 처리 함수 */
 	function getMenuList(data){
 		var pLength = getPagingCnt(data.length); // 페이징 표시
@@ -449,6 +468,15 @@ html, body {
 		}
 		$('.menu_content').html(str);
 		showSlides(slideIndex);
+	}
+	
+	/* 주문리스트 개별 취소 */
+	function cancel(obj, cntId, price){
+		var tr = $(obj).parent().parent();
+		tr.remove(); // 라인 삭제
+		
+		var cnt = $(cntId).text(); // 삭제 당시 음식의 수량
+		totalChange(price, 'delete', parseInt(cnt)); // 전체 수량 및 가격 변경
 	}
 	
 	/* 동적 테이블 생성 (음식 아이디, 음식 종류, 음식 사진, 음식 이름, 음식 가격) */
@@ -509,22 +537,23 @@ html, body {
 	/* 각 음식 선택 처리 */
 	function selectedMenu(foodId, foodType, foodPrice, foodName){
 		
-		var nameId = foodName+'Name'; // 이름 td의 id 지정
-		var cntId = foodName+'Cnt'; // 수량 span의 id 지정
- 		var priceId = foodName+'Price'; // 가격 td의 아이디 지정
-		
- 		// 주문 테이블 동적 생성
-		var str = '<tr>';
+		var nameId = 'name' + foodId; // 이름 td의 id 지정
+		var cntId = 'cnt' + foodId; // 수량 span의 id 지정
+ 		var priceId = 'price' + foodId; // 가격 td의 아이디 지정
+ 		
+		// 주문 테이블 동적 생성
+		var str = '<tr id='+ foodId +' class='+ $(foodType).attr('id') +'>';
 		str += '<td id='+ nameId +'>'+ foodName +'</td>';
-		str += '<td><button class="minus" onclick="minusCnt('+ cntId +', '+ foodPrice + ',' + priceId +')" disabled>-</button>';
+		str += '<td><button class="minus" onclick="minusCnt('+ cntId +', '+ foodPrice + ', ' + priceId +')" disabled>-</button>';
 		str += '<span id='+ cntId +' class="food_cnt">1</span>';
-		str += '<button class="plus" onclick="plusCnt('+ cntId + ', '+ foodPrice +  ',' + priceId +')">+</button></td>';
+		str += '<button class="plus" onclick="plusCnt('+ cntId + ', '+ foodPrice +  ', ' + priceId +')">+</button></td>';
 		str += '<td id='+ priceId +'>'+ foodPrice +'</td>'
+		str += '<td><span class="cancel_btn" onclick="cancel(this, '+ cntId +', ' + foodPrice +')">X</span></td>'
 		str += '</tr>';
 	
-		var fname = $('#'+nameId).text();
+		var beforeFoodId = $('#'+foodId).attr('id'); 
 		
-		if(fname == foodName){
+		if(beforeFoodId == foodId){ // 리스트에 있는 음식과 같은 음식 선택 시 수량만 변경
 			$('#'+cntId).prev().attr('disabled', false);
 			$('#'+cntId).prev().css('opacity', '1');
 			
@@ -536,9 +565,8 @@ html, body {
 		}
 		else {
 			$('.order_table > tbody').append(str);
-			ordersArr.push(new OrdersList($(foodType).attr('id'), foodName, foodId, $('#'+cntId).text()));
 		}
-		totalChange(foodPrice, 'plus');
+		totalChange(foodPrice, 'plus', 1);
 	}
 	
 	/* 각 음식 + 카운트 처리 */
@@ -552,7 +580,7 @@ html, body {
 		var price = $(priceId).text();
 		$(priceId).text(parseInt(price)+foodPrice); // 가격변경
 		
-		totalChange(foodPrice, 'plus');
+		totalChange(foodPrice, 'plus', 1);
 	}
 	
 	/* 각 음식 - 카운트 처리 */
@@ -564,7 +592,7 @@ html, body {
 	 	var price = $(priceId).text();
 		$(priceId).text(parseInt(price)-foodPrice); // 가격변경
 		
-		totalChange(foodPrice, 'minus');
+		totalChange(foodPrice, 'minus', 1);
 		
 	 	if(num-1 < 2){ // 수량 1이하 안되게 처리
 	 		$(cntId).prev().attr('disabled', true);
@@ -573,28 +601,35 @@ html, body {
 	}
 	
 	/* 전체 수량과 가격 처리 */
-	function totalChange(foodPrice, n) {
+	function totalChange(foodPrice, n, cnt) {
 		if(n == 'plus'){
 			var totalCnt = $('#total_cnt').text();
-			$('#total_cnt').text(parseInt(totalCnt)+1); // 총 수량 계산
+			$('#total_cnt').text(parseInt(totalCnt)+cnt); // 총 수량 계산
 		
 			var totalPrice = $('#total_price').text(); 
 			$('#total_price').text(parseInt(totalPrice)+foodPrice); // 총 가격 계산
 		}
-		else {
+		else if(n == 'minus') {
 			var totalCnt = $('#total_cnt').text();
-			$('#total_cnt').text(parseInt(totalCnt)-1); // 총 수량 계산
+			$('#total_cnt').text(parseInt(totalCnt)-cnt);
 		
 			var totalPrice = $('#total_price').text(); 
-			$('#total_price').text(parseInt(totalPrice)-foodPrice); // 총 가격 계산
+			$('#total_price').text(parseInt(totalPrice)-foodPrice); 
+		}
+		else { // 개별 삭제
+			var totalCnt = $('#total_cnt').text();
+			$('#total_cnt').text(parseInt(totalCnt)-cnt);
+		
+			var totalPrice = $('#total_price').text(); 
+			$('#total_price').text(parseInt(totalPrice)-(foodPrice*cnt)); 
 		}
 	}
 	
 	/* 주문한 음식 정보 생성자  */
-	function OrdersList(foodType, foodName, foodId, foodCnt) {
+	function OrdersList(foodId, foodType, foodName, foodCnt) {
+		this.foodId = foodId;
 		this.foodType = foodType;
 		this.foodName = foodName;
-		this.foodId = foodId;
 		this.foodCnt = foodCnt;
 	}
 	
