@@ -3,10 +3,16 @@
 
 <!-- namespace - 인터페이스에 있는 패키지 명 + 인터페이스 명 -->
 <mapper namespace="com.bit.ms.dao.UserDaoInterface">
-	<!-- 회원가입 -->
+	<!-- 소셜아이디를 구분시켜 회원가입 -->
 	<insert id="regUser" parameterType="userVO">
-		insert into userinfo (user_id, user_pw, user_name, user_phone, user_birth, user_email, kakao_id)
-		values (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_birth}, #{user_email}, #{kakao_id})
+		<if test="kakao_id != null">
+			insert into userinfo (user_id, user_pw, user_name, user_phone, user_birth, user_email, kakao_id)
+			values (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_birth}, #{user_email}, #{kakao_id})
+		</if>
+		<if test="github_id != null">
+			insert into userinfo (user_id, user_pw, user_name, user_phone, user_birth, user_email, github_id)
+			values (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_birth}, #{user_email}, #{github_id})
+		</if>
 	</insert>
 	<!-- 회원 인증키(난수) 생성 -->
 	<update id="GetKey" parameterType="Map">
@@ -100,13 +106,23 @@
 	<select id="getUserListI" resultType="String">
 		select user_id from seat where store_id = #{store_id}
 	</select>
-	<!-- 카카오 아이디로 가입했는지 확인 -->
-	<select id="getKakaoId" resultType="int">
-		select count(*) from userinfo where kakao_id = #{id}
+	<!-- 소셜로그인 아이디로 가입여부 확인 -->
+	<select id="getSocialId" resultType="int">
+		<if test="divide.equals('kakao')">
+			select count(*) from userinfo where kakao_id = #{id}
+		</if>
+		<if test="divide.equals('github')">
+			select count(*) from userinfo where github_id = #{id}
+		</if>
 	</select>
-	<!-- 카카오 아이디를 통해 유저정보 검색 -->
-	<select id="getKakaoToInfo" resultType="userVO">
-		select * from userinfo where kakao_id = #{id}
+	<!-- 로그인한 소셜 아이디를 통해 유저정보 검색 -->
+	<select id="getSocialIdToInfo" resultType="userVO">
+		<if test="divide.equals('kakao')">
+			select * from userinfo where kakao_id = #{id}
+		</if>
+		<if test="divide.equals('github')">
+			select * from userinfo where github_id = #{id}
+		</if>
 	</select>
 	<!-- 모든 매장 가지고옴 -->
 	<select id="getStoreAllList" resultType="StoreVO">

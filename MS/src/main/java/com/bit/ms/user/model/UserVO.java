@@ -18,6 +18,7 @@ public class UserVO {
 	private int user_pay; // 결제 금액
 	private String user_key; // 인증 번호
 	private String kakao_id; // 카카오 아이디
+	private String github_id; // 카카오 아이디
 
 	public UserVO() {
 		super();
@@ -25,7 +26,8 @@ public class UserVO {
 	}
 
 	public UserVO(String user_id, String user_name, String user_pw, String user_phone, String user_birth,
-			String user_email, long user_time, int store_id, int user_pay, String user_key, String kakao_id) {
+			String user_email, long user_time, int store_id, int user_pay, String user_key, String kakao_id,
+			String github_id) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
@@ -38,6 +40,7 @@ public class UserVO {
 		this.user_pay = user_pay;
 		this.user_key = user_key;
 		this.kakao_id = kakao_id;
+		this.github_id = github_id;
 	}
 
 	public String getUser_id() {
@@ -128,12 +131,20 @@ public class UserVO {
 		this.kakao_id = kakao_id;
 	}
 
+	public String getGithub_id() {
+		return github_id;
+	}
+
+	public void setGithub_id(String github_id) {
+		this.github_id = github_id;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
 				+ user_phone + ", user_birth=" + user_birth + ", user_email=" + user_email + ", user_time=" + user_time
 				+ ", store_id=" + store_id + ", user_pay=" + user_pay + ", user_key=" + user_key + ", kakao_id="
-				+ kakao_id + "]";
+				+ kakao_id + ", github_id=" + github_id + "]";
 	}
 
 }

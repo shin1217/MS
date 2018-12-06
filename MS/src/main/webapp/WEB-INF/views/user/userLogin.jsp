@@ -86,7 +86,7 @@ body {
 	border-radius: 15px;
 }
 #socialimage{
-	height: 70px;
+	height: 68px;
 	display: inline-block;
 }
 
@@ -146,7 +146,7 @@ body {
 						<img src="${pageContext.request.contextPath}/images/GitHub-Mark-Light.png" height="100%"/>
 					</a>
 				</div>
-				<div class="form-group">
+				<div class="form-group" id="socialimage">
 					<div id="naver_id_login"></div>
 				</div>
 			</div>
@@ -214,7 +214,6 @@ body {
 	
 	var naver_id_login = new naver_id_login("OUHAR0pHNVfL5y2SBk3v", "http://localhost:8080/ms/user/main");
   	var state = naver_id_login.getUniqState();
-  	naver_id_login.setButton("white", 2,40);
   	naver_id_login.setDomain("http://localhost:8080/ms");
   	naver_id_login.setState(state);
   	naver_id_login.setPopup();

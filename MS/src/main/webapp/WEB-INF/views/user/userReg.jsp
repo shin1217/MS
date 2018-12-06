@@ -100,8 +100,15 @@ body {
 			<h1>MS :p</h1>
 		</div>
 		<form method="POST">
-			<!-- 세션에 저장한 카카오 아이디를 가져옴 --> 
-			<input type="hidden" name="kakao_id" value="${kakao_id}"/>
+			<!-- 세션에 저장한 카카오 아이디를 가져옴 -->
+			<c:if test="${!empty kakao_id}">
+				<input type="hidden" name="kakao_id" value="${kakao_id}" />
+			</c:if>
+			<!-- 세션에 저장한 깃헙 아이디를 가져옴 -->
+			<c:if test="${!empty github_id}">
+				<input type="hidden" name="github_id" value="${github_id}" />
+			</c:if>
+
 			<!-- 아이디 -->
 			<div class="form-group">
 				<label for="user_id">아이디</label>
@@ -430,12 +437,6 @@ body {
 		} else {
 			inval_Arr[4] = false;
 		}
-		/* // 매장 값 확인
-		if ($('#store_id option:selected').val() != 0){
-			inval_Arr[5] = true;
-		} else{
-			inval_Arr[5] = false;
-		} */
 		
 		var validAll = true;
 		for(var i = 0; i < inval_Arr.length; i++){
@@ -446,7 +447,7 @@ body {
 		}
 		
 		if(validAll){ // 유효성 모두 통과
-			alert('갓민수님께서 인증 이메일을 보냈으니 확인해주세요!');
+			alert('이메일에서 인증 메일을 확인해주세요!');
 			/* confirm_email(); */
 			/* location.href("${pageContext.request.contextPath}"); */
 			/* return false; */

@@ -26,15 +26,18 @@ public class KakaoController {
 	@Autowired
 	UserLoginService userService;
 
+	// 결과값 초기화
+	private int result = 0;
+	// 소셜 구분을 위한 변수
+	private String divide = "kakao";
+	
 	JsonNode accessToken;
 
 	@RequestMapping(value = "/kakaologin", produces = "application/json", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam("code") String code, RedirectAttributes ra, HttpSession session,
 			HttpServletResponse response) throws IOException {
-		// 결과값 초기화
-		int result = 0;
-
-		System.out.println("code : " + code);
+				
+		System.out.println("kakao code : " + code);
 
 		// JsonNode트리형태로 토큰받아온다
 		JsonNode jsonToken = KakaoAccessToken.getAccessToken(code);
@@ -50,8 +53,9 @@ public class KakaoController {
 		String id = userInfo.path("id").asText();
 		String nickname = null;
 		String email = null;
-
-		result = kakaoService.getKakaoLogin(id);
+		
+		// 가입되어있는지 카카오아이디로 찾는다
+		result = kakaoService.getKakaoLogin(id, divide);
 
 		// 유저정보 카카오에서 가져오기 Get properties
 		JsonNode properties = userInfo.path("properties");
@@ -64,18 +68,19 @@ public class KakaoController {
 			email = kakao_account.path("email").asText();
 
 			System.out.println("id : " + id);
-			System.out.println("nickname : " + nickname);
+			System.out.println("name : " + nickname);
 			System.out.println("email : " + email);
 
 			// DB에 저장할 카카오 아이디 세션에 저장
 			session.setAttribute("kakao_id", id);
 
-			ra.addAttribute("nickname", nickname);
+			// 파라메터 저장
+			ra.addAttribute("name", nickname);
 			ra.addAttribute("email", email);
 
 			// 카카오 로그인 정보가 존재 할 경우
 			if (result == 1) {
-				UserVO vo = kakaoService.kakaoLoginPass(id, session);
+				UserVO vo = kakaoService.kakaoLoginPass(id, divide, session);
 
 				// 이메일 인증이 되어있는지 확인
 				if (!vo.getUser_key().equals("Y")) { // 인증 안하면 로그인페이지로 돌아가서 메시지출력
