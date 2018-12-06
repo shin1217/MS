@@ -326,7 +326,17 @@ body {
 					$.ajax({ 
 						url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + time + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + userId,
 						success : function(){
-							location.href = '${pageContext.request.contextPath}/user/main';
+							$.ajax({
+								url : '${pageContext.request.contextPath}/user/loginSuccess',
+								data : {
+									store_id : store_id,
+									seat_id : seat_id,
+									user_id : userId
+								},
+								success : function(){
+									location.href = "${pageContext.request.contextPath}/user/main";
+								}
+							});
 						}
 					});	
 				} else { //선택한자리가 사용중일떄 나이면 그냥 로그인 아니라면 거부
@@ -334,7 +344,17 @@ body {
 						$.ajax({ 
 							url : '${pageContext.request.contextPath}/user/updateAddTime?addTime=' + time + '&seatId=' + seat_id + '&storeId=' + store_id + '&userId=' + userId,
 							success : function(){
-								location.href = '${pageContext.request.contextPath}/user/main';
+								$.ajax({
+									url : '${pageContext.request.contextPath}/user/loginSuccess',
+									data : {
+										store_id : store_id,
+										seat_id : seat_id,
+										user_id : userId
+									},
+									success : function(){
+										location.href = "${pageContext.request.contextPath}/user/main";
+									}
+								});
 							}
 						});
 					} else { // 다른사람이 사용중이라면

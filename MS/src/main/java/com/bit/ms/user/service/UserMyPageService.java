@@ -18,7 +18,7 @@ public class UserMyPageService {
 
 	public UserVO getMyPage(String user_id) {
 		userDao = sqlSessionTemplate.getMapper(UserDaoInterface.class);
-		return userDao.getMyPage(user_id).get(0);
+		return userDao.getMyPage(user_id);
 	}
 	// 사용자 삭제 메서드
 	public int deleteUser(String user_id) {

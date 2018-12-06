@@ -26,7 +26,7 @@ public interface UserDaoInterface {
 	String searchId(@Param("user_name")String user_name, @Param("user_phone")String user_phone);// 유저 ID 찾기
 	UserVO userInfo(String user_id);
 	UserVO searchPw(String userId);// 유저 PW 찾기
-	List<UserVO> getMyPage(String user_id);// 마이페이지 메서드
+	UserVO getMyPage(String user_id);// 마이페이지 메서드
 	int editUserName(HashMap<String,String> map);// 유저 이름 수정
 	int editUserPhone(HashMap<String,String> map);// 유저 폰번호 수정
 	int editUserBirth(HashMap<String,String> map);// 유저 생년월일 수정

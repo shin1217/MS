@@ -290,7 +290,7 @@
 			type : 'post',
 			data : {
 				seat_id : seat_id,
-				seat_qr : "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=http://13.209.73.3/MS/user/qrLogin?store_id=" + session_store_id + "&seat_id=" + seat_id 
+				seat_qr : "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=http://13.125.241.30/MS/user/qrLogin?seat_id=" + seat_id + "&store_id=" + session_store_id 
 			},
 			success : function(data){
 				$.ajax({

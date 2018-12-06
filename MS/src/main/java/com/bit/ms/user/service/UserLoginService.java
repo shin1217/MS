@@ -144,4 +144,14 @@ public class UserLoginService {
 		userDao = userSqlSession.getMapper(UserDaoInterface.class);
 		return userDao.getUserListI(store_id);
 	}
+
+	public StoreVO getStoreS(int store_id) {
+		userDao = userSqlSession.getMapper(UserDaoInterface.class);
+		return userDao.getUserStoreVO(store_id);
+	}
+
+	public UserVO getUserInfoS(String user_id) {
+		userDao = userSqlSession.getMapper(UserDaoInterface.class);
+		return userDao.getMyPage(user_id);
+	}
 }
