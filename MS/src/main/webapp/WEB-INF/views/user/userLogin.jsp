@@ -152,9 +152,6 @@ body {
 					</a>
 				</div>
 				<div class="form-group">
-					<a href="/MS/kakaounlink">로그아웃 테스트</a>
-				</div>
-				<div class="form-group">
 					<div id="naver_id_login"></div>
 				</div>
 			</div>

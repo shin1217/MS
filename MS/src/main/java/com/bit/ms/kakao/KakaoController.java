@@ -90,7 +90,7 @@ public class KakaoController {
 					return null;
 
 				} else { // 인증이 되어있으면
-					return "redirect:/user/main";
+					return "redirect:/user/storeChoice";
 				}
 			}
 		}

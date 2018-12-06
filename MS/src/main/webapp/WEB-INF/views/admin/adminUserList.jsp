@@ -22,8 +22,6 @@
 
 	<div class="container">
 		<h1>전체 회원목록</h1>
-		<select name="1" id=""></select>
-		<input type="text" id="userListForm" />
 		<table id="userListTable" class="table table-striped table-bordered">
 			<thead>
 				<tr>
