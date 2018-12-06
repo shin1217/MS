@@ -140,7 +140,7 @@
 				
 				if(data == -1){
 					alert('로그인이 필요한 페이지 입니다');
-					location.href="${pageContext.request.contextPath}/";
+					location.reload();
 				}
 			} // end success  
 		}); // end ajax */
