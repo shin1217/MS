@@ -22,7 +22,7 @@
 			<!-- name값과 메서드의 매개변수가 이름이 같으면 알아서 넣어줌 -->
 			<textarea class="form-control" rows="20" placeholder="내용"
 				name="photo_con" value = "${viewData.photo_con}" required></textarea>
-			<input type = "file" name = "photoFile">
+			<input type = "file" name = "photoFile" style = "float : left;">
 			<button class="btn btn-info btn-block">작성하기</button>
 		</form>
 	</div>

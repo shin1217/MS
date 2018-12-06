@@ -17,7 +17,7 @@
 	<div class="container">
 		<form class="text-center p-5" method="post" enctype = "multipart/form-data">
 		<c:if test="${!empty adminSession}">
-			<input type = "hidden" name = "photo_upid" value = "${storeSelectSession.store_name}">
+			<input type = "hidden" name = "photo_upid" value = "${storeSelectSession.store_name} [관리자]">
 		</c:if>
 		<c:if test="${!empty userSession}">
 			<input type = "hidden" name = "photo_upid" value = "${userSession.user_id}">

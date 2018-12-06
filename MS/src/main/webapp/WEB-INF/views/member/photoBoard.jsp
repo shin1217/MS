@@ -9,6 +9,10 @@
 	.photoUl{
 		list-style: none;
 	}
+	.photoUl:hover{
+		color : grey;
+	}
+	
 </style>
 </head>
 <body>
@@ -22,8 +26,8 @@
 			href="${pageContext.request.contextPath}/member/photoBoard/write" style = "right : 0px; top : 0px;position : absolute;">글쓰기</a></div>
 		<c:if test="${!empty photoData.photoBoardList}">
 			<c:forEach items = "${photoData.photoBoardList}" var = "photoData">
-			<div><a href = "${pageContext.request.contextPath}/member/photoView/${photoData.photo_id}">
-				<ul class = "photoUl" style = "float : left; margin : 0px Auto 10px;">
+			<div class = "photoCon"><a href = "${pageContext.request.contextPath}/member/photoView/${photoData.photo_id}" style = "color : black;">
+				<ul class = "photoUl" style = "float : left; margin : 0px 30px 10px 10px; padding : 0px">
 					<li><img src = "${pageContext.request.contextPath}/images/photoboard/${photoData.photo_file}" style = "width : 280px; height : 280px; margin : 0px auto;"></li>
 					<li>Title : ${photoData.photo_title}</li>
 					<li>작성시간 : <fmt:parseDate value="${photoData.photo_date}" pattern="yyyy-MM-dd HH:mm" var = "date" />
@@ -45,6 +49,19 @@
 					<!--가장맨앞으로-->
 					<li class="page-item"><a class="page-link" href="photoBoard?page=1">First</a></li>
 					
+					<!-- 한칸 전으로 -->
+				<c:choose>
+					<c:when test="${param.page == 1}">
+						<li class="page-item"><a class="page-link" aria-label="Previous"> <span aria-hidden="true">Previous</span>
+						<span class="sr-only">Previous</span></a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" aria-label="Next" href="photoBoard?page=${param.page-1}">
+						<span aria-hidden="true">Previous</span> <span class="sr-only">Previous</span>
+						</a></li>
+					</c:otherwise>
+				</c:choose>
+					<!-- 일반페이지 카운팅 -->
 					<c:forEach var = "num" begin = "1" end = "${photoData.pageTotalCount}">
 						<c:if test="${param.page == num}">
 							<li class="page-item active"><a class="page-link" href="photoBoard?page=${num}">${num}</a></li>
@@ -54,8 +71,23 @@
 						</c:if>
 					</c:forEach>
 					
+					<!-- 다음페이지로 -->
+				<c:choose>	
+					<c:when test="${photoData.pageTotalCount == param.page}">
+						<li class="page-item"><a class="page-link" aria-label="Next">
+						<span aria-hidden="true">Next</span> <span class="sr-only">Next</span>
+						</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" aria-label="Next" href="photoBoard?page=${param.page+1}">
+						<span aria-hidden="true">Next</span> <span class="sr-only">Next</span>
+						</a></li>
+					</c:otherwise>
+				</c:choose>
+				
 					<!-- 가장 맨 뒤로 -->
 					<li class="page-item"><a class="page-link" href="photoBoard?page=${photoData.pageTotalCount}">End</a></li>
+					
 				</ul>
 			</nav>
 		</c:if>	

@@ -57,13 +57,6 @@
 				유저게시판</b>
 		</a><br> <a id="write" class="btn btn-outline-elegant waves-effect"
 			href="${pageContext.request.contextPath}/user/userBoard/write">글쓰기</a>
-
-		<%-- <div class="userBoard_searchbar">
-			<form method="get">
-				<input name="keyword" type="text" value="${param.keyword}" required> <label>검색(제목+내용) + ENTER!!</label>
-				<input name="page" type="hidden" value="${param.page}" />
-			</form>
-		</div> --%>
 	</div>
 
 	<!-- 게시글  -->
@@ -144,8 +137,6 @@
 				<div class="text-center my-4">
 					<button id="UserBoardCommentSubmit"
 						class="btn btn-default btn-sm btn-rounded">댓글 입력</button>
-					<%-- <input id="user_id" type="hidden"
-						value="${sessionScope.userSession.user_id}" /> --%>
 				</div>
 			</div>
 		

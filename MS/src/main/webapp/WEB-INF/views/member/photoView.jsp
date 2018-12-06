@@ -13,7 +13,7 @@
 	<b style = "font-size : 30px; margin-top : 10px;">[${storeSelectSession.store_name}] - Photo게시판</b>
 		<a id="write" class="btn btn-outline-elegant waves-effect"
 			href="${pageContext.request.contextPath}/member/photoBoard/write" style = "position : absolute; right : 0px; top : 0px;">글쓰기</a>
-		<hr><div><h3>${viewData.photo_title}</h3></div>
+		<hr><div><h2>${viewData.photo_title}</h2></div>
 		<div id = "photo_id" style = "float : left;">글번호 : ${viewData.photo_id}</div>
 		<div style = "float : right;">&nbsp 등록시간 : <fmt:parseDate value="${viewData.photo_date}" pattern="yyyy-MM-dd HH:mm" var = "date" />
 		<fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm" /></div>
@@ -110,7 +110,7 @@
 				
 				for(var i = 0; i < data.length; i++){
 					str += "<div id = 'replyWrap' style = 'position : relative'><div id = 'reply_writeId'>" + data[i].photoreply_writeid + " (" + data[i].photoreply_date + ")</div>";
-					str += "<div><input id = 'reply_con" + data[i].photoreply_id + "' value = '" + data[i].photoreply_con + "' style = 'border : none; border-radius : 5px;' readonly></div>";
+					str += "<div><input id = 'reply_con" + data[i].photoreply_id + "' value = '" + data[i].photoreply_con + "' style = 'border : none; border-radius : 5px; width : 70%' readonly></div>";
 
 					if(data[i].photoreply_writeid == writeId || data[i].photoreply_writeid == admin_id){
 						str += "<div id = 'replyBtnDiv' style = 'position : absolute; right : 0px; top : 0px;'><button id='photoBoardReplyDeleteBtn' onclick='photoBoardReplyDelete(" + data[i].photoreply_id + ")' class='btn btn-danger px-3 float-right'><i class='fa fa-trash' aria-hidden='true'></i></button>";
@@ -128,7 +128,7 @@
 			url : '${pageContext.request.contextPath}/member/photoView/countReply/' + photo_id,
 			success : function(data){
 				console.log(data);
-				$('#photoBoardCommentsNum').html("<p>" + data +" comments</p>")
+				$('#photoBoardCommentsNum').html("<p style = 'margin-bottom : 0px;'>" + data +" comments</p>")
 			}
 		});
 	}
