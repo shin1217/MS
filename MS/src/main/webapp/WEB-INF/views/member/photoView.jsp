@@ -24,7 +24,7 @@
 		<div>${viewData.photo_con}</div><hr>
 	</div>
 	<div id = "btnDiv" style = "float : right;">
-		<c:if test="${userSession.user_id == viewData.photo_upid || adminSession == viewData.photo_upid}">
+		<c:if test="${userSession.user_id == viewData.photo_upid || !empty adminSession}">
 		<button type="button" class="btn btn-dark" data-toggle="modal"	data-target="#modalPhotoBoardDeleteForm">삭제</button>
 		<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/member/photoBoard/modify/${viewData.photo_id}'">수정</button></c:if>
 		<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/member/photoBoard?page=1'">목록</button>
@@ -158,7 +158,7 @@
 		$('#photoBoardReplyEditBtn' + photoreply_id).attr("onclick","photoBoardReplyEditOk(" + photoreply_id + ")");
 	}
 	function photoBoardReplyEditOk(photoreply_id){
-		if(confirm("댓글을 수정하시겠습니까??")){
+		//if(confirm("댓글을 수정하시겠습니까??")){
 			$.ajax({
 				url : '${pageContext.request.contextPath}/member/photoView/modiReply/' + photoreply_id,
 				type : 'post',
@@ -170,7 +170,7 @@
 					getReplyList(photo_id);
 				}
 			});
-		}
+		//}
 	}
 	
 	function photoBoardReplyDelete(photoreply_id){

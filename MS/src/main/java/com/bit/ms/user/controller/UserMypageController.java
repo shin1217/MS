@@ -13,6 +13,7 @@ import com.bit.ms.kakao.KakaoController;
 import com.bit.ms.kakao.KakaoUnlink;
 import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserMyPageService;
+import com.bit.ms.user.service.UserSha256;
 
 
 @Controller
@@ -59,8 +60,10 @@ public class UserMypageController {
 	@RequestMapping(value = "/user/userEditpw")
 	public @ResponseBody int editPw(UserVO userVo) {
 		String user_pw = userVo.getUser_pw();
+		String encryPw = UserSha256.encrypt(user_pw); //비밀번호 암호화 처리
+		userVo.setUser_pw(encryPw); // 객체에 암호화된 비밀번호 저장
 		String user_id = userVo.getUser_id();
-		return service.editPw(user_pw, user_id);
+		return service.editPw(encryPw, user_id);
 	}
 	//폰번호 수정
 	@RequestMapping(value = "/user/userEditphone")

@@ -280,6 +280,7 @@ $(document).ready(function(){
     		}
     	} else if (e == "pw"){
     		editFinish(e);
+    		$('#userMyPage_pw').val("********");
     	}
 	}
 	////////// 수정에서 유효성검사를 통과했을경우 메서드 ///////////
