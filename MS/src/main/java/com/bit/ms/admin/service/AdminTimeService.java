@@ -25,9 +25,9 @@ public class AdminTimeService {
 	}
 
 	// 사용 종료 또는 강제 종료된 좌석 지우기
-	public int deleteSeat(int seatId, int storeId) {
+	public int deleteSeat(String userId, int storeId) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		return adminDao.deleteSeat(seatId, storeId);
+		return adminDao.deleteSeat(userId, storeId);
 	}
 
 	// 선택된 좌석의 사용자 정보 가져오기
@@ -36,10 +36,10 @@ public class AdminTimeService {
 		return adminDao.getUserInfo(userId, storeId);
 	}
 
-	// 선택된 좌석의 사용자 정보 가져오기
-	public List<UserOrdersVO> getOrdersInfo(int seatId, int storeId) {
+	// 선택된 좌석의 주문 정보 가져오기
+	public List<UserOrdersVO> getOrdersInfo(String userId, int storeId) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
-		return adminDao.getOrdersInfo(seatId, storeId);
+		return adminDao.getOrdersInfo(userId, storeId);
 	}
 
 	// 좌석 정보 모두 가져오기

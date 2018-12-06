@@ -10,11 +10,11 @@
 		where user_id=#{param2} and store_id=#{param3}
 	</update>
 
-	<!-- 사용 시간 종료 또는 강제 종료된 좌석 지우기 -->
+	<!-- 사용 시간 종료 또는 강제 종료된 좌석의 사용자 지우기 -->
 	<update id="deleteSeat" parameterType="map">
 		update seat set
 		user_id=null
-		where seat_id=#{param1} and
+		where user_id=#{param1} and
 		store_id=#{param2}
 	</update>
 
@@ -29,7 +29,7 @@
 	<select id="getOrdersInfo" parameterType="map" resultType="userOrdersVO">
 		select *
 		from orders
-		where seat_id=#{param1} and store_id=#{param2}
+		where user_id=#{param1} and store_id=#{param2}
 	</select>
 
 	<!-- 등록된 좌석 모두 가져오기 -->

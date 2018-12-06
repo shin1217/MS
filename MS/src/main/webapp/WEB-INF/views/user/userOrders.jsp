@@ -427,7 +427,7 @@ html, body {
 			if(ordersConfirm){
 				
 				$.ajax({
-					url : '${pageContext.request.contextPath}/user/orders?storeId=${storeSelectSession.store_id}&seatId=${seatId}',
+					url : '${pageContext.request.contextPath}/user/orders?storeId=${storeSelectSession.store_id}&userId=${userSession.user_id}',
 					type : 'post',
 					contentType: 'application/json', // 요청 타입 지정(안하면 405 오류) 
 					data: JSON.stringify(ordersArr), 

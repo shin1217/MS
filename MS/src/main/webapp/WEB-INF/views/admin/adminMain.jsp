@@ -297,7 +297,7 @@
 						str += '<div style="height:25%"><span style="float:left; color:black">'+ seatId +'</span><span>'+ userId +'</span></div>';
 						str += '<div style="height:25%"><span>'+ min +'분</span> <span>'+ sec +'초</span></div>';
 						str += '<div style="height:25%">'+ userPay +'</div>';
-						str += '<button style="height:25%" onclick="deleteSeat(event, '+ seatId +')">사용 종료</button>';
+						str += '<button style="height:25%" onclick="deleteSeat(event, \''+ userId +'\')">사용 종료</button>';
 						str += '</div>';
 						useCnt++;
 					}
@@ -394,7 +394,7 @@
 			
 			// 선택된 사용자의 주문 목록 불러오기
 			$.ajax({
-				url:'${pageContext.request.contextPath}/admin/getOrdersInfo?storeId=${storeSelectSession.store_id}&seatId='+seatId,
+				url:'${pageContext.request.contextPath}/admin/getOrdersInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
 				type:'get',
 					
 				success:function(data){
@@ -421,6 +421,9 @@
 						}
 						$('#orderListInfo').html(str);
 					}
+					else {
+						$('#orderListInfo').html('<span style="color:red">* 주문 대기 중인 음식이 없습니다.</span>');
+					}
 				} // end success 
 			});
 		}
@@ -438,26 +441,44 @@
 				
 				success:function(){
 					$(obj).parent().parent().parent().remove();
+					if($('.orders_table').attr('class') == null){ // 주문 목록이 하나도 없을 경우
+						$('#orderListInfo').html('<span style="color:red">* 주문 대기 중인 음식이 없습니다.</span>');
+					}
 				}  
 			});
 		}
 	}
 
 	/* 사용 종료 버튼 */
-	function deleteSeat(e, seatId) {
-		e.stopPropagation(); // 이벤트 버블링 중지		
-		var deleteConfirm = confirm('정말 종료하시겠습니까?'); 
+	function deleteSeat(e, userId) {
+		e.stopPropagation(); // 이벤트 버블링 중지
+		console.log(userId);
 		
-		if(deleteConfirm){
-			$.ajax({
-				url: '${pageContext.request.contextPath}/admin/deleteSeat?storeId=${storeSelectSession.store_id}&seatId='+seatId, 
-				type: 'get',
+		$.ajax({
+			url:'${pageContext.request.contextPath}/admin/getOrdersInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
+			type:'get',
 				
-				success:function(){
-					location.reload();
-				}  
-			});
-		}
+			success:function(data){
+				if(data.length > 0){ // 주문 대기 중인 음식이 있는 사용자일 경우
+					alert('주문 처리 후 종료하세요.');
+				}
+				else{
+					var deleteConfirm = confirm('정말 종료하시겠습니까?'); 
+					
+					if(deleteConfirm){
+						$.ajax({
+							url: '${pageContext.request.contextPath}/admin/deleteSeat?storeId=${storeSelectSession.store_id}&userId='+userId, 
+							type: 'get',
+							
+							success:function(){
+								location.reload();
+							}  
+						});
+					}
+				}
+			}
+		});
+		
 	}
 	
 	/* 가격에 콤마 표시 */

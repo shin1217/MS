@@ -37,7 +37,6 @@ public class UsingSeatCheckInterceptor extends HandlerInterceptorAdapter {
 				
 				if(usingId != null) {
 					if(usingId.equals(userVO.getUser_id())) {
-						request.setAttribute("seatId", seatList.get(i).getSeat_id()); // 음식 주문 페이지에 좌석 아이디를 파라미터로 전송
 						return true;
 					}
 				}

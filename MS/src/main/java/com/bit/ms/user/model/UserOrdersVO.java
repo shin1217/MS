@@ -9,7 +9,7 @@ public class UserOrdersVO {
 	private String food_name;
 	private String food_id;
 	private String food_cnt;
-	private int seat_id;
+	private String user_id;
 	private int store_id;
 
 	public int getOrders_id() {
@@ -52,12 +52,13 @@ public class UserOrdersVO {
 		this.food_cnt = food_cnt;
 	}
 
-	public int getSeat_id() {
-		return seat_id;
+	
+	public String getUser_id() {
+		return user_id;
 	}
 
-	public void setSeat_id(int seat_id) {
-		this.seat_id = seat_id;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	public int getStore_id() {
@@ -71,8 +72,7 @@ public class UserOrdersVO {
 	@Override
 	public String toString() {
 		return "UserOrdersVO [orders_id=" + orders_id + ", food_type=" + food_type + ", food_name=" + food_name
-				+ ", food_id=" + food_id + ", food_cnt=" + food_cnt + ", seat_id=" + seat_id + ", store_id=" + store_id
+				+ ", food_id=" + food_id + ", food_cnt=" + food_cnt + ", user_id=" + user_id + ", store_id=" + store_id
 				+ "]";
 	}
-
 }

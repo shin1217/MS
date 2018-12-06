@@ -35,7 +35,7 @@ public class UserOrdersController {
 	@RequestMapping("/user/orders")
 	@ResponseBody
 	public void orders(@RequestBody List<Map<String, Object>> ordersList,
-						@RequestParam("seatId") int seatId,
+						@RequestParam("userId") String userId,
 						@RequestParam("storeId") int storeId) {
 		
 		int resultCnt = 0;
@@ -63,7 +63,7 @@ public class UserOrdersController {
 		ordersVO.setFood_name(sb2);
 		ordersVO.setFood_id(sb3);
 		ordersVO.setFood_cnt(sb4);
-		ordersVO.setSeat_id(seatId);
+		ordersVO.setUser_id(userId);
 		ordersVO.setStore_id(storeId);
 		
 		resultCnt += service.inserOrders(ordersVO); // 주문 목록에 추가

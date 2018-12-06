@@ -35,9 +35,9 @@ public class AdminTimeController {
 	// 사용 시간 종료 또는 강제 종료 시 좌석 삭제
 	@RequestMapping("/admin/deleteSeat")
 	@ResponseBody
-	public void deleteSeat(@RequestParam("seatId") int seatId, @RequestParam("storeId") int storeId) {
+	public void deleteSeat(@RequestParam("userId") String userId, @RequestParam("storeId") int storeId) {
 
-		int resultCnt = service.deleteSeat(seatId, storeId);
+		int resultCnt = service.deleteSeat(userId, storeId);
 
 		if (resultCnt == 1) {
 			System.out.println("좌석 삭제 완료");
@@ -54,10 +54,10 @@ public class AdminTimeController {
 	// 선택된 좌석의 주문 정보 가져오기
 	@RequestMapping("/admin/getOrdersInfo")
 	@ResponseBody
-	public List<UserOrdersVO> getOrdersInfo(@RequestParam("seatId") int seatId, 
+	public List<UserOrdersVO> getOrdersInfo(@RequestParam("userId") String userId, 
 										@RequestParam("storeId") int storeId) {
 		
-		return service.getOrdersInfo(seatId, storeId);
+		return service.getOrdersInfo(userId, storeId);
 	}
 	
 	// 좌석 정보 모두 가져오기

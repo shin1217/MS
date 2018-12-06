@@ -87,9 +87,9 @@ public interface AdminDaoInterface {
 	
 	/* 사용자 시간 관리 */
 	int updateAddTime(long addTime, String userId, int storeId);
-	int deleteSeat(int seatId, int storeId);
+	int deleteSeat(String userId, int storeId);
 	UserVO getUserInfo(String userId, int storeId);
-	List<UserOrdersVO> getOrdersInfo(int seatId, int storeId);
+	List<UserOrdersVO> getOrdersInfo(String userId, int storeId);
 	List<SeatVO> getSeatListAll(int storeId);
 	
 	/* 상품관리 */
