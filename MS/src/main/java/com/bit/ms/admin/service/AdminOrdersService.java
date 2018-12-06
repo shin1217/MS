@@ -10,7 +10,7 @@ import com.bit.ms.dao.AdminDaoInterface;
 import com.bit.ms.member.model.FoodVO;
 
 @Service
-public class AdminProductService {
+public class AdminOrdersService {
 
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
@@ -34,5 +34,10 @@ public class AdminProductService {
 	public List<FoodVO> getFoodInfoAll(int storeId) {
 		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
 		return adminDao.getFoodInfoAll(storeId);	
+	}
+	
+	public int processOrders(int ordersId, int storeId) {
+		adminDao = sqlSessionTemplate.getMapper(AdminDaoInterface.class);
+		return adminDao.processOrders(ordersId, storeId);
 	}
 }

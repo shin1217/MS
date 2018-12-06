@@ -3,22 +3,20 @@ package com.bit.ms.admin.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.ms.admin.service.AdminProductService;
+import com.bit.ms.admin.service.AdminOrdersService;
 import com.bit.ms.member.model.FoodVO;
 
 @Controller
 public class AdminOrdersController {
 	
 	@Autowired
-	AdminProductService service;
+	AdminOrdersService service;
 	
 	@RequestMapping(value="/admin/adminOrders")
 	public String adminOrders() {
@@ -27,10 +25,8 @@ public class AdminOrdersController {
 	}
 	
 	@RequestMapping("/admin/insertFood")
-	public String insertFood(FoodVO foodVO,
-							HttpServletRequest request) throws IllegalStateException, IOException {
+	public String insertFood(FoodVO foodVO) throws IllegalStateException, IOException {
 		
-	
 		int resultCnt = service.insertFood(foodVO); // 이미지를 제외한 음식 정보 저장
 		
 		if(resultCnt == 1) {
@@ -58,8 +54,7 @@ public class AdminOrdersController {
 	@RequestMapping("/admin/deleteFood")
 	@ResponseBody
 	public void deleteProduct(@RequestParam("foodId") int foodId,
-								@RequestParam("storeId") int storeId,
-								HttpServletRequest request) {
+								@RequestParam("storeId") int storeId) {
 		
 		int resultCnt = service.deleteFood(foodId, storeId);
 		
@@ -72,5 +67,17 @@ public class AdminOrdersController {
 	@ResponseBody
 	public List<FoodVO> getFoodInfoAll(@RequestParam("storeId") int storeId){
 		return service.getFoodInfoAll(storeId);
+	}
+	
+	@RequestMapping("/admin/processOrders")
+	@ResponseBody
+	public void processOrders(@RequestParam("ordersId") int ordersId,
+								@RequestParam("storeId") int storeId) {
+		
+		int resultCnt = service.processOrders(ordersId, storeId);
+		
+		if(resultCnt == 1) {
+			System.out.println("주문 목록 삭제");
+		}
 	}
 }

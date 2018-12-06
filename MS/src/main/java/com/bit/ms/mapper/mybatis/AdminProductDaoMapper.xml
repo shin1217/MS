@@ -27,4 +27,10 @@
 		where store_id=#{store_id}
 	</select>
 	
+	<!-- 주문 목록 삭제 -->
+	<delete id="processOrders" parameterType="map">
+		delete from orders
+		where orders_id=#{param1} and store_id=#{param2}
+	</delete>
+	
 </mapper>

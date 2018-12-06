@@ -31,6 +31,7 @@
 .right_area {
 	width: 70%;
 	float: right;
+	padding-bottom: 20px;
 }
 
 /* 사용자 정보 표시 */
@@ -189,6 +190,10 @@
 	text-align: center;
 }
 
+.process_btn:hover {
+	cursor: pointer;
+	color: red;
+}
 
 </style>
 </head>
@@ -401,17 +406,39 @@
 							var foodCntArr = data[i].food_cnt.split(',');
 							
 							str += '<table border="1" class="orders_table"><tr>';
-							str += '<td>주문번호</td><td>음식</td><td>수량</td></tr>';
-							str += '<tr><td rowspan=' + (foodNameArr.length) + '>' + data[i].orders_id;
+							str += '<td>주문번호</td><td>음식</td><td>수량</td><td>상태</td></tr>';
+							str += '<tr><td rowspan=' + (foodNameArr.length) + '>' + data[i].orders_id + '</td>';
 							
 							for(var j=0; j<foodNameArr.length-1; j++){
-								str += '</td><td>' + foodNameArr[j] + '</td><td>' + foodCntArr[j] +'</td></tr>';
+								str += '<td>' + foodNameArr[j] + '</td><td>' + foodCntArr[j] +'</td>';
+								if(j==0){
+									str += '<td rowspan='+ (foodNameArr.length) +' onclick="process(this, '+ data[i].orders_id +')" class="process_btn">대기</td>';
+								}
+								str += '</tr>';
 							}
 							str += '</table>';
+							
 						}
 						$('#orderListInfo').html(str);
 					}
 				} // end success 
+			});
+		}
+	}
+	
+	/* 주문 처리 하기 */
+	function process(obj, ordersId){
+		
+		var processConfirm = confirm('처리하시겠습니까?'); 
+		
+		if(processConfirm){
+			$.ajax({
+				url: '${pageContext.request.contextPath}/admin/processOrders?storeId=${storeSelectSession.store_id}&ordersId='+ordersId, 
+				type: 'get',
+				
+				success:function(){
+					$(obj).parent().parent().parent().remove();
+				}  
 			});
 		}
 	}

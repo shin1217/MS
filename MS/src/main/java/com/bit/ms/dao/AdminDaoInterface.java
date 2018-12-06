@@ -94,4 +94,5 @@ public interface AdminDaoInterface {
 	int updateFood(FoodVO foodVO);
 	int deleteFood(int foodId, int storeId);
 	List<FoodVO> getFoodInfoAll(int storeId);
+	int processOrders(int ordersId, int storeId);
 }
