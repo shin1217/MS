@@ -122,13 +122,7 @@
 	};
 	
 	// 실시간 세션 확인
-	var confirm = setInterval(function (){
-		
-		/* var name = "${sessionScope.userSession}";			
-		// console.log("실시간 확인중 : [ " + name + " ]")
-		if ( name == null ) {
-			location.href="${pageContext.request.contextPath}/user/main";	
-		} */			
+	var sessionConfirm = setInterval(function (){
 		
 		$.ajax({				
 			url: '${pageContext.request.contextPath}/user/redundantout', 
@@ -142,6 +136,6 @@
 					location.href="${pageContext.request.contextPath}/";
 				}
 			} // end success  
-		}); // end ajax */
+		}); // end ajax
 	}, 500);
 </script>
