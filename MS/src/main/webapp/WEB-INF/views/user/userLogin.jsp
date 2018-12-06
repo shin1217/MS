@@ -20,12 +20,12 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <style>
-*{
+* {
 	font-size: 20px;
 	font-family: 'BMHANNAPro';
 }
 
-input{
+input {
 	font-family: sans-serif;
 }
 
@@ -43,20 +43,21 @@ body {
 	position: relative;
 }
 
-.full {
-<%-- 	background-image:
+.full { <%--
+	background-image:
 		url("<%=request.getContextPath()%>/images/login-back.jpg"); --%>
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 70%;
 }
-.a_none{
+
+.a_none {
 	font-size: 16px;
 	font-weight: bolder;
 }
 
-.interval_height{
+.interval_height {
 	margin-bottom: 5px;
 }
 
@@ -71,21 +72,22 @@ body {
 	height: 30%;
 }
 
-.select_pick{
-	display:inline;
-    width: 70%;
-    height: 40px;
-    padding: 6px 12px;
-    font-size: 17px;
-    line-height: 1.0;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 15px;
+.select_pick {
+	display: inline;
+	width: 70%;
+	height: 40px;
+	padding: 6px 12px;
+	font-size: 17px;
+	line-height: 1.0;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 15px;
 }
-#kakaologin {
-	background: white;
+#socialimage{
+	height: 70px;
+	display: inline-block;
 }
 
 </style>
@@ -104,18 +106,6 @@ body {
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn">
-				
-<%-- 				<div class="form-group">
-					<c:if test="${!empty store_list2 }">
-						<select class="select_pick" id="store_id" name="store_id" required>
-								<option class="select_pick" value="-1" selected>매장을 선택해주세요</option>
-							<c:forEach var="store_list2" items="${store_list2}">
-								<option class="select_pick" value="${store_list2.store_id}">${store_list2.store_name}</option>
-							</c:forEach>
-						</select>
-					</c:if>
-				</div> --%>
-				
 				<div class="form-group">
 					<label class="font-weight-bold text-white" for="inputId">아이디</label>
 					<div>
@@ -146,9 +136,14 @@ body {
 				<div class="form-group">
 					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
-				<div class="form-group">
-					<a id="kakaologin" href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/MS/kakaologin&response_type=code">
-						<img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="100%" />
+				<div class="form-group" id="socialimage">
+					<a href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/MS/kakaologin&response_type=code">
+						<img id="socialimage" src="${pageContext.request.contextPath}/images/kakaolink_btn_medium.png" height="100%"/>
+					</a>
+				</div>
+				<div class="form-group" id="socialimage">
+					<a href="https://github.com/login/oauth/authorize?client_id=ca3c1f71782ed1d5d649&redirect_uri=http://localhost:8080/MS/githublogin">
+						<img src="${pageContext.request.contextPath}/images/GitHub-Mark-Light.png" height="100%"/>
 					</a>
 				</div>
 				<div class="form-group">
