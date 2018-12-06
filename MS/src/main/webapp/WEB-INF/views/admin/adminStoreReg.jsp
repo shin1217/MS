@@ -65,7 +65,7 @@ small {
 </style>
 </head>
 <body>
-	<%= request.getSession().getServletContext().getRealPath("/") %>
+<%-- 	<%= request.getSession().getServletContext().getRealPath("/") %> --%>
 	<div class="container">
 		<div class="titleStyle">
 			<h1>매장등록</h1>
@@ -99,11 +99,12 @@ small {
 				<label class="redColor" id="store_num_label"></label>
 			</div>
 			<!-- 매장 로고 -->
-			<div class="form-group">
+<!-- 			<div class="form-group">
 				<label>매장 로고</label>
 				<div id="fileDrop">등록하실 사진을 올려주세요.</div>
 				<div id="uploadedList"></div>
-			</div>
+			</div> -->
+			<!-- 버튼들 -->
 			<div class="reg_button">
 				<a class="btn btn-danger px-3" href="${pageContext.request.contextPath}/admin">취소</a>
 				<button type="submit" class="btn btn-primary px-3" id="reg_submit">등록</button>
