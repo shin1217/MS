@@ -98,6 +98,9 @@ public class UserBoardController {
 
 		UserBoardVO userBoardVO = userBoardService.getUserBoardViewS(uboard_id);
 
+		// 줄바꿈
+		userBoardVO.setUboard_con(userBoardVO.getUboard_con().replaceAll("<br>", "\r\n"));
+
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("userboardvo", userBoardVO);
@@ -132,13 +135,16 @@ public class UserBoardController {
 	public String getUserBoardViewC(@PathVariable("uboard_id") int uboard_id, Model model, HttpSession session,
 			@Param("keyword") String keyword) throws Exception {
 
-		UserBoardVO userboardVO = userBoardService.getUserBoardViewS(uboard_id);
+		UserBoardVO userBoardVO = userBoardService.getUserBoardViewS(uboard_id);
+
+		// 줄바꿈
+		userBoardVO.setUboard_con(userBoardVO.getUboard_con().replaceAll("\r\n", "<br>"));
 
 		int previousNUM = userBoardService.getViewPreviousNUM(session, uboard_id, keyword);
 
 		int nextNUN = userBoardService.getViewNextNUM(session, uboard_id, keyword);
 
-		model.addAttribute("userboardvo", userboardVO);
+		model.addAttribute("userboardvo", userBoardVO);
 		model.addAttribute("previousnum", previousNUM); // 이전페이지
 		model.addAttribute("nextnum", nextNUN); // 다음페이지
 
