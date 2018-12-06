@@ -72,6 +72,7 @@ public class UserRedundantLoginController {
 		return mav;
 	}
 
+	//1초 단위 ajax 세션확인 컨트롤러
 	@RequestMapping(value = "/user/redundantout", method = RequestMethod.GET)
 	@ResponseBody
 	public int redundantlogout(HttpServletRequest request) {
@@ -84,7 +85,7 @@ public class UserRedundantLoginController {
 			result = -1;
 		}
 
-		System.out.println("[세션 실시간 확인2] " + result);
+//		System.out.println("[세션 실시간 확인2] " + result);
 
 		return result;
 	}

@@ -135,14 +135,13 @@
 			type: 'get',
 			
 			success:function(data){
-				console.log("실시간 세션 확인중")
-				console.log(data)
-				
+				console.log("실시간 세션 확인중 : [ " + data + " ]")
+								
 				if(data == -1){
-					alert('로그인이 필요한 페이지 입니다');
-					location.reload();
+					alert('다른 기기에서 로그인 되었습니다');
+					location.href="${pageContext.request.contextPath}/";
 				}
 			} // end success  
 		}); // end ajax */
-	}, 1000);
+	}, 500);
 </script>
