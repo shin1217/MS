@@ -1,19 +1,21 @@
 package com.bit.ms.admin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.ms.admin.model.AdminBoardListVO;
+import com.bit.ms.admin.model.AdminBoardReplyVO;
 import com.bit.ms.admin.model.AdminBoardVO;
 import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.service.AdminCEOBoardService;
@@ -56,10 +58,12 @@ public class AdminCEOBoardController {
 		String ceoId = adminVO.getAdmin_id();
 		ceoBoardVO.setWriter_cid(ceoId);
 		
+		ceoBoardVO.setCboard_con(ceoBoardVO.getCboard_con().replaceAll("\r\n", "<br>"));
+		
 		// 작성한 게시글이 있다면 1 / 없으면 0
 		CEOBoardService.CEOBoardWrite(ceoBoardVO);
 		
-		return "redirect:/admin/CEOBoard";
+		return "redirect:/admin/CEOBoardView/view/" + ceoBoardVO.getCboard_id() +"?page=1&keyword=";
 	}
 	
 	// 게시글 내용 보기
@@ -100,6 +104,7 @@ public class AdminCEOBoardController {
 	public ModelAndView CEOBoardModify(@PathVariable("cboard_id")int cboard_id) {
 		
 		AdminBoardVO result = CEOBoardService.cBoardContent(cboard_id);
+		result.setCboard_con(result.getCboard_con().replaceAll("<br>", "\r\n"));
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/adminCEOModifyForm");
@@ -113,12 +118,32 @@ public class AdminCEOBoardController {
 	public String CEOBoardModiSuccess(@PathVariable("cboard_id")int cboard_id,
 			@RequestParam("page")int page, AdminBoardVO ceoVO) {
 		
-		
 		System.out.println("게시판 수정 확인 : 컨트롤러 진입");
-		
+		ceoVO.setCboard_con(ceoVO.getCboard_con().replaceAll("\r\n", "<br>"));
 		CEOBoardService.modifyCEOBoardContent(ceoVO);
 		
+		
 		return "redirect:/admin/CEOBoardView/view/"+ cboard_id +"?page="+ page +"&keyword=";
+	}
+	
+	// 댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글
+	@RequestMapping(value="/admin/CEOBoard/reply/all/{cboard_id}", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminBoardReplyVO> adminBoardReplyList(@PathVariable("cboard_id")int cboard_id) {
+		
+		
+		System.out.println("댓글 List 컨트롤러" + cboard_id);
+		List<AdminBoardReplyVO> ceoboard_reply_list = CEOBoardService.getAdminReplyList(cboard_id);
+		
+		return ceoboard_reply_list                                                                     ;
+	}
+	
+	@RequestMapping(value="/admin/CEOBoard/reply", method=RequestMethod.POST)
+	public int adminBoardReplyWrite(AdminBoardReplyVO replyVO) {
+		
+		
+		
+		return 0;
 	}
 	
 }

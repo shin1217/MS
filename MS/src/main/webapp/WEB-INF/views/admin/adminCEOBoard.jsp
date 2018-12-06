@@ -70,7 +70,7 @@ input:focus ~ label, input:valid ~ label, form:focus ~ label {
 	<div class="container" style="overflow: hidden; position: relative;">
 		<br> <a class="nav-link, hypertext_none" href="#">
 			<b style="font-size: 30px;">CEO게시판</b>
-		</a><br><br> <a id="write" class="btn btn-outline-elegant waves-effect" href="${pageContext.request.contextPath}/admin/CEOBoardWrite">글쓰기</a>
+		</a><br><br> <a id="write" class="btn btn-outline-elegant waves-effect" href="${pageContext.request.contextPath}/admin/CEOBoardWrite?page=1&keyword=${param.keyword}">글쓰기</a>
 	
 		<div class="CEOBoard_searchbar">
 			<form method="get">

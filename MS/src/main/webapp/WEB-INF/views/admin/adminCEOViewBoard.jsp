@@ -110,7 +110,28 @@
 			</c:if>
 			<button type="button" class="btn btn-dark" onclick="location.href='${pageContext.request.contextPath}/admin/CEOBoard?page=${param.page }&keyword=${param.keyword }'">목록</button>
 	</div>
+	<!-- 게시글  -->
+		<br>
+		<!-- 댓글  -->
+		<section class="comments my-5"> <!-- 코멘트 총개수 -->
+		<div id="CEOBoardCommentsNum" class="card-header font-weight-bold"></div>
+		<div id="CEOBoardReplyAllBody"></div>
+		</section>
+
+		<!-- 댓글 입력란 -->
+		
+			<div class="md-form mt-4">
+				<label for="CEOBoardReplyFormComment">댓글 입력</label>
+				<textarea  class="form-control md-textarea"	id="CEOBoardReplyFormComment" rows="1" ></textarea>
+				<div class="text-center my-4">
+					<button class="btn btn-default btn-sm btn-rounded" id="CEOBoardCommentSubmit">댓글 입력</button>
+				</div>
+			</div>
+		
+		<!-- 댓글 입력란 -->
+		<!-- 댓글  -->
 </div>
+
 <!-- 게시글 삭제확인 모달 -->
 <div class="modal fade" id="CEOBoardDelete" tabindex="-1"	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
@@ -132,4 +153,74 @@
 </div>
 <!-- 게시글 삭제확인 모달 끝 -->
 </body>
+<script>
+	$(document).ready(function(){
+		getCEOBoardReplyList();
+	});
+
+	var cboard_id = '${CEOBoard_view.cboard_id}'; // 게시글 번호
+	var cboard_reply = '';
+	
+	// 댓글 리스트 뽑기
+	function getCEOBoardReplyList(){
+		$.ajax({
+			type : 'get',
+			url : '${pageContext.request.contextPath}/admin/CEOBoard/reply/all/'+ cboard_id,
+			success :function(data){
+				$('#CEOBoardCommentsNum').text(data.length + ' comments');
+				$('#CEOBoardReplyAllBody').text('');
+				$(data).each(function(index, item) {
+					cboard_reply += '<div class="media d-block d-md-flex mt-4">';
+					cboard_reply += '<div class="media-body text-center text-md-left ml-md-3 ml-0">';
+					cboard_reply += '<h5 class="font-weight-bold mt-0">';
+
+					//수정삭제버튼
+					if (  ("${sessionScope.adminSession}" != "") && ("${sessionScope.adminSession.admin_id}" == item.cboard_reply_writer)  ) {
+													
+						cboard_reply += '<button id="CEOBoardReplyDeleteBtn' + item.cboard_reply_id + '" onclick="CEOBoardReplyDelete('+ item.cboard_reply_id + ')" type="button" class="btn btn-danger px-3 float-right"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+						cboard_reply += '<button id="CEOBoardReplyEditBtn'	+ item.cboard_reply_id + '" onclick="CEOBoardReplyEdit(' + item.cboard_reply_id + ')" type="button" class="btn btn-primary px-3 float-right"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>';
+					}
+					
+					cboard_reply += '<a class="text-default">' + item.cboard_reply_writer;
+					cboard_reply += '</a></h5><input id="CEOBoardReplyInput' + item.cboard_reply_id +'" class="form-control w-75" value="'+ item.cboard_reply_con +'" style="border: 0px; background: white;" readonly="true"></input><hr/></div></div>';
+					
+					// jquery for문 돌린 결과를 id='CEOBoardReplyAllBody'에 담아줌
+					$('#CEOBoardReplyAllBody').html(cboard_reply);
+									});
+					// 그리고 다시 초기화시키고 시작!
+					cboard_reply = '';
+			}
+		});
+	}
+
+	$('#CEOBoardCommentSubmit').click(function(){
+		
+		var cboard_reply_con = $('#CEOBoardReplyFormComment').val(); // 댓글 내용 가져옴
+		var reply_writer_id = "${sessionScope.adminSession.admin_id}"; // 세션에서 writer_id를 가져옴
+		
+		if(cboard_reply_con){
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/admin/CEOBoard/reply',
+				data : {
+					cboard_id : cboard_id,
+					cboard_reply_writer : reply_writer_id,
+					cboard_reply_con : cboard_reply_con,
+				},
+				success : function(data){
+					console.log(data);
+					getCEOBoardReplyList();
+					$('#CEOBoardReplyAllBody').val('');
+				}
+			});
+		} else {
+			alert("댓글을 입력하세요 :)");
+		}
+		
+		
+	});
+	
+	
+</script>
+
 </html>

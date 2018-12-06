@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.bit.ms.admin.model.AdminBoardReplyVO;
 import com.bit.ms.admin.model.AdminBoardVO;
 import com.bit.ms.admin.model.AdminVO;
 import com.bit.ms.admin.model.NoticeVO;
@@ -60,6 +61,8 @@ public interface AdminDaoInterface {
 	int CEOBOardTotalCount(String keyword); // 총 페이지 갯수
 	int getPreviousPage(@Param("cboard_id") int cboard_id, @Param("keyword") String keyword); // 이전 페이지
 	int getNextPage(@Param("cboard_id") int cboard_id, @Param("keyword") String keyword); // 다음 페이지
+		/*CEO게시판 댓글*/
+	List<AdminBoardReplyVO> getReplyList(int cboard_id); // CEO게시판 댓글 불러오기
 	
 	
 	/*회원리스트 관련*/

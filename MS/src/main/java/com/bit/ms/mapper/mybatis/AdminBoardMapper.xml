@@ -44,5 +44,10 @@ select ifnull(min(cboard_id),-1) from ceoboard where cboard_id > #{cboard_id}
 	and (cboard_con like CONCAT('%',#{keyword},'%') or cboard_title like CONCAT('%',#{keyword},'%'))
 </select>
 
+<!-- CEO Board 댓글 리스트 -->
+<select id="getReplyList" resultType="AdminBoardReplyVO">
+	select * from cboard_reply where cboard_id = #{cboard_id}
+	order by cboard_reply_id asc
+</select>
 
 </mapper>

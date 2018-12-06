@@ -28,7 +28,7 @@
 			<input type="text" class="form-control" placeholder="제목" name="cboard_title" value="" required>
 			<!-- name값과 메서드의 매개변수가 이름이 같으면 알아서 넣어줌 -->
 			<textarea class="form-control" rows="20" placeholder="내용" name="cboard_con" value="" required></textarea>
-			<button type="submit" class="btn btn-info btn-block">수정하기</button>
+			<button type="submit" class="btn btn-info btn-block">작성하기</button>
 		</form>
 	</div>
 </body>

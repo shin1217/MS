@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.ms.admin.model.AdminBoardListVO;
+import com.bit.ms.admin.model.AdminBoardReplyVO;
 import com.bit.ms.admin.model.AdminBoardVO;
 import com.bit.ms.dao.AdminDaoInterface;
 
@@ -139,4 +140,19 @@ public class AdminCEOBoardService {
 		return adminDao.contentModi(ceoVO);
 	}
 	
+	// 댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글
+	//댓글 리스트 불러오기
+	public List<AdminBoardReplyVO> getAdminReplyList(int cboard_id){
+	
+		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
+		
+		return adminDao.getReplyList(cboard_id);
+	}
+	
+	// 댓글 적기
+	public int writeReply(AdminBoardReplyVO replyVO) {
+		
+		
+		return 0;
+	}
 }
