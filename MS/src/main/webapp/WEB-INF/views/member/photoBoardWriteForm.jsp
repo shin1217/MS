@@ -15,7 +15,7 @@
 		</a>
 	</div>
 	<div class="container">
-		<form class="text-center p-5" method="post" enctype = "multipart/form-data">
+		<form class="text-center p-5" action = "write"id = "addForm" method="post" enctype = "multipart/form-data">
 		<c:if test="${!empty adminSession}">
 			<input type = "hidden" name = "photo_upid" value = "${storeSelectSession.store_name} [관리자]">
 		</c:if>
@@ -29,8 +29,29 @@
 			<textarea class="form-control" rows="20" placeholder="내용"
 				name="photo_con" required></textarea>
 			<input type = "file" name = "photoFile" style = "float : left;">
-			<button class="btn btn-info btn-block">작성하기</button>
+			<input type= "hidden" name="photo_file" id = "photo_file">
+			<button class="btn btn-info btn-block" onclick = "insertPhoto()">작성하기</button>
 		</form>
 	</div>
 </body>
+<script>
+	function insertPhoto(){
+		
+		var formData = new FormData($('#addForm')[0]);
+		
+		$.ajax({
+            async : false,
+            type : 'POST',
+        	url : 'http://52.79.242.155:8080/FileServer/uploadFile/photo',
+            data : formData,
+            processData : false,
+            contentType : false,
+             
+            success : function(data) {
+        	   	$('#photo_file').val(data); // hidden form에 파일 이름 저장
+            	$('#addForm').submit();
+            }
+		});
+	}
+</script>
 </html>

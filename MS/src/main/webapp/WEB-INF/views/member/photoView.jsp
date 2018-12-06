@@ -20,7 +20,7 @@
 		<div style = "float : right;">작성자 : ${viewData.photo_upid}</div>
 	</div><br><hr>
 	<div class = "context">
-		<div><img src = "${pageContext.request.contextPath}/images/photoboard/${viewData.photo_file}" style = "width : 350px; height : 350px;"></div><br>
+		<div><img src = "http://52.79.242.155:8080/FileServer/resources/photoBoard/${viewData.photo_file}" style = "width : 350px; height : 350px;"></div><br>
 		<div>${viewData.photo_con}</div><hr>
 	</div>
 	<div id = "btnDiv" style = "float : right;">
@@ -62,7 +62,7 @@
 				</button>
 			</div>
 			<div class="modal-footer d-flex justify-content-center">
-				<a class="btn btn-danger" href="${pageContext.request.contextPath}/member/photoBoard/delete/${viewData.photo_id}">삭제</a>
+				<a class="btn btn-danger" onclick = "deletePhotoImg(${viewData.photo_file}, ${viewData.photo_id})">삭제</a>
 				<a class="btn btn-dark" data-dismiss="modal">취소</a>
 			</div>
 		</div>
@@ -82,6 +82,26 @@
 	} else {
 		var writeId = "${storeSelectSession.store_name}[관리자]";
 		var admin_id = "${adminSession.admin_id}";
+	}
+	
+	function deletePhotoImg(fileName, id){
+		$.ajax({
+            async : false,
+            type : 'get',
+          	url : 'http://52.79.242.155:8080/FileServer/deleteFile/photo?fileName='+fileName,
+            processData : false,
+            contentType : false,
+            
+            success : function(data) {
+            	$.ajax({
+    				url: '${pageContext.request.contextPath}/member/photoBoard/delete/' + id, 
+    				type: 'get',
+    				success:function(){
+    					location.href = "member/photoBoard?page=1";
+    				}
+    			}); // end ajax
+            }
+		 });
 	}
 	
 	$('#replySubmit').click(function(){

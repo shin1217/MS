@@ -58,32 +58,8 @@ public class MemberPhotoService {
 	//게시물 등록
 	public int writePhotoS(PhotoBoardVO photoVo, HttpServletRequest request) {
 		
-		//먼저 사진파일을 제외한 나머지 내용을 등록하고 후에 시간을 받아와서 파일을 저장
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
-		int resultCnt = memberDao.writePhotoI(photoVo); //사진을 제외한 나머지를 db에 저장
-		//물리적 저장 경로
-		String uploadUri = "/images/photoboard";
-		//시스템 경로
-		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
-		
-		if(resultCnt == 1) { // 사진을 제외한 내용등록을 성공하면 
-			
-		//db에 저장될 파일 이름
-		String imgName = photoVo.getStore_id() + "_" + System.currentTimeMillis();
-		
-			try {
-				photoVo.getPhotoFile().transferTo(new File(dir, imgName));
-				photoVo.setPhoto_file(imgName); //파일이름을 저장
-			} catch (Exception e) { // 파일올릴때 오류가 나면 파일 지움
-				System.out.println("사진등록 실패");
-				new File(dir, imgName).delete();
-			}
-		// 사진을 db에 업데이트
-		}
-		HashMap<String,String> map = new HashMap<String,String>();
-		map.put("photo_file", photoVo.getPhoto_file());
-		map.put("photo_id", Integer.toString(photoVo.getPhoto_id()));
-		return memberDao.writePhotoComplete(map);
+		return memberDao.writePhotoI(photoVo);
 	}
 	public PhotoBoardVO getPhotoViewS(int photo_id) {
 		
@@ -96,26 +72,18 @@ public class MemberPhotoService {
 		return memberDao.deletePhotoI(photo_id);
 	}
 	public int modifyPhotoS(PhotoBoardVO photoVo, HttpServletRequest request) {
-		String uploadUri = "/images/photoboard";
-		String dir = request.getSession().getServletContext().getRealPath(uploadUri);
-		String imgName = photoVo.getStore_id() + "_" + photoVo.getPhoto_id();
 		
 		String photo_title = photoVo.getPhoto_title();
 		String photo_con = photoVo.getPhoto_title();
 		String photo_id = Integer.toString(photoVo.getPhoto_id());
+		String photo_file = photoVo.getPhoto_file();
 		
 		HashMap<String,String> map = new HashMap<String,String>();
 		map.put("photo_title", photo_title);
 		map.put("photo_con", photo_con);
 		map.put("photo_id", photo_id);
-		try {
-			photoVo.getPhotoFile().transferTo(new File(dir, imgName));
-			photoVo.setPhoto_file(imgName);
-			map.put("photo_file", photoVo.getPhoto_file());
-		} catch (Exception e) {
-			System.out.println("파일 수정 실패");
-			new File(dir, imgName).delete();
-		}
+		map.put("photo_file", photo_file);
+		
 		return memberDao.modifyPhotoI(map);
 	}
 	public int writePhotoReplyS(PhotoBoardReplyVO replyVo) {
