@@ -83,8 +83,8 @@
 				<beans:prop key="mail.smtp.auth">true</beans:prop>
 				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
 				<beans:prop key="mail.debug">true</beans:prop>
-<!-- 			<beans:prop key="mail.smtp.ssl.enable">true</beans:prop>
-				<beans:prop key="mail.smtp.ssl.trust">smtp.gmail.com</beans:prop> -->
+				<!-- <beans:prop key="mail.smtp.ssl.enable">true</beans:prop> <beans:prop 
+					key="mail.smtp.ssl.trust">smtp.gmail.com</beans:prop> -->
 			</beans:props>
 		</beans:property>
 	</beans:bean>
@@ -106,14 +106,13 @@
 			<exclude-mapping path="/admin/idCheck" />
 			<exclude-mapping path="/user/idCheck" />
 			<exclude-mapping path="/user/mailCheck" />
-			<exclude-mapping path="/admin/storeChoice" />
+			<exclude-mapping path="/user/redundantout" />
 			<exclude-mapping path="/admin/adminSearch" />
-			<exclude-mapping path="/user/storeChoice" />
-			<exclude-mapping path="/user/qrLogin" />			
+			<exclude-mapping path="/user/qrLogin" />
 			<beans:bean
 				class="com.bit.ms.interceptor.AuthCheckInterceptor" />
 		</interceptor>
-		
+
 		<interceptor>
 			<mapping path="/user/userOrders" />
 			<beans:bean

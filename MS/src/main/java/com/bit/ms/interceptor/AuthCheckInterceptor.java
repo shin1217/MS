@@ -1,7 +1,5 @@
 package com.bit.ms.interceptor;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,18 +26,17 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 
-		response.setContentType("text/html; charset=UTF-8");
+//		response.setContentType("text/html; charset=UTF-8");
 
-		PrintWriter printwriter = response.getWriter();
+//		PrintWriter printwriter = response.getWriter();
 
-		printwriter.print(
-				"<script>alert('로그인이 필요한 페이지 입니다'); location.replace('" + request.getContextPath() + "/');</script>");
+//		printwriter.print("<script>alert('로그인이 필요한 페이지 입니다'); location.replace('" + request.getContextPath() + "/');</script>");
 
 //		printwriter.flush();
 
 //		printwriter.close();
 
-//		response.sendRedirect(request.getContextPath() + "/");
+		response.sendRedirect(request.getContextPath() + "/");
 
 		return false;
 

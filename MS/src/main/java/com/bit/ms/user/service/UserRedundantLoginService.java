@@ -72,6 +72,24 @@ public class UserRedundantLoginService implements HttpSessionBindingListener {
 		}
 	}
 
+//	public int confirmSession(HttpSession session) { // 실시간 확인
+//		Enumeration e = loginUsers.keys();
+//		HttpSession hashtableinsession = null;
+//
+//		int result = 0;
+//
+//		while (e.hasMoreElements()) {
+//			hashtableinsession = (HttpSession) e.nextElement();
+//			if (!loginUsers.get(hashtableinsession).equals(session)) {
+//				// 세션이 invalidate될때 HttpSessionBindingListener를
+//				// 구현하는 클레스의 valueUnbound()함수가 호출된다.
+//				result = -1;
+//			}
+//		}
+//		System.out.println("[세션 실시간 확인1] " + result);
+//		return result;
+//	}
+
 	/*
 	 * 사용자가 입력한 ID, PW가 맞는지 확인하는 메소드
 	 * 

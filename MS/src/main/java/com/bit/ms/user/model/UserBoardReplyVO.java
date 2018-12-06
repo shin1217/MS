@@ -5,19 +5,20 @@ import org.apache.ibatis.type.Alias;
 @Alias("UserBoardReplyVO")
 public class UserBoardReplyVO {
 
-	//게시판 답글
+	// 게시판 답글
 	private int uboard_reply_id;
 	private String uboard_reply_con;
-
-	//게시판
-	private int uboard_id;
 	private String reply_writer_id;
+
+	// 게시판
+	private int uboard_id;
 	private int store_id;
 
 	@Override
 	public String toString() {
-		return "UserBoardReplyVO [uboard_reply_id=" + uboard_reply_id + ", uboard_id=" + uboard_id + ", reply_writer_id="
-				+ reply_writer_id + ", uboard_reply_con=" + uboard_reply_con + ", store_id=" + store_id + "]";
+		return "UserBoardReplyVO [uboard_reply_id=" + uboard_reply_id + ", uboard_id=" + uboard_id
+				+ ", reply_writer_id=" + reply_writer_id + ", uboard_reply_con=" + uboard_reply_con + ", store_id="
+				+ store_id + "]";
 	}
 
 	public int getUboard_reply_id() {
@@ -65,7 +66,8 @@ public class UserBoardReplyVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserBoardReplyVO(int uboard_reply_id, int uboard_id, String reply_writer_id, String uboard_reply_con, int store_id) {
+	public UserBoardReplyVO(int uboard_reply_id, int uboard_id, String reply_writer_id, String uboard_reply_con,
+			int store_id) {
 		super();
 		this.uboard_reply_id = uboard_reply_id;
 		this.uboard_id = uboard_id;

@@ -208,7 +208,7 @@ body {
 						$('#spanLoginCheck').text('이메일 인증을 해주셔야 합니다!');						
 					} else if (data == -3) { // 아이디가 사용중이라면?
 						console.log(data);
-						location.href = '${pageContext.request.contextPath}/user/redundant?user_Id=' + id + '&user_Pw=' + pw + '&store_Id=' + store + '&remember_userId=' + remember_us;						
+						location.href = '${pageContext.request.contextPath}/user/redundant?user_Id=' + id + '&user_Pw=' + pw + '&remember_userId=' + remember_us;						
 					} else { //로그인 성공시
 						console.log(data);
 						location.href = '${pageContext.request.contextPath}/user/storeChoice';

@@ -103,6 +103,8 @@
 		var timer = setInterval(function (){
 			useTime += 1;
 		}, 1000);
+		
+		
 	});
 	
 	/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
@@ -118,4 +120,29 @@
 			}
 		});
 	};
+	
+	// 실시간 세션 확인
+	var confirm = setInterval(function (){
+		
+		/* var name = "${sessionScope.userSession}";			
+		// console.log("실시간 확인중 : [ " + name + " ]")
+		if ( name == null ) {
+			location.href="${pageContext.request.contextPath}/user/main";	
+		} */			
+		
+		$.ajax({				
+			url: '${pageContext.request.contextPath}/user/redundantout', 
+			type: 'get',
+			
+			success:function(data){
+				console.log("실시간 세션 확인중")
+				console.log(data)
+				
+				if(data == -1){
+					alert('로그인이 필요한 페이지 입니다');
+					location.href="${pageContext.request.contextPath}/";
+				}
+			} // end success  
+		}); // end ajax */
+	}, 1000);
 </script>

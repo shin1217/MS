@@ -86,8 +86,7 @@ public class UserLoginService {
 				// 세션 저장하기 전에 비밀번호 가리기
 				vo.setUser_pw("");
 
-				// 접속자 아이디를 세션에 담는다.
-				httpSession.setAttribute("loginId", userVO.getUser_id());
+				
 
 				// 세션에 vo 객체 저장
 				httpSession.setAttribute("userSession", vo);
@@ -100,6 +99,9 @@ public class UserLoginService {
 				result = 1;
 
 				// 중복로그인 start
+				
+				// 접속자 아이디를 세션에 담는다.
+				httpSession.setAttribute("loginId", userVO.getUser_id());
 
 				// 이미 접속한 아이디인지 체크한다.
 				loginManager.printloginUsers(); // 접속자 리스트
