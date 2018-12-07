@@ -137,5 +137,5 @@
 				}
 			} // end success  
 		}); // end ajax
-	}, 500);
+	}, 1000);
 </script>
