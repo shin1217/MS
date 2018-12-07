@@ -85,8 +85,9 @@ body {
 	border: 1px solid #ccc;
 	border-radius: 15px;
 }
+
 #socialimage{
-	height: 68px;
+	height: 63px;
 	display: inline-block;
 }
 
@@ -97,7 +98,6 @@ body {
 	<c:if test="${not empty cookie.user_check}">
 		<c:set value="checked" var="checked"/>
 	</c:if>
-	
 	<div class="full">
 		<div class="wow flipInY" style="float: right; margin-top: 30px; margin-right: 30px;">
 			<a href="admin"> 
@@ -138,16 +138,18 @@ body {
 				</div>
 				<div class="form-group" id="socialimage">
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/MS/kakaologin&response_type=code">
-						<img id="socialimage" src="${pageContext.request.contextPath}/images/kakaolink_btn_medium.png" height="100%"/>
+						<img id="socialimage" src="${pageContext.request.contextPath}/images/logo-kakao.png" height="100%"/>
+					</a>
+				</div>
+				<div class="form-group" id="socialimage">
+					<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=BLxuRdNAKQL9y0hx6ugp&redirect_uri=http://localhost:8080/MS">
+						<img src="${pageContext.request.contextPath}/images/logo-naver.png" height="100%"/>
 					</a>
 				</div>
 				<div class="form-group" id="socialimage">
 					<a href="https://github.com/login/oauth/authorize?client_id=ca3c1f71782ed1d5d649&redirect_uri=http://localhost:8080/MS/githublogin">
-						<img src="${pageContext.request.contextPath}/images/GitHub-Mark-Light.png" height="100%"/>
+						<img src="${pageContext.request.contextPath}/images/logo-github.png" height="100%"/>
 					</a>
-				</div>
-				<div class="form-group" id="socialimage">
-					<div id="naver_id_login"></div>
 				</div>
 			</div>
 		</div>
@@ -211,15 +213,5 @@ body {
 				}
 			});
 		});
-	
-	var naver_id_login = new naver_id_login("OUHAR0pHNVfL5y2SBk3v", "http://localhost:8080/ms/user/main");
-  	var state = naver_id_login.getUniqState();
-  	naver_id_login.setDomain("http://localhost:8080/ms");
-  	naver_id_login.setState(state);
-  	naver_id_login.setPopup();
-  	naver_id_login.init_naver_id_login();
-	
-	/* 설정정보를 초기화하고 연동을 준비 */
-	/* naverLogin.init(); */
 </script>
 </html>

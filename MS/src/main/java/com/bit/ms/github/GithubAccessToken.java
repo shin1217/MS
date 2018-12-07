@@ -43,7 +43,7 @@ public class GithubAccessToken {
 			System.out.println("Response Code : " + responseCode);
 
 			inputStream = response.getEntity().getContent();
-
+			
 			// inputStream형태를 String으로 변환해준다
 			int i;
 			StringBuffer buffer = new StringBuffer();

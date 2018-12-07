@@ -21,7 +21,7 @@ public class GithubUserInfo {
 
 		// add header
 		get.addHeader("Authorization", "token " + accessToken);
-
+		
 		JsonNode returnNode = null;
 
 		try {
