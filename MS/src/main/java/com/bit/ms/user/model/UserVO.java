@@ -17,9 +17,8 @@ public class UserVO {
 	private int store_id; // 사용 중인 매장 번호
 	private int user_pay; // 결제 금액
 	private String user_key; // 인증 번호
-	private String kakao_id; // 카카오 아이디
-	private String github_id; // 깃헙 아이디
-	private String naver_id; // 네이버 아이디
+	private String divide; // 소셜구분용
+	private String whatid; // 소셜 각 고유아이디
 
 	public String getUser_id() {
 		return user_id;
@@ -101,36 +100,28 @@ public class UserVO {
 		this.user_key = user_key;
 	}
 
-	public String getKakao_id() {
-		return kakao_id;
+	public String getDivide() {
+		return divide;
 	}
 
-	public void setKakao_id(String kakao_id) {
-		this.kakao_id = kakao_id;
+	public void setDivide(String divide) {
+		this.divide = divide;
 	}
 
-	public String getGithub_id() {
-		return github_id;
+	public String getWhatid() {
+		return whatid;
 	}
 
-	public void setGithub_id(String github_id) {
-		this.github_id = github_id;
-	}
-
-	public String getNaver_id() {
-		return naver_id;
-	}
-
-	public void setNaver_id(String naver_id) {
-		this.naver_id = naver_id;
+	public void setWhatid(String whatid) {
+		this.whatid = whatid;
 	}
 
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
 				+ user_phone + ", user_birth=" + user_birth + ", user_email=" + user_email + ", user_time=" + user_time
-				+ ", store_id=" + store_id + ", user_pay=" + user_pay + ", user_key=" + user_key + ", kakao_id="
-				+ kakao_id + ", github_id=" + github_id + ", naver_id=" + naver_id + "]";
+				+ ", store_id=" + store_id + ", user_pay=" + user_pay + ", user_key=" + user_key + ", divide=" + divide
+				+ ", whatid=" + whatid + "]";
 	}
 
 }

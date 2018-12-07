@@ -54,8 +54,9 @@ public class GithubController {
 		System.out.println("name : " + name);
 		System.out.println("email : " + email);
 
-		// DB에 저장할 GitHub아이디를 세션에 저장
-		session.setAttribute("github_id", id);
+		// 사용할 깃헙아이디와 소셜구분을 세션에 저장
+		session.setAttribute("whatid", id);
+		session.setAttribute("divide", "github_id");
 
 		// 파라메터 저장
 		ra.addAttribute("name", name);

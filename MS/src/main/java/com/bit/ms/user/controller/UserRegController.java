@@ -1,10 +1,8 @@
 package com.bit.ms.user.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.ms.admin.service.AdminStoreListService;
-import com.bit.ms.member.model.StoreVO;
 import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserMailSendService;
 import com.bit.ms.user.service.UserRegService;
@@ -26,26 +22,18 @@ public class UserRegController {
 	@Autowired
 	private UserRegService reg_service;
 	@Autowired
-	private AdminStoreListService store_service;
-	@Autowired
 	private UserMailSendService mailsender;
 
 	// 회원가입 페이지에 보일 매장 리스트
 	@RequestMapping(value = "/user/reg", method = RequestMethod.GET)
-	public String userReg(Model model) {
-
-		List<StoreVO> result = store_service.get_storeList();
-
-		// 매장 리스트
-		model.addAttribute("store_list", result);
-		System.out.println("컨트롤러 접속 확인" + result);
+	public String userReg(Model model, HttpSession session) {
 
 		return "user/userReg";
 	}
 
 	// 회원가입 컨트롤러
 	@RequestMapping(value = "/user/reg", method = RequestMethod.POST)
-	public String userRegPass(UserVO userVO, Model model, HttpServletRequest request) {
+	public String userRegPass(UserVO userVO, Model model, HttpServletRequest request, HttpSession session) {
 
 		// 비밀번호 암호화
 		String encryPassword = UserSha256.encrypt(userVO.getUser_pw());
@@ -53,7 +41,7 @@ public class UserRegController {
 		
 		// 회원가입 메서드
 		reg_service.userReg_service(userVO);
-		
+
 		// 인증 메일 보내기 메서드
 		mailsender.mailSendWithUserKey(userVO.getUser_email(), userVO.getUser_id(), request);
 

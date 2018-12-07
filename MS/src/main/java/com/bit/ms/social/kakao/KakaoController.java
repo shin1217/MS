@@ -64,8 +64,9 @@ public class KakaoController {
 		System.out.println("name : " + name);
 		System.out.println("email : " + email);
 
-		// DB에 저장할 카카오 아이디 세션에 저장
-		session.setAttribute("kakao_id", id);
+		// 사용할 카카오아이디와 소셜구분을 세션에 저장
+		session.setAttribute("whatid", id);
+		session.setAttribute("divide", "kakao_id");
 
 		// 파라메터 저장
 		ra.addAttribute("name", name);
@@ -74,7 +75,7 @@ public class KakaoController {
 		// 카카오 로그인 정보가 존재 할 경우
 		if (result == 1) {
 			UserVO vo = kakaoService.kakaoLoginPass(id, divide, session);
-
+			
 			// 이메일 인증이 되어있는지 확인
 			if (!vo.getUser_key().equals("Y")) { // 인증 안하면 로그인페이지로 돌아가서 메시지출력
 				response.setContentType("text/html; charset=UTF-8");

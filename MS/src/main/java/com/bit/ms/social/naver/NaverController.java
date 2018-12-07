@@ -61,8 +61,9 @@ public class NaverController {
 		// 가입되어있는지 네이버아이디로 찾는다
 		result = naverService.getNaverLogin(id, divide);
 		
-		// DB에 저장할 네이버아이디를 세션에 저장
-		session.setAttribute("naver_id", id);
+		// 사용할 네이버아이디와 소셜구분을 세션에 저장
+		session.setAttribute("whatid", id);
+		session.setAttribute("divide", "naver_id");
 
 		// 파라메터 저장
 		ra.addAttribute("name", name);

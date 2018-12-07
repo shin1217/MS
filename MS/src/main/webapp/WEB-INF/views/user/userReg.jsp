@@ -82,17 +82,13 @@ body {
 			<h1>MS :p</h1>
 		</div>
 		<form method="POST">
-			<!-- 세션에 저장한 카카오 아이디를 가져옴 -->
-			<c:if test="${!empty kakao_id}">
-				<input type="hidden" name="kakao_id" value="${kakao_id}" />
+			<!-- 세션에 저장한 소셜 아이디를 가져옴 -->
+			<c:if test="${!empty whatid}">
+				<input type="hidden" name="whatid" value="${whatid}" />
 			</c:if>
-			<!-- 세션에 저장한 네이버 아이디를 가져옴 -->
-			<c:if test="${!empty naver_id}">
-				<input type="hidden" name="naver_id" value="${naver_id}" />
-			</c:if>
-			<!-- 세션에 저장한 깃헙 아이디를 가져옴 -->
-			<c:if test="${!empty github_id}">
-				<input type="hidden" name="github_id" value="${github_id}" />
+			<!-- 세션에 저장한 소셜 구분을 가져옴 -->
+			<c:if test="${!empty divide}">
+				<input type="hidden" name="divide" value="${divide}" />
 			</c:if>
 
 			<!-- 아이디 -->
