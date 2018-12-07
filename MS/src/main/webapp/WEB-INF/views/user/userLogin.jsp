@@ -89,7 +89,7 @@ body {
 }
 
 .socialimage{
-	height: 63px;
+	height: 63.5px;
 	display: inline-block;
 }
 
@@ -156,6 +156,16 @@ body {
 				<div class="form-group socialimage" id="githubBtn">
 					<a href="https://github.com/login/oauth/authorize?client_id=ca3c1f71782ed1d5d649&redirect_uri=http://localhost:8080/MS/githublogin">
 						<img src="${pageContext.request.contextPath}/images/logo-github.png" height="100%"/>
+					</a>
+				</div>
+				<div class="form-group socialimage" id="githubBtn">
+					<a href="">
+						<img src="${pageContext.request.contextPath}/images/logo-facebook.png" height="100%"/>
+					</a>
+				</div>
+				<div class="form-group socialimage" id="githubBtn">
+					<a href="">
+						<img src="${pageContext.request.contextPath}/images/logo-google.png" height="100%"/>
 					</a>
 				</div>
 			</div>
