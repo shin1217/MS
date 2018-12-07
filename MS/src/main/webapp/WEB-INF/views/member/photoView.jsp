@@ -62,7 +62,7 @@
 				</button>
 			</div>
 			<div class="modal-footer d-flex justify-content-center">
-				<a class="btn btn-danger" onclick = "deletePhotoImg(${viewData.photo_file}, ${viewData.photo_id})">삭제</a>
+				<a class="btn btn-danger" onclick = "deletePhotoImg('${viewData.photo_file}', ${viewData.photo_id})">삭제</a>
 				<a class="btn btn-dark" data-dismiss="modal">취소</a>
 			</div>
 		</div>
@@ -97,7 +97,7 @@
     				url: '${pageContext.request.contextPath}/member/photoBoard/delete/' + id, 
     				type: 'get',
     				success:function(){
-    					location.href = "member/photoBoard?page=1";
+    					location.href = "${pageContext.request.contextPath}/member/photoBoard?page=1";
     				}
     			}); // end ajax
             }

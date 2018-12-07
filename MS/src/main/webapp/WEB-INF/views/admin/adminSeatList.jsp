@@ -36,6 +36,24 @@
 	color: #181818;
 	text-decoration: none;	
 }
+.qrModal{
+	position : fixed;
+	width : 100%;
+	height : 100%;
+	left : 0px;
+    top : 0px;
+    z-index : 1;
+    background-color : rgba(0, 0, 0, 0.4);
+    display : none;
+}
+.qrImg{
+	text-align : center;
+	position : absolute;
+	top : 50%;
+	left : 50%;
+	margin-top : -150px;
+	margin-left : -150px;
+}
 
 </style>
 <title>MS</title>
@@ -102,6 +120,10 @@
 			</tbody>
 			<!-- 좌석리스트 -->
 		</table>
+	</div>
+	<!-- 큐알코드 확대 모달창 -->
+	<div class = "qrModal" id = "qrModal">
+		<div class = "qrImg" id = "qrImg"></div>
 	</div>
 </body>
 <script>
@@ -170,7 +192,7 @@
 							if(item.seat_qr == "" || item.seat_qr == null){
 								seat_t += '<input type="button" id="seat_qr_btn' + item.seat_id + '" value="생성하기" readonly="true" class="seat_qr_btn" onclick = "makeQr(' + item.seat_id + ')" style = "margin-top : 16px;"/><div id = "seat_qr" style = "display : none;"></div></td><td class="adminSeatList_td">';
 							} else {
-								seat_t +='<img src = "' + item.seat_qr + '" style = "width : 50px;" id = "qrImage" onclick = "goQr(' + item.seat_id + ')"></td><td class="adminSeatList_td">';
+								seat_t +='<img src = "' + item.seat_qr + '" style = "width : 50px;" id = "qrImage" onclick = "goQr(' +  "'" + item.seat_qr + "'" + ')"></td><td class="adminSeatList_td">';
 							}
 							seat_t += '<input type="button" id="seat_modify_btn' + item.seat_id + '" onclick="seat_modify_mode(' + item.seat_id + ')" type="button" value="수정"></button>';
 							seat_t += '<input type="button" id="seat_delete_btn' + item.seat_id + '" onclick="seat_delete(' + item.seat_id + ')" type="button" value="삭제"></button></td></tr>';
@@ -277,7 +299,6 @@
 	 
 	function check_input2_onkeydown(){ //숫자만 입력
 	      var theForm=document.frm1;
-	      
 	      if( !( (event.keyCode >= 48 && event.keyCode<=57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode==8 )  ){
 	           alert("숫자만 입력해 주세요 :p");
 	           event.returnValue=false;
@@ -285,12 +306,13 @@
 	}
 
 	function makeQr(seat_id){
+		var encode = escape("seat_id=" + seat_id + "&store_id=" + session_store_id + "&choe=UTF-8"); // 주소뒤에 파라미터값을 넘기려면 encode된 상태로 넘겨야한다.
 		$.ajax({
 			url : '${pageContext.request.contextPath}/admin/addQr/',
 			type : 'post',
 			data : {
 				seat_id : seat_id,
-				seat_qr : "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=http://13.125.241.30/MS/user/qrLogin?seat_id=" + seat_id + "&store_id=" + session_store_id 
+				seat_qr : "https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=http://13.125.241.30/MS/user/qrLogin?" + encode
 			},
 			success : function(data){
 				$.ajax({
@@ -298,16 +320,22 @@
 					type : 'get',
 					success : function(data2){
 						$('#seat_qr_btn' + seat_id ).remove();
-						$('#seat_qr').show().html('<img src = "' + data2 + '" style = "width : 50px; padding : 0px;" id = "qrImage" onclick = "goQr(' + seat_id + ')">');
+						$('#seat_qr').show().html('<img src = "' + data2 + '" style = "width : 50px; padding : 0px;" id = "qrImage" onclick = "goQr(' + "'" + data2 + "'" + ')">');
 					}
 				});
 			}
 		});
 	}
 	
-	function goQr(seat_id){
-		location.href = "${pageContext.request.contextPath}/user/qrLogin?store_id=" + session_store_id + "&seat_id=" + seat_id;
+	function goQr(data2){
+		$('#qrModal').show();
+		$('#qrImg').html("<img src = '" +data2+ "'>");
 	}
+	$(window).on("click",function(){
+		 if (event.target == $('#qrModal').get(0)) {
+			 $('#qrModal').hide();
+		 }
+	});
 
 </script>
 </html>

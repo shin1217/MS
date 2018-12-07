@@ -24,11 +24,11 @@
 		</c:if>
 			<input type = "hidden" name = "store_id" value = "${storeSelectSession.store_id}">
 			<input type="text" class="form-control" placeholder="제목"
-				name="photo_title" required>
+				name="photo_title" id = "photoTitle" required>
 			<!-- name값과 메서드의 매개변수가 이름이 같으면 알아서 넣어줌 -->
 			<textarea class="form-control" rows="20" placeholder="내용"
-				name="photo_con" required></textarea>
-			<input type = "file" name = "photoFile" style = "float : left;">
+				name="photo_con" id = "photoCon" required></textarea>
+			<input type = "file" id = "photoFile" name = "photoFile" style = "float : left;" required>
 			<input type= "hidden" name="photo_file" id = "photo_file">
 			<button class="btn btn-info btn-block" onclick = "insertPhoto()">작성하기</button>
 		</form>
@@ -36,22 +36,29 @@
 </body>
 <script>
 	function insertPhoto(){
-		
-		var formData = new FormData($('#addForm')[0]);
-		
-		$.ajax({
-            async : false,
-            type : 'POST',
-        	url : 'http://52.79.242.155:8080/FileServer/uploadFile/photo',
-            data : formData,
-            processData : false,
-            contentType : false,
-             
-            success : function(data) {
-        	   	$('#photo_file').val(data); // hidden form에 파일 이름 저장
-            	$('#addForm').submit();
-            }
-		});
+		if($('#photoFile').val() == null || $('#photoFile').val() == ""){
+			alert("사진을 등록해주세요");
+		} else if($('#photoTitle').val() == null || $('#photoTitle').val() == ""){
+			alert("제목을 입력하세요");
+		} else if($('#photoCon').val() == null || $('#photoCon').val() == ""){
+			alert("내용을 입력하세요");
+		} else {
+			var formData = new FormData($('#addForm')[0]);
+			
+			$.ajax({
+	            async : false,
+    	        type : 'POST',
+        		url : 'http://52.79.242.155:8080/FileServer/uploadFile/photo',
+            	data : formData,
+	            processData : false,
+    	        contentType : false,
+        	     
+            	success : function(data) {
+	        	   	$('#photo_file').val(data); // hidden form에 파일 이름 저장
+    	        	$('#addForm').submit();
+        	    }
+			});
+		}
 	}
 </script>
 </html>

@@ -28,7 +28,7 @@
 			<c:forEach items = "${photoData.photoBoardList}" var = "photoData">
 			<div class = "photoCon"><a href = "${pageContext.request.contextPath}/member/photoView/${photoData.photo_id}" style = "color : black;">
 				<ul class = "photoUl" style = "float : left; margin : 0px 30px 10px 10px; padding : 0px">
-					<li><img src = "http://52.79.242.155:8080/FileServer/resources/photoBoard/${photoData.photo_file}" style = "width : 280px; height : 280px; margin : 0px auto;"></li>
+					<li><img src = "http://52.79.242.155:8080/FileServer/resources/photoBoard/${photoData.photo_file}" style = "width : 280px; height : 280px; margin : 0px auto 5px;"></li>
 					<li>Title : ${photoData.photo_title}</li>
 					<li>작성시간 : <fmt:parseDate value="${photoData.photo_date}" pattern="yyyy-MM-dd HH:mm" var = "date" />
 						  <fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm" /></li>

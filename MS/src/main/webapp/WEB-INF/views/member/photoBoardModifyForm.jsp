@@ -22,7 +22,7 @@
 				name="photo_title" id = "photo_title" value = "${viewData.photo_title}" required>
 			<!-- name값과 메서드의 매개변수가 이름이 같으면 알아서 넣어줌 -->
 			<textarea class="form-control" rows="20" placeholder="내용"
-				name="photo_con" id = "photo_con" value = "${viewData.photo_con}" required></textarea>
+				name="photo_con" id = "photo_con" required>${viewData.photo_con}</textarea>
 			<input type = "file" name = "photoFile" style = "float : left;">
 			<input type= "hidden" name="photo_file" id = "photo_file">
 			<button class="btn btn-info btn-block" onclick = "modiPhoto(${viewData.photo_file})">작성하기</button>
