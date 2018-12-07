@@ -37,4 +37,5 @@ public interface MemberDaoInterface {
 		int getCountReplyI(int photo_id); // 해당 게시물에 달린 댓글의 총 수를 구함
 		int modiReplyI(HashMap<String,String>map); // 해당 게시물에 달린 댓글 수정
 		int deleteReplyI(int photoreply_id); //해당 게시물에 달린 댓글 삭제
+		int updateCnt(HashMap<String, String> map); //조회수 업데이트
 }

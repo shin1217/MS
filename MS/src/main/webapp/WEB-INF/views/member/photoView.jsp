@@ -15,6 +15,7 @@
 			href="${pageContext.request.contextPath}/member/photoBoard/write" style = "position : absolute; right : 0px; top : 0px;">글쓰기</a>
 		<hr><div><h2>${viewData.photo_title}</h2></div>
 		<div id = "photo_id" style = "float : left;">글번호 : ${viewData.photo_id}</div>
+		<div id = "photo_cnt" style = "float : left;">&nbsp&nbsp&nbsp조회수 : ${viewData.photo_cnt}</div>
 		<div style = "float : right;">&nbsp 등록시간 : <fmt:parseDate value="${viewData.photo_date}" pattern="yyyy-MM-dd HH:mm" var = "date" />
 		<fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm" /></div>
 		<div style = "float : right;">작성자 : ${viewData.photo_upid}</div>
@@ -32,7 +33,7 @@
 	<div id = reply>
 		<!-- 댓글  -->
 		<section class="comments my-5"> <!-- 코멘트 총개수 -->
-		<div id="photoBoardCommentsNum" class="card-header font-weight-bold"></div>
+		<div id="photoBoardCommentsNum" class="card-header font-weight-bold" style = "margin-bottom : 10px;"></div>
 		<div id="photoBoardReplyAllBody"></div>
 		</section>
 		
@@ -130,10 +131,10 @@
 				
 				for(var i = 0; i < data.length; i++){
 					str += "<div id = 'replyWrap' style = 'position : relative'><div id = 'reply_writeId'>" + data[i].photoreply_writeid + " (" + data[i].photoreply_date + ")</div>";
-					str += "<div><input id = 'reply_con" + data[i].photoreply_id + "' value = '" + data[i].photoreply_con + "' style = 'border : none; border-radius : 5px; width : 70%' readonly></div>";
+					str += "<div><input id = 'reply_con" + data[i].photoreply_id + "' value = '" + data[i].photoreply_con + "' style = 'border : none; border-radius : 5px; width : 70%; padding : 10px;' readonly></div>";
 
 					if(data[i].photoreply_writeid == writeId || data[i].photoreply_writeid == admin_id){
-						str += "<div id = 'replyBtnDiv' style = 'position : absolute; right : 0px; top : 0px;'><button id='photoBoardReplyDeleteBtn' onclick='photoBoardReplyDelete(" + data[i].photoreply_id + ")' class='btn btn-danger px-3 float-right'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+						str += "<div id = 'replyBtnDiv' style = 'position : absolute; right : 0px; top : 10px;'><button id='photoBoardReplyDeleteBtn' onclick='photoBoardReplyDelete(" + data[i].photoreply_id + ")' class='btn btn-danger px-3 float-right'><i class='fa fa-trash' aria-hidden='true'></i></button>";
 						str += "<button id='photoBoardReplyEditBtn" + data[i].photoreply_id + "' onclick='photoBoardReplyEdit(" + data[i].photoreply_id + ")' class='btn btn-primary px-3 float-right'><i class='fa fa-paint-brush' aria-hidden='true'></i></button></div>";
 					}
 					str += "<hr>";
@@ -158,7 +159,7 @@
 		$('#photoBoardReplyEditBtn' + photoreply_id).attr("onclick","photoBoardReplyEditOk(" + photoreply_id + ")");
 	}
 	function photoBoardReplyEditOk(photoreply_id){
-		//if(confirm("댓글을 수정하시겠습니까??")){
+		if(confirm("댓글을 수정하시겠습니까??")){
 			$.ajax({
 				url : '${pageContext.request.contextPath}/member/photoView/modiReply/' + photoreply_id,
 				type : 'post',
@@ -170,7 +171,7 @@
 					getReplyList(photo_id);
 				}
 			});
-		//}
+		}
 	}
 	
 	function photoBoardReplyDelete(photoreply_id){

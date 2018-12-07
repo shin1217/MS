@@ -14,7 +14,14 @@ public class PhotoBoardVO {
 	private String photo_upid;
 	private String photo_file; // db에 저장될 파일이름
 	private MultipartFile photoFile; 
+	private int photo_cnt;
 	
+	public int getPhoto_cnt() {
+		return photo_cnt;
+	}
+	public void setPhoto_cnt(int photo_cnt) {
+		this.photo_cnt = photo_cnt;
+	}
 	public String getPhoto_file() {
 		return photo_file;
 	}
@@ -63,11 +70,12 @@ public class PhotoBoardVO {
 	public void setPhoto_upid(String photo_upid) {
 		this.photo_upid = photo_upid;
 	}
+	
 	@Override
 	public String toString() {
 		return "PhotoBoardVO [photo_id=" + photo_id + ", photo_title=" + photo_title + ", photo_con=" + photo_con
 				+ ", photo_date=" + photo_date + ", store_id=" + store_id + ", photo_upid=" + photo_upid
-				+ ", photo_file=" + photo_file + ", photoFile=" + photoFile + "]";
+				+ ", photo_file=" + photo_file + ", photoFile=" + photoFile + ", photo_cnt=" + photo_cnt + "]";
 	}
 	
 	

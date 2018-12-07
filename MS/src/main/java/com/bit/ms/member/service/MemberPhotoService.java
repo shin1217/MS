@@ -1,7 +1,5 @@
 package com.bit.ms.member.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -61,11 +59,15 @@ public class MemberPhotoService {
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		return memberDao.writePhotoI(photoVo);
 	}
-	public PhotoBoardVO getPhotoViewS(int photo_id) {
+	public int updateCntS(int photo_id, int photo_cnt, String photo_date) {
 		
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("photo_id", Integer.toString(photo_id));
+		map.put("photo_cnt", Integer.toString(photo_cnt));
+		map.put("photo_date", photo_date);
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		
-		return memberDao.getPhotoViewI(photo_id);
+		return memberDao.updateCnt(map);
 	}
 	public int deletePhotoS(int photo_id) {
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
@@ -109,6 +111,10 @@ public class MemberPhotoService {
 	public int deleteReplyS(int photoreply_id) {
 		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
 		return memberDao.deleteReplyI(photoreply_id);
+	}
+	public PhotoBoardVO getPhotoViewS(int photo_id) {
+		memberDao = sqlSessionTemplate.getMapper(MemberDaoInterface.class);
+		return memberDao.getPhotoViewI(photo_id);
 	}
 
 }

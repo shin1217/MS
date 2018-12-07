@@ -48,7 +48,7 @@
 .comment-form .form-control {
 	border: 0px;
 	background: #eee;
-	min-height: 50px;
+	min-height: 40px;
 }
 .comment-form>.row {
 	margin: 0 -1.5%;
@@ -57,7 +57,7 @@
 	padding: 0 1.5%
 }
 .form-group {
-	margin-bottom: 40px !important;
+	margin-bottom: 35px !important;
 }
 .messageTitle {
 	margin-top: 10%;
@@ -66,7 +66,7 @@
 	position : relative;
 }
 hr{
-	margin-bottom : 60px !important;
+	margin-bottom : 40px !important;
 }
 #userId {
 	background-color : darkgray;
@@ -80,7 +80,7 @@ hr{
 		margin: 0 auto;
 		background-color : white;
 		border-radius : 10px;
-		height : 78%;
+		height : 80%;
 	}
 	.comment-form label {
 		position: absolute;
@@ -341,7 +341,7 @@ hr{
 							str += '	<li id = "li_send_id" class = "li_send_id">보내는 사람 : ' + data[i].send_id + '</li>';
 							str += '<li>시간 : ' + data[i].message_date + '</li>';
 							if(data[i].message_read != "Y"){
-								str += '	<li><textarea readonly cols="18" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+								str += '	<li><textarea readonly cols="25" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 							} else {
 								str += '	<li><textarea readonly style = "background-color : #eee;" cols="18" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 							}

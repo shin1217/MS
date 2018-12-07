@@ -54,9 +54,14 @@ public class MemberPhotoController {
 		service.writePhotoS(photoVo, request);
 		return "redirect:/member/photoBoard?page=1";
 	}
-	@RequestMapping(value = "/member/photoView/{photo_id}", method = RequestMethod.GET)
-	public ModelAndView photoView(@PathVariable("photo_id") int photo_id) {
-		
+	@RequestMapping(value = "/member/updateCnt/", method = RequestMethod.POST)
+	@ResponseBody
+	public int photoView(int photo_id, int photo_cnt, String photo_date) {
+
+		return service.updateCntS(photo_id, photo_cnt, photo_date);
+	}
+	@RequestMapping(value = "/member/photoView/{id}", method = RequestMethod.GET)
+	public ModelAndView goPhotoView(@PathVariable("id") int photo_id) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		PhotoBoardVO viewData = service.getPhotoViewS(photo_id);

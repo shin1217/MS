@@ -40,4 +40,7 @@
 	<delete id="deleteReplyI">
 		delete from photoboardreply where photoreply_id = #{photoreply_id}
 	</delete>
+	<update id = "updateCnt" parameterType="hashmap">
+		update photoboard set photo_cnt = #{photo_cnt}, photo_date = #{photo_date} where photo_id = #{photo_id}
+	</update>
 </mapper>
