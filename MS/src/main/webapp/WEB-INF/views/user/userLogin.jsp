@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -86,13 +88,18 @@ body {
 	border-radius: 15px;
 }
 
-#socialimage{
+.socialimage{
 	height: 63px;
 	display: inline-block;
 }
 
 </style>
 </head>
+<%
+	//난수 발생
+	SecureRandom random = new SecureRandom();
+	String state = new BigInteger(130, random).toString();
+%>
 <body>
 	<!-- Cookie가 비어있지 않을 때 checked 속성을 줌 -->
 	<c:if test="${not empty cookie.user_check}">
@@ -136,17 +143,17 @@ body {
 				<div class="form-group">
 					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
-				<div class="form-group" id="socialimage">
+				<div class="form-group socialimage" id="kakaoBtn">
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/MS/kakaologin&response_type=code">
 						<img id="socialimage" src="${pageContext.request.contextPath}/images/logo-kakao.png" height="100%"/>
 					</a>
 				</div>
-				<div class="form-group" id="socialimage">
-					<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=BLxuRdNAKQL9y0hx6ugp&redirect_uri=http://localhost:8080/MS">
+				<div class="form-group socialimage" id="naverBtn">
+					<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=BLxuRdNAKQL9y0hx6ugp&redirect_uri=http://localhost:8080/MS/naverlogin&state=<%= state %>">
 						<img src="${pageContext.request.contextPath}/images/logo-naver.png" height="100%"/>
 					</a>
 				</div>
-				<div class="form-group" id="socialimage">
+				<div class="form-group socialimage" id="githubBtn">
 					<a href="https://github.com/login/oauth/authorize?client_id=ca3c1f71782ed1d5d649&redirect_uri=http://localhost:8080/MS/githublogin">
 						<img src="${pageContext.request.contextPath}/images/logo-github.png" height="100%"/>
 					</a>
@@ -180,7 +187,7 @@ body {
 			}
 		});
 	});
-
+	
 	// 로그인 id / pw 유효성 검사
 	$('#loginBtn').click(function() {
 		var id = $('#inputId').val();

@@ -1,4 +1,4 @@
-package com.bit.ms.github;
+package com.bit.ms.social.naver;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,54 +15,62 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bit.ms.user.model.UserVO;
-import com.bit.ms.user.service.UserLoginService;
 
 @Controller
-public class GithubController {
+public class NaverController {
 
 	@Autowired
-	GithubLoginCheckService githubService;
-
-	@Autowired
-	UserLoginService userService;
+	NaverLoginCheckService naverService;
 
 	// 결과값 초기화
 	private int result = 0;
 	// 소셜 구분을 위한 변수
-	private String divide = "github";
-	
-	@RequestMapping(value = "/githublogin", produces = "application/json", method = RequestMethod.GET)
-	public String githubLogin(@RequestParam("code") String code, RedirectAttributes ra, HttpSession session,
-			HttpServletResponse response) throws IOException {
-		
-		System.out.println("github code : " + code);
+	private String divide = "naver_id";
 
-		String accessToken = GithubAccessToken.getGithubAccessToken(code);
+	JsonNode accessToken;
+
+	@RequestMapping(value = "/naverlogin", produces = "application/json", method = RequestMethod.GET)
+	public String kakaoLogin(@RequestParam("code") String code, @RequestParam("state") String state,
+			RedirectAttributes ra, HttpSession session, HttpServletResponse response) throws IOException {
+
+		System.out.println("naver code : " + code);
+		System.out.println("naver state : " + state);
+
+		// JsonNode트리형태로 토큰받아온다
+		JsonNode jsonToken = NaverAccessToken.getNaverAccessToken(code, state);
+		// 여러 json객체 중 access_token을 가져온다
+		accessToken = jsonToken.get("access_token");
+
+		System.out.println("access_token : " + accessToken);
 
 		// access_token을 통해 사용자 정보 요청
-		JsonNode userInfo = GithubUserInfo.getGithubUserInfo(accessToken);
+		JsonNode userInfo = NaverUserInfo.getNaverUserInfo(accessToken);
 
-		// 유저정보를 가져온다
-		String id = userInfo.path("id").asText();
-		String name = userInfo.path("name").asText();
-		String email = userInfo.path("email").asText();
+		// 유저정보 네이버에서 가져오기
+		JsonNode responseNode = userInfo.path("response");
 
-		// 가입되어있는지 GitHub아이디로 찾는다
-		result = githubService.getGithubLogin(id, divide);
+		// 각각 정보 가져오기
+		String id = responseNode.path("id").asText();
+		String email = responseNode.path("email").asText();
+		String name = responseNode.path("name").asText();
 
 		System.out.println("id : " + id);
 		System.out.println("name : " + name);
 		System.out.println("email : " + email);
+
+		// 가입되어있는지 네이버아이디로 찾는다
+		result = naverService.getNaverLogin(id, divide);
 		
-		// DB에 저장할 GitHub아이디를 세션에 저장
-		session.setAttribute("github_id", id);
+		// DB에 저장할 네이버아이디를 세션에 저장
+		session.setAttribute("naver_id", id);
 
 		// 파라메터 저장
 		ra.addAttribute("name", name);
 		ra.addAttribute("email", email);
 
+		// 카카오 로그인 정보가 존재 할 경우
 		if (result == 1) {
-			UserVO vo = githubService.githubLoginPass(id, divide, session);
+			UserVO vo = naverService.naverLoginPass(id, divide, session);
 
 			// 이메일 인증이 되어있는지 확인
 			if (!vo.getUser_key().equals("Y")) { // 인증 안하면 로그인페이지로 돌아가서 메시지출력
@@ -73,14 +81,13 @@ public class GithubController {
 				out.println("location.href='/MS'");
 				out.println("</script>");
 				out.flush();
-				
+
 				return null;
-				
+
 			} else { // 인증이 되어있으면
 				return "redirect:/user/storeChoice";
 			}
 		}
-
 		return "redirect:/user/reg";
 	}
 }

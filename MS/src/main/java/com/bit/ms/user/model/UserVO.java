@@ -18,30 +18,8 @@ public class UserVO {
 	private int user_pay; // 결제 금액
 	private String user_key; // 인증 번호
 	private String kakao_id; // 카카오 아이디
-	private String github_id; // 카카오 아이디
-
-	public UserVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public UserVO(String user_id, String user_name, String user_pw, String user_phone, String user_birth,
-			String user_email, long user_time, int store_id, int user_pay, String user_key, String kakao_id,
-			String github_id) {
-		super();
-		this.user_id = user_id;
-		this.user_name = user_name;
-		this.user_pw = user_pw;
-		this.user_phone = user_phone;
-		this.user_birth = user_birth;
-		this.user_email = user_email;
-		this.user_time = user_time;
-		this.store_id = store_id;
-		this.user_pay = user_pay;
-		this.user_key = user_key;
-		this.kakao_id = kakao_id;
-		this.github_id = github_id;
-	}
+	private String github_id; // 깃헙 아이디
+	private String naver_id; // 네이버 아이디
 
 	public String getUser_id() {
 		return user_id;
@@ -139,12 +117,20 @@ public class UserVO {
 		this.github_id = github_id;
 	}
 
+	public String getNaver_id() {
+		return naver_id;
+	}
+
+	public void setNaver_id(String naver_id) {
+		this.naver_id = naver_id;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [user_id=" + user_id + ", user_name=" + user_name + ", user_pw=" + user_pw + ", user_phone="
 				+ user_phone + ", user_birth=" + user_birth + ", user_email=" + user_email + ", user_time=" + user_time
 				+ ", store_id=" + store_id + ", user_pay=" + user_pay + ", user_key=" + user_key + ", kakao_id="
-				+ kakao_id + ", github_id=" + github_id + "]";
+				+ kakao_id + ", github_id=" + github_id + ", naver_id=" + naver_id + "]";
 	}
 
 }

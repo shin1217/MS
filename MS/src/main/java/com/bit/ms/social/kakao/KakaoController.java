@@ -1,4 +1,4 @@
-package com.bit.ms.kakao;
+package com.bit.ms.social.kakao;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,28 +15,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bit.ms.user.model.UserVO;
-import com.bit.ms.user.service.UserLoginService;
 
 @Controller
 public class KakaoController {
 
 	@Autowired
 	KakaoLoginCheckService kakaoService;
-
-	@Autowired
-	UserLoginService userService;
-
+	
 	// 결과값 초기화
 	private int result = 0;
 	// 소셜 구분을 위한 변수
-	private String divide = "kakao";
-	
+	private String divide = "kakao_id";
+
 	JsonNode accessToken;
 
 	@RequestMapping(value = "/kakaologin", produces = "application/json", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam("code") String code, RedirectAttributes ra, HttpSession session,
 			HttpServletResponse response) throws IOException {
-				
+
 		System.out.println("kakao code : " + code);
 
 		// JsonNode트리형태로 토큰받아온다
@@ -51,9 +47,9 @@ public class KakaoController {
 
 		// Get id
 		String id = userInfo.path("id").asText();
-		String nickname = null;
+		String name = null;
 		String email = null;
-		
+
 		// 가입되어있는지 카카오아이디로 찾는다
 		result = kakaoService.getKakaoLogin(id, divide);
 
@@ -61,42 +57,38 @@ public class KakaoController {
 		JsonNode properties = userInfo.path("properties");
 		JsonNode kakao_account = userInfo.path("kakao_account");
 
-		if (properties.isMissingNode()) {
-			// if "name" node is missing
-		} else {
-			nickname = properties.path("nickname").asText();
-			email = kakao_account.path("email").asText();
+		name = properties.path("nickname").asText();
+		email = kakao_account.path("email").asText();
 
-			System.out.println("id : " + id);
-			System.out.println("name : " + nickname);
-			System.out.println("email : " + email);
+		System.out.println("id : " + id);
+		System.out.println("name : " + name);
+		System.out.println("email : " + email);
 
-			// DB에 저장할 카카오 아이디 세션에 저장
-			session.setAttribute("kakao_id", id);
+		// DB에 저장할 카카오 아이디 세션에 저장
+		session.setAttribute("kakao_id", id);
 
-			// 파라메터 저장
-			ra.addAttribute("name", nickname);
-			ra.addAttribute("email", email);
+		// 파라메터 저장
+		ra.addAttribute("name", name);
+		ra.addAttribute("email", email);
 
-			// 카카오 로그인 정보가 존재 할 경우
-			if (result == 1) {
-				UserVO vo = kakaoService.kakaoLoginPass(id, divide, session);
+		// 카카오 로그인 정보가 존재 할 경우
+		if (result == 1) {
+			UserVO vo = kakaoService.kakaoLoginPass(id, divide, session);
 
-				// 이메일 인증이 되어있는지 확인
-				if (!vo.getUser_key().equals("Y")) { // 인증 안하면 로그인페이지로 돌아가서 메시지출력
-					response.setContentType("text/html; charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.println("<script>");
-					out.println("alert('이메일 인증해주세요.');");
-					out.println("location.href='/MS'");
-					out.println("</script>");
-					out.flush();
+			// 이메일 인증이 되어있는지 확인
+			if (!vo.getUser_key().equals("Y")) { // 인증 안하면 로그인페이지로 돌아가서 메시지출력
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('이메일 인증해주세요.');");
+				out.println("location.href='/MS'");
+				out.println("</script>");
+				out.flush();
 
-					return null;
+				return null;
 
-				} else { // 인증이 되어있으면
-					return "redirect:/user/storeChoice";
-				}
+			} else { // 인증이 되어있으면
+				return "redirect:/user/storeChoice";
 			}
 		}
 		return "redirect:/user/reg";
@@ -108,20 +100,20 @@ public class KakaoController {
 		JsonNode userInfo = KakaoLogout.kakaoUserLogout(accessToken);
 		// Get id
 		String id = userInfo.path("id").asText();
-		
+
 		System.out.println("로그아웃 아이디 : " + id);
 		System.out.println(accessToken);
-		
+
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/kakaounlink", produces = "application/json", method = RequestMethod.GET)
 	public void kakaounlink() {
 
 		JsonNode userInfo = KakaoUnlink.kakaoUserUnlink(accessToken);
 		// Get id
 		String id = userInfo.path("id").asText();
-		
+
 		System.out.println("탈퇴 아이디 : " + id);
 		System.out.println(accessToken);
 	}

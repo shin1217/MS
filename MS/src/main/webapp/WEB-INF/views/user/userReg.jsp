@@ -59,24 +59,6 @@ body {
 	text-align: center;
 }
 
-.birt_form{
-}
-
-/* .email_form{
-	display: block;
-    width: 100%;
-    height: calc(2.25rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-} */
-
 .select_pick{
 	display:inline;
     width: 35%;
@@ -104,6 +86,10 @@ body {
 			<c:if test="${!empty kakao_id}">
 				<input type="hidden" name="kakao_id" value="${kakao_id}" />
 			</c:if>
+			<!-- 세션에 저장한 네이버 아이디를 가져옴 -->
+			<c:if test="${!empty naver_id}">
+				<input type="hidden" name="naver_id" value="${naver_id}" />
+			</c:if>
 			<!-- 세션에 저장한 깃헙 아이디를 가져옴 -->
 			<c:if test="${!empty github_id}">
 				<input type="hidden" name="github_id" value="${github_id}" />
@@ -130,7 +116,7 @@ body {
 			<!-- 이름 -->
 			<div class="form-group">
 				<label for="user_name">이름</label>
-					<input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name" value="${param.nickname}" required>
+					<input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name" value="${param.name}" required>
 				<div class="check_font" id="name_check"></div>
 			</div>
 			<!-- 생년월일 -->

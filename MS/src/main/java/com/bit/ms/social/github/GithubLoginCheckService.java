@@ -1,4 +1,4 @@
-package com.bit.ms.github;
+package com.bit.ms.social.github;
 
 import javax.servlet.http.HttpSession;
 

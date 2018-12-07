@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bit.ms.kakao.KakaoController;
-import com.bit.ms.kakao.KakaoUnlink;
+import com.bit.ms.social.kakao.KakaoController;
+import com.bit.ms.social.kakao.KakaoUnlink;
 import com.bit.ms.user.model.UserVO;
 import com.bit.ms.user.service.UserMyPageService;
 import com.bit.ms.user.service.UserSha256;

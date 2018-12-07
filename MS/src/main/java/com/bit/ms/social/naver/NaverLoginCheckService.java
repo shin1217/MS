@@ -1,4 +1,4 @@
-package com.bit.ms.kakao;
+package com.bit.ms.social.naver;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +10,7 @@ import com.bit.ms.dao.UserDaoInterface;
 import com.bit.ms.user.model.UserVO;
 
 @Service
-public class KakaoLoginCheckService {
+public class NaverLoginCheckService {
 
 	// 결과값 초기화
 	int result = 0;
@@ -20,8 +20,8 @@ public class KakaoLoginCheckService {
 
 	private UserDaoInterface userDaoInterface;
 
-	// DB에서 카카오ID를 찾는다
-	public int getKakaoLogin(String id, String divide) {
+	// DB에서 네이버아이디를 찾는다
+	public int getNaverLogin(String id, String divide) {
 
 		userDaoInterface = sqlSessionTemplate.getMapper(UserDaoInterface.class);
 
@@ -32,8 +32,8 @@ public class KakaoLoginCheckService {
 		return result;
 	}
 
-	// DB에서 카카오ID를 통해 로그인 정보를 찾아 userVO에 넣는다
-	public UserVO kakaoLoginPass(String id, String divide, HttpSession session) {
+	// DB에서 네이버아이디를 통해 로그인 정보를 찾아 userVO에 넣는다
+	public UserVO naverLoginPass(String id, String divide, HttpSession session) {
 
 		userDaoInterface = sqlSessionTemplate.getMapper(UserDaoInterface.class);
 

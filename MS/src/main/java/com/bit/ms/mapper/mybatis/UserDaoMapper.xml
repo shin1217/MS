@@ -9,6 +9,10 @@
 			insert into userinfo (user_id, user_pw, user_name, user_phone, user_birth, user_email, kakao_id)
 			values (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_birth}, #{user_email}, #{kakao_id})
 		</if>
+		<if test="naver_id != null">
+			insert into userinfo (user_id, user_pw, user_name, user_phone, user_birth, user_email, naver_id)
+			values (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_birth}, #{user_email}, #{naver_id})
+		</if>
 		<if test="github_id != null">
 			insert into userinfo (user_id, user_pw, user_name, user_phone, user_birth, user_email, github_id)
 			values (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_birth}, #{user_email}, #{github_id})
@@ -108,21 +112,11 @@
 	</select>
 	<!-- 소셜로그인 아이디로 가입여부 확인 -->
 	<select id="getSocialId" resultType="int">
-		<if test="divide.equals('kakao')">
-			select count(*) from userinfo where kakao_id = #{id}
-		</if>
-		<if test="divide.equals('github')">
-			select count(*) from userinfo where github_id = #{id}
-		</if>
+		select count(*) from userinfo where ${divide} = #{id}
 	</select>
 	<!-- 로그인한 소셜 아이디를 통해 유저정보 검색 -->
 	<select id="getSocialIdToInfo" resultType="userVO">
-		<if test="divide.equals('kakao')">
-			select * from userinfo where kakao_id = #{id}
-		</if>
-		<if test="divide.equals('github')">
-			select * from userinfo where github_id = #{id}
-		</if>
+		select * from userinfo where ${divide} = #{id}
 	</select>
 	<!-- 모든 매장 가지고옴 -->
 	<select id="getStoreAllList" resultType="StoreVO">
