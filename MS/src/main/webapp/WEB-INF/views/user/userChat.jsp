@@ -302,7 +302,7 @@ body {
 			    </div>
 			 </div>
 			 
-		    <!-- 결과 표시 -->
+		    <!-- 결과 표시 --> 
 		    <h4 class="ui horizontal divider header">메시지</h4>
 			<div class="ui segment" id="result">
 			<div id="scrollView" class="view">
