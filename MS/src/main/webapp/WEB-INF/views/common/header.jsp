@@ -76,7 +76,7 @@
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userOrders"><i class="fa fa-cutlery" aria-hidden="true"></i>음식주문</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword="><i class="fa fa-comments" aria-hidden="true"></i>유저게시판</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/photoBoard?page=1"><i class="fa fa-instagram" aria-hidden="true"></i>포토게시판</a></li>
-				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/chat"><i class="fa fa-instagram" aria-hidden="true"></i>채팅</a></li>
+				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/chat"><i class="fa fa-instagram" aria-hidden="true"></i>채팅</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout"><i class="fa fa-unlock-alt" aria-hidden="true"></i>로그아웃</a></li>
 			</c:if>
 		</ul>

@@ -357,7 +357,7 @@ body {
 	
 	
 	
-	<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+	<script src="http://13.125.232.201:3000/socket.io/socket.io.js"></script>
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	
 	<!-- <script>
@@ -433,6 +433,7 @@ body {
 		var host;
 		var port;
 		var socket;
+		/* var url; */
            
 		// 문서 로딩 후 실행됨
 		$(function() {
@@ -440,8 +441,9 @@ body {
 			// 페이지 로드시 서버 접속
 			$(document).ready(function(event) {
 				
-				host = 'localhost';
+				host = '13.125.232.201';
 				port = '3000';
+				/* url = 'http://zzanchat-env.a3ppkmg2qr.ap-northeast-2.elasticbeanstalk.com'; */
 				
 				connectToServer();
             });
@@ -602,11 +604,11 @@ body {
         function connectToServer() {
 
         	var options = {'forceNew':true};
-        	var url = 'http://' + host + ':' + port;
+        	var url = host + ':' + port;
         	socket = io.connect(url, options);
 
         	socket.on('connect', function() {
-               	println('웹소켓 서버에 연결되었습니다. : ' + url);
+        		console.log('웹소켓 서버에 연결되었습니다. : ' + url);
 
                 socket.on('message', function(message) {
                 	console.log(JSON.stringify(message));
