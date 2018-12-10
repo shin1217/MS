@@ -631,15 +631,16 @@ body {
 
                 socket.on('message', function(message) {
                 	console.log(JSON.stringify(message));
-                	console.log('센더확인' + message.sender);
+                	console.log('센더확인 ' + message.sender);
 										
                 	println('<p>수신 메시지 : ' + message.sender + ', ' + message.recepient + ', ' + message.command + ', ' + message.data + '</p>');
 	            	
-                	var sessionCheck = "${userSession.user_name }";
-         
-                	if("${storeSelectSession.store_name}" != ""){
+                	var sessionCheck = "${userSession.user_name}";
+         			
+                	if("${adminSession.admin_id}" != ""){
                 		sessionCheck = "${storeSelectSession.store_name}";
                 	}
+                	console.log('세션체크확인 ' + sessionCheck);
                 	
                 	if (message.sender != sessionCheck ) {
                 		addToDiscussion(message.sender, message.data);
