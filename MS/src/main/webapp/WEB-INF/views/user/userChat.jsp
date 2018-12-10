@@ -23,7 +23,6 @@ html {
 
 body {
 	position: relative;
-	z-index: 2147483647;
 	width: 100%;
 	height: 100%;
 	color: #000;
@@ -176,6 +175,7 @@ body {
 	-webkit-transition: width 2s, height 2s, background-color 2s,
 		-webkit-transform 2s;
 	transition: width 2s, height 2s, background-color 2s, transform 2s;
+	z-index: 2147483647;
 }
 
 #chatBox: {
