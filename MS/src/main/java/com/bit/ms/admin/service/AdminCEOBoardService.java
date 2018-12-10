@@ -152,7 +152,24 @@ public class AdminCEOBoardService {
 	// 댓글 적기
 	public int writeReply(AdminBoardReplyVO replyVO) {
 		
+		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
 		
-		return 0;
+		return adminDao.CEOBoardReplyInsert(replyVO);
+	}
+	
+	// 댓글 삭제
+	public int deleteReply(int cboard_reply_id) {
+		
+		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
+		
+		return adminDao.CEOBoardReplyDelete(cboard_reply_id);
+	}
+	
+	// 댓글 수정
+	public int modifyReply(AdminBoardReplyVO replyVO) {
+		
+		adminDao = sqlSession.getMapper(AdminDaoInterface.class);
+		
+		return adminDao.CEOBoardReplyModify(replyVO);
 	}
 }

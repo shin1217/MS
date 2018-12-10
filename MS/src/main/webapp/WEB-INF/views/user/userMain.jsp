@@ -199,7 +199,7 @@ html, body {
 
 <script>
 	var selectedST = {}; // 좌석과 시간을 담을 객체 (동적 생성)
-	
+		
 	$(document).ready(function() {
 		createTable($('#timeTable'), 6, 2); // 시간 테이블 동적 생성
 		
@@ -211,6 +211,7 @@ html, body {
 				var str = '';
 				var userId = null; // 사용자 아이디
 				var userTime = 0; // 사용자의 남은 시간
+				var seatId = null; // 좌석 번호
 				var useCnt = 0; // 사용 중인 좌석 수
 				
 				$('#totalCnt').text(data.length); // 전체 좌석 수 변경
@@ -250,6 +251,10 @@ html, body {
 					$('#min').text(min+'분');
 					$('#sec').text(sec+'초');
 					
+					/* sock.onopen = function(){
+						
+					} */
+					
 					var timer = setInterval(function (){
 						$('#min').text(min+'분');
 						$('#sec').text(sec+'초');
@@ -265,6 +270,15 @@ html, body {
 								sec = 59;
 							}
 						}
+						
+						var seatUser = {
+								seatId : seatId,
+								min : min,
+								sec : sec,
+						};
+
+						sock.send(JSON.stringify(seatUser)); // 서버로 메시지 전송
+						
 					}, 1000);
 					
 					/* modal 시간 select option 초기화  */
@@ -275,9 +289,11 @@ html, body {
 					
 					$('.userMain_container').hide();
 					$('.userUsingMain_container').show();
+					
 				}
 			}
 		}); // end ajax
+		
 		
 		/* 사용 전 Modal창 충전하기 버튼 */
 		$('#addTimeBtn').on('click', function() {
@@ -285,7 +301,7 @@ html, body {
 			var addTime = selectedST.time*60*60; // 초 단위 저장
 			
 			$.ajax({
-				// 로그인한 아이디와 충전시간, 선택한 좌석 번호 넘겨 줌.
+				// 로그인한 아이디와 충전시간, 선택한 좌석 번호, 매장 번호 넘겨 줌.
 				url: '${pageContext.request.contextPath}/user/updateAddTime?userId=${userSession.user_id}&addTime=' + addTime + '&seatId=' + seatId + '&storeId=${storeSelectSession.store_id}', 
 				type: 'get',
 				

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +18,7 @@ public class UserTimeController {
 	@Autowired
 	UserTimeService service;
 	
-	@RequestMapping("/user/updateAddTime")
+	@RequestMapping(value="/user/updateAddTime", method=RequestMethod.GET)
 	@ResponseBody
 	public void updateAddTime(@RequestParam("addTime") long addTime,
 								@RequestParam("seatId") int seatId,
@@ -27,6 +28,7 @@ public class UserTimeController {
 		int pay = (int)(addTime / 3600)*1000; // 충전 시간(초)를 시간으로 변환한 후 가격 계산
 		
 		// 좌석에 따라 추가 금액 처리
+		/////////////////////////////
 		
 		int resultCnt = service.updateAddTime(addTime, pay, userId, storeId);
 		resultCnt += service.updateSeat(userId, seatId, storeId);
@@ -37,17 +39,16 @@ public class UserTimeController {
 		}
 	}
 	
-	@RequestMapping("/user/updateSaveTime")
+	@RequestMapping(value="/user/updateSaveTime", method=RequestMethod.GET)
 	@ResponseBody
 	public void updateSaveTime(@RequestParam("useTime") long useTime,
 								@RequestParam("userId") String userId,
 								@RequestParam("storeId") int storeId) {
 		
-		System.out.println("사용 시간: " + useTime);
 		int resultCnt = service.updateSaveTime(useTime, userId, storeId);
 		
 		if(resultCnt == 1) {
-			System.out.println("사용 시간 마이너스 완료");
+			System.out.println("사용 시간: " + useTime + " 차감");
 		}
 	}
 	
