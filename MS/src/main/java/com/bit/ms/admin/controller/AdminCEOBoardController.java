@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -127,7 +128,7 @@ public class AdminCEOBoardController {
 	}
 	
 	// 댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글
-	@RequestMapping(value="/admin/CEOBoard/reply/all/{cboard_id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/admin/CEOBoard/reply/all/{cboard_id}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<AdminBoardReplyVO> adminBoardReplyList(@PathVariable("cboard_id")int cboard_id) {
 		
@@ -138,12 +139,35 @@ public class AdminCEOBoardController {
 		return ceoboard_reply_list                                                                     ;
 	}
 	
-	@RequestMapping(value="/admin/CEOBoard/reply", method=RequestMethod.POST)
+	@RequestMapping(value = "/admin/CEOBoard/reply", method = RequestMethod.POST)
+	@ResponseBody
 	public int adminBoardReplyWrite(AdminBoardReplyVO replyVO) {
 		
+		int result = CEOBoardService.writeReply(replyVO);
 		
+		return result;
+	}
+	
+	@RequestMapping(value = "/admin/CEOBoard/reply/{cboard_reply_id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public int adminBoardReplyDelete(@PathVariable("cboard_reply_id")int cboard_reply_id) {
 		
-		return 0;
+		int result = CEOBoardService.deleteReply(cboard_reply_id);
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/admin/CEOBoard/reply/{cboard_reply_id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public int adminBoardReplyModify(@PathVariable("cboard_reply_id")int cboard_reply_id,
+			@RequestBody AdminBoardReplyVO replyVO) {
+		
+		// 댓글 번호를 받아 특정 댓글을 택한다
+		replyVO.setCboard_reply_id(cboard_reply_id);
+		int result = CEOBoardService.modifyReply(replyVO);
+		System.out.println(result);
+		
+		return result;
 	}
 	
 }

@@ -193,6 +193,7 @@
 		});
 	}
 
+	// 댓글 작성
 	$('#CEOBoardCommentSubmit').click(function(){
 		
 		var cboard_reply_con = $('#CEOBoardReplyFormComment').val(); // 댓글 내용 가져옴
@@ -210,17 +211,61 @@
 				success : function(data){
 					console.log(data);
 					getCEOBoardReplyList();
-					$('#CEOBoardReplyAllBody').val('');
+					$('#CEOBoardReplyFormComment').val('');
 				}
 			});
 		} else {
 			alert("댓글을 입력하세요 :)");
 		}
 		
-		
 	});
 	
+	function CEOBoardReplyDelete(cboard_reply_id) {
+		if(confirm("정말 삭제하시겠습니까??") == true){
+			$.ajax({
+				type : 'delete',
+				url : '${pageContext.request.contextPath}/admin/CEOBoard/reply/' + cboard_reply_id,
+				success : function(data) {
+					console.log('삭제확인');
+					getCEOBoardReplyList();
+				}
+			});
+		}
+	}
 	
-</script>
+	function CEOBoardReplyModify(cboard_reply_id){
+		if(confirm("수정하시겠습니까?") == true){
+			var cboard_reply_con = $('#CEOBoardReplyInput' + cboard_reply_id).val();
+			console.log(cboard_reply_con);
+			
+			$.ajax({
+				type : 'put',
+				url : '${pageContext.request.contextPath}/admin/CEOBoard/reply/' + cboard_reply_id,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "put"
+				},
+				data : JSON.stringify({
+					cboard_reply_con : cboard_reply_con
+				}),
+				
+				success : function(data){
+					console.log('수정확인');
+					getCEOBoardReplyList();
+				}
+				
+			});
+		}
+	}
+	
+	function CEOBoardReplyEdit(cboard_reply_id){ // 댓글 수정 버튼 클릭시
+		$('#CEOBoardReplyInput' + cboard_reply_id).attr("readonly", false);
+		$('#CEOBoardReplyInput' + cboard_reply_id).focus();
+		$('#CEOBoardReplyEditBtn' + cboard_reply_id).find('i').attr("class", "fa fa-check"); //댓글 수정클릭시 모양바뀜
+		$('#CEOBoardReplyEditBtn' + cboard_reply_id).attr("onclick", "CEOBoardReplyModify(" + cboard_reply_id + ")");
+	}
+	
 
+	</script>
+	
 </html>

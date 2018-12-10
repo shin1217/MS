@@ -63,7 +63,9 @@ public interface AdminDaoInterface {
 	int getNextPage(@Param("cboard_id") int cboard_id, @Param("keyword") String keyword); // 다음 페이지
 		/*CEO게시판 댓글*/
 	List<AdminBoardReplyVO> getReplyList(int cboard_id); // CEO게시판 댓글 불러오기
-	
+	int CEOBoardReplyInsert(AdminBoardReplyVO replyVO); // 댓글 작성	
+	int CEOBoardReplyDelete(int cboard_reply_id); // 댓글 삭제
+	int CEOBoardReplyModify(AdminBoardReplyVO replyVO); // 댓글 수정
 	
 	/*회원리스트 관련*/
 	List<UserVO> getUserList();//회원리스트 전체 출력

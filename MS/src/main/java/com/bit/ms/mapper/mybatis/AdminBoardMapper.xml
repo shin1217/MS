@@ -50,4 +50,20 @@ select ifnull(min(cboard_id),-1) from ceoboard where cboard_id > #{cboard_id}
 	order by cboard_reply_id asc
 </select>
 
+<!-- CEO Board 댓글 남기기 -->
+<insert id="CEOBoardReplyInsert" parameterType="AdminBoardReplyVO" useGeneratedKeys="true" keyProperty="cboard_reply_id">
+	insert into cboard_reply (cboard_reply_con, cboard_reply_writer, cboard_id) values (#{cboard_reply_con}, #{cboard_reply_writer}, #{cboard_id})
+</insert>
+
+
+<!-- CEO Board 댓글 삭제 -->
+<delete id="CEOBoardReplyDelete" parameterType="int">
+	delete from cboard_reply where cboard_reply_id = #{cboard_reply_id}
+</delete>
+
+<!-- CEO Board 댓글 수정 -->
+<update id="CEOBoardReplyModify" parameterType="AdminBoardReplyVO">
+	update cboard_reply set cboard_reply_con = #{cboard_reply_con} where cboard_reply_id = #{cboard_reply_id}
+</update>
+
 </mapper>
