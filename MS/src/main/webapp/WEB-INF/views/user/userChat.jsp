@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Calendar"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -434,7 +438,7 @@ body {
 		var port;
 		var socket;
 		/* var url; */
-           
+		
 		// 문서 로딩 후 실행됨
 		$(function() {
 
@@ -451,6 +455,10 @@ body {
 			// 전송 버튼 클릭 시 처리
             $("#sendButton").bind('click', function(event) {
             	var sender = "${userSession.user_name}";
+            	console.log(sender);
+            	if (sender == "") {
+            		sender = "${storeSelectSession.store_name}";
+            	}
             	var recepient = $('#recepientInput').val();
             	var data = $('#dataInput').val();
 
@@ -477,6 +485,10 @@ body {
             $("#dataInput").bind('keydown', function(key) {
 					if (key.keyCode == 13) {
             	var sender = "${userSession.user_name}";
+            	if (sender == "") {
+            		sender = "${storeSelectSession.store_name}";
+            	}
+            	
             	var recepient = $('#recepientInput').val();
             	var data = $('#dataInput').val();
 
@@ -506,7 +518,14 @@ body {
             	var id = "${userSession.user_id}";
             	var password = "${userSession.user_pw}";
             	var alias = "${userSession.user_name}";
-            	var today = "${userSession.user_birth}";
+            	var today = cal.get(Calendar.DATE);
+            	
+            	if (id == "") {
+            		id = "${storeSelectSession.store_name}";
+                	password = "${adminSession.admin_pw}";
+                	alias = "${adminSession.admin_name}";
+                	today = cal.get(Calendar.DATE);
+            	}
 
             	var output = {id:id, password:password, alias:alias, today:today};
            		console.log('서버로 보낼 데이터 : ' + JSON.stringify(output));
@@ -612,12 +631,20 @@ body {
 
                 socket.on('message', function(message) {
                 	console.log(JSON.stringify(message));
-
+                	console.log('센더확인' + message.sender);
+										
                 	println('<p>수신 메시지 : ' + message.sender + ', ' + message.recepient + ', ' + message.command + ', ' + message.data + '</p>');
 	            	
-                	if (message.sender != "${userSession.user_name}") {
+                	var sessionCheck = "${userSession.user_name }";
+         
+                	if("${storeSelectSession.store_name}" != ""){
+                		sessionCheck = "${storeSelectSession.store_name}";
+                	}
+                	
+                	if (message.sender != sessionCheck ) {
                 		addToDiscussion(message.sender, message.data);
                 	}
+                	
                 });
 	
 	            socket.on('response', function(response) {
@@ -662,6 +689,11 @@ body {
 	        var nowTime = '';
 	        
 	        var me = "${userSession.user_name}";
+	        
+	        if (me == "") {
+	        	me = "${storeSelectSession.store_name}";
+        	}
+	        
 	        console.log(me);
 	        var senders = 'self';
 	        
