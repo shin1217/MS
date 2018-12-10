@@ -201,7 +201,7 @@ hr{
 </style>
 </head>
 <body>
-<span class = "messageIconWrap" style = "position : absolute; top : 90%; right : 5%">
+<span class = "messageIconWrap" style = "position : absolute; top : 90%; left : 3%">
 	<span id = "messageBtn" class = "messageBtn"></span>
 	<span id = "readCnt" class = "readCnt"></span>
 </span>
@@ -343,7 +343,7 @@ hr{
 							if(data[i].message_read != "Y"){
 								str += '	<li><textarea readonly cols="25" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 							} else {
-								str += '	<li><textarea readonly style = "background-color : #eee;" cols="18" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
+								str += '	<li><textarea readonly style = "background-color : #eee;" cols="25" id = "li_message_con">' + data[i].message_con + '</textarea></li>';
 							}
 							str += '	<input type = "button" onclick = "messageReply(' + data[i].message_id + ')" class = "messageReply" value = "답장">';
 							str += '<div id = "messageRead" style = "display : none;">' + data[i].message_read + '</div>';
