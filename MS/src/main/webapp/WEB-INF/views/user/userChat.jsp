@@ -358,11 +358,10 @@ body {
 		</div>
 		
 	</div>
-	
+	 
 	
 	
 	<script src="http://13.125.232.201:3000/socket.io/socket.io.js"></script>
-	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	
 	<!-- <script>
 		$(document).ready(function() {
@@ -518,13 +517,12 @@ body {
             	var id = "${userSession.user_id}";
             	var password = "${userSession.user_pw}";
             	var alias = "${userSession.user_name}";
-            	var today = cal.get(Calendar.DATE);
+            	var today = "";
             	
             	if (id == "") {
             		id = "${storeSelectSession.store_name}";
                 	password = "${adminSession.admin_pw}";
                 	alias = "${adminSession.admin_name}";
-                	today = cal.get(Calendar.DATE);
             	}
 
             	var output = {id:id, password:password, alias:alias, today:today};
