@@ -295,7 +295,7 @@
 						
 						str += '<div class="using" onclick="seatChoise(this, '+ seatId +', \''+ userId +'\')">';
 						str += '<div style="height:25%"><span style="float:left; color:black">'+ seatId +'</span><span>'+ userId +'</span></div>';
-						str += '<div style="height:25%"><span>'+ min +'분</span> <span>'+ sec +'초</span></div>';
+						str += '<div id='+ seatId +' style="height:25%"><span class="min">'+ min +'</span>분 <span class="sec">'+ sec +'</span>초</div>';
 						str += '<div style="height:25%">'+ userPay +'</div>';
 						str += '<button style="height:25%" onclick="deleteSeat(event, \''+ userId +'\')">사용 종료</button>';
 						str += '</div>';
@@ -303,12 +303,11 @@
 					}
 					
 					else{ // 빈 좌석
-						str += '<div class="un_using">'+ data[i].seat_id +'</div>';
+						str += '<div id='+ data[i].seat_id +' class="un_using">'+ data[i].seat_id +'</div>';
 					}
 				}
 				$('#useCnt').text(useCnt); // 현재 사용 중인 좌석 수 표시
 				$('#seatList').html(str); // 좌석 표시
-				
 			} // end success
 		}); // end ajax
 		
@@ -478,6 +477,18 @@
 				}
 			}
 		});
+	}
+	
+	/* 서버에서 메시지가 전송됬을 때 자동 실행되는 콜백 메서드(onmessage) */
+	sock.onmessage = function(evt){
+		var data = evt.data;
+		data = JSON.parse(data);
+		
+		$('#'+data.seatId).children().eq(0).text(data.min);
+		$('#'+data.seatId).children().eq(1).text(data.sec);
+	}
+	
+	sock.onclose = function () {
 		
 	}
 	

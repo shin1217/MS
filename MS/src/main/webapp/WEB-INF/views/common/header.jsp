@@ -9,6 +9,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
+<script src="http://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
 
 <!-- 폰트 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
@@ -83,6 +84,8 @@
 	</div>
 </nav>
 <script>
+	var sock = new SockJS("<c:url value="/echo"/>");
+	
 	$(document).ready(function() {
 		//헤더 브랜드이미지 클릭시 메인페이지로 이동
 		$('#adminBrand').click(function() { 
@@ -104,23 +107,34 @@
 		var timer = setInterval(function (){
 			useTime += 1;
 		}, 1000);
-		
-		
 	});
 	
 	/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
 	var useTime = 0;
-	window.onbeforeunload = function() {
-		$.ajax({
-			// 사용 시간 전송
-			url: '${pageContext.request.contextPath}/user/updateSaveTime?storeId=${storeSelectSession.store_id}&userId=${userSession.user_id}&useTime='+useTime, 
-			type: 'get',
-			
-			success:function(){
-				console.log("시간 저장 완료");
+	$.ajax({ // 좌석 리스트 불러오기
+		url : '${pageContext.request.contextPath}/user/getSeatListAll?storeId=${storeSelectSession.store_id}',
+		type : 'get',
+
+		success : function(data) {
+			for(var i=0; i<data.length; i++){
+				if(data[i].user_id != null){
+					if(data[i].user_id == '${userSession.user_id}'){ // 좌석 사용중인 사용자만 시간 카운트
+						window.onbeforeunload = function() {
+							$.ajax({
+								// 사용 시간 전송
+								url: '${pageContext.request.contextPath}/user/updateSaveTime?storeId=${storeSelectSession.store_id}&userId=${userSession.user_id}&useTime='+useTime, 
+								type: 'get',
+								
+								success:function(){
+									console.log("시간 저장 완료");
+								}
+							});
+						};
+					}
+				}
 			}
-		});
-	};
+		}
+	});
 	
 	// 실시간 세션 확인
 	var sessionConfirm = setInterval(function (){

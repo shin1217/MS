@@ -253,8 +253,13 @@
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
-		
-		
+        
+        <!-- 스프링 웹 소켓 2018.12.08 김민수 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>4.2.4.RELEASE</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
