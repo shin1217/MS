@@ -299,7 +299,7 @@ body {
 			</div>
 		    <br> -->
 		    
-		    <div class="description">
+		    <div class="description"> 
 			    <span>받는사람 아이디 :</span> 
 			    <div class="ui input">
 			    	<input type="text" id="recepientInput" value="ALL" />
