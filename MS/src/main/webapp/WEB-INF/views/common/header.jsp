@@ -143,7 +143,7 @@
 			type: 'get',
 			
 			success:function(data){
-				console.log("실시간 세션 확인중 : [ " + data + " ]")
+				/* console.log("실시간 세션 확인중 : [ " + data + " ]") */
 								
 				if(data == -1){
 					alert('다른 기기에서 로그인 되었습니다');

@@ -42,10 +42,6 @@ public class UserBoardController {
 		// 유저 게시판 상단 공지사항
 		List<UserBoardVO> noticeViewData = userBoardService.getUserBoardNoticeS(session);
 
-		System.out.println("UserBoardController 유저게시물 list = " + ViewData);
-
-		System.out.println("UserBoardController 공지사항 list = " + noticeViewData);
-
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.setViewName("user/userBoard");
@@ -55,6 +51,10 @@ public class UserBoardController {
 		modelAndView.addObject("userboardnotice", noticeViewData); // 유저 게시판 상단 공지사항
 
 		modelAndView.addObject("pageNum", ViewData.getCurrentPageNum()); // 페이지 번호
+
+//		System.out.println("UserBoardController 유저게시물 list = " + ViewData);
+
+//		System.out.println("UserBoardController 공지사항 list = " + noticeViewData);
 
 		return modelAndView;
 	}
