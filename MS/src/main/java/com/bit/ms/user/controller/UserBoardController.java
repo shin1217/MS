@@ -42,9 +42,9 @@ public class UserBoardController {
 		// 유저 게시판 상단 공지사항
 		List<UserBoardVO> noticeViewData = userBoardService.getUserBoardNoticeS(session);
 
-		System.out.println("UserBoardController 유저게시물 list = " + ViewData);
+//		System.out.println("UserBoardController 유저게시물 list = " + ViewData);
 
-		System.out.println("UserBoardController 공지사항 list = " + noticeViewData);
+//		System.out.println("UserBoardController 공지사항 list = " + noticeViewData);
 
 		ModelAndView modelAndView = new ModelAndView();
 
