@@ -312,7 +312,7 @@
 			type : 'post',
 			data : {
 				seat_id : seat_id,
-				seat_qr : "https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=http://13.125.241.30/MS/user/qrLogin?" + encode
+				seat_qr : "https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=http://ec2-54-180-123-73.ap-northeast-2.compute.amazonaws.com/MS/user/qrLogin?" + encode
 			},
 			success : function(data){
 				$.ajax({
