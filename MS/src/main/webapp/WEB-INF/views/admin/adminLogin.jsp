@@ -103,7 +103,7 @@ body {
 					</label>
 					<div>
 						<button id="loginBtn" type="submit" class="btn btn-danger btn-inline-block">로그인</button>
-						<a id="singupBtn" class="btn btn-danger btn-inline-block" href="${pageContext.request.contextPath}/admin/reg">회원가입</a>
+						<a id="singupBtn" class="btn btn-deep-orange btn-inline-block" href="${pageContext.request.contextPath}/admin/reg">회원가입</a>
 					</div>
 				</div>
 			</div>

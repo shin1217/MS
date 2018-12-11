@@ -79,7 +79,7 @@ body {
 }
 
 .socialimage {
-	height: 63.5px;
+	height: 65px;
 	display: inline-block;
 }
 
@@ -97,6 +97,9 @@ body {
 	}
 	#loginBtn {
 		margin-bottom: 5px;
+	}
+	.socialimage {
+		height: 49px;
 	}
 }
 </style>
