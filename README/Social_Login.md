@@ -16,8 +16,8 @@
  
  1. 각 Developers에서 제공하는 REST API를 이용하여 Authorization Code를 받아온다.
  2. 발급된 Authorization Code를 통해 Access Token을 요청하여 받는다.
- 3. Access Token을 이용하여 필요한 사용자 정보를 요청하여 가져오고 사용한다.
- 4. 사용자 정보 중 각 소셜 고유아이디를 가져와 DB에서 확인 후 회원가입 및 로그인 처리를 한다. 
+ 3. Access Token을 이용하여 필요한 사용자 정보를 요청하여 가져온다.
+ 4. 사용자 정보 중 소셜 고유 아이디를 DB에서 확인 후 회원가입 및 로그인 처리를 한다. 
  
 <br>
  
