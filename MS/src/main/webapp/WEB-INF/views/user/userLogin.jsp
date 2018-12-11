@@ -20,6 +20,14 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <style>
+/* Mobile Device */
+@media screen and (min-width : 600px) {
+	html, body {
+		background-color: white;
+		height: 100%;
+	}
+}
+
 * {
 	font-size: 20px;
 	font-family: 'BMHANNAPro';
@@ -86,11 +94,15 @@ body {
 	border-radius: 15px;
 }
 
-.socialimage{
+.socialimage {
 	height: 63.5px;
 	display: inline-block;
 }
 
+#loginBtn, #singupBtn {
+	width: 49%;
+	margin: 0px;
+}
 </style>
 </head>
 <%
@@ -135,11 +147,9 @@ body {
 						<a href="${pageContext.request.contextPath}/user/userSearch">&nbsp; 아이디 / 비밀번호 찾기</a>
 					</div>
 					<div>
-						<button id="loginBtn" type="button"	class="btn btn-primary btn-block">로그인</button>
+						<button id="loginBtn" type="button"	class="btn btn-primary btn-inline-block">로그인</button>
+						<a id="singupBtn" class="btn btn-deep-orange btn-inline-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 					</div>
-				</div>
-				<div class="form-group">
-					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 				</div>
 				<div class="form-group socialimage" id="kakaoBtn">
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://localhost:8080/MS/kakaologin&response_type=code">
