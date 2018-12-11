@@ -45,5 +45,5 @@
 
 <br>
 
-## [Management System (돌아가기)](../README.md#주요-기능) <br>
+## [Management System (돌아가기)](../README.md#상세-기능-및-화면) <br>
 
