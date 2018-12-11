@@ -33,5 +33,5 @@
 
 <br>
 
-## [Management System (돌아가기)](../README.md) <br>
+## [Management System (돌아가기)](https://github.com/shin1217/MS#%EC%83%81%EC%84%B8-%EA%B8%B0%EB%8A%A5-%EB%B0%8F-%ED%99%94%EB%A9%B4) <br>
 
