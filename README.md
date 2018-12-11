@@ -17,8 +17,4 @@
   <li>Tomcat 8.5</li>
 </ul>
 <h2>주요 기능</h2>
-<ol>
-  <li>Social Login (KAKAO,NAVER,GitHub)
-  <img src="https://thumbs.gfycat.com/EasygoingSnarlingIguana-small.gif">
-  </li>
-</ol>
+  - <a>Social Login (KAKAO,NAVER,GitHub)</a>
