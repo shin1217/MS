@@ -67,11 +67,14 @@
 
 <br><br>
 
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774648-bca92e00-fd38-11e8-8efb-4f25aaf8ae11.JPG"> 댓글입력<br>
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774648-bca92e00-fd38-11e8-8efb-4f25aaf8ae11.JPG"> 
+댓글입력<br>
 <br>
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774666-c92d8680-fd38-11e8-9690-39be0799f1aa.JPG"> 댓글삭제<br>
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774666-c92d8680-fd38-11e8-9690-39be0799f1aa.JPG"> 
+댓글삭제<br>
 <br>
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774671-d3e81b80-fd38-11e8-958b-a36e1349882b.JPG"> <br>
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774671-d3e81b80-fd38-11e8-958b-a36e1349882b.JPG"> 
+댓글수정<br>
 <br>
 
 
