@@ -36,16 +36,16 @@
 <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782463-c8591c80-fd59-11e8-9469-2ebbb6c970f2.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782617-4c130900-fd5a-11e8-8837-d633e1f78016.PNG">
 
 
- - 글쓰기, 수정 페이지
+ - 글쓰기, 수정, 삭제 페이지
  
  
-<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782905-51bd1e80-fd5b-11e8-8bad-e98945b1e3ad.PNG">
+<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782905-51bd1e80-fd5b-11e8-8bad-e98945b1e3ad.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49783011-aeb8d480-fd5b-11e8-84f7-1ddf3d43e21f.png"> 
  
  
- - 상세페이지, 삭제
+ - 상세페이지, 댓글
  
  
-<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49783006-ac567a80-fd5b-11e8-9507-5f288ff9c987.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49783011-aeb8d480-fd5b-11e8-84f7-1ddf3d43e21f.png"> 
+<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49783006-ac567a80-fd5b-11e8-9507-5f288ff9c987.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49783077-eaec3500-fd5b-11e8-9dcd-b74e96761c5f.PNG"> 
 
 <br>
 
