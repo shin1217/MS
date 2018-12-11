@@ -10,11 +10,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/js/mdb.min.js"></script>
 <script src="http://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
-
 <!-- 폰트 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Noto+Sans+KR" rel="stylesheet">
-
 <!-- 셀렉트 플러그인 -->
 <script src="${pageContext.request.contextPath}/select/select-mania.js"></script>
 <link href="${pageContext.request.contextPath}/select/select-mania.css" rel="stylesheet">
