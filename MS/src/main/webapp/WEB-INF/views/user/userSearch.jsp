@@ -78,11 +78,6 @@ body {
     border: 1px solid #ccc;
     border-radius: 15px;
 }
-
-.layout_search{
-	mar
-}
-
 </style>
 </head>
 <body>

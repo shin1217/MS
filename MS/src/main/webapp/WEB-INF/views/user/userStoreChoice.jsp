@@ -23,7 +23,7 @@ body {
 
 .container {
 	min-height: 100%;
-	position: relative;
+	width: 350px;
 }
 
 .full {
@@ -42,7 +42,7 @@ body {
 	left: 0;
 	right: 0;
 	margin: auto;
-	width: 30%;
+	width: 350px;
 	height: 30%;
 }
 

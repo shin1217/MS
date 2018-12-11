@@ -24,7 +24,7 @@ body {
 
 .container {
 	min-height: 100%;
-	width: 30%;
+	width: 350px;
 }
 
 .titleStyle {

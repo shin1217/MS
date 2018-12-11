@@ -23,9 +23,8 @@ body {
 
 .container {
 	min-height: 100%;
-	position: relative;
+	width: 350px;
 }
-
 .full {
 <%-- 	background-image:
 		url("<%=request.getContextPath()%>/images/login-back.jpg"); --%>
@@ -42,7 +41,7 @@ body {
 	left: 0;
 	right: 0;
 	margin: auto;
-	width: 30%;
+	width: 350px;
 	height: 30%;
 }
 
