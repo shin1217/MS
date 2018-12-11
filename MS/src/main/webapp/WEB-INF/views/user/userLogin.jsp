@@ -29,7 +29,9 @@ input {
 }
 
 html, body {
-	background-color: black;
+	/* background-color: black; */
+	background-image: url(<%=request.getContextPath()%>/images/ms-background.jpg);
+	background-size: cover;
 	height: 100%;
 }
 
@@ -101,6 +103,9 @@ body {
 	.socialimage {
 		height: 49px;
 	}
+	html, body {
+		background-position: center;
+	}
 }
 </style>
 </head>
@@ -114,7 +119,7 @@ body {
 	<c:if test="${not empty cookie.user_check}">
 		<c:set value="checked" var="checked"/>
 	</c:if>
-	<div class="wow flipInY" style="float: right; margin-top: 30px; margin-right: 30px;">
+	<div class="wow flipInY" style="float: right; margin-top: 15px; margin-right: 20px;">
 		<a href="admin"> 
 			<img src="${pageContext.request.contextPath}/images/adminLogin-move.png" style="height: 50px;" />
 		</a>

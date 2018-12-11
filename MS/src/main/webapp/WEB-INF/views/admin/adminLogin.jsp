@@ -25,7 +25,9 @@ input{
 	font-family: sans-serif;
 }
 html, body {
-	background-color: black;
+	/* background-color: black; */
+	background-image: url(<%=request.getContextPath()%>/images/ms-background.jpg);
+	background-size: cover;
 	height: 100%;
 }
 
@@ -48,7 +50,7 @@ body {
 	right: 0;
 	margin: auto;
 	width: 350px;
-	height: 70%;
+	height: 40%;
 }
 
 #loginBtn, #singupBtn {
@@ -66,6 +68,9 @@ body {
 	#loginBtn {
 		margin-bottom: 5px;
 	}
+	html, body {
+		background-position: center;
+	}
 }
 </style>
 </head>
@@ -76,20 +81,18 @@ body {
 	</c:if>
 	<div class="full">
 		<div class="wow flipInY"
-			style="float: right; margin-top: 30px; margin-right: 30px;">
+			style="float: right; margin-top: 15px; margin-right: 20px;">
 			<a href="${pageContext.request.contextPath}/"> <img src="${pageContext.request.contextPath}/images/back-arrow.png" style="height: 50px;" />
 			</a>
 		</div>
 		<div class="container">
 			<div class="area_inputs wow fadeIn" data-wow-delay="0.3s">
 				<div class="form-group">
-					<label class="font-weight-bold text-white" for="inputId">아이디</label>
 					<div>
 						<input type="text" class="form-control" id="inputId" name="admin_id" value="${cookie.admin_check.value}" placeholder="아이디">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
 					<div>
 						<input type="password" class="form-control" id="inputPassword" name="admin_pw" placeholder="비밀번호">
 					</div>
