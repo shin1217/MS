@@ -85,8 +85,7 @@ public class UserMailSendService {
 		// 비밀번호는 6자리로 보내고 데이터베이스 비밀번호를 바꿔준다
 		String key = getKey(false, 6);
 		userDao = sqlSession.getMapper(UserDaoInterface.class);
-		// 비밀번호 바꿔주는 메서드
-		userDao.searchPassword(user_id, user_email, key); 
+		
 		// 회원 이름 꺼내는 코드
 		UserVO vo = userDao.userInfo(user_id);
 		String name = vo.getUser_name();
@@ -107,6 +106,11 @@ public class UserMailSendService {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+		// 비밀번호 암호화해주는 메서드
+		key = UserSha256.encrypt(key);
+		// 데이터 베이스 값은 암호한 값으로 저장시킨다.
+		userDao.searchPassword(user_id, user_email, key);
+		
 	}
 
 	// 인증 확인 메서드 (Y 값으로 바꿔주는 메서드)
