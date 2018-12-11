@@ -28,22 +28,22 @@
 
 <hr>
 
- - 쪽지 버튼 및 안읽은 쪽지 표시
+ - Admin, User Mypage 메인
  
  
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49742037-0d8a3980-fcdb-11e8-9052-ddfb4c6fe477.PNG">
+<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773074-f24b1880-fd32-11e8-9c73-4e9f831f7c4d.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773079-f5de9f80-fd32-11e8-8563-5f56abd6a4a6.PNG">
 
 
- - List화면
+ - 정보수정, 탈퇴 화면
  
  
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49741980-f64b4c00-fcda-11e8-9f63-03a5e870b870.PNG"> <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49742043-111dc080-fcdb-11e8-8ab7-f8c5afd3818c.PNG">
+<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773432-6cc86800-fd34-11e8-9ed0-714885988b12.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773475-aa2cf580-fd34-11e8-9e8e-3c3f1c23bb97.PNG">
  
  
- - 관리자 쪽지보내기, 사용자 쪽지보내기, 답장
+ - Admin 매장정보, 매장추가 화면
  
  
-<img width = "280px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49742048-124eed80-fcdb-11e8-957a-2ce22b79cefe.png"> <img width = "280px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49742002-ffd4b400-fcda-11e8-941a-b608059ac106.PNG"> <img width = "280px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49742050-12e78400-fcdb-11e8-9248-4a931ea77089.PNG">
+<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773529-dc3e5780-fd34-11e8-8b7d-4e86b68c357e.png"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773532-de081b00-fd34-11e8-85b0-874c3b0b5c09.PNG"> 
 
 <br>
 
