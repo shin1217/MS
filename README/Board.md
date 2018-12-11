@@ -34,18 +34,14 @@
 
 <hr>
 
- - 게시판
+ - 게시판(검색시)
  
  
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774220-5ec81680-fd37-11e8-90f0-04f30e7bf048.JPG">
-
- - 게시판 검색시
- 
- 
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774220-5ec81680-fd37-11e8-90f0-04f30e7bf048.JPG"> 
 <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774277-90d97880-fd37-11e8-8089-fd92fc94e474.JPG">
 
 
- - 게시글작성
+ - 게시글작성페이지
  
  
 <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774259-7ef7d580-fd37-11e8-831b-c0755e4463a5.JPG">
@@ -54,7 +50,10 @@
  - 게시글화면
  
  
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774294-9fc02b00-fd37-11e8-9179-493ec2093c70.JPG">
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774426-1e1ccd00-fd38-11e8-8b1f-907ad93f4654.JPG">
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774485-44426d00-fd38-11e8-8815-a9ae385f64a8.JPG">
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774510-5ae8c400-fd38-11e8-8fa1-0689d6d000fe.JPG">
+
 
 
 
