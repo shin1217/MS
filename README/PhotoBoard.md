@@ -33,7 +33,7 @@
  - PhotoBoard 메인
  
  
-<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782463-c8591c80-fd59-11e8-9469-2ebbb6c970f2.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782462-c68f5900-fd59-11e8-8a91-91d59d146c6b.PNG">
+<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782463-c8591c80-fd59-11e8-9469-2ebbb6c970f2.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782617-4c130900-fd5a-11e8-8837-d633e1f78016.PNG">
 
 
  - 정보수정, 탈퇴 화면
