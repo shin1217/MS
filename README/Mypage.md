@@ -47,13 +47,6 @@
 
 <br>
 
-## 사용기술
-
-<hr>
-
- - JavaScript : Jquery, Ajax
- - Bootstrap
-
 ## [Management System (돌아가기)](../README.md) <br>
 
 
