@@ -190,7 +190,7 @@
 							seat_t += '<input id="AdminSeatNameInput' + item.seat_id + '" value="' + item.seat_name	+ '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td">';
 							seat_t += '<input id="AdminSeatPayInput' + item.seat_id + '" value="' + item.seat_pay + '" readonly="true" class="adminSeatList_input" /></td><td class="adminSeatList_td" style = "padding : 0px;">';
 							if(item.seat_qr == "" || item.seat_qr == null){
-								seat_t += '<input type="button" id="seat_qr_btn' + item.seat_id + '" value="생성하기" readonly="true" class="seat_qr_btn" onclick = "makeQr(' + item.seat_id + ')" style = "margin-top : 16px;"/><div id = "seat_qr" style = "display : none;"></div></td><td class="adminSeatList_td">';
+								seat_t += '<input type="button" id="seat_qr_btn' + item.seat_id + '" value="생성하기" readonly="true" class="seat_qr_btn" onclick = "makeQr(' + item.seat_id + ')" style = "margin-top : 16px;"/><div id = "seat_qr' + item.seat_id + '" style = "display : none;"></div></td><td class="adminSeatList_td">';
 							} else {
 								seat_t +='<img src = "' + item.seat_qr + '" style = "width : 50px;" id = "qrImage" onclick = "goQr(' +  "'" + item.seat_qr + "'" + ')"></td><td class="adminSeatList_td">';
 							}
@@ -320,7 +320,7 @@
 					type : 'get',
 					success : function(data2){
 						$('#seat_qr_btn' + seat_id ).remove();
-						$('#seat_qr').show().html('<img src = "' + data2 + '" style = "width : 50px; padding : 0px;" id = "qrImage" onclick = "goQr(' + "'" + data2 + "'" + ')">');
+						$('#seat_qr' + seat_id).show().html('<img src = "' + data2 + '" style = "width : 50px; padding : 0px;" id = "qrImage" onclick = "goQr(' + "'" + data2 + "'" + ')">');
 					}
 				});
 			}
