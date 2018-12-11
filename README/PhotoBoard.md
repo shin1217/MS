@@ -14,13 +14,15 @@
 
 <hr>
  
- - 접속된 매장의 session을 이용하여 사진 리스트를 DB에서 가져옴
- - 관리자의 경우 자신이 갖고 있는 모든 매장을 리스트에 담아 가져온 후 forEach문으로 구현
- - mouseover기능을 이용하여 Ajax를 통해 각각의 매장정보를 보여줌
- - Ajax를 이용하여 비동기 처리로 각각의 정보를 유효성검사를 통해 수정
- - 매장삭제를 누르면 모달창을 띄운 후 로그아웃 처리
- - 매장추가를 누르면 매장추가 페이지로 이동, 각각의 유효성 검사 후 우편주소는 daum 우편 API를 사용
- - 사용자 탈퇴를 누르면 id값을 조건으로 DB에서 데이터 삭제
+ - 접속된 매장의 session을 이용하여 사진 리스트를 DB에서 가져온 후 forEach문으로 구현
+ - Mysql에 limit를 이용하여 6개씩 가져온 후 parameter로 페이지정보를 넘겨 페이징처리
+ - 글쓰기의 경우 파일 업로드를 위해 파일업로드용 프로젝트를 미리 AWS에 배포
+ - Ajax를 이용해 multipart파일은 업로드용 프로젝트에 저장하고 DB에는 파일 이름만 저장
+ - 사진을 불러올때도 업로드용 프로젝트를 경로로 설정하여 불러옴
+ - 상세페이지로 가면 접속한 아이디의 session정보를 가져와 작성자와 비교하여 같을때만 삭제, 수정 버튼이 뜸
+ - 가져온 session정보가 admin이라면 항상 삭제, 수정 버튼이 뜸
+ - 수정을 하면 new file().delete()를 이용해 기존저장된 사진은 지워지고 새로운 사진을 저장
+ - 댓글의 경우 Ajax를 이용하여 화면에 바로 나타나도록 비동기처리로 구현
  
 <br>
  
@@ -28,10 +30,10 @@
 
 <hr>
 
- - Admin, User Mypage 메인
+ - PhotoBoard 메인
  
  
-<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773074-f24b1880-fd32-11e8-9c73-4e9f831f7c4d.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773079-f5de9f80-fd32-11e8-8563-5f56abd6a4a6.PNG">
+<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782463-c8591c80-fd59-11e8-9469-2ebbb6c970f2.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782462-c68f5900-fd59-11e8-8a91-91d59d146c6b.PNG">
 
 
  - 정보수정, 탈퇴 화면
