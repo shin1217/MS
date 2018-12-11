@@ -7,8 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MS</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
@@ -20,14 +19,6 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <style>
-/* Mobile Device */
-@media screen and (min-width : 600px) {
-	html, body {
-		background-color: white;
-		height: 100%;
-	}
-}
-
 * {
 	font-size: 20px;
 	font-family: 'BMHANNAPro';
@@ -45,15 +36,8 @@ html, body {
 body {
 	margin: 0;
 }
-
-.container {
-	min-height: 80%;
-	position: relative;
-}
-
-.full { <%--
-	background-image:
-		url("<%=request.getContextPath()%>/images/login-back.jpg"); --%>
+ 
+.full { 
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -76,8 +60,8 @@ body {
 	left: 0;
 	right: 0;
 	margin: auto;
-	width: 30%;
-	height: 50%;
+	width: 350px;
+	height: 70%;
 }
 
 .select_pick {
@@ -103,6 +87,18 @@ body {
 	width: 49%;
 	margin: 0px;
 }
+
+@media ( max-width : 767px ) {
+	.area_inputs {
+		width: 270px;
+	}
+	#loginBtn, #singupBtn {
+		width: 100%;
+	}
+	#loginBtn {
+		margin-bottom: 5px;
+	}
+}
 </style>
 </head>
 <%
@@ -115,13 +111,12 @@ body {
 	<c:if test="${not empty cookie.user_check}">
 		<c:set value="checked" var="checked"/>
 	</c:if>
+	<div class="wow flipInY" style="float: right; margin-top: 30px; margin-right: 30px;">
+		<a href="admin"> 
+			<img src="${pageContext.request.contextPath}/images/adminLogin-move.png" style="height: 50px;" />
+		</a>
+	</div>
 	<div class="full">
-		<div class="wow flipInY" style="float: right; margin-top: 30px; margin-right: 30px;">
-			<a href="admin"> 
-				<img src="${pageContext.request.contextPath}/images/adminLogin-move.png" style="height: 50px;" />
-			</a>
-		</div>
-		<div class="container">
 			<div class="area_inputs wow fadeIn">
 				<div class="form-group">
 					<label class="font-weight-bold text-white" for="inputId">아이디</label>
@@ -146,7 +141,7 @@ body {
 					<div class="interval_height a_none">
 						<a href="${pageContext.request.contextPath}/user/userSearch">&nbsp; 아이디 / 비밀번호 찾기</a>
 					</div>
-					<div>
+					<div class="signin">
 						<button id="loginBtn" type="button"	class="btn btn-primary btn-inline-block">로그인</button>
 						<a id="singupBtn" class="btn btn-deep-orange btn-inline-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
 					</div>
@@ -177,9 +172,7 @@ body {
 					</a>
 				</div>
 			</div>
-		</div>
-	</div>
-	
+		</div>	
 </body>
 <script>
 	$(document).ready(function(){

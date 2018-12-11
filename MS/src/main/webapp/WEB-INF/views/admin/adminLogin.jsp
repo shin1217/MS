@@ -33,14 +33,7 @@ body {
 	margin: 0;
 }
 
-.container {
-	min-height: 100%;
-	position: relative;
-}
-
 .full {
-<%-- 	background-image:
-		url("<%=request.getContextPath()%>/images/login-back.jpg"); --%>
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -54,8 +47,25 @@ body {
 	left: 0;
 	right: 0;
 	margin: auto;
-	width: 30%;
-	height: 30%;
+	width: 350px;
+	height: 70%;
+}
+
+#loginBtn, #singupBtn {
+	width: 49%;
+	margin: 0px;
+}
+
+@media ( max-width : 767px ) {
+	.area_inputs {
+		width: 270px;
+	}
+	#loginBtn, #singupBtn {
+		width: 100%;
+	}
+	#loginBtn {
+		margin-bottom: 5px;
+	}
 }
 </style>
 </head>
@@ -89,15 +99,12 @@ body {
 				</div>
 				<div class="form-group">
 					<label class="font-weight-bold text-white">
-					<input type="checkbox" id="remember_ad" name="remember_adminId" ${checked}>
-						아이디 기억하기
+						<input type="checkbox" id="remember_ad" name="remember_adminId" ${checked}> 아이디 기억하기
 					</label>
 					<div>
-						<button id="loginBtn" type="submit" class="btn btn-danger btn-block">로그인</button>
+						<button id="loginBtn" type="submit" class="btn btn-danger btn-inline-block">로그인</button>
+						<a id="singupBtn" class="btn btn-danger btn-inline-block" href="${pageContext.request.contextPath}/admin/reg">회원가입</a>
 					</div>
-				</div>
-				<div>
-					<a class="btn btn-danger btn-block" href="${pageContext.request.contextPath}/admin/reg">회원가입</a>
 				</div>
 			</div>
 		</div>
