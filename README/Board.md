@@ -34,22 +34,29 @@
 
 <hr>
 
- - 쪽지 버튼 및 안읽은 쪽지 표시
+ - 게시판
  
  
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49742037-0d8a3980-fcdb-11e8-9052-ddfb4c6fe477.PNG">
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774220-5ec81680-fd37-11e8-90f0-04f30e7bf048.JPG">
+
+ - 게시판 검색시
+ 
+ 
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774277-90d97880-fd37-11e8-8089-fd92fc94e474.JPG">
 
 
- - List화면
+ - 게시글작성
  
  
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49741980-f64b4c00-fcda-11e8-9f63-03a5e870b870.PNG"> <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49742043-111dc080-fcdb-11e8-8ab7-f8c5afd3818c.PNG">
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774259-7ef7d580-fd37-11e8-831b-c0755e4463a5.JPG">
+
+
+ - 게시글화면
  
  
- - 관리자 쪽지보내기, 사용자 쪽지보내기, 답장
- 
- 
-<img width = "280px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49742048-124eed80-fcdb-11e8-957a-2ce22b79cefe.png"> <img width = "280px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49742002-ffd4b400-fcda-11e8-941a-b608059ac106.PNG"> <img width = "280px" height = "300px" src = "https://user-images.githubusercontent.com/42988982/49742050-12e78400-fcdb-11e8-9248-4a931ea77089.PNG">
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774294-9fc02b00-fd37-11e8-9179-493ec2093c70.JPG">
+
+
 
 <br>
 
