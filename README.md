@@ -19,3 +19,5 @@
 <h2>상세 기능 및 화면</h2>
   
   1. <a href="https://github.com/shin1217/MS/blob/master/README/Social_Login.md">Social Login (KAKAO,NAVER,GitHub)</a>
+  2. <a href="https://github.com/shin1217/MS/blob/master/README/Message.md">Social Login (KAKAO,NAVER,GitHub)</a>
+  3. <a href="https://github.com/shin1217/MS/blob/master/README/Mypage.md">Social Login (KAKAO,NAVER,GitHub)</a>
