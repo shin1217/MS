@@ -30,22 +30,22 @@
 
 <hr>
 
- - PhotoBoard 메인
+ - PhotoBoard 메인페이지
  
  
 <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782463-c8591c80-fd59-11e8-9469-2ebbb6c970f2.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782617-4c130900-fd5a-11e8-8837-d633e1f78016.PNG">
 
 
- - 정보수정, 탈퇴 화면
+ - 글쓰기, 수정 페이지
  
  
-<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773432-6cc86800-fd34-11e8-9ed0-714885988b12.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773475-aa2cf580-fd34-11e8-9e8e-3c3f1c23bb97.PNG">
+<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49782905-51bd1e80-fd5b-11e8-8bad-e98945b1e3ad.PNG">
  
  
- - Admin 매장정보, 매장추가 화면
+ - 상세페이지, 삭제
  
  
-<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773529-dc3e5780-fd34-11e8-8b7d-4e86b68c357e.png"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49773532-de081b00-fd34-11e8-85b0-874c3b0b5c09.PNG"> 
+<img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49783006-ac567a80-fd5b-11e8-9507-5f288ff9c987.PNG"> <img width = "350px" height = "250px" src = "https://user-images.githubusercontent.com/42988982/49783011-aeb8d480-fd5b-11e8-84f7-1ddf3d43e21f.png"> 
 
 <br>
 
