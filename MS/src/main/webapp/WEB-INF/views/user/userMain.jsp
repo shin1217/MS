@@ -221,7 +221,6 @@ html, body {
 						if(data[i].user_id == '${userSession.user_id}'){
 							userId = data[i].user_id; // 사용 중인 사용자 아이디 가져오기
 							seatId = data[i].seat_id; // 사용 중인 좌석 번호 가져오기
-							console.log(seatId);
 							
 							$.ajax({
 								url : '${pageContext.request.contextPath}/admin/getUserInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
@@ -250,10 +249,6 @@ html, body {
 					$('#usingSeatNum').text(seatId); // 좌석 번호 변경
 					$('#min').text(min+'분');
 					$('#sec').text(sec+'초');
-					
-					/* sock.onopen = function(){
-						
-					} */
 					
 					var timer = setInterval(function (){
 						$('#min').text(min+'분');
@@ -493,4 +488,3 @@ html, body {
 
 </script>
 </html>
-

@@ -295,7 +295,7 @@
 						
 						str += '<div class="using" onclick="seatChoise(this, '+ seatId +', \''+ userId +'\')">';
 						str += '<div style="height:25%"><span style="float:left; color:black">'+ seatId +'</span><span>'+ userId +'</span></div>';
-						str += '<div id='+ seatId +' style="height:25%"><span class="min">'+ min +'</span>분 <span class="sec">'+ sec +'</span>초</div>';
+						str += '<div class='+ seatId +' style="height:25%"><span class="min">'+ min +'</span>분 <span class="sec">'+ sec +'</span>초</div>';
 						str += '<div style="height:25%">'+ userPay +'</div>';
 						str += '<button style="height:25%" onclick="deleteSeat(event, \''+ userId +'\')">사용 종료</button>';
 						str += '</div>';
@@ -484,12 +484,12 @@
 		var data = evt.data;
 		data = JSON.parse(data);
 		
-		$('#'+data.seatId).children().eq(0).text(data.min);
-		$('#'+data.seatId).children().eq(1).text(data.sec);
+		$('.'+data.seatId).children().eq(0).text(data.min);
+		$('.'+data.seatId).children().eq(1).text(data.sec);
 	}
 	
-	sock.onclose = function () {
-		
+	sock.onclose = function (evt) {
+		console.log("종료"+evt);
 	}
 	
 	/* 가격에 콤마 표시 */
