@@ -50,9 +50,10 @@
  - 게시글화면
  
  
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774426-1e1ccd00-fd38-11e8-8b1f-907ad93f4654.JPG"> <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774485-44426d00-fd38-11e8-8815-a9ae385f64a8.JPG"> <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774510-5ae8c400-fd38-11e8-8fa1-0689d6d000fe.JPG">
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774426-1e1ccd00-fd38-11e8-8b1f-907ad93f4654.JPG"> <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774633-aef3a880-fd38-11e8-84d1-84942cb0c084.JPG">  <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774485-44426d00-fd38-11e8-8815-a9ae385f64a8.JPG"> <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774510-5ae8c400-fd38-11e8-8fa1-0689d6d000fe.JPG">
+<br><br>
 
-<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774426-1e1ccd00-fd38-11e8-8b1f-907ad93f4654.JPG"> <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774485-44426d00-fd38-11e8-8815-a9ae385f64a8.JPG"> <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774510-5ae8c400-fd38-11e8-8fa1-0689d6d000fe.JPG">
+<img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774648-bca92e00-fd38-11e8-8efb-4f25aaf8ae11.JPG"> <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774666-c92d8680-fd38-11e8-9690-39be0799f1aa.JPG"> <img width = "300px" height = "300px" src = "https://user-images.githubusercontent.com/42988725/49774671-d3e81b80-fd38-11e8-958b-a36e1349882b.JPG">
 
 
 
