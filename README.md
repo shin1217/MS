@@ -16,6 +16,6 @@
   - MySQL 5.7
   - Tomcat 8.5
 
-<h2>주요 기능</h2>
+<h2>상세 기능 및 화면</h2>
   
   1. <a href="https://github.com/shin1217/MS/blob/master/README/Social_Login.md">Social Login (KAKAO,NAVER,GitHub)</a>
