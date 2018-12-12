@@ -243,7 +243,7 @@
 </body>
 
 <script>
-	var timerArr = null;
+	var timer = null;
 	
 	$(document).ready(function() {
 		getSeatList(); // 좌석 초기화
