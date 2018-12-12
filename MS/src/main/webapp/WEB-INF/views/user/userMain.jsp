@@ -108,7 +108,6 @@ html, body {
   to {opacity: 1}
 }
 
-/* ///////////////////////////////////////////////////////////// */
 /* 좌석 사용 중인 사용자에게 보여질 화면 스타일 지정 */
 .userUsingMain_container {
 	display: none;
@@ -151,6 +150,21 @@ html, body {
 
 .end_btn:hover {
 	opacity: 0.7;
+}
+
+@media ( max-width : 767px ) {
+	.left_area, .center_area, .right_area {
+		width: 300px;
+	}
+	.title_text {
+		font-size: 25px;
+	}
+	.using_wrap {
+		width: 300px;
+	}
+	.userUsingMain_container {
+		font-size: 27px;
+	}
 }
 
 </style>
