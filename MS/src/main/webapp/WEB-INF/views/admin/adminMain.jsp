@@ -243,7 +243,7 @@
 </body>
 
 <script>
-	var timer = null;
+	var timerArr = [];
 	
 	$(document).ready(function() {
 		getSeatList(); // 좌석 초기화
@@ -364,31 +364,31 @@
 	
 	/* 서버에서 메시지가 전송됬을 때 자동 실행되는 콜백 메서드(onmessage) */
 	sock.onmessage = function(evt){
-		var timer = null;
 		var data = evt.data;
 		data = JSON.parse(data);
 		
 		// 사용 시작
 		if(data.processNum == 1){
-			getSeatList(data.processNum);
+			alert(data.seatId+'번 자리에서 사용을 시작합니다.');
+			getSeatList();
 		}
 		
 		// 사용 중 충전
 		else if(data.processNum == 2){
-			alert("충전하는 좌석 번호는: " + data.seatId);
-			getSeatList(data.processNum);
+			alert(data.seatId+'번 자리에 시간이 충전되었습니다.');
+			getSeatList();
 		}
 		
 		// 사용 중 자리변경
 		else if(data.processNum == 3){
-			alert("변경한 좌석 번호는: " + data.seatId);
-			getSeatList(data.processNum);
+			alert(data.seatId+'번 자리로 좌석을 이동하였습니다.');
+			getSeatList();
 		}
 		
 		// 사용 종료
 		else if(data.processNum == 0){
-			alert("종료하는 좌석 번호는: " + data.seatId);
-			getSeatList(data.processNum);
+			alert(data.seatId+'번 자리에서 사용을 종료합니다.');
+			getSeatList();
 		}
 	}
 
@@ -471,7 +471,7 @@
 	}
 	
 	/* 좌석 초기화 */
-	function getSeatList(processNum){
+	function getSeatList(){
 		$.ajax({
 			url: '${pageContext.request.contextPath}/admin/getSeatListAll?storeId=${storeSelectSession.store_id}', 
 			type: 'get',
@@ -481,15 +481,17 @@
 				var str = '';
 				var useCnt = 0; // 사용 중인 좌석 수
 				var userPay = 0; // 사용 금액
-				var seatId = 0 // 좌석 번호
-				var min = 0; // 남은 시간(분)
-				var sec = 0; // 남은 시간(초)
+				var seatIdArr = [] // 좌석 번호
+				var minArr = []; // 남은 시간(분)
+				var secArr = []; // 남은 시간(초)
 				
 				$('#totalCnt').text(data.length); // 전체 좌석 수 표시
 				
 				for(var i=0; i<data.length; i++){
+					
 					if(data[i].user_id != null){ // 사용 중인 좌석
-						seatId = data[i].seat_id;
+						console.log('사용');
+						seatIdArr.push(data[i].seat_id);
 						
 						$.ajax({
 							url : '${pageContext.request.contextPath}/admin/getUserInfo?storeId=${storeSelectSession.store_id}&userId='+data[i].user_id,
@@ -497,15 +499,15 @@
 							async: false,
 							
 							success : function(data) {
-								min = Math.floor(data.user_time/60); // 분 계산
-								sec =  Math.floor(data.user_time%60); // 초 계산
+								minArr.push(Math.floor(data.user_time/60)); /* 분 계산 */
+								secArr.push(Math.floor(data.user_time%60)); /* 초 계산 */
 								userPay = data.user_pay;
 							}
 						});
 					 
 						str += '<div id='+ data[i].seat_id +' class="using" onclick="seatChoise(this, '+ data[i].seat_id +', \''+ data[i].user_id +'\')">';
 						str += '<div style="height:25%"><span style="float:left; color:black">'+ data[i].seat_id +'</span><span>'+ data[i].user_id +'</span></div>';
-						str += '<div style="height:25%"><span class="min">'+ min +'</span>분 <span class="sec">'+ sec +'</span>초</div>';
+						str += '<div style="height:25%"><span class="min">'+ minArr[i] +'</span>분 <span class="sec">'+ secArr[i] +'</span>초</div>';
 						str += '<div style="height:25%">'+ userPay +'</div>';
 						str += '<button style="height:25%" onclick="deleteSeat(event, \''+ data[i].user_id +'\')">사용 종료</button>';
 						str += '</div>';
@@ -519,27 +521,30 @@
 				
 				$('#useCnt').text(useCnt); // 현재 사용 중인 좌석 수 표시
 				$('#seatList').html(str); // 좌석 표시
-				
-				startCount(min, sec, seatId, processNum);
-				
+
+				for(var i=0; i<seatIdArr.length; i++){
+					startCount(minArr[i], secArr[i], seatIdArr[i]);
+				}
 			} // end success
 		}); // end ajax
 	}
 	
 	/* 시간 카운트 */
-	
-	function startCount(min, sec, seatId, processNum){
-		if(timer != null){
-			clearInterval(timer);
+	function startCount(min, sec, seatId){
+		if(timerArr[seatId] != null){
+			clearInterval(timerArr[seatId]);
 		}
 		
-		timer = setInterval(function (){
+		$('#'+seatId).children().eq(1).children().eq(0).text(min); // 로드 후 1초 동안 빈 공백을 채운다.
+		$('#'+seatId).children().eq(1).children().eq(1).text(sec); // 로드 후 1초 동안 빈 공백을 채운다.
+		
+		timerArr[seatId] = setInterval(function (){
 			
 			$('#'+seatId).children().eq(1).children().eq(0).text(min);
 			$('#'+seatId).children().eq(1).children().eq(1).text(sec);
 			
 			if(sec == 1 && min == 0){ // 사용 시간 종료
-				clearInterval(timer);
+				clearInterval(timerArr[seatId]);
 
 			} else{
 				sec--;
@@ -550,23 +555,6 @@
 				}
 			}
 		}, 1000); 
-		
-		/* $.ajax({
-			url: '${pageContext.request.contextPath}/admin/getSeatListAll?storeId=${storeSelectSession.store_id}', 
-			type: 'get',
-			
-			success:function(data){ 
-				for(var i=0; i<data.length; i++){
-					if(data[i].user_id != null){
-						
-						var seatId = data[i].seat_id;
-						
-							
-						
-					}
-				}
-			}
-		}); */
 	}
 
 	/* 가격에 콤마 표시 */

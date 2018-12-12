@@ -273,7 +273,7 @@ html, body {
 					
 					if(isSockOpen){
 						console.log('데이터보냄');
-						sendMessage(seatId, 1);
+						sendInfo(seatId, 1);
 					}
 					
 					var timer = setInterval(function (){
@@ -345,7 +345,7 @@ html, body {
 				type:'get',
 				
 				success:function(data){
-					sendMessage($('#usingSeatNum').text(), 2);
+					sendInfo($('#usingSeatNum').text(), 2);
 					location.reload();
 				}
 			});
@@ -365,7 +365,7 @@ html, body {
 					type:'get',
 					
 					success:function(data){
-						sendMessage(selectedST.seat, 3);
+						sendInfo(selectedST.seat, 3);
 						location.reload();
 					}
 				});
@@ -386,7 +386,7 @@ html, body {
 					success:function(){
 						if(isSockOpen){
 							console.log('데이터보냄');
-							sendMessage($('#usingSeatNum').text(), 0); // 종료된 좌석번와 처리 넘버
+							sendInfo($('#usingSeatNum').text(), 0); // 종료된 좌석번와 처리 넘버
 						}
 						location.reload();
 					} // end success  
@@ -503,7 +503,7 @@ html, body {
 		$(obj).append(str);
 	}
 	
-	function sendMessage(seatId, processNum) {
+	function sendInfo(seatId, processNum) {
 		var seatUser = {		
 				seatId : seatId,
 				processNum : processNum
