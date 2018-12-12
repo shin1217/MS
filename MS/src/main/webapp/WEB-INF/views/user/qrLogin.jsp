@@ -151,6 +151,11 @@ body {
 }
 </style>
 </head>
+<%
+	//난수 발생
+	SecureRandom random = new SecureRandom();
+	String state = new BigInteger(130, random).toString();
+%>
 <body>
 	<!-- Cookie가 비어있지 않을 때 checked 속성을 줌 -->
 	<c:if test="${not empty cookie.user_check}">
@@ -190,6 +195,7 @@ body {
 				<div class="form-group">
 					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg?qr=Y">회원가입</a>
 				</div>
+				
 			</div>
 		</div>
 	</div>
