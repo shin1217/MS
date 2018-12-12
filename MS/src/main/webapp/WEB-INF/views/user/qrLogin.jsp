@@ -21,17 +21,19 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css" type="text/css">
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <style>
-*{
+* {
 	font-size: 20px;
 	font-family: 'BMHANNAPro';
 }
 
-input{
+input {
 	font-family: sans-serif;
 }
 
 html, body {
-	background-color: black;
+	/* background-color: black; */
+	background-image: url(<%= request.getContextPath ()%>/images/ms-background.jpg);
+	background-size: cover;
 	height: 100%;
 }
 
@@ -39,25 +41,19 @@ body {
 	margin: 0;
 }
 
-.container {
-	min-height: 80%;
-	position: relative;
-}
-
 .full {
-<%-- 	background-image:
-		url("<%=request.getContextPath()%>/images/login-back.jpg"); --%>
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 70%;
 }
-.a_none{
+
+.a_none {
 	font-size: 16px;
 	font-weight: bolder;
 }
 
-.interval_height{
+.interval_height {
 	margin-bottom: 5px;
 }
 
@@ -68,22 +64,59 @@ body {
 	left: 0;
 	right: 0;
 	margin: auto;
-	width: 80%;
-	height: 30%;
+	width: 350px;
+	height: 60%;
 }
 
-.select_pick{
-	display:inline;
-    width: 70%;
-    height: 40px;
-    padding: 6px 12px;
-    font-size: 17px;
-    line-height: 1.0;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 15px;
+.select_pick {
+	display: inline;
+	width: 70%;
+	height: 40px;
+	padding: 6px 12px;
+	font-size: 17px;
+	line-height: 1.0;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 15px;
+}
+
+.socialimage {
+	height: 65px;
+	display: inline-block;
+}
+
+#loginBtn, #singupBtn {
+	width: 49%;
+	margin: 0px;
+}
+
+/* 아이디 기억하기 테두리 */
+#remember_label {
+	text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
+}
+
+/* 아이디비밀번호 찾기 */
+#idANDpw {
+	text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
+}
+@media ( max-width : 767px ) {
+	.area_inputs {
+		width: 270px;
+	}
+	#loginBtn, #singupBtn {
+		width: 100%;
+	}
+	#loginBtn {
+		margin-bottom: 5px;
+	}
+	.socialimage {
+		height: 49px;
+	}
+	html, body {
+		background-position: center;
+	}
 }
 /* 시간충전 modal창 내용 */
 .modal_contents {
@@ -195,7 +228,31 @@ body {
 				<div class="form-group">
 					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg?qr=Y">회원가입</a>
 				</div>
-				
+				<div class="form-group socialimage" id="kakaoBtn">
+					<a href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://ec2-54-180-123-73.ap-northeast-2.compute.amazonaws.com/MS/kakaologin&response_type=code">
+						<img id="socialimage" src="${pageContext.request.contextPath}/images/logo-kakao.png" height="100%"/>
+					</a>
+				</div>
+				<div class="form-group socialimage" id="naverBtn">
+					<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=BLxuRdNAKQL9y0hx6ugp&redirect_uri=http://ec2-54-180-123-73.ap-northeast-2.compute.amazonaws.com/MS/naverlogin&state=<%= state %>">
+						<img src="${pageContext.request.contextPath}/images/logo-naver.png" height="100%"/>
+					</a>
+				</div>
+				<div class="form-group socialimage" id="githubBtn">
+					<a href="https://github.com/login/oauth/authorize?client_id=ca3c1f71782ed1d5d649&redirect_uri=http://ec2-54-180-123-73.ap-northeast-2.compute.amazonaws.com/MS/githublogin">
+						<img src="${pageContext.request.contextPath}/images/logo-github.png" height="100%"/>
+					</a>
+				</div>
+				<div class="form-group socialimage" id="githubBtn">
+					<a href="">
+						<img src="${pageContext.request.contextPath}/images/logo-facebook.png" height="100%"/>
+					</a>
+				</div>
+				<div class="form-group socialimage" id="githubBtn">
+					<a href="">
+						<img src="${pageContext.request.contextPath}/images/logo-google.png" height="100%"/>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
