@@ -103,7 +103,7 @@ public class UserMailSendService {
 			mail.setText(htmlStr, "utf-8", "html");
 			mail.addRecipient(RecipientType.TO, new InternetAddress(user_email));
 			mailSender.send(mail);
-		} catch (MessagingException e) {
+		} catch (MessagingException e) { 
 			e.printStackTrace();
 		}
 		// 비밀번호 암호화해주는 메서드
