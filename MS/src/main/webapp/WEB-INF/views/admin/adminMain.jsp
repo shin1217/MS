@@ -243,6 +243,8 @@
 </body>
 
 <script>
+	var timerArr = null;
+	
 	$(document).ready(function() {
 		getSeatList(); // 좌석 초기화
 		
@@ -479,6 +481,7 @@
 				var str = '';
 				var useCnt = 0; // 사용 중인 좌석 수
 				var userPay = 0; // 사용 금액
+				var seatId = 0 // 좌석 번호
 				var min = 0; // 남은 시간(분)
 				var sec = 0; // 남은 시간(초)
 				
@@ -486,6 +489,7 @@
 				
 				for(var i=0; i<data.length; i++){
 					if(data[i].user_id != null){ // 사용 중인 좌석
+						seatId = data[i].seat_id;
 						
 						$.ajax({
 							url : '${pageContext.request.contextPath}/admin/getUserInfo?storeId=${storeSelectSession.store_id}&userId='+data[i].user_id,
@@ -515,46 +519,54 @@
 				
 				$('#useCnt').text(useCnt); // 현재 사용 중인 좌석 수 표시
 				$('#seatList').html(str); // 좌석 표시
-				startCount(min, sec, processNum);
+				
+				startCount(min, sec, seatId, processNum);
+				
 			} // end success
 		}); // end ajax
 	}
 	
 	/* 시간 카운트 */
-	var timer = null;
-	function startCount(min, sec, processNum){
-		if(processNum == 2){
+	
+	function startCount(min, sec, seatId, processNum){
+		if(timer != null){
 			clearInterval(timer);
 		}
-		$.ajax({
+		
+		timer = setInterval(function (){
+			
+			$('#'+seatId).children().eq(1).children().eq(0).text(min);
+			$('#'+seatId).children().eq(1).children().eq(1).text(sec);
+			
+			if(sec == 1 && min == 0){ // 사용 시간 종료
+				clearInterval(timer);
+
+			} else{
+				sec--;
+				
+				if(sec < 1){
+					min--;
+					sec = 59;
+				}
+			}
+		}, 1000); 
+		
+		/* $.ajax({
 			url: '${pageContext.request.contextPath}/admin/getSeatListAll?storeId=${storeSelectSession.store_id}', 
 			type: 'get',
 			
 			success:function(data){ 
 				for(var i=0; i<data.length; i++){
 					if(data[i].user_id != null){
+						
 						var seatId = data[i].seat_id;
 						
-						timer = setInterval(function (){
-							$('#'+seatId).children().eq(1).children().eq(0).text(min);
-							$('#'+seatId).children().eq(1).children().eq(1).text(sec);
 							
-							if(sec == 1 && min == 0){ // 사용 시간 종료
-								clearInterval(timer);
-
-							} else{
-								sec--;
-								
-								if(sec < 1){
-									min--;
-									sec = 59;
-								}
-							}
-						}, 1000); 
+						
 					}
 				}
 			}
-		});
+		}); */
 	}
 
 	/* 가격에 콤마 표시 */
