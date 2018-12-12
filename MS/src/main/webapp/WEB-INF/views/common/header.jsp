@@ -100,33 +100,32 @@
 			size: 'large',
 			search: true,
 		});
-		
-		var timer = setInterval(function (){
-			useTime += 1;
-		}, 1000);
 	});
 	
-	/* 웹페이지 닫기, 새로고침, 다른 URL로 이동 시에 발생 */
-	var useTime = 0;
 	$.ajax({ // 좌석 리스트 불러오기
 		url : '${pageContext.request.contextPath}/user/getSeatListAll?storeId=${storeSelectSession.store_id}',
 		type : 'get',
-
 		success : function(data) {
 			for(var i=0; i<data.length; i++){
 				if(data[i].user_id != null){
 					if(data[i].user_id == '${userSession.user_id}'){ // 좌석 사용중인 사용자만 시간 카운트
-						window.onbeforeunload = function() {
+						// 사용 시간 1초씩 차감
+						var timer = setInterval(function (){
 							$.ajax({
-								// 사용 시간 전송
-								url: '${pageContext.request.contextPath}/user/updateSaveTime?storeId=${storeSelectSession.store_id}&userId=${userSession.user_id}&useTime='+useTime, 
+								url: '${pageContext.request.contextPath}/user/updateSaveTime', 
 								type: 'get',
+								data: {
+									userId : '${userSession.user_id}',
+									storeId : '${storeSelectSession.store_id}',
+								},
 								
-								success:function(){
-									console.log("시간 저장 완료");
+								success:function(data){
+									if(data == 1){
+										console.log("시간 저장 완료");
+									}
 								}
 							});
-						};
+						}, 1000);
 					}
 				}
 			}

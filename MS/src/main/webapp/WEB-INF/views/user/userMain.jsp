@@ -199,7 +199,13 @@ html, body {
 
 <script>
 	var selectedST = {}; // 좌석과 시간을 담을 객체 (동적 생성)
-		
+	var isSockOpen = false;
+	
+	sock.onopen = function () {
+		isSockOpen = true;
+		console.log('연결됨');
+	}
+	
 	$(document).ready(function() {
 		createTable($('#timeTable'), 6, 2); // 시간 테이블 동적 생성
 		
@@ -243,12 +249,18 @@ html, body {
 				$('.seat_list').html(str); // 자리 변경 modal창의 테이블과 같이 업데이트
 				
 				if(userId != null){
+				
 					var min = Math.floor(userTime/60); // 분 계산
 					var sec = Math.floor(userTime%60); // 초 계산
 					
 					$('#usingSeatNum').text(seatId); // 좌석 번호 변경
 					$('#min').text(min+'분');
 					$('#sec').text(sec+'초');
+					
+					if(isSockOpen){
+						console.log('데이터보냄');
+						sendMessage(seatId, 1);
+					}
 					
 					var timer = setInterval(function (){
 						$('#min').text(min+'분');
@@ -265,15 +277,6 @@ html, body {
 								sec = 59;
 							}
 						}
-						
-						var seatUser = {
-								seatId : seatId,
-								min : min,
-								sec : sec,
-						};
-
-						sock.send(JSON.stringify(seatUser)); // 서버로 메시지 전송
-						
 					}, 1000);
 					
 					/* modal 시간 select option 초기화  */
@@ -284,11 +287,9 @@ html, body {
 					
 					$('.userMain_container').hide();
 					$('.userUsingMain_container').show();
-					
 				}
 			}
 		}); // end ajax
-		
 		
 		/* 사용 전 Modal창 충전하기 버튼 */
 		$('#addTimeBtn').on('click', function() {
@@ -330,6 +331,7 @@ html, body {
 				type:'get',
 				
 				success:function(data){
+					sendMessage($('#usingSeatNum').text(), 2);
 					location.reload();
 				}
 			});
@@ -349,6 +351,7 @@ html, body {
 					type:'get',
 					
 					success:function(data){
+						sendMessage(selectedST.seat, 3);
 						location.reload();
 					}
 				});
@@ -357,6 +360,7 @@ html, body {
 		
 		/* 사용 종료 */
 		$('#endBtn').on('click', function () {
+			console.log($(this).parent());
 			var ordersConfirm = confirm('정말 종료하시겠습니까?');
 			
 			if(ordersConfirm){
@@ -366,6 +370,10 @@ html, body {
 					type: 'get',
 					
 					success:function(){
+						if(isSockOpen){
+							console.log('데이터보냄');
+							sendMessage($('#usingSeatNum').text(), 0); // 종료된 좌석번와 처리 넘버
+						}
 						location.reload();
 					} // end success  
 				});
@@ -479,6 +487,14 @@ html, body {
 			str += '</tr>';
 		}
 		$(obj).append(str);
+	}
+	
+	function sendMessage(seatId, processNum) {
+		var seatUser = {		
+				seatId : seatId,
+				processNum : processNum
+		};
+		sock.send(JSON.stringify(seatUser)); // 서버로 메시지 전송
 	}
 	
 	/* 가격에 콤마 표시 */

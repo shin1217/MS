@@ -244,6 +244,8 @@
 
 <script>
 	$(document).ready(function() {
+		getSeatList(); // 좌석 초기화
+		
 		var currentPosition = parseInt($('.left_content').css('top'));
 		
 		/* 스크롤따라 움직이는 Div */
@@ -259,58 +261,7 @@
 			var option = '<option value='+ i + '>' + i + ' 시간</option>';
 			$('#selectAddTime').append(option);
 		}
-		
-		/* 페이지 로드 시 좌석 초기화 */
-		$.ajax({
-			url: '${pageContext.request.contextPath}/admin/getSeatListAll?storeId=${storeSelectSession.store_id}', 
-			type: 'get',
-			
-			success:function(data){ 
-				var str = '';
-				var useCnt = 0; // 사용 중인 좌석 수
-				var userId = null; // 사용자 아이디
-				var userPay = 0; // 사용 금액
-				var seatId = 0; // 좌석 번호
-				var min = 0; // 남은 시간(분)
-				var sec = 0; // 남은 시간(초)
-				
-				$('#totalCnt').text(data.length); // 전체 좌석 수 표시
-				
-				for(var i=0; i<data.length; i++){
-					if(data[i].user_id != null){ // 사용 중인 좌석
-						userId = data[i].user_id;
-						seatId = data[i].seat_id;
-					
-						$.ajax({
-							url : '${pageContext.request.contextPath}/admin/getUserInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
-							type : 'get',
-							async: false,
-							
-							success : function(data) {
-								min = Math.floor(data.user_time/60); // 분 계산
-								sec =  Math.floor(data.user_time%60); // 초 계산
-								userPay = data.user_pay;
-							}
-						});
-						
-						str += '<div class="using" onclick="seatChoise(this, '+ seatId +', \''+ userId +'\')">';
-						str += '<div style="height:25%"><span style="float:left; color:black">'+ seatId +'</span><span>'+ userId +'</span></div>';
-						str += '<div class='+ seatId +' style="height:25%"><span class="min">'+ min +'</span>분 <span class="sec">'+ sec +'</span>초</div>';
-						str += '<div style="height:25%">'+ userPay +'</div>';
-						str += '<button style="height:25%" onclick="deleteSeat(event, \''+ userId +'\')">사용 종료</button>';
-						str += '</div>';
-						useCnt++;
-					}
-					
-					else{ // 빈 좌석
-						str += '<div id='+ data[i].seat_id +' class="un_using">'+ data[i].seat_id +'</div>';
-					}
-				}
-				$('#useCnt').text(useCnt); // 현재 사용 중인 좌석 수 표시
-				$('#seatList').html(str); // 좌석 표시
-			} // end success
-		}); // end ajax
-		
+	
 		/* Main 충전 버튼 */
 		$('#showAddTimeModalBtn').on('click', function () {
 			var seatId = $('.selected').attr('id');
@@ -322,7 +273,6 @@
 			
 			$('#seatNum').text(seatId); // modal창의 좌석 번호 변경
 			$('#addTimeModal').show();
-			
 		});
 		
 		/* Modal 충전 버튼 */
@@ -359,74 +309,6 @@
 		
 	}); // end $(document).ready(function())} 
 	
-	/* 사용 중인 좌석 선택 */
-	function seatChoise(e ,seatId, userId){
-		if($(e).hasClass('selected')){ // 선택된 상태
-			$(e).css({'opacity': '', 'border': ''});
-			$(e).removeAttr('id');
-			$(e).removeClass('selected');
-			$('#selectedUserInfo').html('<span style="color:red">* 좌석을 선택하세요.</span>');
-			$('#orderListInfo').html('<span style="color:red">* 주문 대기 중인 음식이 없습니다.</span>');
-		}
-		else{ // 선택되지 않은 상태
-			$('.selected').css({'opacity': '', 'border': ''});
-			$('.selected').removeAttr('id');
-			$('.selected').removeClass('selected');
-			
-			$(e).css({'opacity': '0.5', 'border': '3px solid black'});
-			$(e).attr('id', seatId);
-			$(e).addClass('selected');
-			$('#userId').text(userId); // modal창의 숨겨진 span태그의 텍스트 변경
-			
-			// 선택된 사용자 정보 불러오기
-			$.ajax({ 
-				url:'${pageContext.request.contextPath}/admin/getUserInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
-				type:'get',
-				
-				success:function(data){
-					var str = '<span style="color:black">* 이름: ' + data.user_name + '<br>';
-					str += '* 전화번호: ' + data.user_phone + '<br>';
-					str += '* 생년월일: ' + data.user_birth + '</span>';
-					$('#selectedUserInfo').html(str);
-				} // end success 
-			}); // end ajax
-			
-			// 선택된 사용자의 주문 목록 불러오기
-			$.ajax({
-				url:'${pageContext.request.contextPath}/admin/getOrdersInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
-				type:'get',
-					
-				success:function(data){
-					if(data.length > 0){
-						var str = '';
-						
-						for(var i=0; i<data.length; i++){
-							var foodNameArr = data[i].food_name.split(',');
-							var foodCntArr = data[i].food_cnt.split(',');
-							
-							str += '<table border="1" class="orders_table"><tr>';
-							str += '<td>주문번호</td><td>음식</td><td>수량</td><td>상태</td></tr>';
-							str += '<tr><td rowspan=' + (foodNameArr.length) + '>' + data[i].orders_id + '</td>';
-							
-							for(var j=0; j<foodNameArr.length-1; j++){
-								str += '<td>' + foodNameArr[j] + '</td><td>' + foodCntArr[j] +'</td>';
-								if(j==0){
-									str += '<td rowspan='+ (foodNameArr.length) +' onclick="process(this, '+ data[i].orders_id +')" class="process_btn">대기</td>';
-								}
-								str += '</tr>';
-							}
-							str += '</table>';
-							
-						}
-						$('#orderListInfo').html(str);
-					}
-					else {
-						$('#orderListInfo').html('<span style="color:red">* 주문 대기 중인 음식이 없습니다.</span>');
-					}
-				} // end success 
-			});
-		}
-	}
 	
 	/* 주문 처리 하기 */
 	function process(obj, ordersId){
@@ -451,7 +333,6 @@
 	/* 사용 종료 버튼 */
 	function deleteSeat(e, userId) {
 		e.stopPropagation(); // 이벤트 버블링 중지
-		console.log(userId);
 		
 		$.ajax({
 			url:'${pageContext.request.contextPath}/admin/getOrdersInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
@@ -481,17 +362,201 @@
 	
 	/* 서버에서 메시지가 전송됬을 때 자동 실행되는 콜백 메서드(onmessage) */
 	sock.onmessage = function(evt){
+		var timer = null;
 		var data = evt.data;
 		data = JSON.parse(data);
 		
-		$('.'+data.seatId).children().eq(0).text(data.min);
-		$('.'+data.seatId).children().eq(1).text(data.sec);
+		// 사용 시작
+		if(data.processNum == 1){
+			getSeatList(data.processNum);
+		}
+		
+		// 사용 중 충전
+		else if(data.processNum == 2){
+			alert("충전하는 좌석 번호는: " + data.seatId);
+			getSeatList(data.processNum);
+		}
+		
+		// 사용 중 자리변경
+		else if(data.processNum == 3){
+			alert("변경한 좌석 번호는: " + data.seatId);
+			getSeatList(data.processNum);
+		}
+		
+		// 사용 종료
+		else if(data.processNum == 0){
+			alert("종료하는 좌석 번호는: " + data.seatId);
+			getSeatList(data.processNum);
+		}
+	}
+
+	/* 사용 중인 좌석 선택 */
+	function seatChoise(e ,seatId, userId){
+		
+		if($(e).hasClass('selected')){ // 선택된 상태
+			$(e).css({'opacity': '', 'border': ''});
+			$(e).removeAttr('id');
+			$(e).removeClass('selected');
+			$('#selectedUserInfo').html('<span style="color:red">* 좌석을 선택하세요.</span>');
+			$('#orderListInfo').html('<span style="color:red">* 주문 대기 중인 음식이 없습니다.</span>');
+		}
+		else{ // 선택되지 않은 상태
+			$('.selected').css({'opacity': '', 'border': ''});
+			$('.selected').removeAttr('id');
+			$('.selected').removeClass('selected');
+			
+			$(e).css({'opacity': '0.5', 'border': '3px solid black'});
+			$(e).attr('id', seatId);
+			$(e).addClass('selected');
+			$('#userId').text(userId); // modal창의 숨겨진 span태그의 텍스트 변경
+			
+			getUserInfo(userId);
+			getOrdersInfo(userId);
+		}
 	}
 	
-	sock.onclose = function (evt) {
-		console.log("종료"+evt);
+	/* 선택된 사용자 정보 불러오기 */
+	function getUserInfo(userId) {
+		$.ajax({ 
+			url:'${pageContext.request.contextPath}/admin/getUserInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
+			type:'get',
+			
+			success:function(data){
+				var str = '<span style="color:black">* 이름: ' + data.user_name + '<br>';
+				str += '* 전화번호: ' + data.user_phone + '<br>';
+				str += '* 생년월일: ' + data.user_birth + '</span>';
+				$('#selectedUserInfo').html(str);
+				
+			} // end success 
+		}); // end ajax
 	}
 	
+	/* 선택된 사용자의 주문 목록 불러오기 */
+	function getOrdersInfo(userId) {
+		$.ajax({
+			url:'${pageContext.request.contextPath}/admin/getOrdersInfo?storeId=${storeSelectSession.store_id}&userId='+userId,
+			type:'get',
+				
+			success:function(data){
+				if(data.length > 0){
+					var str = '';
+					
+					for(var i=0; i<data.length; i++){
+						var foodNameArr = data[i].food_name.split(',');
+						var foodCntArr = data[i].food_cnt.split(',');
+						
+						str += '<table border="1" class="orders_table"><tr>';
+						str += '<td>주문번호</td><td>음식</td><td>수량</td><td>상태</td></tr>';
+						str += '<tr><td rowspan=' + (foodNameArr.length) + '>' + data[i].orders_id + '</td>';
+						
+						for(var j=0; j<foodNameArr.length-1; j++){
+							str += '<td>' + foodNameArr[j] + '</td><td>' + foodCntArr[j] +'</td>';
+							if(j==0){
+								str += '<td rowspan='+ (foodNameArr.length) +' onclick="process(this, '+ data[i].orders_id +')" class="process_btn">대기</td>';
+							}
+							str += '</tr>';
+						}
+						str += '</table>';
+						
+					}
+					$('#orderListInfo').html(str);
+				}
+				else {
+					$('#orderListInfo').html('<span style="color:red">* 주문 대기 중인 음식이 없습니다.</span>');
+				}
+			} // end success 
+		});
+	}
+	
+	/* 좌석 초기화 */
+	function getSeatList(processNum){
+		$.ajax({
+			url: '${pageContext.request.contextPath}/admin/getSeatListAll?storeId=${storeSelectSession.store_id}', 
+			type: 'get',
+			
+			success:function(data){ 
+			
+				var str = '';
+				var useCnt = 0; // 사용 중인 좌석 수
+				var userPay = 0; // 사용 금액
+				var min = 0; // 남은 시간(분)
+				var sec = 0; // 남은 시간(초)
+				
+				$('#totalCnt').text(data.length); // 전체 좌석 수 표시
+				
+				for(var i=0; i<data.length; i++){
+					if(data[i].user_id != null){ // 사용 중인 좌석
+						
+						$.ajax({
+							url : '${pageContext.request.contextPath}/admin/getUserInfo?storeId=${storeSelectSession.store_id}&userId='+data[i].user_id,
+							type : 'get',
+							async: false,
+							
+							success : function(data) {
+								min = Math.floor(data.user_time/60); // 분 계산
+								sec =  Math.floor(data.user_time%60); // 초 계산
+								userPay = data.user_pay;
+							}
+						});
+					 
+						str += '<div id='+ data[i].seat_id +' class="using" onclick="seatChoise(this, '+ data[i].seat_id +', \''+ data[i].user_id +'\')">';
+						str += '<div style="height:25%"><span style="float:left; color:black">'+ data[i].seat_id +'</span><span>'+ data[i].user_id +'</span></div>';
+						str += '<div style="height:25%"><span class="min">'+ min +'</span>분 <span class="sec">'+ sec +'</span>초</div>';
+						str += '<div style="height:25%">'+ userPay +'</div>';
+						str += '<button style="height:25%" onclick="deleteSeat(event, \''+ data[i].user_id +'\')">사용 종료</button>';
+						str += '</div>';
+						useCnt++; 
+					}
+					
+					else{ // 빈 좌석
+						str += '<div id='+ data[i].seat_id +' class="un_using">'+ data[i].seat_id +'</div>';
+					}
+				}
+				
+				$('#useCnt').text(useCnt); // 현재 사용 중인 좌석 수 표시
+				$('#seatList').html(str); // 좌석 표시
+				startCount(min, sec, processNum);
+			} // end success
+		}); // end ajax
+	}
+	
+	/* 시간 카운트 */
+	var timer = null;
+	function startCount(min, sec, processNum){
+		if(processNum == 2){
+			clearInterval(timer);
+		}
+		$.ajax({
+			url: '${pageContext.request.contextPath}/admin/getSeatListAll?storeId=${storeSelectSession.store_id}', 
+			type: 'get',
+			
+			success:function(data){ 
+				for(var i=0; i<data.length; i++){
+					if(data[i].user_id != null){
+						var seatId = data[i].seat_id;
+						
+						timer = setInterval(function (){
+							$('#'+seatId).children().eq(1).children().eq(0).text(min);
+							$('#'+seatId).children().eq(1).children().eq(1).text(sec);
+							
+							if(sec == 1 && min == 0){ // 사용 시간 종료
+								clearInterval(timer);
+
+							} else{
+								sec--;
+								
+								if(sec < 1){
+									min--;
+									sec = 59;
+								}
+							}
+						}, 1000); 
+					}
+				}
+			}
+		});
+	}
+
 	/* 가격에 콤마 표시 */
 	function numberWithCommas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
