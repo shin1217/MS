@@ -58,6 +58,11 @@ body {
 	margin: 0px;
 }
 
+#remember_label {
+	text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
+}
+
+
 @media ( max-width : 767px ) {
 	.area_inputs {
 		width: 270px;
@@ -101,7 +106,7 @@ body {
 					<span class="font-weight-bold text-white bg-dark" id="spanLoginCheck"></span>
 				</div>
 				<div class="form-group">
-					<label class="font-weight-bold text-white">
+					<label id="remember_label" class="font-weight-bold text-white">
 						<input type="checkbox" id="remember_ad" name="remember_adminId" ${checked}> 아이디 기억하기
 					</label>
 					<div>
