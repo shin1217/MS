@@ -241,7 +241,7 @@ hr{
 						</div>
 						<div class="col-md-12 form-group">
 							<input type="button" class="btn btn-block btn-lg btn-success"
-								value="메시지 남기기" id = "sendBtn">
+								value="메시지 남기기" id = "sendBtn" >
 							<input type="button" class="btn btn-block btn-lg btn-success"
 								value="메시지 남기기" id = "replyBtn" style = "display : none">	
 						</div>
@@ -321,28 +321,6 @@ function getMessageList(){
 		}
 	});
 }
-/////////// 보내기메서드 /////////////
-function sendMessage(){
-	if($('#message_con').val() == ""){
-		alert("메시지 내용을 입력하세요");
-	} else {
-		$.ajax({
-			url : '${pageContext.request.contextPath}' + '/member/writeMessage/',
-			data : {
-				store_id : store_id,
-				send_id : $('#send_id').val(),
-				receive_id : $('#receive_id').val(),
-				message_con : $('#message_con').val()
-			},
-			success : function(data){
-				alert("메시지를 보냈습니다.");
-				$('#writeMessageModal').hide();
-				$('#replyBtn').css("display","none");
-				$('#message_con').val("");
-			}
-		});
-	}
-}
 //////////// 삭제버튼메서드 //////////
 function deleteMessage(message_id){
 	$.ajax({
@@ -377,6 +355,30 @@ $('#writeMessage').click(function(){
 	$('#sendBtn').click(function(){
 		sendMessage();
 	});
+
+/////////// 보내기메서드 /////////////
+	function sendMessage(){
+		if($('#message_con').val() == ""){
+			alert("메시지 내용을 입력하세요");
+		} else {
+			$.ajax({
+				url : '${pageContext.request.contextPath}' + '/member/writeMessage/',
+				data : {
+					store_id : store_id,
+					send_id : $('#send_id').val(),
+					receive_id : $('#receive_id').val(),
+					message_con : $('#message_con').val()
+				},
+				success : function(data){
+					console.log(data);
+					alert("메시지를 보냈습니다.");
+					$('#writeMessageModal').hide();
+					$('#replyBtn').css("display","none");
+					$('#message_con').val("");
+				}
+			});
+		}
+	}
 	
 /////////////// x 버튼 클릭하면 창 닫음 //////////////
 $('#messageWriteClose').click(function(){

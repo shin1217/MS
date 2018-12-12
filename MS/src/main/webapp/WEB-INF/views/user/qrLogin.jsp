@@ -151,6 +151,11 @@ body {
 }
 </style>
 </head>
+<%
+	//난수 발생
+	SecureRandom random = new SecureRandom();
+	String state = new BigInteger(130, random).toString();
+%>
 <body>
 	<!-- Cookie가 비어있지 않을 때 checked 속성을 줌 -->
 	<c:if test="${not empty cookie.user_check}">
@@ -188,8 +193,9 @@ body {
 					</div>
 				</div>
 				<div class="form-group">
-					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg">회원가입</a>
+					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg?qr=Y">회원가입</a>
 				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -372,14 +378,6 @@ body {
 		var option = '<option value='+ i + '>' + i + ' 시간 (' + i + ',000원)</option>';
 		$('#selectAddTime').append(option);
 	}
-	
-	var naver_id_login = new naver_id_login("OUHAR0pHNVfL5y2SBk3v", "http://localhost:8080/ms/user/main");
-  	var state = naver_id_login.getUniqState();
-  	naver_id_login.setButton("white", 2,40);
-  	naver_id_login.setDomain("http://localhost:8080/ms");
-  	naver_id_login.setState(state);
-  	naver_id_login.setPopup();
-  	naver_id_login.init_naver_id_login();
 	
 	/* 설정정보를 초기화하고 연동을 준비 */
 	/* naverLogin.init(); */

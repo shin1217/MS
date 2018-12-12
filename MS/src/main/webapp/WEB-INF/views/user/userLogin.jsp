@@ -30,7 +30,7 @@ input {
 
 html, body {
 	/* background-color: black; */
-	background-image: url(<%=request.getContextPath()%>/images/ms-background.jpg);
+	background-image: url(<%= request.getContextPath ()%>/images/ms-background.jpg);
 	background-size: cover;
 	height: 100%;
 }
@@ -38,8 +38,8 @@ html, body {
 body {
 	margin: 0;
 }
- 
-.full { 
+
+.full {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -63,7 +63,7 @@ body {
 	right: 0;
 	margin: auto;
 	width: 350px;
-	height: 70%;
+	height: 60%;
 }
 
 .select_pick {
@@ -88,6 +88,16 @@ body {
 #loginBtn, #singupBtn {
 	width: 49%;
 	margin: 0px;
+}
+
+/* 아이디 기억하기 테두리 */
+#remember_label {
+	text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
+}
+
+/* 아이디비밀번호 찾기 */
+#idANDpw {
+	text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
 }
 
 @media ( max-width : 767px ) {
@@ -127,13 +137,11 @@ body {
 	<div class="full">
 			<div class="area_inputs wow fadeIn">
 				<div class="form-group">
-					<label class="font-weight-bold text-white" for="inputId">아이디</label>
 					<div>
 						<input type="text" class="form-control" id="inputId" name="user_id" value="${cookie.user_check.value}" placeholder="아이디">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="font-weight-bold text-white" for="inputPassword">비밀번호</label>
 					<div>
 						<input type="password" class="form-control" id="inputPassword" name="user_pw" placeholder="비밀번호">
 					</div>
@@ -143,10 +151,10 @@ body {
 						id="spanLoginCheck"></span>
 				</div>
 				<div class="form-group">
-					<label class="font-weight-bold text-white"> 
+					<label id="remember_label" class="font-weight-bold text-white"> 
 						<input type="checkbox" id="remember_us" name="remember_userId" ${checked}> 아이디 기억하기
 					</label>
-					<div class="interval_height a_none">
+					<div id="idANDpw" class="interval_height a_none">
 						<a href="${pageContext.request.contextPath}/user/userSearch">&nbsp; 아이디 / 비밀번호 찾기</a>
 					</div>
 					<div class="signin">
