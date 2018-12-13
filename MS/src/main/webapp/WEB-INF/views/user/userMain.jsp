@@ -26,19 +26,20 @@ html, body {
 
 .left_area, .center_area, .right_area {
 	display: inline-block;
-	width: 33%;
+	width: 50%;
 	height: 100%;
 	padding-top: 10px;
 	margin-bottom: 10px;
 	border: 1px solid black;
-	border-top-left-radius: 15px;
-	border-bottom-left-radius: 15px;
 	overflow-y: scroll;
 }
 
+.center_area, .right_area {
+	display: none;
+}
+
 .title_text {
-	font-size: 40px;
-	margin-bottom: 20px;
+	font-size: 35px;
 }
 
 .content_text {
@@ -54,7 +55,6 @@ html, body {
 .time_table td {
 	width: 250px;
 	height: 100px;
-	border-radius: 15px;
 	font-size: 30px;
 	color: gray;
 	text-align: center;
@@ -158,6 +158,7 @@ html, body {
 	}
 	.title_text {
 		font-size: 25px;
+		margin-bottom: 0px;
 	}
 	.using_wrap {
 		width: 300px;
@@ -180,21 +181,18 @@ html, body {
 		
 		<div class="left_area">
 			<div class="content_text">자리선택</div>
-			<hr>
 			<div class="content_text"><span id="useCnt">0</span> / <span id="totalCnt">0</span></div>
 			<div class="seat_list"></div>
 		</div>
 
 		<div class="center_area">
 			<div class="content_text">시간선택</div>
-			<hr>
 			<table id="timeTable" class="time_table">
 			</table>
 		</div>
 
 		<div class="right_area">
 			<div class="content_text">결제선택</div>
-			<hr>
 			<h1>준비 중...</h1>
 		</div>
 	</div>
@@ -422,8 +420,9 @@ html, body {
 		$('.seat_list > div').each(function (index, item) {
 			choiseProcess(seatId, item, e, 'seat');
 		});
+		$('.left_area').attr('style', 'display:none');
+		$('.center_area').attr('style', 'display:inline-block');		
 	}
-	
 	/* 시간 선택 처리 */
 	function timeChoise(e) {
 		$('#timeTable > tr > td').each(function (index, item) {

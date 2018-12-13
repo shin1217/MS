@@ -291,6 +291,17 @@ html, body {
   to {opacity: 1}
 } */
 
+/* 모바일 최적화 */
+@media ( max-width : 767px ) {
+	
+	.title_text {
+		font-size: 30px;
+	}
+	.total_cancel_btn, .pay_btn {
+		font-size: 18px;
+	}
+}
+
 </style>
 </head>
 <body>

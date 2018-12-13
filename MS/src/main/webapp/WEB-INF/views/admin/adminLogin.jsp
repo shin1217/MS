@@ -76,6 +76,9 @@ body {
 	html, body {
 		background-position: center;
 	}
+	#spanLoginCheck {
+		font-size: 18px;
+	}
 }
 </style>
 </head>

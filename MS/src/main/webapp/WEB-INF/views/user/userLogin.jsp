@@ -99,6 +99,8 @@ body {
 #idANDpw {
 	text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
 }
+
+/* 모바일 최적화 */
 @media ( max-width : 767px ) {
 	.area_inputs {
 		width: 270px;
@@ -114,6 +116,9 @@ body {
 	}
 	html, body {
 		background-position: center;
+	}
+	#spanLoginCheck {
+		font-size: 18px;
 	}
 }
 </style>
@@ -146,8 +151,7 @@ body {
 					</div>
 				</div>
 				<div class="form-group">
-					<span class="font-weight-bold text-white bg-dark"
-						id="spanLoginCheck"></span>
+					<span class="font-weight-bold text-white bg-dark" id="spanLoginCheck"></span>
 				</div>
 				<div class="form-group">
 					<label id="remember_label" class="font-weight-bold text-white"> 
