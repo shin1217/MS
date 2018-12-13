@@ -167,7 +167,6 @@ html, body {
 		font-size: 27px;
 	}
 }
-
 </style>
 </head>
 <body>

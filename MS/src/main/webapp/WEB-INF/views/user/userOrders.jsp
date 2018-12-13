@@ -42,6 +42,9 @@ html, body {
 	width: 35%;
 }
 
+.menu_display {
+	height: 100%;
+}
 .right_area {
 	float: right;
 	width: 63%;
@@ -293,12 +296,16 @@ html, body {
 
 /* 모바일 최적화 */
 @media ( max-width : 767px ) {
-	
 	.title_text {
 		font-size: 30px;
 	}
+	.total_price_wrap
+	
 	.total_cancel_btn, .pay_btn {
 		font-size: 18px;
+	}
+	.menu_nav ul li, .menu_nav ul li a{
+		width: 50px;
 	}
 }
 
@@ -311,7 +318,6 @@ html, body {
 		<div class="left_area">
 			<div style="height: 15%">
 				<div style="font-size: 35px">주문 내역</div>
-				<hr>
 			</div>
 			<div style="height: 65%; margin-bottom: 5%" class="order_table_wrap">
 				<table border="1" class="order_table">
@@ -342,9 +348,8 @@ html, body {
 		<div class="right_area">
 			<div style="height: 15%">
 				<div style="font-size: 35px">음식 리스트</div>
-				<hr>
 			</div>
-			<div style="height: 10%" class="menu_nav">
+			<div class="menu_nav">
 				<ul>
 					<li><a class="menu_link selected" id="korean">한식</a></li>
 					<li><a class="menu_link" id="japan">일식</a></li>
@@ -464,7 +469,7 @@ html, body {
 		}
 		for(var i=0; i<pLength; i++){
 			
-			str += '<div style="height: 100%" class="menu_display fading">';
+			str += '<div class="menu_display fading">';
 			for(var j=first; j<(data.length-last); j++){
 				str += createTable(data[j].food_id, data[j].food_type, data[j].food_photo, data[j].food_name, data[j].food_price);
 			}
