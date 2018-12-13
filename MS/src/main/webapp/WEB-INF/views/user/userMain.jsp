@@ -56,6 +56,7 @@ html, body {
 	width: 250px;
 	height: 100px;
 	font-size: 30px;
+	border-radius: 15px;
 	color: gray;
 	text-align: center;
 	background-color: lightgray;
@@ -152,6 +153,17 @@ html, body {
 	opacity: 0.7;
 }
 
+.prev_btn {
+	float: left;
+	margin-left: 10px;
+	margin-right: -20px;
+}
+
+.prev_btn:hover {
+  	background-color: rgba(0,0,0,0.8);
+}
+
+
 @media ( max-width : 767px ) {
 	.left_area, .center_area, .right_area {
 		width: 300px;
@@ -167,6 +179,8 @@ html, body {
 		font-size: 27px;
 	}
 }
+
+
 </style>
 </head>
 <body>
@@ -176,22 +190,29 @@ html, body {
 
 	<div class="userMain_container">
 		<div class="title_text">안녕하세요. ${userSession.user_name}님!</div>
-		<div class="title_text">${storeSelectSession.store_name} 방문을 환영합니다:p</div>
+		<div class="title_text" style="margin-bottom: 20px">${storeSelectSession.store_name} 방문을 환영합니다:p</div>
 		
 		<div class="left_area">
 			<div class="content_text">자리선택</div>
+			<hr>
 			<div class="content_text"><span id="useCnt">0</span> / <span id="totalCnt">0</span></div>
 			<div class="seat_list"></div>
 		</div>
 
 		<div class="center_area">
-			<div class="content_text">시간선택</div>
+			<div class="content_text">
+				<a class="prev_btn">&#10094;</a> 
+				<span>시간선택</span>
+			</div>
+			
+			<hr>
 			<table id="timeTable" class="time_table">
 			</table>
 		</div>
 
 		<div class="right_area">
 			<div class="content_text">결제선택</div>
+			<hr>
 			<h1>준비 중...</h1>
 		</div>
 	</div>
@@ -412,6 +433,16 @@ html, body {
 				$('#usingSeatChangeModal').hide();
 			}
 		});
+		
+		/* 시간 선택 창 이전 버튼 */
+		$('.prev_btn').on('click', function () {
+			$('.center_area').attr('style', 'display:none');
+			$('.left_area').attr('style', 'display:inline-block');
+			$('.selected').css('background-color', '');
+			$('.selected').css('color', '');
+			$('.selected').removeClass();
+			selectedST.seat =  null;
+		});
 	}); // end document.ready
 	
 	/* 좌석 선택 처리 */
@@ -422,6 +453,7 @@ html, body {
 		$('.left_area').attr('style', 'display:none');
 		$('.center_area').attr('style', 'display:inline-block');		
 	}
+	
 	/* 시간 선택 처리 */
 	function timeChoise(e) {
 		$('#timeTable > tr > td').each(function (index, item) {
@@ -473,7 +505,7 @@ html, body {
 		$('.selected').css('color', '');
 		$('.selected').removeClass();
 		
-		selectedST.seat =  null;
+		// selectedST.seat =  null;
 		selectedST.time =  null;
 	}
 	
