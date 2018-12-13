@@ -226,7 +226,7 @@ body {
 					</div>
 				</div>
 				<div class="form-group">
-					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg?qr=Y">회원가입</a>
+					<a class="btn btn-deep-orange btn-block" href="${pageContext.request.contextPath}/user/reg?store_id=${param.store_id}&seat_id=${param.seat_id}">회원가입</a>
 				</div>
 				<div class="form-group socialimage" id="kakaoBtn">
 					<a href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://ec2-54-180-123-73.ap-northeast-2.compute.amazonaws.com/MS/kakaologin&response_type=code">

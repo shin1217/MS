@@ -97,17 +97,15 @@ public class AdminMypageController {
 		
 		@SuppressWarnings("unchecked")
 		List<StoreVO> list = (List<StoreVO>) session.getAttribute("storeSession"); //모든 매장정보의 세션을 가져옴
-		System.out.println("세션에 저장된 리스트 : " + list);
 		
+		// 세션을 리스트로 받아온후 get으로 하나씩 뽑아와서 삭제대상 매장과 비교한 후 일치하면 세션에서 삭제 ㄱㄱ
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getStore_id() == storeDetail.getStore_id()
-					) {
+			if(list.get(i).getStore_id() == storeDetail.getStore_id()) {
 				list.remove(list.get(i));
 			}
 		}
 		
 		session.setAttribute("storeSession", list); // 지운 리스트를 세션에 저장
-		System.out.println(list);
 		service.storeDelete(store_id); // DB에서 지움
 		
 		return "admin/adminMypage";
