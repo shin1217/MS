@@ -41,8 +41,8 @@
 	}
 
 	#dateTh {
-		font-size: 12px !important;
-		width: 50px;
+		font-size: 13px !important;
+		width: 60px;
 	}
 }
 </style>

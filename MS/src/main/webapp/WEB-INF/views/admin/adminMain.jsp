@@ -69,31 +69,6 @@
 	margin-top: -15px
 }
 
-/* 웹에 접근한 기기가 screen일 때 세로 길이가 700px 미만일 때 */
-@media screen and (max-height:700px) {
-	.left_content {
-		overflow-y: scroll; /* 애초부터 auto 설정해주면 타이틀 보이지 않으므로 */
-		height: 60%;
-	}
-	
-	.left_content_title {
-		padding-top: 15px;
-		height: 55px;
-	}
-}
-
-/* 웹에 접근한 기기가 screen일 때 가로 길이가 1500px 미만일 때 */
-@media screen and (max-width:1500px){
-	.left_content {
-		overflow-y: scroll;
-	}
-	
-	.left_content_title {
-		padding-top: 25px;
-		height: 65px;
-	}
-}
-
 .user_info_wrap {
 	overflow: auto;
 	text-align: left;
@@ -195,6 +170,13 @@
 	color: red;
 }
 
+/* 모바일 웹 최적화 */
+@media ( max-width : 767px ) {
+
+	.left_area {
+		display: none;
+	}
+}
 </style>
 </head>
 <body>

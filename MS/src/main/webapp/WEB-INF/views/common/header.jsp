@@ -42,7 +42,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<c:if test="${!empty adminSession}">
-		<a id="adminBrand" class="navbar-brand"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 80px; margin-left: 10px;" /></a>
+		<a id="adminBrand" class="navbar-brand"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 60px; margin-left: 8px;" /></a>
 	</c:if>
 	<c:if test="${!empty userSession}">
 		<a class="navbar-brand" href="${pageContext.request.contextPath}/user/main"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 60px; margin-left: 8px;"/></a>

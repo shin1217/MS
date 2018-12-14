@@ -51,6 +51,11 @@ body {
 </head>
 <body>
 	<div class="full">
+		<div style="float: right; margin-top: 6px; margin-right: 10px;">
+			<a href="${pageContext.request.contextPath}/admin"> 
+				<img src="${pageContext.request.contextPath}/images/close.png" style="height: 20px;" />
+			</a>
+		</div>
 		<div class="container">
 			<div class="area_inputs">
 				<div class="input-group">

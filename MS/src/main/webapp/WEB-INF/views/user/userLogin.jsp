@@ -133,9 +133,9 @@ body {
 	<c:if test="${not empty cookie.user_check}">
 		<c:set value="checked" var="checked"/>
 	</c:if>
-	<div class="wow flipInY" style="float: right; margin-top: 15px; margin-right: 20px;">
+	<div style="float: right; margin-top: 10px; margin-right: 10px;">
 		<a href="admin"> 
-			<img src="${pageContext.request.contextPath}/images/adminLogin-move.png" style="height: 50px;" />
+			<img src="${pageContext.request.contextPath}/images/adminLogin-move.png" style="height: 40px; visibility: hidden;" />
 		</a>
 	</div>
 	<div class="full">

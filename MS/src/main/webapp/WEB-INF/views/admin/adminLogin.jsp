@@ -88,9 +88,9 @@ body {
 		<c:set value="checked" var="checked"/>
 	</c:if>
 	<div class="full">
-		<div class="wow flipInY"
-			style="float: right; margin-top: 15px; margin-right: 20px;">
-			<a href="${pageContext.request.contextPath}/"> <img src="${pageContext.request.contextPath}/images/back-arrow.png" style="height: 50px;" />
+		<div style="float: right; margin-top: 10px; margin-right: 10px;">
+			<a href="${pageContext.request.contextPath}/"> 
+				<img src="${pageContext.request.contextPath}/images/back-arrow.png" style="height: 40px; visibility: hidden;" />
 			</a>
 		</div>
 		<div class="container">

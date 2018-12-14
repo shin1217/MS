@@ -14,15 +14,12 @@
 <style>
 html, body {
 	height: 100%;
-}
-
-body {
 	margin: 0;
 }
 
 .container {
 	min-height: 100%;
-	width: 350px;
+	width: 100%;
 }
 
 .full {
@@ -52,6 +49,11 @@ body {
 </head>
 <body>
 	<div class="full">
+		<div style="float: right; margin-top: 6px; margin-right: 10px;">
+			<a href="${pageContext.request.contextPath}/"> 
+				<img src="${pageContext.request.contextPath}/images/close.png" style="height: 20px;" />
+			</a>
+		</div>
 		<div class="container">
 			<div class="area_inputs">
 				<div class="input-group">
