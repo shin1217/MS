@@ -8,7 +8,7 @@
 	padding: 15px;
 	border: 1px solid #888;
 	border-radius: 20px;
-	width: 50%;
+	width: 600px;
 	text-align: center;
 }
 
@@ -40,7 +40,7 @@
 	cursor: pointer;
 }
 
-.add_time_btn:hover{
+.add_time_btn:hover {
 	opacity: 0.7;
 }
 
@@ -58,6 +58,30 @@
 	font-size: 24px;
 }
 
+select {
+	width: 200px; /* 원하는 너비설정 */
+	padding: .7em .5em; /* 여백으로 높이 설정 */
+	font-family: inherit; /* 폰트 상속 */
+	background:	url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */
+	border: 1px solid #999;
+	border-radius: 0px; /* iOS 둥근모서리 제거 */
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+}
+
+/* 모바일 최적화 */
+@media ( max-width : 767px ) {
+	.modal_contents {
+		width: 350px;
+	}
+	.modal_contents h3 {
+		font-size: 25px;
+	}
+	.modal_contents div {
+		height: 90px;
+	}
+}
 </style>
 
 <!-- 사용 전 시간 추가 modal -->
@@ -81,7 +105,7 @@
 <div id="usingAddTimeModal" class="add_time_modal">
 	<div class="modal_contents">
 		<h3>
-			<b>※ 충전하실 시간을 선택하세요.</b><span class="close">&times;</span>
+			충전하실 시간을 선택하세요<span class="close">&times;</span>
 		</h3>
 		
 		<select id="selectAddTime">
@@ -94,9 +118,9 @@
 
 <!-- 사용 중 자리 변경 modal -->
 <div id="usingSeatChangeModal" class="add_time_modal">
-	<div class="modal_contents" style="height: 90%; overflow: auto">
+	<div class="modal_contents" style="overflow: auto">
 		<h3>
-			<b>※ 변경하실 좌석을 선택하세요.</b><span class="close">&times;</span>
+			변경하실 좌석을 선택하세요<span class="close">&times;</span>
 		</h3>
 		<button id="usingSeatChangeBtn" class="add_time_btn">자리이동</button>
 		

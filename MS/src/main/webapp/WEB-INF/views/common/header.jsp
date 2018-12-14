@@ -26,10 +26,18 @@
 }
 
 .navbar-nav li {
-   	margin-left: 20px;
-   	font-size: 24px;
+   	margin-left: 25px;
+   	font-size: 1.7em;
 }
 
+/* 모바일 최적화 */
+@media ( max-width : 767px ) {
+	/* 헤더 글씨 */
+	.navbar-nav li {
+   		margin-left: 5px;
+   		font-size: 1.3em;
+	}
+}
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -37,12 +45,12 @@
 		<a id="adminBrand" class="navbar-brand"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 80px; margin-left: 10px;" /></a>
 	</c:if>
 	<c:if test="${!empty userSession}">
-		<a class="navbar-brand" href="${pageContext.request.contextPath}/user/main"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 60px; margin-left: 10px;"/></a>
+		<a class="navbar-brand" href="${pageContext.request.contextPath}/user/main"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 60px; margin-left: 8px;"/></a>
 	</c:if>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
   	</button>
-	<div class="collapse navbar-collapse" id="navbarNav" style="font-size: 1.8em">
+	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
 			<c:if test="${!empty adminSession}">
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/adminMypage"><i	class="fa fa-address-card-o" aria-hidden="true"></i>내정보</a></li>
