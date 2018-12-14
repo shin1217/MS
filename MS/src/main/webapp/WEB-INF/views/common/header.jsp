@@ -42,7 +42,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<c:if test="${!empty adminSession}">
-		<a id="adminBrand" class="navbar-brand"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 60px; margin-left: 8px;" /></a>
+		<a id="adminBrand" class="navbar-brand"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 80px; margin-left: 10px;" /></a>
 	</c:if>
 	<c:if test="${!empty userSession}">
 		<a class="navbar-brand" href="${pageContext.request.contextPath}/user/main"><img src="${pageContext.request.contextPath}/images/ms-logo.png" style="height: 60px; margin-left: 8px;"/></a>
@@ -83,7 +83,7 @@
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userOrders"><i class="fa fa-cutlery" aria-hidden="true"></i>음식주문</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/userBoard?page=1&keyword="><i class="fa fa-comments" aria-hidden="true"></i>유저게시판</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/photoBoard?page=1"><i class="fa fa-instagram" aria-hidden="true"></i>포토게시판</a></li>
-				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/member/logout"><i class="fa fa-unlock-alt" aria-hidden="true"></i>로그아웃</a></li>
+				<li class="nav-item"><a class="nav-link" id="logout"><i class="fa fa-unlock-alt" aria-hidden="true"></i>로그아웃</a></li>
 			</c:if>
 		</ul>
 	</div>
@@ -108,15 +108,38 @@
 			size: 'large',
 			search: true,
 		});
+		
+		// 로그아웃 시 사용 종료 소켓 통신 처리
+		$('#logout').on('click', function () {
+			
+			if('${!empty userSession.user_id}'){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/user/deleteUsingInfo',
+					data : {
+						userId : '${userSession.user_id}',
+						storeId : '${storeSelectSession.store_id}'
+					},
+					
+					success : function() {
+						sendInfo($('#usingSeatNum').text(), 0); // 종료된 좌석번호와 처리 넘버
+						location.href = '${pageContext.request.contextPath}/member/logout';
+					}
+				});
+			}
+			else {	
+				location.href = '${pageContext.request.contextPath}/member/logout';
+			}
+		});
 	});
 	
-	$.ajax({ // 좌석 리스트 불러오기
+	// 좌석 사용중인 사용자만 시간 카운트
+	$.ajax({
 		url : '${pageContext.request.contextPath}/user/getSeatListAll?storeId=${storeSelectSession.store_id}',
 		type : 'get',
 		success : function(data) {
 			for(var i=0; i<data.length; i++){
 				if(data[i].user_id != null){
-					if(data[i].user_id == '${userSession.user_id}'){ // 좌석 사용중인 사용자만 시간 카운트
+					if(data[i].user_id == '${userSession.user_id}'){ 
 						// 사용 시간 1초씩 차감
 						var timer = setInterval(function (){
 							$.ajax({
@@ -157,6 +180,15 @@
 			} // end success  
 		}); // end ajax
 	}, 1000);
+	
+	function sendInfo(seatId, processNum) {
+		var seatUser = {		
+				seatId : seatId,
+				processNum : processNum
+		};
+		sock.send(JSON.stringify(seatUser)); // 서버로 메시지 전송
+	}
+	
 </script>
 <body>
 	<%@include file="/WEB-INF/views/user/userChat.jsp" %>

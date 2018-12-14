@@ -16,24 +16,20 @@
 .adminMain_container {
 	padding: 20px;
 }
-
 .title_text {
 	font-size: 40px;
 	font-weight: bold;
 	text-align: center;
 }
-
 .left_area {
 	width: 30%;
 	float: left;
 }
-
 .right_area {
 	width: 70%;
 	float: right;
 	padding-bottom: 20px;
 }
-
 /* 사용자 정보 표시 */
 .left_content {
 	position: absolute;
@@ -47,7 +43,6 @@
 	margin-left: 2%;
 	margin-top: -2%;
 }
-
 .left_content_title {
 	position: relative;
 	top: -20%;
@@ -62,13 +57,11 @@
 	height: 45%;
 	margin: 0 auto;
 }
-
 .com_cnt_text {
 	font-size: 40px;
 	margin-bottom: -15px;
 	margin-top: -15px
 }
-
 .user_info_wrap {
 	overflow: auto;
 	text-align: left;
@@ -79,7 +72,6 @@
 	margin-right: 20px;
 	margin-bottom: 7%;
 }
-
 .order_list_wrap {
 	overflow: auto;
 	text-align: left;
@@ -89,28 +81,23 @@
 	margin-left: 20px;
 	margin-right: 20px;
 }
-
 .orders_table {
 	text-align: center;
 	margin-bottom: 10px;
 	width: 100%;
 }
-
 .orders_table tbody > tr:nth-child(1) {
 	background-color: lightgray;
 }
-
 .orders_table td {
 	text-align: center;
 	font-size: 20px;
 }
-
 .seat_list {
 	width: 90%;
 	margin: 0 auto;
 	margin-left: 6%;
 }
-
 .seat_list > div {
 	float: left;
 	width: 22%;
@@ -120,19 +107,16 @@
 	margin-right: 3%;
 	margin-top: 3%;
 }
-
 .seat_list > div:hover {
 	opacity: 0.7;
 	cursor: pointer;
 }
-
 .using {
 	background-color: #0099CC;
 	color: white;
 	text-align: right;
 	padding: 10px;
 }
-
 /* 타이틀 스타일 */
 .using > div:nth-child(1) {
 	background-color: #33b5e5;
@@ -141,7 +125,6 @@
 	padding-left: 5px;
 	padding-right: 5px;
 }
-
 /* 사용 종료 버튼 스타일 */
 .using > button {
 	width: 100%;
@@ -153,26 +136,21 @@
 	color: black;
 	font-size: 25px;
 }
-
 .using > button:hover {
 	color: red;
 }
-
 .un_using {
 	line-height: 200px;
 	background-color: lightgray;
 	color: gray;
 	text-align: center;
 }
-
 .process_btn:hover {
 	cursor: pointer;
 	color: red;
 }
-
 /* 모바일 웹 최적화 */
 @media ( max-width : 767px ) {
-
 	.left_area {
 		display: none;
 	}
@@ -248,7 +226,7 @@
 	
 		/* Main 충전 버튼 */
 		$('#showAddTimeModalBtn').on('click', function () {
-			var seatId = $('.selected').attr('id');
+			var seatId = $('.selected').attr('id'); // 선택된 좌석의 좌석 번호
 			
 			if(seatId == null){
 				alert('충전하실 좌석을 선택하세요.');
@@ -352,24 +330,28 @@
 		// 사용 시작
 		if(data.processNum == 1){
 			alert(data.seatId+'번 자리에서 사용을 시작합니다.');
+			console.log(data.seatId+'번 자리에서 사용을 시작합니다.');
 			getSeatList();
 		}
 		
 		// 사용 중 충전
 		else if(data.processNum == 2){
 			alert(data.seatId+'번 자리에 시간이 충전되었습니다.');
+			console.log(data.seatId+'번 자리에 시간이 충전되었습니다.');
 			getSeatList();
 		}
 		
 		// 사용 중 자리변경
 		else if(data.processNum == 3){
 			alert(data.seatId+'번 자리로 좌석을 이동하였습니다.');
+			console.log(data.seatId+'번 자리로 좌석을 이동하였습니다.');
 			getSeatList();
 		}
 		
 		// 사용 종료
 		else if(data.processNum == 0){
 			alert(data.seatId+'번 자리에서 사용을 종료합니다.');
+			console.log(data.seatId+'번 자리에서 사용을 종료합니다.');
 			getSeatList();
 		}
 	}
@@ -379,18 +361,15 @@
 		
 		if($(e).hasClass('selected')){ // 선택된 상태
 			$(e).css({'opacity': '', 'border': ''});
-			$(e).removeAttr('id');
 			$(e).removeClass('selected');
 			$('#selectedUserInfo').html('<span style="color:red">* 좌석을 선택하세요.</span>');
 			$('#orderListInfo').html('<span style="color:red">* 주문 대기 중인 음식이 없습니다.</span>');
 		}
 		else{ // 선택되지 않은 상태
 			$('.selected').css({'opacity': '', 'border': ''});
-			$('.selected').removeAttr('id');
 			$('.selected').removeClass('selected');
 			
-			$(e).css({'opacity': '0.5', 'border': '3px solid black'});
-			$(e).attr('id', seatId);
+			$(e).css({'opacity': '0.5', 'border': '2px solid black'});
 			$(e).addClass('selected');
 			$('#userId').text(userId); // modal창의 숨겨진 span태그의 텍스트 변경
 			
