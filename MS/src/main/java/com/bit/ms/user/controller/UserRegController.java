@@ -41,11 +41,18 @@ public class UserRegController {
 		
 		// 회원가입 메서드
 		reg_service.userReg_service(userVO);
-
+		
+		String store_id = request.getParameter("store_id");
+		String seat_id = request.getParameter("seat_id");
+		
 		// 인증 메일 보내기 메서드
 		mailsender.mailSendWithUserKey(userVO.getUser_email(), userVO.getUser_id(), request);
 
-		return "redirect:/";
+		if(store_id == null || store_id == "") { // 파라미터로 넘어오는 값이 없으면 일반로그인, 있으면 qr로그인
+			return "redirect:/";
+		} else {
+			return "redirect:/user/qrLogin?store_id=" + store_id + "&seat_id=" + seat_id;
+		}
 	}
 
 	// id 중복 체크 컨트롤러
@@ -66,10 +73,17 @@ public class UserRegController {
 
 	// e-mail 인증 컨트롤러
 	@RequestMapping(value = "/user/key_alter", method = RequestMethod.GET)
-	public String key_alterConfirm(@RequestParam("user_id") String user_id, @RequestParam("user_key") String key) {
-
+	public String key_alterConfirm(@RequestParam("user_id") String user_id, 
+								@RequestParam("user_key") String key, HttpServletRequest request) {
+		String store_id = request.getParameter("store_id");
+		String seat_id = request.getParameter("seat_id");
 		mailsender.alter_userKey_service(user_id, key);
 
-		return "user/userRegSuccess";
+		if(store_id == null || store_id =="") {
+			return "user/userRegSuccess";
+		} else {
+			return "user/userRegSuccess?store_id=" + store_id + "&seat_id=" + seat_id;
+		}
+		
 	}
 }

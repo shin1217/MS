@@ -270,7 +270,6 @@ body {
 		}
 	});
 	
-	
 	// 휴대전화
 	$('#user_phone').blur(function(){
 		if(phoneJ.test($(this).val())){

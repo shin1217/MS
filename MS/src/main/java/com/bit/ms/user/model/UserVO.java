@@ -19,7 +19,7 @@ public class UserVO {
 	private String user_key; // 인증 번호
 	private String divide; // 소셜구분용
 	private String whatid; // 소셜 각 고유아이디
-
+	
 	public String getUser_id() {
 		return user_id;
 	}
