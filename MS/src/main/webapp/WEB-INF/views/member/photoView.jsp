@@ -21,7 +21,7 @@
 		<div style = "float : right;">작성자 : ${viewData.photo_upid}</div>
 	</div><br><hr>
 	<div class = "context">
-		<div><img src = "http://52.79.242.155:8080/FileServer/resources/photoBoard/${viewData.photo_file}" style = "width : 350px; height : 350px;"></div><br>
+		<div><img src = "http://52.79.242.155:8080/FileServer/resources/photoBoard/${viewData.photo_file}" style = "width : 50%;"></div><br>
 		<div>${viewData.photo_con}</div><hr>
 	</div>
 	<div id = "btnDiv" style = "float : right;">

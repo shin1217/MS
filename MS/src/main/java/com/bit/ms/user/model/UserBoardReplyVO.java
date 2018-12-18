@@ -4,15 +4,15 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("UserBoardReplyVO")
 public class UserBoardReplyVO {
-
+	
 	// 게시판 답글
-	private int uboard_reply_id;
-	private String uboard_reply_con;
-	private String reply_writer_id;
+	private int uboard_reply_id; // 게시글의 댓글 번호
+	private String uboard_reply_con; // 댓글 내용
+	private String reply_writer_id; // 댓글 작성자
 
 	// 게시판
-	private int uboard_id;
-	private int store_id;
+	private int uboard_id; // 게시글 번호
+	private int store_id; // 매장 번호
 
 	@Override
 	public String toString() {
