@@ -63,7 +63,7 @@ body {
 	right: 0;
 	margin: auto;
 	width: 350px;
-	height: 60%;
+	height: 55%;
 }
 
 .select_pick {
@@ -103,16 +103,13 @@ body {
 /* 모바일 최적화 */
 @media ( max-width : 767px ) {
 	.area_inputs {
-		width: 270px;
+		width: 330px;
 	}
 	#loginBtn, #singupBtn {
-		width: 100%;
-	}
-	#loginBtn {
-		margin-bottom: 5px;
+		width: 49%;
 	}
 	.socialimage {
-		height: 49px;
+		height: 61px;
 	}
 	html, body {
 		background-position: center;
