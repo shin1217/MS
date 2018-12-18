@@ -191,7 +191,7 @@ hr{
 </style>
 </head>
 <body>
-<span class = "messageIconWrap" style = "position : fixed; bottom : 10px; margin-left : 5%;">
+<span class = "messageIconWrap" style = "position : fixed; bottom : 10px; margin-left : 5%; left : 0px;">
 	<span id = "messageBtn" class = "messageBtn"></span>
 	<span id = "readCnt" class = "readCnt"></span>
 </span>
