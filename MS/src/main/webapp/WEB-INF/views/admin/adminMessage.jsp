@@ -497,7 +497,7 @@ hr{
     $(window).on('click', function() {
       //jquery는 dom 객체를 jquery 객체로 한 번 감싸 리턴하므로 dom 객체를 얻어와야 비교 가능
        if (event.target == $('#messageModal').get(0)) {
-    	   location.reload();
+    	   $('#messageModal').hide();
        } else if (event.target == $('#writeMessageModal').get(0)){
     	   getMessageList();
     	   $('#message_con').val("");
