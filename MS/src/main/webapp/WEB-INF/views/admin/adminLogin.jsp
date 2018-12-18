@@ -65,10 +65,10 @@ body {
 
 @media ( max-width : 767px ) {
 	.area_inputs {
-		width: 270px;
+		width: 330px;
 	}
 	#loginBtn, #singupBtn {
-		width: 100%;
+		width: 49%;
 	}
 	#loginBtn {
 		margin-bottom: 5px;
