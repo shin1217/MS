@@ -81,6 +81,9 @@ select {
 	.modal_contents div {
 		height: 90px;
 	}
+	.selected_info {
+		font-size: 20px;
+	}
 }
 </style>
 

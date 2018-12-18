@@ -53,6 +53,18 @@
 	cursor: pointer;
 }
 
+select {
+	width: 200px; /* 원하는 너비설정 */
+	padding: .7em .5em; /* 여백으로 높이 설정 */
+	font-family: inherit; /* 폰트 상속 */
+	background:	url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */
+	border: 1px solid #999;
+	border-radius: 0px; /* iOS 둥근모서리 제거 */
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+}
+
 /* close 버튼 */
 .close {
 	color: #aaaaaa;
@@ -62,13 +74,23 @@
 	font-size: 28px;
 	font-family: sans-serif;
 }
+
+@media ( max-width : 767px ) {
+	.add_time_modal {
+		z-index: 2;
+	}
+	
+	.modal_contents {
+		width: 90%;
+	}
+}
 </style>
 <!-- 시간 추가 modal -->
 <div id="addTimeModal" class="add_time_modal">
 	<div class="modal_contents">
 		<h3>
-			<b>◈ <span id="seatNum"></span>번 자리에 충전하실 시간을 선택하세요.
-			</b><span class="close">&times;</span>
+			◈ <span id="seatNum"></span>번 자리에 충전하실 시간을 선택하세요.
+			<span class="close">&times;</span>
 		</h3>
 
 		<select id="selectAddTime">
