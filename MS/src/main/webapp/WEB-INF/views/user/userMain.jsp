@@ -529,17 +529,18 @@ html, body {
 				success : function(data) {
 					
 					// 남은 시간 존재
-					if(data.user_time != 0){ 
+					if(data.user_time == 0){ 
+						$('.left_area').attr('style', 'display:none');
+						$('.center_area').attr('style', 'display:inline-block');			
+					}
+					
+					else {
 						$('#alreadySelectedInfo').children().eq(0).text('${userSession.user_name}');
 						$('#alreadySelectedInfo').children().eq(1).text(seatId);
 						$('#alreadySelectedInfo').children().eq(3).text(Math.floor(data.user_time/60));
 						$('#alreadySelectedInfo').children().eq(4).text(Math.floor(data.user_time%60));
-						$('#alreadyTimeModal').show();				
-					}
-					
-					else {
-						$('.left_area').attr('style', 'display:none');
-						$('.center_area').attr('style', 'display:inline-block');
+						$('#alreadyTimeModal').show();	
+						
 					}
 				}
 			});
