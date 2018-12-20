@@ -29,6 +29,7 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="2" />
 	</beans:bean>
 
 	<context:component-scan
@@ -54,10 +55,8 @@
 		<beans:property name="configLocation"
 			value="classpath:/mybatis-config.xml" />
 	</beans:bean>
-	<beans:bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate">
-		<beans:constructor-arg index="0"
-			ref="sqlSessionFactory" />
+	<beans:bean id="sqlSession"	class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
 	</beans:bean>
 
 	<!-- 이미지 업로드 2018.11.10 JK -->
@@ -84,8 +83,6 @@
 				<beans:prop key="mail.smtp.auth">true</beans:prop>
 				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
 				<beans:prop key="mail.debug">true</beans:prop>
-				<!-- <beans:prop key="mail.smtp.ssl.enable">true</beans:prop> <beans:prop 
-					key="mail.smtp.ssl.trust">smtp.gmail.com</beans:prop> -->
 			</beans:props>
 		</beans:property>
 	</beans:bean>
@@ -130,6 +127,20 @@
 		<websocket:mapping path="/echo" handler="echoHandler"/>
 		<websocket:sockjs/>
 	</websocket:handlers>
+
+<!--     Tiles 설정 파일
+    <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <beans:property name="definitions">
+            <beans:list>
+                <beans:value>/WEB-INF/tiles/tiles.xml</beans:value>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+    Tiles 뷰 리졸버
+    <beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+        <beans:property name="order" value="1" />
+    </beans:bean> -->
 
 	<beans:bean id="echoHandler" class="com.bit.ms.member.service.EchoHandler"/>
 </beans:beans>

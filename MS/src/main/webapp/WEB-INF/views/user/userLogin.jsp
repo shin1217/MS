@@ -163,17 +163,17 @@ body {
 					</div>
 				</div>
 				<div class="form-group socialimage" id="kakaoBtn">
-					<a href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://ec2-54-180-123-73.ap-northeast-2.compute.amazonaws.com/MS/kakaologin&response_type=code">
+					<a href="https://kauth.kakao.com/oauth/authorize?client_id=85f4a0fdfed755ce3d9b2b081af17f44&redirect_uri=http://ec2-54-180-121-165.ap-northeast-2.compute.amazonaws.com/MS/kakaologin&response_type=code">
 						<img id="socialimage" src="${pageContext.request.contextPath}/images/logo-kakao.png" height="100%"/>
 					</a>
 				</div>
 				<div class="form-group socialimage" id="naverBtn">
-					<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=BLxuRdNAKQL9y0hx6ugp&redirect_uri=http://ec2-54-180-123-73.ap-northeast-2.compute.amazonaws.com/MS/naverlogin&state=<%= state %>">
+					<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=BLxuRdNAKQL9y0hx6ugp&redirect_uri=http://ec2-54-180-121-165.ap-northeast-2.compute.amazonaws.com/MS/naverlogin&state=<%= state %>">
 						<img src="${pageContext.request.contextPath}/images/logo-naver.png" height="100%"/>
 					</a>
 				</div>
 				<div class="form-group socialimage" id="githubBtn">
-					<a href="https://github.com/login/oauth/authorize?client_id=ca3c1f71782ed1d5d649&redirect_uri=http://ec2-54-180-123-73.ap-northeast-2.compute.amazonaws.com/MS/githublogin">
+					<a href="https://github.com/login/oauth/authorize?client_id=ca3c1f71782ed1d5d649&redirect_uri=http://ec2-54-180-121-165.ap-northeast-2.compute.amazonaws.com/MS/githublogin">
 						<img src="${pageContext.request.contextPath}/images/logo-github.png" height="100%"/>
 					</a>
 				</div>
