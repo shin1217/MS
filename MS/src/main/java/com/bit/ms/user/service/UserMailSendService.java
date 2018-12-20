@@ -71,9 +71,9 @@ public class UserMailSendService {
 				  htmlStr += "<h3>" + user_id + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " ;
 				  
 				  if(store_id == null || store_id == "") {
-					  htmlStr += "<a href='http://ec2-54-180-123-73.ap-northeast-2.compute.amazonaws.com/MS/user/key_alter?user_id="+ user_id +"&user_key="+key+ "'>인증하기</a></p>";
+					  htmlStr += "<a href='http://ec2-54-180-121-165.ap-northeast-2.compute.amazonaws.com/MS/user/key_alter?user_id="+ user_id +"&user_key="+key+ "'>인증하기</a></p>";
 				  } else {
-					  htmlStr += "<a href='http://ec2-54-180-123-73.ap-northeast-2.compute.amazonaws.com/MS/user/key_alter?user_id="+ user_id +"&user_key="+key+ "&store_id="+ store_id +"&seat_id=" + seat_id +"'>인증하기</a></p>";
+					  htmlStr += "<a href='http://ec2-54-180-121-165.ap-northeast-2.compute.amazonaws.com/MS/user/key_alter?user_id="+ user_id +"&user_key="+key+ "&store_id="+ store_id +"&seat_id=" + seat_id +"'>인증하기</a></p>";
 				  }
 				  htmlStr += "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
 		try {
