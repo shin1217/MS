@@ -24,7 +24,7 @@ public class KakaoAccessToken {
 
 		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
 		postParams.add(new BasicNameValuePair("client_id", "85f4a0fdfed755ce3d9b2b081af17f44")); // REST API KEY
-		postParams.add(new BasicNameValuePair("redirect_uri", "http://54.180.121.165/MS/kakaologin")); // 리다이렉트 URI
+		postParams.add(new BasicNameValuePair("redirect_uri", "http://52.79.242.155/MS/kakaologin")); // 리다이렉트 URI
 		postParams.add(new BasicNameValuePair("code", code)); // 로그인 과정중 얻은 code 값
 
 		final HttpClient client = HttpClientBuilder.create().build();
