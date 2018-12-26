@@ -399,21 +399,27 @@
 		
 		// 사용 중 충전
 		else if(data.processNum == 2){
-			alert(data.seatId+'번 자리에 시간이 충전되었습니다.');
+			var str = '<div>' + data.seatId + '번 자리에 시간이 충전되었습니다.</div>';
+			$('.alert_use').prepend(str);
+			
 			console.log(data.seatId+'번 자리에 시간이 충전되었습니다.');
 			getSeatList();
 		}
 		
 		// 사용 중 자리변경
 		else if(data.processNum == 3){
-			alert(data.seatId+'번 자리로 좌석을 이동하였습니다.');
+			var str = '<div>' + data.seatId + '번 자리로 좌석을 이동하였습니다.</div>';
+			$('.alert_use').prepend(str);
+			
 			console.log(data.seatId+'번 자리로 좌석을 이동하였습니다.');
 			getSeatList();
 		}
 		
 		// 사용 종료
 		else if(data.processNum == 0){
-			alert(data.seatId+'번 자리에서 사용을 종료합니다.');
+			var str = '<div>' + data.seatId + '번 자리에서 사용을 종료합니다.</div>';
+			$('.alert_use').prepend(str);
+			
 			console.log(data.seatId+'번 자리에서 사용을 종료합니다.');
 			getSeatList();
 		}
