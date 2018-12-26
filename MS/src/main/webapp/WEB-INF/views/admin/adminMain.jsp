@@ -200,6 +200,20 @@
 		font-size: 12px;
 	}
 }
+.alert_use {
+	overflow: auto;
+	position: absolute;
+	background: white;
+	cursor: pointer;
+	left: 1100px;
+	top: 140px;
+	width: 340px;
+	height: 40px;
+	text-align: center;
+	border: 1px solid black;
+	font-size: 24px;
+}
+
 </style>
 </head>
 <body>
@@ -212,7 +226,8 @@
 	
 	<div class="adminMain_container">
 		<div class="title_text">[${storeSelectSession.store_name}]</div>
-			
+		<div class="alert_use"><div>환영합니다.</div></div>
+		
 		<div class="left_area">
 			<div class="left_content">
 				<div style="height: 20%">
@@ -358,6 +373,7 @@
 							type: 'get',
 							
 							success:function(){
+								sendInfo(userId, 4);
 								location.reload();
 							}  
 						});
@@ -374,7 +390,9 @@
 		
 		// 사용 시작
 		if(data.processNum == 1){
-			alert(data.seatId+'번 자리에서 사용을 시작합니다.');
+			var str = '<div>' + data.seatId + '번 자리에서 사용을 시작합니다.</div>';
+			$('.alert_use').prepend(str);
+			
 			console.log(data.seatId+'번 자리에서 사용을 시작합니다.');
 			getSeatList();
 		}
@@ -400,19 +418,31 @@
 			getSeatList();
 		}
 	}
+	
+	$('.alert_use').click(function () {
+		
+		if($(this).hasClass('selected')){ // 선택된 상태
+			$(this).css('height','');
+			$(this).removeClass('selected');
+		}
+		else{
+			$(this).css('height','400px');
+			$(this).addClass('selected');
+		}
+	})
 
 	/* 사용 중인 좌석 선택 */
 	function seatChoise(e ,seatId, userId){
 		
 		if($(e).hasClass('selected')){ // 선택된 상태
-			$('.left_area').css('display','none'); //모바일
+			// $('.left_area').css('display','none'); //모바일
 			$(e).css({'opacity': '', 'border': ''});
 			$(e).removeClass('selected');
 			$('#selectedUserInfo').html('<span style="color:red">* 좌석을 선택하세요.</span>');
 			$('#orderListInfo').html('<span style="color:red">* 주문 대기 중인 음식이 없습니다.</span>');
 		}
 		else{ // 선택되지 않은 상태
-			$('.left_area').css('display','block'); //모바일
+			// $('.left_area').css('display','block'); //모바일
 			$('.selected').css({'opacity': '', 'border': ''});
 			$('.selected').removeClass('selected');
 			$(e).css({'opacity': '0.5', 'border': '2px solid black'});

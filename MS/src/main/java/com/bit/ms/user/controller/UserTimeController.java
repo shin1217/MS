@@ -26,11 +26,8 @@ public class UserTimeController {
 								@RequestParam("storeId") int storeId) {
 		
 		int pay = (int)(addTime / 3600)*1000; // 충전 시간(초)를 시간으로 변환한 후 가격 계산
-		
-		// 좌석에 따라 추가 금액 처리
-		/////////////////////////////
-		
 		int resultCnt = service.updateAddTime(addTime, pay, userId, storeId);
+		
 		resultCnt += service.updateSeat(userId, seatId, storeId);
 		
 		if(resultCnt == 2) {

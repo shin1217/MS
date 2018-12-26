@@ -152,7 +152,7 @@
 								
 								success:function(data){
 									if(data == 1){
-										console.log("시간 저장 완료");
+										//console.log("시간 저장 완료");
 									}
 								}
 							});

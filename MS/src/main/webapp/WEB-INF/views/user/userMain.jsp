@@ -657,6 +657,19 @@ html, body {
 	function numberWithCommas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+	
+	sock.onmessage = function(evt){
+		var data = evt.data;
+		data = JSON.parse(data);
+		var userId = data.seatId;
+		console.log(userId);
+		
+		// 사용 시작
+		if(userId == '${userSession.user_id}' && data.processNum == 4){
+			alert('관리자가 사용을 종료했습니다.');
+			location.reload();
+		}
+	}
 
 </script>
 </html>
